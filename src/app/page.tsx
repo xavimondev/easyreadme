@@ -1,17 +1,18 @@
 import { ArrowRightIc, GitIc, LightningIc, TextIc } from '@/components/icons';
+import { Markdown } from '@/components/markdown';
 
 export default function Home() {
   return (
-    <main className='grid place-items-center min-h-screen w-full'>
-      <div>
-        <section className='mt-20 px-6 text-center mb-24'>
-          <h1 className='mx-auto max-w-md sm:max-w-4xl mt-5 font-bold text-white text-4xl sm:text-6xl font-satoshiBold'>
+    <main className='grid place-items-center min-h-screen w-full p-4'>
+      <div className='w-full'>
+        <section className='px-6 text-center mb-16 mx-auto max-w-md sm:max-w-4xl'>
+          <h1 className='mt-5 font-bold text-white text-4xl sm:text-6xl'>
             Create README with{' '}
             <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#a5e29c] to-[#63cd77]'>
               IA
             </span>
           </h1>
-          <p className='mx-auto max-w-md sm:max-w-2xl mt-8 text-white/40 text-lg sm:text-2xl font-satoshi'>
+          <p className='mx-auto max-w-md sm:max-w-2xl mt-8 text-white/40 text-lg sm:text-2xl'>
             Effortlessly create READMEs using IA
           </p>
           <form method='POST' className='mt-8 gap-4 flex flex-col'>
@@ -56,6 +57,9 @@ export default function Home() {
             <LightningIc className='w-4 h-4' />
             <p className='text-sm'>Generating README...</p>
           </div>
+        </section>
+        <section className='mx-auto sm:max-w-[96rem]'>
+          <Markdown />
         </section>
       </div>
     </main>
