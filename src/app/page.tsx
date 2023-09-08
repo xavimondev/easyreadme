@@ -1,5 +1,5 @@
-import { ArrowRightIc, GitIc, LightningIc, TextIc } from '@/components/icons';
-import { Markdown } from '@/components/markdown';
+import { ArrowRightIc, GitIc, LightningIc, TextIc } from '@/components/icons'
+import { Markdown } from '@/components/markdown'
 
 export default function Home() {
   return (
@@ -63,5 +63,5 @@ export default function Home() {
         </section>
       </div>
     </main>
-  );
+  )
 }

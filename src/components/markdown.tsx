@@ -1,8 +1,8 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { marked } from 'marked';
-import { copyToClipboard } from '@/utils';
-import { CheckIc, CopyIc } from '@/components/icons';
+'use client'
+import { useEffect, useState } from 'react'
+import { marked } from 'marked'
+import { copyToClipboard } from '@/utils'
+import { CheckIc, CopyIc } from '@/components/icons'
 
 const mkd = `## Features
 
@@ -23,21 +23,21 @@ Although it has its roots in Catholicism, Advent has become a tradition where ch
 | Challenge | Solution                                                                |
 | --------- | ----------------------------------------------------------------------- |
 | 1         | [Automating Christmas gift wrapping!](/v2022/challenge01/index.js)      |
-`;
+`
 export function Markdown() {
-  const [isCopied, setIsCopied] = useState(false);
-  const html = marked(mkd);
+  const [isCopied, setIsCopied] = useState(false)
+  const html = marked(mkd)
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout> | null = null;
+    let timeout: ReturnType<typeof setTimeout> | null = null
     if (isCopied) {
-      timeout = setTimeout(() => setIsCopied(false), 1000);
+      timeout = setTimeout(() => setIsCopied(false), 1000)
     }
 
     return () => {
-      timeout && clearTimeout(timeout);
-    };
-  }, [isCopied]);
+      timeout && clearTimeout(timeout)
+    }
+  }, [isCopied])
   return (
     <div className='flex flex-col md:flex-row gap-4 w-full'>
       <div className='w-full rounded-md overflow-hidden relative'>
@@ -49,15 +49,11 @@ export function Markdown() {
         <button
           className='absolute right-4 top-4 rounded-md p-1.5 hover:bg-white/10 transition-colors duration-200'
           onClick={async () => {
-            setIsCopied(!isCopied);
-            await copyToClipboard(mkd);
+            setIsCopied(!isCopied)
+            await copyToClipboard(mkd)
           }}
         >
-          {isCopied ? (
-            <CheckIc className='w-4 h-4' />
-          ) : (
-            <CopyIc className='w-4 h-4' />
-          )}
+          {isCopied ? <CheckIc className='w-4 h-4' /> : <CopyIc className='w-4 h-4' />}
         </button>
       </div>
       <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5'>
@@ -67,5 +63,5 @@ export function Markdown() {
         ></article>
       </div>
     </div>
-  );
+  )
 }
