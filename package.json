@@ -11,6 +11,8 @@
     "prettier:check": "npx prettier . --write"
   },
   "dependencies": {
+    "@radix-ui/react-scroll-area": "1.0.4",
+    "@radix-ui/react-slot": "1.0.2",
     "@types/marked": "5.0.1",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
