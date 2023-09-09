@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import { GitIc } from '@/components/icons'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Markdown } from '@/components/markdown'
+import { Button } from '@/components/ui/button'
 
 export default function Builder() {
   return (
@@ -15,7 +16,7 @@ export default function Builder() {
               <CardTitle>Source</CardTitle>
             </CardHeader>
             <CardContent>
-              <form>
+              <form className='flex flex-col gap-2'>
                 <div className='relative flex w-full items-center'>
                   <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-white/40'>
                     <GitIc className='w-4 h-4' />
@@ -31,14 +32,17 @@ export default function Builder() {
                     placeholder='https://github.com/xavimondev/readme-creator'
                   />
                 </div>
+                <Button variant='secondary' type='submit'>
+                  Sent
+                </Button>
               </form>
-              <div className='mt-5 w-full h-full'>
+              <div className='mt-7 w-full h-full'>
                 <span className='text-accent-foreground'>Templates</span>
                 <div className='flex items-center gap-2 p-3 mt-4 rounded-md border border-dashed border-fuchsia-500/20 bg-fuchsia-900/20 text-fuchsia-400'>
                   <p className='text-sm'>Choose template you like most</p>
                 </div>
                 <div className='mt-6 flex flex-col gap-2'>
-                  <div className='border border-gray-400 w-full rounded-md p-2'>
+                  <div className='border border-fuchsia-500/40 w-full rounded-md p-2'>
                     <p>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nulla quam
                       exercitationem possimus deleniti voluptas ad eius consequatur rerum minima qui
