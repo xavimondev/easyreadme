@@ -1,4 +1,6 @@
+'use client'
 import * as React from 'react'
+import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { GitIc } from '@/components/icons'
@@ -10,7 +12,7 @@ export default function Builder() {
   return (
     <main className='p-4 min-h-screen'>
       <div className='h-full w-full flex gap-2'>
-        <ScrollArea className='max-w-[330px] h-[calc(100vh-35px)]'>
+        <ScrollArea className='max-w-[350px] h-[calc(100vh-35px)]'>
           <Card className='w-full'>
             <CardHeader>
               <CardTitle>Source</CardTitle>
@@ -38,37 +40,28 @@ export default function Builder() {
               </form>
               <div className='mt-7 w-full h-full'>
                 <span className='text-accent-foreground'>Templates</span>
-                <div className='flex items-center gap-2 p-3 mt-4 rounded-md border border-dashed border-fuchsia-500/20 bg-fuchsia-900/20 text-fuchsia-400'>
-                  <p className='text-sm'>Choose template you like most</p>
-                </div>
                 <div className='mt-6 flex flex-col gap-2'>
-                  <div className='border border-fuchsia-500/40 w-full rounded-md p-2'>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nulla quam
-                      exercitationem possimus deleniti voluptas ad eius consequatur rerum minima qui
-                      magni recusandae cumque, perspiciatis exceptur
-                    </p>
+                  <div className='border-2 border-fuchsia-600 w-full rounded-md overflow-hidden'>
+                    <picture>
+                      <Image
+                        src='/templates/t_boostgrammar.webp'
+                        alt='Animation of Boostgrammar README'
+                        width={400}
+                        height={400}
+                        className='w-full h-full object-cover'
+                      />
+                    </picture>
                   </div>
-                  <div className='border w-full rounded-md p-2'>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nulla quam
-                      exercitationem possimus deleniti voluptas ad eius consequatur rerum minima qui
-                      magni recusandae cumque, perspiciatis exceptur
-                    </p>
-                  </div>
-                  <div className='border w-full rounded-md p-2'>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nulla quam
-                      exercitationem possimus deleniti voluptas ad eius consequatur rerum minima qui
-                      magni recusandae cumque, perspiciatis exceptur
-                    </p>
-                  </div>
-                  <div className='border w-full rounded-md p-2'>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur nulla quam
-                      exercitationem possimus deleniti voluptas ad eius consequatur rerum minima qui
-                      magni recusandae cumque, perspiciatis exceptur
-                    </p>
+                  <div className='w-full rounded-md overflow-hidden'>
+                    <picture>
+                      <Image
+                        src='/templates/t_projecthac.webp'
+                        alt='Screenshot Project Hackaton README'
+                        width={400}
+                        height={400}
+                        className='w-full h-full object-cover'
+                      />
+                    </picture>
                   </div>
                 </div>
               </div>
