@@ -22,7 +22,7 @@ Although it has its roots in Catholicism, Advent has become a tradition where ch
 | --------- | ----------------------------------------------------------------------- |
 | 1         | [Automating Christmas gift wrapping!](/v2022/challenge01/index.js)      |
 `
-export function Markdown() {
+export function ReadmeBuilder() {
   return (
     <Tabs defaultValue='editor' className='w-full'>
       <TabsList className='grid w-56 grid-cols-2 h-9'>
