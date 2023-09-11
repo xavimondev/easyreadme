@@ -1,6 +1,9 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Template } from '@/types'
+import { cn } from '@/lib/utils'
+import { useTemplate } from '@/store'
 
 const DEFAULT_TEMPLATES = [
   {
@@ -19,9 +22,15 @@ export function TemplateItem({
   authorTemplate,
   urlAuthor
 }: Template) {
-  // border-2 border-fuchsia-600
+  const templateSelected = useTemplate((state) => state.templateSelected)
+  const setTemplate = useTemplate((state) => state.setTemplate)
+  const isSelected = templateSelected?.name === nameTemplate
+
   return (
-    <div className='w-full rounded-md overflow-hidden cursor-pointer'>
+    <div
+      className='w-full rounded-md overflow-hidden cursor-pointer'
+      onClick={() => setTemplate(nameTemplate)}
+    >
       <figure>
         <Image
           src={srcImage}
@@ -30,7 +39,11 @@ export function TemplateItem({
           height={300}
           className='w-full h-full object-cover rounded-md'
         />
-        <figcaption className='text-sm text-gray-400 mt-2 text-center italic'>
+        <figcaption
+          className={cn('text-sm text-gray-400 mt-2 text-center italic', {
+            'text-fuchsia-600': isSelected
+          })}
+        >
           {nameTemplate} by{' '}
           <Link href={urlAuthor} className='underline underline-offset-1'>
             {authorTemplate}

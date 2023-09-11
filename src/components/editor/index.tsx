@@ -1,4 +1,5 @@
 'use client'
+import { useEffect } from 'react'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { DEFAULT_EXTENSIONS } from './extensiones'
 
@@ -20,6 +21,16 @@ export function CustomEditor({ content }: { content: string }) {
       }
     }
   })
+
+  useEffect(() => {
+    if (!editor || content === '') return
+
+    editor.commands.setContent(content)
+
+    return () => {
+      editor.destroy()
+    }
+  }, [content])
 
   return <EditorContent editor={editor} className='w-full' />
 }

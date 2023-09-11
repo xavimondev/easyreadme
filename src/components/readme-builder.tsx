@@ -1,3 +1,5 @@
+'use client'
+import { useTemplate } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CustomEditor } from '@/components/editor'
 import { CopyButton } from '@/components/copy-button'
@@ -23,6 +25,9 @@ Although it has its roots in Catholicism, Advent has become a tradition where ch
 | 1         | [Automating Christmas gift wrapping!](/v2022/challenge01/index.js)      |
 `
 export function ReadmeBuilder() {
+  const templateSelected = useTemplate((state) => state.templateSelected)
+  const defaultTemplate = templateSelected ? templateSelected.content : mkd
+
   return (
     <Tabs defaultValue='editor' className='w-full'>
       <TabsList className='grid w-56 grid-cols-2 h-9'>
@@ -31,8 +36,8 @@ export function ReadmeBuilder() {
       </TabsList>
       <TabsContent value='editor'>
         <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-78px)]'>
-          <CopyButton content={mkd} />
-          <CustomEditor content={mkd} />
+          <CopyButton content={defaultTemplate} />
+          <CustomEditor content={defaultTemplate} />
         </div>
       </TabsContent>
       <TabsContent value='code'>
@@ -40,7 +45,7 @@ export function ReadmeBuilder() {
           <textarea
             className='border border-black dark:border-white/20 rounded-md text-black dark:text-white resize-none w-full h-full outline-none p-5 bg-white/95 dark:bg-white/5 text-base sm:text-lg'
             readOnly
-            defaultValue={mkd}
+            value={defaultTemplate}
           ></textarea>
         </div>
       </TabsContent>
