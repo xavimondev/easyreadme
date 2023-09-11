@@ -1,9 +1,6 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { copyToClipboard } from '@/utils'
-import { CheckIc, CopyIc } from '@/components/icons'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CustomEditor } from '@/components/editor'
+import { CopyButton } from '@/components/copy-button'
 
 const mkd = `## Features
 
@@ -26,18 +23,6 @@ Although it has its roots in Catholicism, Advent has become a tradition where ch
 | 1         | [Automating Christmas gift wrapping!](/v2022/challenge01/index.js)      |
 `
 export function Markdown() {
-  const [isCopied, setIsCopied] = useState(false)
-
-  useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout> | null = null
-    if (isCopied) {
-      timeout = setTimeout(() => setIsCopied(false), 1000)
-    }
-
-    return () => {
-      timeout && clearTimeout(timeout)
-    }
-  }, [isCopied])
   return (
     <Tabs defaultValue='editor' className='w-full'>
       <TabsList className='grid w-56 grid-cols-2 h-9'>
@@ -46,15 +31,7 @@ export function Markdown() {
       </TabsList>
       <TabsContent value='editor'>
         <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-78px)]'>
-          <button
-            className='absolute right-4 top-4 rounded-md p-1.5 hover:bg-white/10 transition-colors duration-200'
-            onClick={async () => {
-              setIsCopied(!isCopied)
-              await copyToClipboard(mkd)
-            }}
-          >
-            {isCopied ? <CheckIc className='w-5 h-5' /> : <CopyIc className='w-5 h-5' />}
-          </button>
+          <CopyButton content={mkd} />
           <CustomEditor content={mkd} />
         </div>
       </TabsContent>
