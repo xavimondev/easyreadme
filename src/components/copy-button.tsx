@@ -25,7 +25,7 @@ export function CopyButton({ content }: CopyButtonProps) {
     <Button
       variant='ghost'
       size='icon'
-      className='absolute right-4 top-4 rounded-md p-1.5 hover:bg-white/10 transition-colors duration-200'
+      className='absolute right-4 top-4 transition-colors duration-200'
       onClick={async () => {
         setIsCopied(!isCopied)
         await copyToClipboard(content)
