@@ -13,6 +13,7 @@
   "dependencies": {
     "@radix-ui/react-scroll-area": "1.0.4",
     "@radix-ui/react-slot": "1.0.2",
+    "@radix-ui/react-tabs": "1.0.4",
     "@tiptap-pro/extension-details": "2.2.2",
     "@tiptap-pro/extension-details-content": "2.2.2",
     "@tiptap-pro/extension-details-summary": "2.2.2",
@@ -31,7 +32,6 @@
     "@tiptap/pm": "2.1.8",
     "@tiptap/react": "2.1.8",
     "@tiptap/starter-kit": "2.1.8",
-    "@types/marked": "5.0.1",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -40,7 +40,6 @@
     "clsx": "2.0.0",
     "eslint-config-next": "13.4.19",
     "lowlight": "3.0.0",
-    "marked": "8.0.0",
     "next": "13.4.19",
     "next-themes": "0.2.1",
     "postcss": "8.4.29",
