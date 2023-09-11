@@ -1,5 +1,4 @@
 import { ArrowRightIc, GitIc, LightningIc, TextIc } from '@/components/icons'
-import { Markdown } from '@/components/markdown'
 
 export default function Home() {
   return (
@@ -57,9 +56,6 @@ export default function Home() {
             <LightningIc className='w-4 h-4' />
             <p className='text-sm'>Generating README...</p>
           </div>
-        </section>
-        <section className='mx-auto sm:max-w-[96rem]'>
-          <Markdown />
         </section>
       </div>
     </main>
