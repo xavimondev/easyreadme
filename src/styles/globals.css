@@ -74,3 +74,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+.ProseMirror-separator {
+  display: none;
+}
+
+.details > button::before {
+  content: '\25B6';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0.5em;
+  height: 0.5em;
+}
