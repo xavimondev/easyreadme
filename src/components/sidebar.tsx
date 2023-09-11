@@ -6,7 +6,7 @@ import { ListTemplates } from '@/components/list-templates'
 
 export function Sidebar() {
   return (
-    <div className='max-w-[350px] h-[calc(100vh-35px)] overflow-y-auto scrollbar-hide'>
+    <div className='w-[350px] max-w-sm h-[calc(100vh-35px)] overflow-y-auto scrollbar-hide'>
       <Card className='w-full'>
         <CardHeader>
           <CardTitle>Source</CardTitle>
