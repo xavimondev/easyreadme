@@ -30,7 +30,7 @@ export const getRepositoryStructure = async ({
     }))
     return directory
   } catch (error) {
-    console.error(error)
+    //console.error(error)
     return null
   }
 }
@@ -101,9 +101,9 @@ export const getMainLanguage = async ({ urlRepository }: { urlRepository: string
   try {
     const response = await fetch(`https://api.github.com/repos/${owner}/${repoName}`)
     const data = await response.json()
-    return data.lenguage
+    return data.language
   } catch (error) {
-    console.error(error)
+    //console.error(error)
     return null
   }
 }
@@ -121,11 +121,13 @@ export const getFileContents = async ({
     const response = await fetch(
       `https://api.github.com/repos/${owner}/${repository}/contents/${path}`
     )
+    if (!response.ok) throw new Error('Not Found')
+
     const data = await response.json()
     const content = atob(data.content)
     return content
   } catch (error) {
-    console.error(error)
+    // console.log(error)
     return null
   }
 }
