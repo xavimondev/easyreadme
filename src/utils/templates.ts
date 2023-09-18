@@ -30,6 +30,6 @@ const getMinimal = ({ urlRepository }: { urlRepository: string }) => {
     urlRepository
   })}
 
-  ${getRunningLocally({ mainLanguage: 'JavaScript', urlRepository })}
+  ${getRunningLocally({ urlRepository })}
 `.trim()
 }
