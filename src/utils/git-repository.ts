@@ -131,3 +131,8 @@ export const getFileContents = async ({
     return null
   }
 }
+
+export const isValidGitHubRepositoryURL = ({ url }: { url: string }) => {
+  const githubRepoRegex = /^https:\/\/github\.com\/[^/]+\/[^/]+(\/)?$/
+  return githubRepoRegex.test(url)
+}

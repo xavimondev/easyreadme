@@ -8,6 +8,7 @@ import {
   getRunningLocally,
   getTechStack
 } from '@/utils/template-sections'
+import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { GitIc } from '@/components/icons'
@@ -31,8 +32,8 @@ export function FormRepository() {
     }
   })
 
-  const minimalTemplate = async () => {
-    const urlRepository = 'https://github.com/xavimondev/boostgrammar.io'
+  const minimalTemplate = async ({ urlRepository }: { urlRepository: string }) => {
+    // const urlRepository = 'https://github.com/xavimondev/boostgrammar.io'
     const banner = getBanner({ urlRepository })
     setContentTemplate(`${banner}\n\n`)
     // TODO: add repo name
@@ -47,12 +48,16 @@ export function FormRepository() {
     await complete(promptSettingUp)
     const runningLocally = await getRunningLocally({ urlRepository })
     setCompletion(runningLocally)
-    setContentTemplate(runningLocally)
+    // setContentTemplate(runningLocally)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await minimalTemplate()
+    const formData = new FormData(e.currentTarget)
+    const urlRepository = formData.get('urlRepository') as string
+    if (!isValidGitHubRepositoryURL({ url: urlRepository })) return
+    console.log(urlRepository)
+    await minimalTemplate({ urlRepository })
   }
 
   return (
