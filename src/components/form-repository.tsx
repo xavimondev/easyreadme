@@ -1,13 +1,7 @@
 'use client'
 import { useCompletion } from 'ai/react'
 import { useTemplate } from '@/store'
-import {
-  getBanner,
-  getEnvironmentVariablesGuide,
-  getOverview,
-  getRunningLocally,
-  getTechStack
-} from '@/utils/template-sections'
+import { PromptBuilder } from '@/utils/prompt-builder'
 import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -33,20 +27,19 @@ export function FormRepository() {
   })
 
   const minimalTemplate = async ({ urlRepository }: { urlRepository: string }) => {
+    const promptBuilder = new PromptBuilder(urlRepository)
     // const urlRepository = 'https://github.com/xavimondev/boostgrammar.io'
-    const banner = getBanner({ urlRepository })
-    setContentTemplate(`${banner}\n\n`)
-    // TODO: add repo name
-    setContentTemplate(`# boostgrammar.io\n\n`)
-    const promptOverview = await getOverview({ urlRepository })
+    const banner = promptBuilder.getBanner()
+    setContentTemplate(`${banner}\n\n# ${promptBuilder.getRepoName()}\n\n`)
+    const promptOverview = await promptBuilder.getOverview()
     await complete(promptOverview)
     setContentTemplate(`## Stack\n\n`)
-    const promptTechStack = await getTechStack({ urlRepository })
+    const promptTechStack = await promptBuilder.getTechStack()
     await complete(promptTechStack)
     setContentTemplate(`## Setting up\n\n`)
-    const promptSettingUp = await getEnvironmentVariablesGuide({ urlRepository })
+    const promptSettingUp = await promptBuilder.getEnvironmentVariablesGuide()
     await complete(promptSettingUp)
-    const runningLocally = await getRunningLocally({ urlRepository })
+    const runningLocally = await promptBuilder.getRunningLocally()
     setCompletion(runningLocally)
     // setContentTemplate(runningLocally)
   }
