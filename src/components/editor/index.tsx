@@ -1,12 +1,20 @@
 'use client'
 import { useEffect } from 'react'
+import { useCompletion } from 'ai/react'
 import { EditorContent, useEditor } from '@tiptap/react'
+import { useTemplate } from '@/store'
 import { DEFAULT_EXTENSIONS } from './extensiones'
 
-export function CustomEditor({ content }: { content: string }) {
+export function CustomEditor() {
+  const contentTemplate = useTemplate((state) => state.contentTemplate)
+  const { completion } = useCompletion({
+    id: 'readme'
+  })
+
   const editor = useEditor({
+    autofocus: 'end',
     injectCSS: false,
-    content,
+    content: contentTemplate,
     editorProps: {
       attributes: {
         class:
@@ -23,14 +31,13 @@ export function CustomEditor({ content }: { content: string }) {
   })
 
   useEffect(() => {
-    if (!editor || content === '') return
+    if (!editor) return
 
-    editor.commands.setContent(content)
-
-    return () => {
-      editor.destroy()
+    if (completion !== '') {
+      const content = `${contentTemplate}${completion}`
+      editor.commands.setContent(content)
     }
-  }, [content])
+  }, [completion])
 
   return <EditorContent editor={editor} className='w-full' />
 }
