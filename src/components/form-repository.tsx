@@ -1,48 +1,15 @@
 'use client'
-import { useCompletion } from 'ai/react'
-import { useTemplate } from '@/store'
 import { PromptBuilder } from '@/utils/prompt-builder'
 import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
+import { useTemplates } from '@/hooks/use-templates'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { GitIc } from '@/components/icons'
 
-export function FormRepository() {
-  const setContentTemplate = useTemplate((state) => state.setContentTemplate)
-  const { complete, setCompletion } = useCompletion({
-    id: 'readme',
-    onResponse: (res) => {
-      // console.log(res)
-      if (res.status === 429) {
-        //toast.error('You are being rate limited. Please try again later.');
-      }
-    },
-    onFinish: (_prompt, completion) => {
-      // console.log(completion)
-      setContentTemplate(`${completion}\n\n`)
-    },
-    onError: (err) => {
-      console.error(err)
-    }
-  })
+let promptBuilder: PromptBuilder
 
-  const minimalTemplate = async ({ urlRepository }: { urlRepository: string }) => {
-    const promptBuilder = new PromptBuilder(urlRepository)
-    // const urlRepository = 'https://github.com/xavimondev/boostgrammar.io'
-    const banner = promptBuilder.getBanner()
-    setContentTemplate(`${banner}\n\n# ${promptBuilder.getRepoName()}\n\n`)
-    const promptOverview = await promptBuilder.getOverview()
-    await complete(promptOverview)
-    setContentTemplate(`## Stack\n\n`)
-    const promptTechStack = await promptBuilder.getTechStack()
-    await complete(promptTechStack)
-    setContentTemplate(`## Setting up\n\n`)
-    const promptSettingUp = await promptBuilder.getEnvironmentVariablesGuide()
-    await complete(promptSettingUp)
-    const runningLocally = await promptBuilder.getRunningLocally()
-    setCompletion(runningLocally)
-    // setContentTemplate(runningLocally)
-  }
+export function FormRepository() {
+  const { minimalTemplate } = useTemplates()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -50,7 +17,10 @@ export function FormRepository() {
     const urlRepository = formData.get('urlRepository') as string
     if (!isValidGitHubRepositoryURL({ url: urlRepository })) return
     console.log(urlRepository)
-    await minimalTemplate({ urlRepository })
+    if (!promptBuilder) {
+      promptBuilder = new PromptBuilder(urlRepository)
+    }
+    await minimalTemplate({ promptBuilder })
   }
 
   return (
