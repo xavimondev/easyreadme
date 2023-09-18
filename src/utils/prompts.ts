@@ -11,7 +11,7 @@ export const getPromptOverview = ({
 ${directoryTree}
 Provide a precise overview that captures the fundamental features and project's goal.
 Keep your response under 200 characters (including spaces).
-Only respond with a markdown.`
+Only respond with a paragraph.`
 }
 
 export const generateTechStack = ({
@@ -24,12 +24,12 @@ export const generateTechStack = ({
   return `Given the following ${language} project dependencies:
 ${dependencies}
 
-Pick the 10 most important dependencies that cover the following aspects: authentication, data fetching, state management, 
+Pick the 8 most important dependencies that cover the following aspects: authentication, data fetching, state management, 
 animations, styling, server-client communication, testing and deployment. 
 Generate a summary like this:
 - [name_dependency][link_resource]: Short explanation about the dependency.Limit your response to a maximum of 100 characters.
 Where link_resource is dependency's url information.
-Only respond with a markdown.`
+Only respond with a bullet list.`
 }
 
 export const generateGuideEnvironmentVariables = ({
@@ -42,7 +42,8 @@ ${environmentVars}
 
 Please provide a brief and precise guide to generate their values.
 Each guide should have a header and a enumerated list.
-Limit your response to a maximum of 500 characters.
-Only responde with a markdown.
+Only responde with this format:
+### [Environment Variable]
+[Bullet points to a maximun of 5]
 `
 }
