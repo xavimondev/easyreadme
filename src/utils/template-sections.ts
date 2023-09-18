@@ -22,15 +22,12 @@ export const getOverview = async ({ urlRepository }: { urlRepository: string }) 
 
   const treeString = await getRepositoryTreeDirectory({ urlRepository })
   const promptOverview = getPromptOverview({ repositoryName: repoName, directoryTree: treeString })
-  const overview = '' // TODO: Call endpoint using IA
-  return `# ${repoName}
-
-  ${overview}`
+  return promptOverview
 }
 
 export const getTechStack = async ({ urlRepository }: { urlRepository: string }) => {
-  const mainLanguage = await getMainLanguage({ urlRepository }) // JavaScript
-  const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage) //
+  const mainLanguage = await getMainLanguage({ urlRepository })
+  const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
   const defaultSetup = `## Stack\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
   if (!languageSetup || languageSetup.fileDependencies.length === 0) {
     return defaultSetup
@@ -54,7 +51,7 @@ export const getTechStack = async ({ urlRepository }: { urlRepository: string })
     owner: owner as string,
     repository: repoName as string
   })
-  if (!fileDependenciesContent) return null
+  if (!fileDependenciesContent) return defaultSetup
 
   // split path like this -> src/main/go.mod = [src,main,go.mod]
   const segments = filePath.split('/')
@@ -62,10 +59,7 @@ export const getTechStack = async ({ urlRepository }: { urlRepository: string })
   const parser = LANGUAGES_FILES_PARSERS[lastSegment]
   const dependencies = parser({ content: fileDependenciesContent })
   const promptTechStack = generateTechStack({ dependencies, language: mainLanguage })
-  const response = '' // TODO: Call endpoint using IA
-  return `## Stack
-
-  ${response}`
+  return promptTechStack
 }
 
 export const getEnvironmentVariablesGuide = async ({
@@ -89,20 +83,11 @@ export const getEnvironmentVariablesGuide = async ({
     environmentVars: fileEnviromentContent
   })
 
-  const result = ''
-
-  return `# Setting up
-
-${result}`
+  return promptGuideEnvironmentVariables
 }
 
-export const getRunningLocally = ({
-  mainLanguage,
-  urlRepository
-}: {
-  mainLanguage: string
-  urlRepository: string
-}) => {
+export const getRunningLocally = async ({ urlRepository }: { urlRepository: string }) => {
+  const mainLanguage = await getMainLanguage({ urlRepository }) // JavaScript
   const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
   const repository = getRepositoryDetails({ urlRepository })
 
@@ -114,24 +99,22 @@ export const getRunningLocally = ({
 git clone ${urlRepository}
 \`\`\`
 
-3.Install dependencies:
+2.Install dependencies:
 
-${setup ? getSetupCommands({ commands: setup.commands['install'] }) : 'Insert install commands.'}
+${setup ? getSetupCommands({ commands: setup.commands['install'] }) : 'Insert INSTALL commands.'}
 
-4.Start the development mode:
+3.Start the development mode:
 
-${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert run commands.'}
+${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert RUN commands.'}
 `
 }
 
 const getSetupCommands = ({ commands }: { commands: string[] }) => {
-  let setup = ''
+  let setup = `\`\`\`bash\n`
   commands.forEach((command) => {
-    setup += `
-    \`\`\`
-      ${command}\n
-    \`\`\`
-    `
+    setup += `\n${command}`.trim() + `\n\n`
   })
+
+  setup += `\`\`\``
   return setup
 }
