@@ -9,7 +9,7 @@ import { GitIc } from '@/components/icons'
 let promptBuilder: PromptBuilder
 
 export function FormRepository() {
-  const { minimalTemplate } = useTemplates()
+  const { minimalTemplate, isLoading } = useTemplates()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -40,8 +40,8 @@ export function FormRepository() {
           placeholder='https://github.com/xavimondev/readme-creator'
         />
       </div>
-      <Button variant='secondary' type='submit'>
-        Sent
+      <Button variant='secondary' type='submit' disabled={isLoading}>
+        {!isLoading ? 'Generate' : 'Generating...'}
       </Button>
     </form>
   )

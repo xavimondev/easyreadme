@@ -4,7 +4,7 @@ import { PromptBuilder } from '@/utils/prompt-builder'
 
 export function useTemplateSections() {
   const setContentTemplate = useTemplate((state) => state.setContentTemplate)
-  const { complete, setCompletion } = useCompletion({
+  const { complete, setCompletion, isLoading } = useCompletion({
     id: 'readme',
     onResponse: (res) => {
       if (res.status === 429) {
@@ -53,6 +53,7 @@ export function useTemplateSections() {
     overview,
     techStack,
     settingUp,
-    runningLocally
+    runningLocally,
+    isLoading
   }
 }
