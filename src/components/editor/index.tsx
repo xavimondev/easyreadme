@@ -1,7 +1,7 @@
 'use client'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useCompletion } from 'ai/react'
-import { EditorContent, useEditor } from '@tiptap/react'
+import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import { useTemplate } from '@/store'
 import { DEFAULT_EXTENSIONS } from './extensiones'
 
@@ -30,12 +30,21 @@ export function CustomEditor() {
     }
   })
 
+  // Scroll without focus
+  const scrollToSelection = useCallback((editor: Editor) => {
+    const { node } = editor.view.domAtPos(editor.state.selection.anchor)
+    if (node) {
+      ;(node as any).scrollIntoView?.(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (!editor) return
 
     if (completion !== '') {
       const content = `${contentTemplate}${completion}`
       editor.commands.setContent(content)
+      scrollToSelection(editor)
     }
   }, [completion])
 
