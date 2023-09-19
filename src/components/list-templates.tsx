@@ -23,13 +23,13 @@ export function TemplateItem({
   urlAuthor
 }: Template) {
   const templateSelected = useTemplate((state) => state.templateSelected)
-  const setTemplate = useTemplate((state) => state.setTemplate)
-  const isSelected = templateSelected?.name === nameTemplate
+  const setTemplateSelected = useTemplate((state) => state.setTemplateSelected)
+  const isSelected = templateSelected === nameTemplate
 
   return (
     <div
       className='w-full rounded-md overflow-hidden cursor-pointer'
-      onClick={() => setTemplate(nameTemplate)}
+      onClick={() => setTemplateSelected(nameTemplate)}
     >
       <figure>
         <Image
