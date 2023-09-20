@@ -1,12 +1,24 @@
 'use client'
+import { useCompletion } from 'ai/react'
+import { useEffect, useState } from 'react'
 import { useTemplate } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CustomEditor } from '@/components/editor'
-import { CopyButton } from '@/components/copy-button'
+import { CodeBlock } from '@/components/code-block'
 
 export function ReadmeBuilder() {
+  const [contentReadme, setContentReadme] = useState('')
   const contentTemplate = useTemplate((state) => state.contentTemplate)
-  const defaultTemplate = contentTemplate ? contentTemplate : ''
+  const { completion } = useCompletion({
+    id: 'readme'
+  })
+
+  useEffect(() => {
+    if (!completion) return
+
+    const content = `${contentTemplate}${completion}`
+    setContentReadme(content)
+  }, [completion])
 
   return (
     <>
@@ -16,18 +28,10 @@ export function ReadmeBuilder() {
           <TabsTrigger value='code'>Code</TabsTrigger>
         </TabsList>
         <TabsContent value='editor'>
-          <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-80px)]'>
-            <CustomEditor />
-          </div>
+          <CustomEditor content={contentReadme} />
         </TabsContent>
         <TabsContent value='code'>
-          <div className='w-full rounded-md overflow-hidden h-[calc(100vh-80px)]'>
-            <CopyButton content={defaultTemplate} />
-            <textarea
-              className='border border-black dark:border-white/20 rounded-md text-black dark:text-white resize-none w-full h-full outline-none p-5 bg-white/95 dark:bg-white/5 text-base sm:text-lg scrollbar-hide'
-              value={defaultTemplate}
-            ></textarea>
-          </div>
+          <CodeBlock content={contentReadme} />
         </TabsContent>
       </Tabs>
     </>

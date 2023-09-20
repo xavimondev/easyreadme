@@ -1,20 +1,13 @@
 'use client'
 import { useCallback, useEffect } from 'react'
-import { useCompletion } from 'ai/react'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
-import { useTemplate } from '@/store'
-import { DEFAULT_EXTENSIONS } from './extensiones'
+import { DEFAULT_EXTENSIONS } from '@/components/editor/extensiones'
 
-export function CustomEditor() {
-  const contentTemplate = useTemplate((state) => state.contentTemplate)
-  const { completion } = useCompletion({
-    id: 'readme'
-  })
-
+export function CustomEditor({ content }: { content: string }) {
   const editor = useEditor({
     autofocus: 'end',
     injectCSS: false,
-    content: contentTemplate,
+    content: content,
     editorProps: {
       attributes: {
         class:
@@ -41,12 +34,15 @@ export function CustomEditor() {
   useEffect(() => {
     if (!editor) return
 
-    if (completion !== '') {
-      const content = `${contentTemplate}${completion}`
+    if (content !== '') {
       editor.commands.setContent(content)
       scrollToSelection(editor)
     }
-  }, [completion])
+  }, [content])
 
-  return <EditorContent editor={editor} className='w-full' />
+  return (
+    <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-80px)]'>
+      <EditorContent editor={editor} className='w-full' />
+    </div>
+  )
 }
