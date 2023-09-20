@@ -1,6 +1,7 @@
 'use client'
 import { PromptBuilder } from '@/utils/prompt-builder'
 import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
+import { useTemplate } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -9,7 +10,8 @@ import { GitIc } from '@/components/icons'
 let promptBuilder: PromptBuilder
 
 export function FormRepository() {
-  const { minimalTemplate, isLoading } = useTemplates()
+  const { minimalTemplate } = useTemplates()
+  const isGenerating = useTemplate((state) => state.isGenerating)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -40,8 +42,8 @@ export function FormRepository() {
           placeholder='https://github.com/xavimondev/readme-creator'
         />
       </div>
-      <Button variant='secondary' type='submit' disabled={isLoading}>
-        {!isLoading ? 'Generate' : 'Generating...'}
+      <Button variant='secondary' type='submit' disabled={isGenerating}>
+        {!isGenerating ? 'Generate' : 'Generating...'}
       </Button>
     </form>
   )
