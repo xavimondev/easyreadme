@@ -1,13 +1,16 @@
 'use client'
 import { useCallback, useEffect } from 'react'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
+import { useTemplate } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensiones'
 
 export function CustomEditor({ content }: { content: string }) {
+  const isGenerating = useTemplate((state) => state.isGenerating)
   const editor = useEditor({
-    autofocus: 'end',
+    editable: false,
+    // autofocus: 'all',
     injectCSS: false,
-    content: content,
+    content,
     editorProps: {
       attributes: {
         class:
@@ -39,6 +42,12 @@ export function CustomEditor({ content }: { content: string }) {
       scrollToSelection(editor)
     }
   }, [content])
+
+  useEffect(() => {
+    if (!editor) return
+
+    editor.setEditable(!isGenerating)
+  }, [isGenerating])
 
   return (
     <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-80px)]'>
