@@ -45,7 +45,9 @@ export function useTemplateSections() {
   const runningLocally = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const runningLocally = await promptBuilder.getRunningLocally()
     setCompletion(runningLocally)
-    // setContentTemplate(runningLocally)
+    setTimeout(() => {
+      setContentTemplate(runningLocally)
+    }, 2000)
   }
 
   return {
