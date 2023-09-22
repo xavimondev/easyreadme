@@ -47,3 +47,17 @@ Only responde with this format:
 [Bullet points to a maximun of 5]
 `
 }
+
+export const generateProjectSummary = ({
+  directories,
+  mainLanguage
+}: {
+  directories: string[]
+  mainLanguage: string
+}) => {
+  return `Given the following directories from a ${mainLanguage} project:
+${directories}
+
+Provide a comprehensive summary per each path. Only responde with this format:
+- [**path**](path): Summary up to 200 characters.`
+}
