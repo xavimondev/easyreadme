@@ -180,7 +180,7 @@ ${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert RUN co
         contributions: contributions
       })
     )
-    let table = `## Contributors\n\n<table><tbody>`
+    let table = `## Contributors\n\n<table style="border:1px solid #404040;text-align:center;width:100%">`
     let totalCells = 1
     const MAX_WIDTH_ROW = 100
     const width = (MAX_WIDTH_ROW / contributorsPerRow).toFixed(2)
@@ -190,8 +190,18 @@ ${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert RUN co
       if (totalCells === 1) {
         table += `<tr>`
       }
-
-      table += `<td style="text-align:center;" valign="top" width="${width}%"><a href="${profileUrl}"><img src="${avatar}?s=100" width="100px;" alt="${username}"/><br /><sub><b>${username}</b></sub></a><br /><a href="https://github.com/${this.repoOwner}/${this.repoName}/commits?author=${username}" title="Contributions">${contributions} contributions</a></td>`
+      const contributionsText = contributions > 1 ? 'contributions' : 'contribution'
+      table += `<td style="width:${width}%;border:1px solid #404040;">
+        <a href="${profileUrl}" spellcheck="false">
+          <img src="${avatar}?s=100" width="100px;" alt="${username}"/>
+          <br />
+          <b>${username}</b>
+        </a>
+        <br />
+        <a href="https://github.com/${this.repoOwner}/${this.repoName}/commits?author=${username}" title="Contributions" spellcheck="false">
+          ${contributions} ${contributionsText}
+        </a>
+      </td>`
 
       if (totalCells === contributorsPerRow) {
         table += `</tr>`
@@ -200,7 +210,7 @@ ${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert RUN co
         totalCells++
       }
     })
-    table += `</tbody></table>\n\n`
+    table += `</table>\n\n`
     return table
   }
 
