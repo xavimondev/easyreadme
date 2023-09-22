@@ -5,13 +5,11 @@ import { Template } from '@/types'
 import { cn } from '@/lib/utils'
 import { useTemplate } from '@/store'
 
-const DEFAULT_TEMPLATES = [
+const DEFAULT_TEMPLATES: Template[] = [
   {
     srcImage: '/templates/t_boostgrammar.webp',
-    altImage: 'Screenshot README xavimon',
-    nameTemplate: 'Minimal',
-    authorTemplate: 'xavimon',
-    urlAuthor: 'https://github.com/xavimonp'
+    altImage: 'Screenshot template Minimal',
+    nameTemplate: 'Minimal'
   }
 ]
 
@@ -44,10 +42,15 @@ export function TemplateItem({
             'text-fuchsia-600': isSelected
           })}
         >
-          {nameTemplate} by{' '}
-          <Link href={urlAuthor} className='underline underline-offset-1'>
-            {authorTemplate}
-          </Link>
+          {nameTemplate}
+          {authorTemplate && urlAuthor && (
+            <>
+              by{' '}
+              <Link href={urlAuthor} className='underline underline-offset-1'>
+                {authorTemplate}
+              </Link>
+            </>
+          )}
         </figcaption>
       </figure>
     </div>
