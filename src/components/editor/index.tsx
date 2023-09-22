@@ -2,7 +2,7 @@
 import { useCallback, useEffect } from 'react'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
 import { useTemplate } from '@/store'
-import { DEFAULT_EXTENSIONS } from '@/components/editor/extensiones'
+import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 
 export function CustomEditor({ content }: { content: string }) {
   const isGenerating = useTemplate((state) => state.isGenerating)
