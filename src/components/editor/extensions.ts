@@ -44,6 +44,27 @@ const CustomImage = Image.extend({
   }
 })
 
+const CustomTable = Table.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null
+      }
+    }
+  }
+})
+
+const CustomTableCell = TableCell.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null
+      }
+    }
+  }
+})
 export const DEFAULT_EXTENSIONS = [
   StarterKit.configure({
     codeBlock: false,
@@ -79,7 +100,7 @@ export const DEFAULT_EXTENSIONS = [
     transformCopiedText: true,
     breaks: false
   }),
-  Table.configure({
+  CustomTable.configure({
     resizable: false,
     HTMLAttributes: {
       class: '-mb-1'
@@ -95,7 +116,7 @@ export const DEFAULT_EXTENSIONS = [
       class: 'text-base'
     }
   }),
-  TableCell.configure({
+  CustomTableCell.configure({
     HTMLAttributes: {
       class: '-my-1'
     }
