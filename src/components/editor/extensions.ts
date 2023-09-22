@@ -8,9 +8,6 @@ import TableHeader from '@tiptap/extension-table-header'
 import Link from '@tiptap/extension-link'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import TextAlign from '@tiptap/extension-text-align'
-import Details from '@tiptap-pro/extension-details'
-import DetailsSummary from '@tiptap-pro/extension-details-summary'
-import DetailsContent from '@tiptap-pro/extension-details-content'
 import Heading from '@tiptap/extension-heading'
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
@@ -121,17 +118,6 @@ export const DEFAULT_EXTENSIONS = [
   TextAlign.configure({
     types: ['heading', 'paragraph']
   }),
-  Details.configure({
-    HTMLAttributes: {
-      class: 'details flex gap-2 list-none items-center'
-    }
-  }),
-  DetailsSummary.configure({
-    HTMLAttributes: {
-      class: 'select-none'
-    }
-  }),
-  DetailsContent,
   Heading.configure({
     HTMLAttributes: {
       spellcheck: 'false'
