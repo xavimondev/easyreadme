@@ -1,4 +1,5 @@
 'use client'
+import { NameTemplate } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
 import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
 import { useTemplate } from '@/store'
@@ -10,19 +11,29 @@ import { GitIc } from '@/components/icons'
 let promptBuilder: PromptBuilder
 
 export function FormRepository() {
-  const { minimalTemplate } = useTemplates()
+  const { minimal, collaborate, empower, inspire, unleash } = useTemplates()
   const isGenerating = useTemplate((state) => state.isGenerating)
+  const templateSelected = useTemplate((state) => state.templateSelected)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const urlRepository = formData.get('urlRepository') as string
-    if (!isValidGitHubRepositoryURL({ url: urlRepository })) return
-    console.log(urlRepository)
+    if (!isValidGitHubRepositoryURL({ url: urlRepository }) || !templateSelected) return
+
     if (!promptBuilder) {
       promptBuilder = new PromptBuilder(urlRepository)
     }
-    await minimalTemplate({ promptBuilder })
+
+    const listTemplates: Record<NameTemplate, any> = {
+      Minimal: minimal,
+      Collaborate: collaborate,
+      Empower: empower,
+      Inspire: inspire,
+      Unleash: unleash
+    }
+
+    await listTemplates[templateSelected]({ promptBuilder })
   }
 
   return (
