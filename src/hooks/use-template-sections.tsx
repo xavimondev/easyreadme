@@ -45,12 +45,10 @@ export function useTemplateSections() {
   const runningLocally = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const runningLocally = await promptBuilder.getRunningLocally()
     setCompletion(runningLocally)
-    setTimeout(() => {
-      setContentTemplate(runningLocally)
-    }, 2000)
+    setContentTemplate(runningLocally)
   }
 
-  const acknowledgments = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const acknowledgments = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const acknowledgments = promptBuilder.getAcknowledgments()
     setCompletion(acknowledgments)
     setContentTemplate(acknowledgments)
@@ -89,37 +87,39 @@ export function useTemplateSections() {
   const license = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const license = await promptBuilder.getLicense()
     setCompletion(license)
-    setContentTemplate(license)
+    setTimeout(() => {
+      setContentTemplate(license)
+    }, 2000)
   }
 
   const deploy = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const deploy = promptBuilder.getDeploy()
     setCompletion(deploy)
-    // setContentTemplate(changelog)
+    setContentTemplate(deploy)
   }
 
   const tableContributors = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const table = await promptBuilder.getTableContributors({ contributorsPerRow: 7 })
     setCompletion(table)
-    // setContentTemplate(table)
+    setContentTemplate(table)
   }
 
   const galleryContributors = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const contributors = promptBuilder.getGalleryContributors()
     setCompletion(contributors)
-    // setContentTemplate(contributors)
+    setContentTemplate(contributors)
   }
 
   const badges = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const badges = promptBuilder.getBadges()
     setCompletion(badges)
-    // setContentTemplate(badges)
+    setContentTemplate(badges)
   }
 
   const prerequisites = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const prerequisites = promptBuilder.getPrerequisites()
     setCompletion(prerequisites)
-    // setContentTemplate(badges)
+    setContentTemplate(prerequisites)
   }
 
   const projectSummary = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
