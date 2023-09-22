@@ -136,3 +136,58 @@ export const isValidGitHubRepositoryURL = ({ url }: { url: string }) => {
   const githubRepoRegex = /^https:\/\/github\.com\/[^/]+\/[^/]+(\/)?$/
   return githubRepoRegex.test(url)
 }
+
+export const getLicense = async ({ repoName, owner }: { repoName: string; owner: string }) => {
+  try {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repoName}/license`, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        // Authorization: 'Bearer ${process.env.GITHUB_ACCESS_TOKEN}',
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    })
+
+    if (!response.ok) throw new Error('License not found')
+
+    const res = await response.json()
+    const license = {
+      name: res.license.name,
+      url: res.html_url
+    }
+    return license
+  } catch (error) {
+    // console.error(error)
+    return null
+  }
+}
+
+export const getContributors = async ({
+  repoName,
+  owner,
+  page = 1
+}: {
+  repoName: string
+  owner: string
+  page?: number
+}) => {
+  try {
+    // https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repository-contributors
+    // TODO: add types
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repoName}/contributors?per_page=100&page=${page}`,
+      {
+        headers: {
+          Accept: 'application/vnd.github+json',
+          // Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+      }
+    )
+    if (!response.ok) throw new Error('Error while fetching contributors')
+    const data = await response.json()
+    return data
+  } catch (error) {
+    // console.error(error)
+    return null
+  }
+}
