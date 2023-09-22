@@ -1,8 +1,9 @@
 import { create } from 'zustand'
+import { NameTemplate } from '@/types'
 
 type TemplateState = {
-  templateSelected: string | undefined
-  setTemplateSelected: (templateName: string) => void
+  templateSelected: NameTemplate
+  setTemplateSelected: (templateName: NameTemplate) => void
   contentTemplate: string
   setContentTemplate: (content: string) => void
   isGenerating: boolean
@@ -10,10 +11,10 @@ type TemplateState = {
 }
 
 export const useTemplate = create<TemplateState>()((set) => ({
-  templateSelected: undefined,
+  templateSelected: 'Minimal',
   contentTemplate: '',
   isGenerating: false,
-  setTemplateSelected: (templateName) => set({ templateSelected: templateName }),
+  setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   setContentTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
   setIsGenerating: (isGenerating) => set({ isGenerating })
