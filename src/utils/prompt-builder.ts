@@ -1,12 +1,15 @@
 import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP } from '@/constants'
 import {
+  getContributors,
   getFileContents,
+  getLicense,
   getMainLanguage,
   getRepositoryDetails,
   getRepositoryStructure,
   getRepositoryTreeDirectory
 } from '@/utils/git-repository'
 import {
+  generateProjectSummary,
   generateGuideEnvironmentVariables,
   generateTechStack,
   getPromptOverview
@@ -117,5 +120,131 @@ ${setup ? getSetupCommands({ commands: setup.commands['install'] }) : 'Insert IN
 
 ${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert RUN commands.'}
 `
+  }
+
+  getAcknowledgments() {
+    return `## Acknowledgements\n\n\`- [Awesome Tool](https://awesometool.link)\`\n\n\`- [Awesome Inspiration](https://awesomeinsp.link)\`\n\n`
+  }
+
+  getRoadmap() {
+    return `## Roadmap\n\n- [X] **Task 1:** Implement feature one.\n\n- [   ] **Task 2:** Develop feature two.\n\n- [   ] **Task 3:** Enhance X.\n\n`
+  }
+
+  getChangelog() {
+    return `## Changelog\n\n> All notable changes to this project will be documented in this section.\n\n#### [Version X.X.X] - YYYY-MM-DD\n\n
+- New features or enhancements added in this release.\n\n- Fixes to errors or problems.\n\n`
+  }
+
+  // useful for vscode extensions
+  getCommands() {
+    return `## Commands\n\nThis extension contributes the following commands to the Command palette:\n\n- \`Command name\`: Command description.\n\n- \`Authenticate\`: Command description.\n\n`
+  }
+
+  getFaq() {
+    return `## FAQ\n\n#### 1. What is this project about?\n\nThis project aims to **briefly describe your project's purpose and goals**.\n\n
+#### 2. Can I contribute to this project?\n\nYes, we welcome contributions! Please refer to our [Contribution Guidelines](CONTRIBUTING.md) for more information on how to contribute.\n\n
+#### 3. Any other question\n\nYour answer.\n\n`
+  }
+
+  async getProjectStructure() {
+    const tree = await getRepositoryTreeDirectory({ urlRepository: this.urlRepository })
+    return `## Project Structure\n\n\`\`\`bash\n${tree}\`\`\`\n\n`
+  }
+
+  async getLicense() {
+    const header = `## License\n\n`
+    const license = await getLicense({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
+    if (!license) return `${header}[**Add Your License**](https://choosealicense.com)\n\n`
+    return `${header}This project is licensed under the **${license.name}** - see the [**${license.name}**](${license.url}) file for details.\n\n`
+  }
+
+  getDeploy() {
+    return `## Deploy\n\n\`[Application name](Your App URL)\`\n\n`
+  }
+
+  async getTableContributors({ contributorsPerRow }: { contributorsPerRow: number }) {
+    const contributors = await getContributors({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
+    if (!contributors || contributors.length === 0) return ''
+
+    const listContributors = contributors.map(
+      ({ login, avatar_url, html_url, contributions }: any) => ({
+        username: login,
+        avatar: avatar_url,
+        profileUrl: html_url,
+        contributions: contributions
+      })
+    )
+    let table = `## Contributors\n\n<table><tbody>`
+    let totalCells = 1
+    const MAX_WIDTH_ROW = 100
+    const width = (MAX_WIDTH_ROW / contributorsPerRow).toFixed(2)
+
+    listContributors.forEach((contributor: any) => {
+      const { username, avatar, profileUrl, contributions } = contributor
+      if (totalCells === 1) {
+        table += `<tr>`
+      }
+
+      table += `<td style="text-align:center;" valign="top" width="${width}%"><a href="${profileUrl}"><img src="${avatar}?s=100" width="100px;" alt="${username}"/><br /><sub><b>${username}</b></sub></a><br /><a href="https://github.com/${this.repoOwner}/${this.repoName}/commits?author=${username}" title="Contributions">${contributions} contributions</a></td>`
+
+      if (totalCells === contributorsPerRow) {
+        table += `</tr>`
+        totalCells = 1
+      } else {
+        totalCells++
+      }
+    })
+    table += `</tbody></table>\n\n`
+    return table
+  }
+
+  getGalleryContributors() {
+    return `## Contributors\n\n<a href="https://github.com/${this.repoOwner}/${this.repoName}/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=${this.repoOwner}/${this.repoName}" /></a>\n\n`
+  }
+
+  getBadges() {
+    /*
+    <img src="https://img.shields.io/github/forks/${this.repoOwner}/${this.repoName}" alt="GitHub forks" />
+    <img src="https://img.shields.io/github/languages/code-size/${this.repoOwner}/${this.repoName}" alt="GitHub code size in bytes" />
+    <img src="https://img.shields.io/github/stars/${this.repoOwner}/${this.repoName}" alt="GitHub stars" />
+    <img src="https://img.shields.io/github/watchers/${this.repoOwner}/${this.repoName}" alt="GitHub watchers" />
+    <img src="https://img.shields.io/github/contributors/${this.repoOwner}/${this.repoName}" alt="GitHub contributors" />
+    <img src="https://img.shields.io/github/last-commit/${this.repoOwner}/${this.repoName}" alt="GitHub last commit" />
+    <img src="https://img.shields.io/github/license/${this.repoOwner}/${this.repoName}" alt="GitHub license" />
+    <img src="https://img.shields.io/github/languages/top/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub top language" />
+    <img src="https://img.shields.io/github/commit-activity/m/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub commit activity month" />
+    */
+    return `<p style="text-align:center;">
+      <img src="https://img.shields.io/github/discussions/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub discussions" />
+      <img src="https://img.shields.io/github/issues/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub issues" />
+      <img src="https://img.shields.io/github/issues-pr/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub pull request" />
+      <img src="https://img.shields.io/github/deployments/${this.repoOwner}/${this.repoName}/production" alt="GitHub production" />
+      </p>\n\n`
+  }
+
+  getPrerequisites() {
+    return `## Prerequisites\n\n- Prerequisite 1\n\n- Prerequisite 2\n\n`
+  }
+
+  async getProjectSummary() {
+    const structure = await getRepositoryStructure({ urlRepository: this.urlRepository })
+    if (!structure) return ''
+
+    const directories = structure
+      .filter((files) => files.type === 'tree')
+      .map((files) => files.path)
+    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
+    const promptProjectSummary = generateProjectSummary({
+      directories,
+      mainLanguage
+    })
+    return promptProjectSummary
   }
 }
