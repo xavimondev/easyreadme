@@ -3,7 +3,26 @@ import { useTemplateSections } from '@/hooks/use-template-sections'
 import { useTemplate } from '@/store'
 
 export function useTemplates() {
-  const { banner, overview, runningLocally, settingUp, techStack } = useTemplateSections()
+  const {
+    banner,
+    overview,
+    runningLocally,
+    settingUp,
+    techStack,
+    acknowledgments,
+    roadmap,
+    changelog,
+    commands,
+    faq,
+    projectStructure,
+    license,
+    deploy,
+    galleryContributors,
+    tableContributors,
+    badges,
+    prerequisites,
+    projectSummary
+  } = useTemplateSections()
   const setIsGenerating = useTemplate((state) => state.setIsGenerating)
 
   const minimalTemplate = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {

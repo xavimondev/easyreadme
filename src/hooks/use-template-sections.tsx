@@ -50,11 +50,102 @@ export function useTemplateSections() {
     }, 2000)
   }
 
+  const acknowledgments = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const acknowledgments = promptBuilder.getAcknowledgments()
+    setCompletion(acknowledgments)
+    setContentTemplate(acknowledgments)
+  }
+
+  const roadmap = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const roadmap = promptBuilder.getRoadmap()
+    setCompletion(roadmap)
+    setContentTemplate(roadmap)
+  }
+
+  const changelog = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const changelog = promptBuilder.getChangelog()
+    setCompletion(changelog)
+    setContentTemplate(changelog)
+  }
+
+  const commands = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const commands = promptBuilder.getCommands()
+    setCompletion(commands)
+    setContentTemplate(commands)
+  }
+
+  const faq = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const faq = promptBuilder.getFaq()
+    setCompletion(faq)
+    setContentTemplate(faq)
+  }
+
+  const projectStructure = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const projectStructure = await promptBuilder.getProjectStructure()
+    setCompletion(projectStructure)
+    setContentTemplate(projectStructure)
+  }
+
+  const license = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const license = await promptBuilder.getLicense()
+    setCompletion(license)
+    setContentTemplate(license)
+  }
+
+  const deploy = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const deploy = promptBuilder.getDeploy()
+    setCompletion(deploy)
+    // setContentTemplate(changelog)
+  }
+
+  const tableContributors = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const table = await promptBuilder.getTableContributors({ contributorsPerRow: 7 })
+    setCompletion(table)
+    // setContentTemplate(table)
+  }
+
+  const galleryContributors = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const contributors = promptBuilder.getGalleryContributors()
+    setCompletion(contributors)
+    // setContentTemplate(contributors)
+  }
+
+  const badges = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const badges = promptBuilder.getBadges()
+    setCompletion(badges)
+    // setContentTemplate(badges)
+  }
+
+  const prerequisites = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    const prerequisites = promptBuilder.getPrerequisites()
+    setCompletion(prerequisites)
+    // setContentTemplate(badges)
+  }
+
+  const projectSummary = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+    setContentTemplate(`## Project summary\n\n`)
+    const promptProjectSummary = await promptBuilder.getProjectSummary()
+    await complete(promptProjectSummary)
+  }
+
   return {
     banner,
     overview,
     techStack,
     settingUp,
-    runningLocally
+    runningLocally,
+    acknowledgments,
+    roadmap,
+    changelog,
+    commands,
+    faq,
+    projectStructure,
+    license,
+    deploy,
+    tableContributors,
+    galleryContributors,
+    badges,
+    prerequisites,
+    projectSummary
   }
 }
