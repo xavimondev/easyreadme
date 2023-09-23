@@ -5,7 +5,7 @@ import { ColumnsIc } from '@/components/icons'
 export function Sidebar() {
   return (
     <aside className='h-[calc(100vh-18px)] w-full'>
-      <div className='w-full h-full rounded-md border bg-card text-card-foreground overflow-y-auto scrollbar-hide px-2'>
+      <div className='w-full h-full rounded-md border bg-card text-card-foreground overflow-y-auto scrollbar-hide px-4'>
         <div className='sticky z-10 pt-3 pb-4 flex flex-col gap-4 bg-white dark:bg-[#09090B] top-0'>
           <div className='flex items-center gap-1.5'>
             <ColumnsIc className='w-5 h-5' />
