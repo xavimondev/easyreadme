@@ -37,8 +37,14 @@ export function useTemplateSections() {
   }
 
   const settingUp = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    setContentTemplate(`## Setting up\n\n`)
     const promptSettingUp = await promptBuilder.getEnvironmentVariablesGuide()
+    const header = `## Setting up\n\n`
+    if (!promptSettingUp) {
+      setContentTemplate(`${header}#### Your Environment Variable\n\n- Step 1\n\n- Step 2\n\n`)
+      return
+    }
+
+    setContentTemplate(`${header}`)
     await complete(promptSettingUp)
   }
 

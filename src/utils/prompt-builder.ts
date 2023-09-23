@@ -91,7 +91,7 @@ export class PromptBuilder {
       repository: this.repoName as string
     })
 
-    if (!fileEnviromentContent) return ''
+    if (!fileEnviromentContent) return null
 
     const promptGuideEnvironmentVariables = generateGuideEnvironmentVariables({
       environmentVars: fileEnviromentContent
@@ -101,7 +101,7 @@ export class PromptBuilder {
   }
 
   async getRunningLocally() {
-    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository }) // JavaScript
+    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
     const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
 
     return `## Run locally
@@ -114,11 +114,23 @@ git clone ${this.urlRepository}
 
 2.Install dependencies:
 
-${setup ? getSetupCommands({ commands: setup.commands['install'] }) : 'Insert INSTALL commands.'}
+${
+  setup
+    ? getSetupCommands({ commands: setup.commands['install'] })
+    : `\`\`\`sh 
+Insert INSTALL commands 
+\`\`\``
+}
 
 3.Start the development mode:
 
-${setup ? getSetupCommands({ commands: setup.commands['run'] }) : 'Insert RUN commands.'}
+${
+  setup
+    ? getSetupCommands({ commands: setup.commands['run'] })
+    : `\`\`\`sh 
+Insert RUN commands 
+\`\`\``
+}
 `
   }
 
