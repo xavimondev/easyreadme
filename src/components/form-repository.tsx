@@ -39,7 +39,7 @@ export function FormRepository() {
   return (
     <form className='flex flex-col gap-2' onSubmit={handleSubmit}>
       <div className='relative flex w-full items-center'>
-        <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-white/40'>
+        <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-black/50 dark:text-white/40'>
           <GitIc className='w-4 h-4' />
         </div>
         <Input
