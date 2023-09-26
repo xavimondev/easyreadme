@@ -7,9 +7,29 @@ import { useTemplate } from '@/store'
 
 const DEFAULT_TEMPLATES: Template[] = [
   {
-    srcImage: '/templates/t_boostgrammar.webp',
+    srcImage: '/templates/minimal.webp',
     altImage: 'Screenshot template Minimal',
     nameTemplate: 'Minimal'
+  },
+  {
+    srcImage: '/templates/collaborate.webp',
+    altImage: 'Screenshot template Collaborate',
+    nameTemplate: 'Collaborate'
+  },
+  {
+    srcImage: '/templates/inspire.webp',
+    altImage: 'Screenshot template Inspire',
+    nameTemplate: 'Inspire'
+  },
+  {
+    srcImage: '/templates/empower.webp',
+    altImage: 'Screenshot template Empower',
+    nameTemplate: 'Empower'
+  },
+  {
+    srcImage: '/templates/unleash.webp',
+    altImage: 'Screenshot template Pinnacle',
+    nameTemplate: 'Unleash'
   }
 ]
 
@@ -33,9 +53,10 @@ export function TemplateItem({
         <Image
           src={srcImage}
           alt={altImage}
-          width={300}
-          height={300}
-          className='w-full h-full object-cover rounded-md'
+          width={800}
+          height={500}
+          loading='lazy'
+          className='w-full h-[220px] rounded-md object-cover'
         />
         <figcaption
           className={cn('text-sm text-gray-400 mt-2 text-center italic', {
@@ -59,7 +80,7 @@ export function TemplateItem({
 
 export function ListTemplates() {
   return (
-    <div className='mt-6 flex flex-col gap-6'>
+    <div className='flex flex-col gap-6'>
       {DEFAULT_TEMPLATES.map((template: Template) => (
         <TemplateItem key={template.nameTemplate} {...template} />
       ))}
