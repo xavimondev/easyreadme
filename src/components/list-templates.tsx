@@ -53,9 +53,9 @@ export function TemplateItem({
         <Image
           src={srcImage}
           alt={altImage}
-          width={800}
+          width={500}
           height={500}
-          loading='lazy'
+          priority={nameTemplate === 'Minimal'}
           className='w-full h-[220px] rounded-md object-cover'
         />
         <figcaption
