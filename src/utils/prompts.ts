@@ -27,7 +27,7 @@ ${dependencies}
 Pick the 8 most important dependencies that cover the following aspects: authentication, data fetching, state management, 
 animations, styling, server-client communication, testing and deployment. 
 Generate a summary like this:
-- [name_dependency][link_resource]: Short explanation about the dependency.Limit your response to a maximum of 100 characters.
+- [name_dependency](link_resource): Short explanation about the dependency.Limit your response to a maximum of 100 characters.
 Where link_resource is dependency's url information.
 Only respond with a bullet list.`
 }
