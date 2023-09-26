@@ -1,4 +1,4 @@
-import { GitTreeResponse, Tree, TreeFormatted } from '@/types'
+import { Tree, TreeFormatted } from '@/types'
 
 export const getRepositoryDetails = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')
@@ -20,15 +20,9 @@ export const getRepositoryStructure = async ({
     urlRepository
   })
   try {
-    const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repoName}/git/trees/main?recursive=1`
-    )
-    const data = (await response.json()) as GitTreeResponse
-    const directory = data.tree.map((item: Tree) => ({
-      path: item.path,
-      type: item.type
-    }))
-    return directory
+    const response = await fetch(`api/github/structure?repo=${repoName}&owner=${owner}`)
+    const repository = await response.json()
+    return repository.data
   } catch (error) {
     //console.error(error)
     return null
@@ -99,9 +93,9 @@ export const getMainLanguage = async ({ urlRepository }: { urlRepository: string
     urlRepository
   })
   try {
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repoName}`)
-    const data = await response.json()
-    return data.language
+    const response = await fetch(`api/github/language?repo=${repoName}&owner=${owner}`)
+    const language = await response.json()
+    return language.data
   } catch (error) {
     //console.error(error)
     return null
@@ -119,13 +113,10 @@ export const getFileContents = async ({
 }) => {
   try {
     const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repository}/contents/${path}`
+      `api/github/file-contents?owner=${owner}&repo=${repository}&path=${path}`
     )
-    if (!response.ok) throw new Error('Not Found')
-
-    const data = await response.json()
-    const content = atob(data.content)
-    return content
+    const contents = await response.json()
+    return contents.data
   } catch (error) {
     // console.log(error)
     return null
@@ -139,22 +130,9 @@ export const isValidGitHubRepositoryURL = ({ url }: { url: string }) => {
 
 export const getLicense = async ({ repoName, owner }: { repoName: string; owner: string }) => {
   try {
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repoName}/license`, {
-      headers: {
-        Accept: 'application/vnd.github+json',
-        // Authorization: 'Bearer ${process.env.GITHUB_ACCESS_TOKEN}',
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
-    })
-
-    if (!response.ok) throw new Error('License not found')
-
-    const res = await response.json()
-    const license = {
-      name: res.license.name,
-      url: res.html_url
-    }
-    return license
+    const response = await fetch(`api/github/license?owner=${owner}&repo=${repoName}`)
+    const license = await response.json()
+    return license.data
   } catch (error) {
     // console.error(error)
     return null
@@ -171,21 +149,11 @@ export const getContributors = async ({
   page?: number
 }) => {
   try {
-    // https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repository-contributors
-    // TODO: add types
     const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repoName}/contributors?per_page=100&page=${page}`,
-      {
-        headers: {
-          Accept: 'application/vnd.github+json',
-          // Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-          'X-GitHub-Api-Version': '2022-11-28'
-        }
-      }
+      `api/github/contributors?owner=${owner}&repo=${repoName}&page=${page}`
     )
-    if (!response.ok) throw new Error('Error while fetching contributors')
-    const data = await response.json()
-    return data
+    const contributors = await response.json()
+    return contributors.data
   } catch (error) {
     // console.error(error)
     return null
