@@ -17,7 +17,7 @@ export function CustomEditor({ content }: { content: string }) {
           'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide'
       }
     },
-    extensions: [...DEFAULT_EXTENSIONS],
+    extensions: DEFAULT_EXTENSIONS,
     onUpdate: (e) => {
       const { editor } = e
       if (editor) {
