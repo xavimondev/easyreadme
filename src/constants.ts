@@ -105,3 +105,18 @@ export const LANGUAGES_FILES_PARSERS: Record<string, any> = {
   'go.mod': parseGoMod,
   'cargo.toml': parseCargo
 }
+
+const BADGES_URL = 'https://img.shields.io/github'
+export const FORKS_URL = `${BADGES_URL}/forks`
+export const CODESIZE_URL = `${BADGES_URL}/languages/code-size`
+export const STARS_URL = `${BADGES_URL}/stars`
+export const WATCHERS_URL = `${BADGES_URL}/watchers`
+export const CONTRIBUTORS_URL = `${BADGES_URL}/contributors`
+export const LAST_COMMIT_URL = `${BADGES_URL}/last-commit`
+export const LICENSE_URL = `${BADGES_URL}/license`
+export const TOP_LANGUAGE_URL = `${BADGES_URL}/languages/top`
+export const COMMIT_ACTIVITY_MONTH_URL = `${BADGES_URL}/commit-activity/m`
+export const DISCUSSIONS_URL = `${BADGES_URL}/discussions`
+export const ISSUES_URL = `${BADGES_URL}/issues`
+export const PULL_REQUESTS_URL = `${BADGES_URL}/issues-pr`
+export const DEPLOYMENTS_URL = `${BADGES_URL}/deployments`

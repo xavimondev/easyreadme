@@ -1,5 +1,7 @@
 import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP } from '@/constants'
+import { BadgeName } from '@/types'
 import {
+  getBadgeByName,
   getContributors,
   getFileContents,
   getLicense,
@@ -231,24 +233,19 @@ Insert RUN commands
     <img src="https://contrib.rocks/image?repo=${this.repoOwner}/${this.repoName}" /></a>\n\n`
   }
 
-  getBadges() {
-    /*
-    <img src="https://img.shields.io/github/forks/${this.repoOwner}/${this.repoName}" alt="GitHub forks" />
-    <img src="https://img.shields.io/github/languages/code-size/${this.repoOwner}/${this.repoName}" alt="GitHub code size in bytes" />
-    <img src="https://img.shields.io/github/stars/${this.repoOwner}/${this.repoName}" alt="GitHub stars" />
-    <img src="https://img.shields.io/github/watchers/${this.repoOwner}/${this.repoName}" alt="GitHub watchers" />
-    <img src="https://img.shields.io/github/contributors/${this.repoOwner}/${this.repoName}" alt="GitHub contributors" />
-    <img src="https://img.shields.io/github/last-commit/${this.repoOwner}/${this.repoName}" alt="GitHub last commit" />
-    <img src="https://img.shields.io/github/license/${this.repoOwner}/${this.repoName}" alt="GitHub license" />
-    <img src="https://img.shields.io/github/languages/top/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub top language" />
-    <img src="https://img.shields.io/github/commit-activity/m/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub commit activity month" />
-    */
-    return `<p style="text-align:center;">
-      <img src="https://img.shields.io/github/discussions/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub discussions" />
-      <img src="https://img.shields.io/github/issues/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub issues" />
-      <img src="https://img.shields.io/github/issues-pr/${this.repoOwner}/${this.repoName}?style&color=5D6D7E" alt="GitHub pull request" />
-      <img src="https://img.shields.io/github/deployments/${this.repoOwner}/${this.repoName}/production" alt="GitHub production" />
-      </p>\n\n`
+  getBadges(...args: BadgeName[]) {
+    let html = `<p style="text-align:center;">`
+    args.forEach((badge: BadgeName) => {
+      const res = getBadgeByName({
+        repoName: this.repoName as string,
+        owner: this.repoOwner as string,
+        badge
+      })
+      const { label, url } = res
+      html += `<img src="${url}" alt=${label} />\n`
+    })
+    html += `</p>\n\n`
+    return html
   }
 
   getPrerequisites() {

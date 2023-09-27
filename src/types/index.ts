@@ -34,3 +34,18 @@ export type TreeFormatted = {
   type: string
   children?: TreeFormatted[]
 }
+
+export type BadgeName =
+  | 'forks'
+  | 'codesize'
+  | 'stars'
+  | 'watchers'
+  | 'contributors'
+  | 'last_commit'
+  | 'license'
+  | 'top_language'
+  | 'commit_activity_month'
+  | 'discussions'
+  | 'issues'
+  | 'pull_requests'
+  | 'deployment'

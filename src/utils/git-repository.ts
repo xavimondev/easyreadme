@@ -1,4 +1,19 @@
-import { Tree, TreeFormatted } from '@/types'
+import {
+  CODESIZE_URL,
+  COMMIT_ACTIVITY_MONTH_URL,
+  CONTRIBUTORS_URL,
+  DEPLOYMENTS_URL,
+  DISCUSSIONS_URL,
+  FORKS_URL,
+  ISSUES_URL,
+  LAST_COMMIT_URL,
+  LICENSE_URL,
+  PULL_REQUESTS_URL,
+  STARS_URL,
+  TOP_LANGUAGE_URL,
+  WATCHERS_URL
+} from '@/constants'
+import { BadgeName, Tree, TreeFormatted } from '@/types'
 
 export const getRepositoryDetails = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')
@@ -158,4 +173,71 @@ export const getContributors = async ({
     // console.error(error)
     return null
   }
+}
+
+export const getBadgeByName = ({
+  repoName,
+  owner,
+  badge
+}: {
+  repoName: string
+  owner: string
+  badge: BadgeName
+}) => {
+  const badgeOptions: Record<BadgeName, { label: string; url: string }> = {
+    forks: {
+      label: 'GitHub forks',
+      url: `${FORKS_URL}/${owner}/${repoName}`
+    },
+    codesize: {
+      label: 'GitHub code size in bytes',
+      url: `${CODESIZE_URL}/${owner}/${repoName}`
+    },
+    stars: {
+      label: 'GitHub stars',
+      url: `${STARS_URL}/${owner}/${repoName}`
+    },
+    watchers: {
+      label: 'GitHub watchers',
+      url: `${WATCHERS_URL}/${owner}/${repoName}`
+    },
+    contributors: {
+      label: 'GitHub contributors',
+      url: `${CONTRIBUTORS_URL}/${owner}/${repoName}`
+    },
+    last_commit: {
+      label: 'GitHub last commit',
+      url: `${LAST_COMMIT_URL}/${owner}/${repoName}`
+    },
+    license: {
+      label: 'GitHub license',
+      url: `${LICENSE_URL}/${owner}/${repoName}`
+    },
+    top_language: {
+      label: 'GitHub top language',
+      url: `${TOP_LANGUAGE_URL}/${owner}/${repoName}`
+    },
+    commit_activity_month: {
+      label: 'GitHub commit activity month',
+      url: `${COMMIT_ACTIVITY_MONTH_URL}/${owner}/${repoName}`
+    },
+    discussions: {
+      label: 'GitHub discussions',
+      url: `${DISCUSSIONS_URL}/${owner}/${repoName}`
+    },
+    issues: {
+      label: 'GitHub issues',
+      url: `${ISSUES_URL}/${owner}/${repoName}`
+    },
+    pull_requests: {
+      label: 'GitHub pull request',
+      url: `${PULL_REQUESTS_URL}/${owner}/${repoName}`
+    },
+    deployment: {
+      label: 'GitHub deployment',
+      url: `${DEPLOYMENTS_URL}/${owner}/${repoName}/production`
+    }
+  }
+
+  return badgeOptions[badge]
 }
