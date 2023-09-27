@@ -38,7 +38,10 @@ export function useTemplates() {
   const collaborate = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     setIsGenerating(true)
     banner({ promptBuilder })
-    badges({ promptBuilder })
+    badges({
+      promptBuilder,
+      listBadges: ['contributors', 'discussions', 'issues', 'pull_requests']
+    })
     await techStack({ promptBuilder })
     await projectSummary({ promptBuilder })
     await settingUp({ promptBuilder })
@@ -52,7 +55,10 @@ export function useTemplates() {
   const inspire = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     setIsGenerating(true)
     banner({ promptBuilder })
-    badges({ promptBuilder })
+    badges({
+      promptBuilder,
+      listBadges: ['codesize', 'last_commit', 'commit_activity_month', 'license']
+    })
     await overview({ promptBuilder })
     await projectStructure({ promptBuilder })
     await projectSummary({ promptBuilder })
@@ -80,7 +86,10 @@ export function useTemplates() {
   const unleash = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     setIsGenerating(true)
     banner({ promptBuilder })
-    badges({ promptBuilder })
+    badges({
+      promptBuilder,
+      listBadges: ['top_language', 'codesize', 'stars', 'deployment']
+    })
     await overview({ promptBuilder })
     await projectStructure({ promptBuilder })
     prerequisites({ promptBuilder })
