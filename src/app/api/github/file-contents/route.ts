@@ -21,7 +21,8 @@ export async function GET(req: Request) {
         }
       }
     )
-    if (!response.ok) throw new Error('Not Found')
+    if (!response.ok)
+      return NextResponse.json({ error: 'Environment file not found' }, { status: 404 })
 
     const data = await response.json()
     const content = atob(data.content)
