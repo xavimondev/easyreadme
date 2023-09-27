@@ -1,4 +1,5 @@
 import { useCompletion } from 'ai/react'
+import { toast } from 'sonner'
 import { useTemplate } from '@/store'
 import { BadgeName } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
@@ -9,14 +10,14 @@ export function useTemplateSections() {
     id: 'readme',
     onResponse: (res) => {
       if (res.status === 429) {
-        //toast.error('You are being rate limited. Please try again later.');
+        toast.error('You are being rate limited. Please try again later.')
       }
     },
     onFinish: (_prompt, completion) => {
       setContentTemplate(`${completion}\n\n`)
     },
     onError: (err) => {
-      console.error(err)
+      toast.error(err.message)
     }
   })
 
