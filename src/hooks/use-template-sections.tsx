@@ -1,5 +1,6 @@
 import { useCompletion } from 'ai/react'
 import { useTemplate } from '@/store'
+import { BadgeName } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
 
 export function useTemplateSections() {
@@ -116,8 +117,14 @@ export function useTemplateSections() {
     setContentTemplate(contributors)
   }
 
-  const badges = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const badges = promptBuilder.getBadges()
+  const badges = ({
+    promptBuilder,
+    listBadges = ['stars', 'contributors', 'top_language', 'license']
+  }: {
+    promptBuilder: PromptBuilder
+    listBadges?: BadgeName[]
+  }) => {
+    const badges = promptBuilder.getBadges(...listBadges)
     setCompletion(badges)
     setContentTemplate(badges)
   }
