@@ -36,7 +36,8 @@ export function ReadmeCode({ content }: ReadmeCodeProps) {
         overflow-hidden 
         [&>code]:h-full 
         [&>code]:w-full 
-        [&>code]:p-3
+        [&>code]:p-3 
+        whitespace-pre-wrap
         [&>code]:scrollbar-hide'
     />
   )
