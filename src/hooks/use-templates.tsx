@@ -47,7 +47,6 @@ export function useTemplates() {
     await settingUp({ promptBuilder })
     await runningLocally({ promptBuilder })
     await tableContributors({ promptBuilder })
-    await faq({ promptBuilder })
     await license({ promptBuilder })
     setIsGenerating(false)
   }
