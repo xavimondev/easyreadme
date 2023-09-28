@@ -56,7 +56,9 @@ export function TemplateItem({
           width={500}
           height={500}
           priority={nameTemplate === 'Minimal'}
-          className='w-full h-[220px] rounded-md object-cover'
+          className={cn('w-full h-[220px] rounded-md object-cover', {
+            'border border-fuchsia-600': isSelected
+          })}
         />
         <figcaption
           className={cn('text-sm text-gray-400 mt-2 text-center italic', {
