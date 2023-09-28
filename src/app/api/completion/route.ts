@@ -29,7 +29,12 @@ export async function POST(req: Request) {
           role: 'user',
           content: prompt
         }
-      ]
+      ],
+      temperature: 0.5,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      n: 1
+      // max_tokens: 500 -> this will change later
     })
     // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response)
