@@ -8,11 +8,6 @@ export function useTemplateSections() {
   const setContentTemplate = useTemplate((state) => state.setContentTemplate)
   const { complete, setCompletion } = useCompletion({
     id: 'readme',
-    onResponse: (res) => {
-      if (res.status === 429) {
-        toast.error('You are being rate limited. Please try again later.')
-      }
-    },
     onFinish: (_prompt, completion) => {
       setContentTemplate(`${completion}\n\n`)
     },

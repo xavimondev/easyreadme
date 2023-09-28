@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { kv } from '@vercel/kv'
-import { Ratelimit } from '@upstash/ratelimit'
 
 export const runtime = 'edge'
 
@@ -18,31 +16,6 @@ export async function POST(req: Request) {
       })
     }
 
-    if (
-      process.env.NODE_ENV != 'development' &&
-      process.env.KV_REST_API_URL &&
-      process.env.KV_REST_API_TOKEN
-    ) {
-      const ip = req.headers.get('x-forwarded-for')
-      const ratelimit = new Ratelimit({
-        redis: kv,
-        // rate limit to 15 requests per day
-        limiter: Ratelimit.slidingWindow(15, '1 d')
-      })
-
-      const { success, limit, reset, remaining } = await ratelimit.limit(`ratelimit_${ip}`)
-
-      if (!success) {
-        return new Response('You have reached your request limit for the day.', {
-          status: 429,
-          headers: {
-            'X-RateLimit-Limit': limit.toString(),
-            'X-RateLimit-Remaining': remaining.toString(),
-            'X-RateLimit-Reset': reset.toString()
-          }
-        })
-      }
-    }
     const { prompt } = await req.json()
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',

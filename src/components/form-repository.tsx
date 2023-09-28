@@ -1,7 +1,9 @@
 'use client'
+import { toast } from 'sonner'
 import { NameTemplate } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
 import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
+import { checkRateLimit } from '@/services/rate-limit'
 import { useTemplate } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'
 import { Input } from '@/components/ui/input'
@@ -20,6 +22,12 @@ export function FormRepository() {
     const formData = new FormData(e.currentTarget)
     const urlRepository = formData.get('urlRepository') as string
     if (!isValidGitHubRepositoryURL({ url: urlRepository }) || !templateSelected) return
+
+    const msg = await checkRateLimit()
+    if (msg) {
+      toast.error(msg)
+      return
+    }
 
     if (!promptBuilder) {
       promptBuilder = new PromptBuilder(urlRepository)
