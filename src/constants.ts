@@ -1,3 +1,5 @@
+import { Template } from '@/types'
+
 import {
   parseBuildGradle,
   parseCargo,
@@ -120,3 +122,86 @@ export const DISCUSSIONS_URL = `${BADGES_URL}/discussions`
 export const ISSUES_URL = `${BADGES_URL}/issues`
 export const PULL_REQUESTS_URL = `${BADGES_URL}/issues-pr`
 export const DEPLOYMENTS_URL = `${BADGES_URL}/deployments`
+
+export const DEFAULT_TEMPLATES: Template[] = [
+  {
+    srcImage: '/templates/minimal.webp',
+    altImage: 'Screenshot template Minimal',
+    nameTemplate: 'Minimal',
+    description:
+      'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
+    sections: ['Overview', 'Setting', 'Running', 'Deploy', 'License']
+  },
+  {
+    srcImage: '/templates/collaborate.webp',
+    altImage: 'Screenshot template Collaborate',
+    nameTemplate: 'Collaborate',
+    description:
+      'Enhance project collaboration with comprehensive project docs. Streamline setup, development, and collaboration processes for smoother project execution.',
+    sections: [
+      'Banner',
+      'Badges',
+      'Tech Stack',
+      'Project Summary',
+      'Setting Up',
+      'Running Locally',
+      'Contributors',
+      'License'
+    ]
+  },
+  {
+    srcImage: '/templates/inspire.webp',
+    altImage: 'Screenshot template Inspire',
+    nameTemplate: 'Inspire',
+    description:
+      'From project structure to deployment, Inspire streamlines every aspect for seamless development and collaboration.',
+    sections: [
+      'Banner',
+      'Badges',
+      'Overview',
+      'Project Structure',
+      'Project Summary',
+      'Tech Stack',
+      'Setting Up',
+      'Running Locally',
+      'Contributors',
+      'Deploy',
+      'License'
+    ]
+  },
+  {
+    srcImage: '/templates/empower.webp',
+    altImage: 'Screenshot template Empower',
+    nameTemplate: 'Empower',
+    description:
+      'Empower your project with structured documentation. Facilitate setup, development, and future planning for a more impactful project.',
+    sections: [
+      'Overview',
+      'Tech Stack',
+      'Setting Up',
+      'Running Locally',
+      'Roadmap',
+      'Acknowledgments',
+      'Changelog'
+    ]
+  },
+  {
+    srcImage: '/templates/unleash.webp',
+    altImage: 'Screenshot template Pinnacle',
+    nameTemplate: 'Unleash',
+    description:
+      'Unleash the full potential of your project with a dynamic documentation hub. From setup to FAQs, empower your team for a seamless project journey.',
+    sections: [
+      'Banner',
+      'Badges',
+      'Overview',
+      'Project Structure',
+      'Prerequisites',
+      'Running Locally',
+      'FAQ',
+      'Roadmap',
+      'Acknowledgments',
+      'License'
+    ]
+  }
+]
