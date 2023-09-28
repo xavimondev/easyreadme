@@ -6,6 +6,8 @@ export type Template = {
   nameTemplate: NameTemplate
   authorTemplate?: string
   urlAuthor?: string
+  description?: string
+  sections?: string[]
 }
 
 export type GitTreeResponse = {
