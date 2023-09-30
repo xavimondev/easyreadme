@@ -7,7 +7,7 @@ type CodeBlockProps = {
 
 export function CodeBlock({ content }: CodeBlockProps) {
   return (
-    <div className='w-full rounded-md overflow-hidden h-[calc(100vh-80px)]'>
+    <div className='w-full rounded-md overflow-hidden h-[calc(100vh-366px)] md:h-[calc(100vh-80px)] relative'>
       <CopyButton content={content} />
       <ReadmeCode content={content} />
     </div>
