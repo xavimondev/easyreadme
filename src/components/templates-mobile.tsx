@@ -14,7 +14,7 @@ export function TemplatesMobile() {
           </p>
         </div>
       </div>
-      <div className='pl-[46px] pb-2'>
+      <div className='pl-[37px] pb-2'>
         <Separator className='my-2 w-full' />
         <DialogMobile />
       </div>
