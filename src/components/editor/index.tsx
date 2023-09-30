@@ -14,7 +14,7 @@ export function CustomEditor({ content }: { content: string }) {
     editorProps: {
       attributes: {
         class:
-          'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-405px)] md:h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide'
+          'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-405px)] md:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
       }
     },
     extensions: DEFAULT_EXTENSIONS,
@@ -50,7 +50,7 @@ export function CustomEditor({ content }: { content: string }) {
   }, [isGenerating])
 
   return (
-    <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-366px)] md:h-[calc(100vh-80px)]'>
+    <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-366px)] md:h-[calc(100vh-63px)]'>
       <EditorContent editor={editor} className='w-full' />
     </div>
   )
