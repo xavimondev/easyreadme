@@ -31,7 +31,7 @@ export function DialogMobile() {
 
   return (
     <DrawerMobile
-      btnOpen={<button className='p-2 bg-blue-500'>Open</button>}
+      btnOpen={<span className='text-sm text-fuchsia-600 font-medium'>See templates</span>}
       open={open}
       setOpen={setOpen}
     >
