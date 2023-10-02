@@ -205,3 +205,22 @@ export const DEFAULT_TEMPLATES: Template[] = [
     ]
   }
 ]
+
+export const README_SECTIONS = {
+  banner: 'Banner',
+  stack: 'Stack',
+  'project-summary': 'Project summary',
+  'setting-up': 'Setting up',
+  'run-locally': 'Run locally',
+  contributors: 'Contributors',
+  license: 'License',
+  'project-structure': 'Project Structure',
+  deploy: 'Deploy',
+  roadmap: 'Roadmap',
+  acknowledgements: 'Acknowledgements',
+  changelog: 'Changelog',
+  prerequisites: 'Prerequisites',
+  faq: 'FAQ',
+  commands: 'Commands',
+  'table-contents': 'Table of Contents'
+}
