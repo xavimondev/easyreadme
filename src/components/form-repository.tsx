@@ -16,6 +16,7 @@ export function FormRepository() {
   const { minimal, collaborate, empower, inspire, unleash } = useTemplates()
   const isGenerating = useTemplate((state) => state.isGenerating)
   const templateSelected = useTemplate((state) => state.templateSelected)
+  const clearContentTemplate = useTemplate((state) => state.clearContentTemplate)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -33,6 +34,8 @@ export function FormRepository() {
       promptBuilder = new PromptBuilder(urlRepository)
     }
 
+    clearContentTemplate()
+
     const listTemplates: Record<NameTemplate, any> = {
       Minimal: minimal,
       Collaborate: collaborate,
@@ -40,7 +43,6 @@ export function FormRepository() {
       Inspire: inspire,
       Unleash: unleash
     }
-
     await listTemplates[templateSelected]({ promptBuilder })
   }
 

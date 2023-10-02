@@ -40,6 +40,8 @@ export function CustomEditor({ content }: { content: string }) {
     if (content !== '') {
       editor.commands.setContent(content)
       scrollToSelection(editor)
+    } else {
+      editor.commands.clearContent()
     }
   }, [content])
 
