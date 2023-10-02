@@ -5,7 +5,7 @@ type TemplateState = {
   templateSelected: NameTemplate
   setTemplateSelected: (templateName: NameTemplate) => void
   contentTemplate: string
-  setContentTemplate: (content: string) => void
+  addContentToTemplate: (content: string) => void
   clearContentTemplate: () => void
   isGenerating: boolean
   setIsGenerating: (isGenerating: boolean) => void
@@ -16,7 +16,7 @@ export const useTemplate = create<TemplateState>()((set) => ({
   contentTemplate: '',
   isGenerating: false,
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
-  setContentTemplate: (content: string) =>
+  addContentToTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
   clearContentTemplate: () => set({ contentTemplate: '' }),
   setIsGenerating: (isGenerating) => set({ isGenerating })
