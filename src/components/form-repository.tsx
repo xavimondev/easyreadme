@@ -8,7 +8,7 @@ import { useTemplate } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { GitIc } from '@/components/icons'
+import { GitIc, LightningIc, LoadingIc } from '@/components/icons'
 
 let promptBuilder: PromptBuilder
 
@@ -61,8 +61,23 @@ export function FormRepository() {
           placeholder='https://github.com/xavimondev/readme-creator'
         />
       </div>
-      <Button variant='secondary' type='submit' disabled={isGenerating}>
-        {!isGenerating ? 'Generate' : 'Generating...'}
+      <Button
+        variant='secondary'
+        type='submit'
+        className='flex gap-1 transition-colors'
+        disabled={isGenerating}
+      >
+        {!isGenerating ? (
+          <>
+            Generate
+            <LightningIc className='h-4 w-4' />
+          </>
+        ) : (
+          <>
+            Generating
+            <LoadingIc className='animate-spin h-4 w-4' />
+          </>
+        )}
       </Button>
     </form>
   )
