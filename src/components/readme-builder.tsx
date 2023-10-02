@@ -1,24 +1,16 @@
 'use client'
 import { useCompletion } from 'ai/react'
-import { useEffect, useState } from 'react'
 import { useTemplate } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CustomEditor } from '@/components/editor'
 import { CodeBlock } from '@/components/code-block'
 
 export function ReadmeBuilder() {
-  const [contentReadme, setContentReadme] = useState('')
-  const contentTemplate = useTemplate((state) => state.contentTemplate)
+  const contentTemplate = useTemplate((store) => store.contentTemplate)
   const { completion } = useCompletion({
     id: 'readme'
   })
-
-  useEffect(() => {
-    if (!completion) return
-
-    const content = `${contentTemplate}${completion}`
-    setContentReadme(content)
-  }, [completion])
+  const contentReadme = completion ? `${contentTemplate}${completion}` : `${contentTemplate}`
 
   return (
     <>
