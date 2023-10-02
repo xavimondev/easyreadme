@@ -17,13 +17,7 @@ export function CustomEditor({ content }: { content: string }) {
           'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-405px)] md:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
       }
     },
-    extensions: DEFAULT_EXTENSIONS,
-    onUpdate: (e) => {
-      const { editor } = e
-      if (editor) {
-        console.log(editor.storage.markdown.getMarkdown())
-      }
-    }
+    extensions: DEFAULT_EXTENSIONS
   })
 
   // Scroll without focus
