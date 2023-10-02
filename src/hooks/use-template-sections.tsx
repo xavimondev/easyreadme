@@ -9,6 +9,7 @@ export function useTemplateSections() {
   const { complete, setCompletion } = useCompletion({
     id: 'readme',
     onFinish: (_prompt, completion) => {
+      setCompletion('')
       setContentTemplate(`${completion}\n\n`)
     },
     onError: (err) => {
@@ -47,69 +48,56 @@ export function useTemplateSections() {
 
   const runningLocally = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const runningLocally = await promptBuilder.getRunningLocally()
-    setCompletion(runningLocally)
     setContentTemplate(runningLocally)
   }
 
   const acknowledgments = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const acknowledgments = promptBuilder.getAcknowledgments()
-    setCompletion(acknowledgments)
     setContentTemplate(acknowledgments)
   }
 
   const roadmap = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const roadmap = promptBuilder.getRoadmap()
-    setCompletion(roadmap)
     setContentTemplate(roadmap)
   }
 
   const changelog = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const changelog = promptBuilder.getChangelog()
-    setCompletion(changelog)
     setContentTemplate(changelog)
   }
 
   const commands = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const commands = promptBuilder.getCommands()
-    setCompletion(commands)
     setContentTemplate(commands)
   }
 
   const faq = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const faq = promptBuilder.getFaq()
-    setCompletion(faq)
     setContentTemplate(faq)
   }
 
   const projectStructure = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const projectStructure = await promptBuilder.getProjectStructure()
-    setCompletion(projectStructure)
     setContentTemplate(projectStructure)
   }
 
   const license = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const license = await promptBuilder.getLicense()
-    setCompletion(license)
-    setTimeout(() => {
-      setContentTemplate(license)
-    }, 2000)
+    setContentTemplate(license)
   }
 
   const deploy = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const deploy = promptBuilder.getDeploy()
-    setCompletion(deploy)
     setContentTemplate(deploy)
   }
 
   const tableContributors = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const table = await promptBuilder.getTableContributors({ contributorsPerRow: 7 })
-    setCompletion(table)
     setContentTemplate(table)
   }
 
   const galleryContributors = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const contributors = promptBuilder.getGalleryContributors()
-    setCompletion(contributors)
     setContentTemplate(contributors)
   }
 
@@ -121,13 +109,11 @@ export function useTemplateSections() {
     listBadges?: BadgeName[]
   }) => {
     const badges = promptBuilder.getBadges(...listBadges)
-    setCompletion(badges)
     setContentTemplate(badges)
   }
 
   const prerequisites = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const prerequisites = promptBuilder.getPrerequisites()
-    setCompletion(prerequisites)
     setContentTemplate(prerequisites)
   }
 
