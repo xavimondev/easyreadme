@@ -56,7 +56,7 @@ export class PromptBuilder {
   async getTechStack() {
     const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
-    const defaultSetup = `## Stack\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
+    const defaultSetup = `## ${README_SECTIONS['stack']}\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
       return defaultSetup
     }
@@ -106,7 +106,7 @@ export class PromptBuilder {
     const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
     const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
 
-    return `## Run locally
+    return `## ${README_SECTIONS['run-locally']}
 
 1.Clone the ${this.repoName} repository:
 
@@ -137,36 +137,36 @@ Insert RUN commands
   }
 
   getAcknowledgments() {
-    return `## Acknowledgements\n\n\`- [Awesome Tool](https://awesometool.link)\`\n\n\`- [Awesome Inspiration](https://awesomeinsp.link)\`\n\n`
+    return `## ${README_SECTIONS['acknowledgements']}\n\n\`- [Awesome Tool](https://awesometool.link)\`\n\n\`- [Awesome Inspiration](https://awesomeinsp.link)\`\n\n`
   }
 
   getRoadmap() {
-    return `## Roadmap\n\n- [X] **Task 1:** Implement feature one.\n\n- [   ] **Task 2:** Develop feature two.\n\n- [   ] **Task 3:** Enhance X.\n\n`
+    return `## ${README_SECTIONS['roadmap']}\n\n- [X] **Task 1:** Implement feature one.\n\n- [   ] **Task 2:** Develop feature two.\n\n- [   ] **Task 3:** Enhance X.\n\n`
   }
 
   getChangelog() {
-    return `## Changelog\n\n> All notable changes to this project will be documented in this section.\n\n#### [Version X.X.X] - YYYY-MM-DD\n\n
+    return `## ${README_SECTIONS['changelog']}\n\n> All notable changes to this project will be documented in this section.\n\n#### [Version X.X.X] - YYYY-MM-DD\n\n
 - New features or enhancements added in this release.\n\n- Fixes to errors or problems.\n\n`
   }
 
   // useful for vscode extensions
   getCommands() {
-    return `## Commands\n\nThis extension contributes the following commands to the Command palette:\n\n- \`Command name\`: Command description.\n\n- \`Authenticate\`: Command description.\n\n`
+    return `## ${README_SECTIONS['commands']}\n\nThis extension contributes the following commands to the Command palette:\n\n- \`Command name\`: Command description.\n\n- \`Authenticate\`: Command description.\n\n`
   }
 
   getFaq() {
-    return `## FAQ\n\n#### 1. What is this project about?\n\nThis project aims to **briefly describe your project's purpose and goals**.\n\n
+    return `## ${README_SECTIONS['faq']}\n\n#### 1. What is this project about?\n\nThis project aims to **briefly describe your project's purpose and goals**.\n\n
 #### 2. Can I contribute to this project?\n\nYes, we welcome contributions! Please refer to our [Contribution Guidelines](CONTRIBUTING.md) for more information on how to contribute.\n\n
 #### 3. Any other question\n\nYour answer.\n\n`
   }
 
   async getProjectStructure() {
     const tree = await getRepositoryTreeDirectory({ urlRepository: this.urlRepository })
-    return `## Project Structure\n\n\`\`\`bash\n${tree}\`\`\`\n\n`
+    return `## ${README_SECTIONS['project-structure']}\n\n\`\`\`bash\n${tree}\`\`\`\n\n`
   }
 
   async getLicense() {
-    const header = `## License\n\n`
+    const header = `## ${README_SECTIONS['license']}\n\n`
     const license = await getLicense({
       repoName: this.repoName as string,
       owner: this.repoOwner as string
@@ -176,7 +176,7 @@ Insert RUN commands
   }
 
   getDeploy() {
-    return `## Deploy\n\n\`[Application name](Your App URL)\`\n\n`
+    return `## ${README_SECTIONS['deploy']}\n\n\`[Application name](Your App URL)\`\n\n`
   }
 
   async getTableContributors({ contributorsPerRow }: { contributorsPerRow: number }) {
@@ -194,7 +194,7 @@ Insert RUN commands
         contributions: contributions
       })
     )
-    let table = `## Contributors\n\n<table style="border:1px solid #404040;text-align:center;width:100%">`
+    let table = `## ${README_SECTIONS['contributors']}\n\n<table style="border:1px solid #404040;text-align:center;width:100%">`
     let totalCells = 1
     const MAX_WIDTH_ROW = 100
     const width = (MAX_WIDTH_ROW / contributorsPerRow).toFixed(2)
@@ -229,7 +229,7 @@ Insert RUN commands
   }
 
   getGalleryContributors() {
-    return `## Contributors\n\n<a href="https://github.com/${this.repoOwner}/${this.repoName}/graphs/contributors">
+    return `## ${README_SECTIONS['contributors']}\n\n<a href="https://github.com/${this.repoOwner}/${this.repoName}/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=${this.repoOwner}/${this.repoName}" /></a>\n\n`
   }
 
@@ -249,7 +249,7 @@ Insert RUN commands
   }
 
   getPrerequisites() {
-    return `## Prerequisites\n\n- Prerequisite 1\n\n- Prerequisite 2\n\n`
+    return `## ${README_SECTIONS['prerequisites']}\n\n- Prerequisite 1\n\n- Prerequisite 2\n\n`
   }
 
   async getProjectSummary() {
@@ -268,7 +268,7 @@ Insert RUN commands
   }
 
   getTableContents({ sections }: { sections: Section[] }) {
-    const header = `## Table of Contents\n\n`
+    const header = `## ${README_SECTIONS['table-contents']}\n\n`
     let table = ''
     sections.forEach((section) => {
       const sectionValue = README_SECTIONS[section]

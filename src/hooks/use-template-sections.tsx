@@ -3,6 +3,7 @@ import { toast } from 'sonner'
 import { useTemplate } from '@/store'
 import { BadgeName, Section } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
+import { README_SECTIONS } from '@/constants'
 
 export function useTemplateSections() {
   const setContentTemplate = useTemplate((state) => state.setContentTemplate)
@@ -36,7 +37,7 @@ export function useTemplateSections() {
 
   const settingUp = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     const promptSettingUp = await promptBuilder.getEnvironmentVariablesGuide()
-    const header = `## Setting up\n\n`
+    const header = `## ${README_SECTIONS['setting-up']}\n\n`
     if (!promptSettingUp) {
       setContentTemplate(`${header}#### Your Environment Variable\n\n- Step 1\n\n- Step 2\n\n`)
       return
@@ -118,7 +119,7 @@ export function useTemplateSections() {
   }
 
   const projectSummary = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    setContentTemplate(`## Project summary\n\n`)
+    setContentTemplate(`## ${README_SECTIONS['project-summary']}\n\n`)
     const promptProjectSummary = await promptBuilder.getProjectSummary()
     await complete(promptProjectSummary)
   }
