@@ -1,3 +1,5 @@
+import { README_SECTIONS } from '@/constants'
+
 export type NameTemplate = 'Minimal' | 'Collaborate' | 'Inspire' | 'Empower' | 'Unleash'
 
 export type Template = {
@@ -51,3 +53,5 @@ export type BadgeName =
   | 'issues'
   | 'pull_requests'
   | 'deployment'
+
+export type Section = keyof typeof README_SECTIONS
