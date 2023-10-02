@@ -1,5 +1,5 @@
-import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP } from '@/constants'
-import { BadgeName } from '@/types'
+import { BadgeName, Section } from '@/types'
+import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import {
   getBadgeByName,
   getContributors,
@@ -265,5 +265,15 @@ Insert RUN commands
       mainLanguage
     })
     return promptProjectSummary
+  }
+
+  getTableContents({ sections }: { sections: Section[] }) {
+    const header = `## Table of Contents\n\n`
+    let table = ''
+    sections.forEach((section) => {
+      const sectionValue = README_SECTIONS[section]
+      table += `* [${sectionValue}](#${section})\n\n`
+    })
+    return `${header}${table}`
   }
 }

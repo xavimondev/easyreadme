@@ -12,7 +12,6 @@ export function useTemplates() {
     acknowledgments,
     roadmap,
     changelog,
-    commands,
     faq,
     projectStructure,
     license,
@@ -21,7 +20,8 @@ export function useTemplates() {
     tableContributors,
     badges,
     prerequisites,
-    projectSummary
+    projectSummary,
+    tableOfContents
   } = useTemplateSections()
   const setIsGenerating = useTemplate((state) => state.setIsGenerating)
 
@@ -42,6 +42,10 @@ export function useTemplates() {
       promptBuilder,
       listBadges: ['contributors', 'discussions', 'issues', 'pull_requests']
     })
+    tableOfContents({
+      promptBuilder,
+      sections: ['stack', 'project-summary', 'setting-up', 'run-locally', 'contributors', 'license']
+    })
     await techStack({ promptBuilder })
     await projectSummary({ promptBuilder })
     await settingUp({ promptBuilder })
@@ -59,6 +63,19 @@ export function useTemplates() {
       listBadges: ['codesize', 'last_commit', 'commit_activity_month', 'license']
     })
     await overview({ promptBuilder })
+    tableOfContents({
+      promptBuilder,
+      sections: [
+        'project-structure',
+        'project-summary',
+        'stack',
+        'setting-up',
+        'run-locally',
+        'contributors',
+        'deploy',
+        'license'
+      ]
+    })
     await projectStructure({ promptBuilder })
     await projectSummary({ promptBuilder })
     await techStack({ promptBuilder })
@@ -73,6 +90,10 @@ export function useTemplates() {
   const empower = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
     setIsGenerating(true)
     await overview({ promptBuilder })
+    tableOfContents({
+      promptBuilder,
+      sections: ['stack', 'setting-up', 'run-locally', 'roadmap', 'acknowledgements', 'changelog']
+    })
     await techStack({ promptBuilder })
     await settingUp({ promptBuilder })
     await runningLocally({ promptBuilder })
@@ -90,6 +111,18 @@ export function useTemplates() {
       listBadges: ['top_language', 'codesize', 'stars', 'deployment']
     })
     await overview({ promptBuilder })
+    tableOfContents({
+      promptBuilder,
+      sections: [
+        'project-structure',
+        'prerequisites',
+        'run-locally',
+        'faq',
+        'roadmap',
+        'acknowledgements',
+        'license'
+      ]
+    })
     await projectStructure({ promptBuilder })
     prerequisites({ promptBuilder })
     await runningLocally({ promptBuilder })

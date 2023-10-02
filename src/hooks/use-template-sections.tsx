@@ -1,7 +1,7 @@
 import { useCompletion } from 'ai/react'
 import { toast } from 'sonner'
 import { useTemplate } from '@/store'
-import { BadgeName } from '@/types'
+import { BadgeName, Section } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
 
 export function useTemplateSections() {
@@ -123,6 +123,17 @@ export function useTemplateSections() {
     await complete(promptProjectSummary)
   }
 
+  const tableOfContents = ({
+    promptBuilder,
+    sections
+  }: {
+    promptBuilder: PromptBuilder
+    sections: Section[]
+  }) => {
+    const contents = promptBuilder.getTableContents({ sections })
+    setContentTemplate(contents)
+  }
+
   return {
     banner,
     overview,
@@ -141,6 +152,7 @@ export function useTemplateSections() {
     galleryContributors,
     badges,
     prerequisites,
-    projectSummary
+    projectSummary,
+    tableOfContents
   }
 }
