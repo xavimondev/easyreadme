@@ -130,7 +130,7 @@ export const DEFAULT_TEMPLATES: Template[] = [
     nameTemplate: 'Minimal',
     description:
       'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
-    sections: ['Overview', 'Setting', 'Running', 'Deploy', 'License']
+    sections: ['overview', 'setting-up', 'run-locally', 'deploy', 'license']
   },
   {
     srcImage: '/templates/collaborate.webp',
@@ -139,14 +139,15 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'Enhance project collaboration with comprehensive project docs. Streamline setup, development, and collaboration processes for smoother project execution.',
     sections: [
-      'Banner',
-      'Badges',
-      'Tech Stack',
-      'Project Summary',
-      'Setting Up',
-      'Running Locally',
-      'Contributors',
-      'License'
+      'banner',
+      'badges',
+      'table-contents',
+      'stack',
+      'project-summary',
+      'setting-up',
+      'run-locally',
+      'contributors',
+      'license'
     ]
   },
   {
@@ -156,17 +157,18 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'From project structure to deployment, Inspire streamlines every aspect for seamless development and collaboration.',
     sections: [
-      'Banner',
-      'Badges',
-      'Overview',
-      'Project Structure',
-      'Project Summary',
-      'Tech Stack',
-      'Setting Up',
-      'Running Locally',
-      'Contributors',
-      'Deploy',
-      'License'
+      'banner',
+      'badges',
+      'overview',
+      'table-contents',
+      'project-structure',
+      'project-summary',
+      'stack',
+      'setting-up',
+      'run-locally',
+      'contributors',
+      'deploy',
+      'license'
     ]
   },
   {
@@ -176,13 +178,14 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'Empower your project with structured documentation. Facilitate setup, development, and future planning for a more impactful project.',
     sections: [
-      'Overview',
-      'Tech Stack',
-      'Setting Up',
-      'Running Locally',
-      'Roadmap',
-      'Acknowledgments',
-      'Changelog'
+      'overview',
+      'table-contents',
+      'stack',
+      'setting-up',
+      'run-locally',
+      'roadmap',
+      'acknowledgements',
+      'changelog'
     ]
   },
   {
@@ -192,16 +195,17 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'Unleash the full potential of your project with a dynamic documentation hub. From setup to FAQs, empower your team for a seamless project journey.',
     sections: [
-      'Banner',
-      'Badges',
-      'Overview',
-      'Project Structure',
-      'Prerequisites',
-      'Running Locally',
-      'FAQ',
-      'Roadmap',
-      'Acknowledgments',
-      'License'
+      'banner',
+      'badges',
+      'overview',
+      'table-contents',
+      'project-structure',
+      'prerequisites',
+      'run-locally',
+      'faq',
+      'roadmap',
+      'acknowledgements',
+      'license'
     ]
   }
 ]
@@ -222,5 +226,7 @@ export const README_SECTIONS = {
   prerequisites: 'Prerequisites',
   faq: 'FAQ',
   commands: 'Commands',
-  'table-contents': 'Table of Contents'
+  'table-contents': 'Table of Contents',
+  overview: 'Overview',
+  badges: 'Badges'
 }

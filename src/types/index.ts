@@ -9,7 +9,7 @@ export type Template = {
   authorTemplate?: string
   urlAuthor?: string
   description?: string
-  sections?: string[]
+  sections?: Section[]
 }
 
 export type GitTreeResponse = {

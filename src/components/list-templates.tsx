@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { DEFAULT_TEMPLATES } from '@/constants'
+import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
 import { Template } from '@/types'
 import { cn } from '@/lib/utils'
 import { useTemplate } from '@/store'
@@ -64,11 +64,14 @@ export function TemplateItem({
             <div className='flex flex-col gap-2'>
               <span className='font-medium'>Sections({sections.length}):</span>
               <ul className='text-sm list-disc list-inside space-y-1'>
-                {sections.map((section) => (
-                  <li key={section} className='text-muted-foreground'>
-                    {section}
-                  </li>
-                ))}
+                {sections.map((section) => {
+                  const sectionName = README_SECTIONS[section]
+                  return (
+                    <li key={section} className='text-muted-foreground'>
+                      {sectionName}
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           )}
