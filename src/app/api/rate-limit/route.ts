@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { kv } from '@vercel/kv'
 import { Ratelimit } from '@upstash/ratelimit'
 import { RATE_LIMIT } from '@/constants'
+import { addGeneration } from '@/services/kv-generation'
 
 export async function POST(req: Request) {
   try {
@@ -33,6 +34,9 @@ export async function POST(req: Request) {
             }
           }
         )
+      } else {
+        // increase number of generations
+        await addGeneration()
       }
     }
 
