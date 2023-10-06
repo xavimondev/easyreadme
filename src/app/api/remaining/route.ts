@@ -10,8 +10,13 @@ export async function GET(req: Request) {
       process.env.KV_REST_API_TOKEN
     ) {
       const ip = req.headers.get('x-forwarded-for')
-      const remaining = await kv.get(`ratelimit_${ip}`)
-      return NextResponse.json({ remaining: remaining ?? 0 })
+      const windowDuration = 24 * 60 * 60 * 1000
+      const bucket = Math.floor(Date.now() / windowDuration)
+
+      const valueRate = await kv.get(`@upstash/ratelimit:ratelimit_${ip}:${bucket}`)
+      const usedGenerations = valueRate || 0
+      const remainingGenerations = RATE_LIMIT - Number(usedGenerations)
+      return NextResponse.json({ remaining: remainingGenerations })
     }
     return NextResponse.json({ remaining: RATE_LIMIT })
   } catch (error) {
