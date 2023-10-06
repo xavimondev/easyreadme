@@ -1,5 +1,5 @@
 import { PromptBuilder } from '@/utils/prompt-builder'
-import { useTemplateSections } from '@/hooks/use-template-sections'
+import { useSections } from '@/hooks/use-sections'
 import { useTemplate } from '@/store'
 
 export function useTemplates() {
@@ -22,7 +22,7 @@ export function useTemplates() {
     prerequisites,
     projectSummary,
     tableOfContents
-  } = useTemplateSections()
+  } = useSections()
   const setIsGenerating = useTemplate((state) => state.setIsGenerating)
 
   const minimal = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {

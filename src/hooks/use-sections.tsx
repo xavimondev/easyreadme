@@ -5,7 +5,7 @@ import { BadgeName, Section } from '@/types'
 import { PromptBuilder } from '@/utils/prompt-builder'
 import { README_SECTIONS } from '@/constants'
 
-export function useTemplateSections() {
+export function useSections() {
   const addContentToTemplate = useTemplate((state) => state.addContentToTemplate)
   const { complete, setCompletion } = useCompletion({
     id: 'readme',
