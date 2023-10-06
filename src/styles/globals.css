@@ -87,3 +87,13 @@
   width: 0.5em;
   height: 0.5em;
 }
+
+@layer components {
+  .bg-circles {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle cx='100' cy='100' r='100' fill='transparent' stroke='white' /><circle cx='100' cy='100' r='75' fill='transparent' stroke='white'/><circle cx='100' cy='100' r='50' fill='transparent' stroke='white'/><circle cx='100' cy='100' r='25' fill='transparent' stroke='white'/></svg>");
+    background-repeat: no-repeat;
+    background-position: top -130px right -130px;
+    background-size: 250px;
+    opacity: 0.1;
+  }
+}
