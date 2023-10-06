@@ -6,6 +6,7 @@ import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useTemplate } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'
+import { useRemaining } from '@/hooks/use-remaining'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { GitIc, LightningIc, LoadingIc } from '@/components/icons'
@@ -17,6 +18,7 @@ export function FormRepository() {
   const isGenerating = useTemplate((state) => state.isGenerating)
   const templateSelected = useTemplate((state) => state.templateSelected)
   const clearContentTemplate = useTemplate((state) => state.clearContentTemplate)
+  const { mutate } = useRemaining()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,6 +37,7 @@ export function FormRepository() {
     }
 
     clearContentTemplate()
+    mutate()
 
     const listTemplates: Record<NameTemplate, any> = {
       Minimal: minimal,
