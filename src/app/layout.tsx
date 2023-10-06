@@ -2,14 +2,35 @@ import '../styles/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { APP_URL } from '@/constants'
 import { ThemeProvider } from '@/components/theme-provider'
 import { CustomToaster } from '@/components/custom-toaster'
 
 const inter = Inter({ subsets: ['latin'], weight: ['500', '600', '700'] })
 
+const title = 'Easyreadme - IA Powered README Builder'
+const description = `Use easyreadme to simplify README creation, and generate visually stunning READMEs with the help of IA and elegant pre-designed templates.`
 export const metadata: Metadata = {
-  title: 'Readme IA',
-  description: 'Created README with IA'
+  metadataBase: new URL(APP_URL),
+  title,
+  description,
+  keywords: ['readme', 'easiest', 'ia', 'builder', 'markdown', 'git', 'github', 'gitlab'],
+  openGraph: {
+    title,
+    description,
+    url: '/',
+    siteName: 'Easyreadme.dev',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/banner.jpg',
+        width: 1835,
+        height: 1000,
+        type: 'image/jpeg'
+      }
+    ]
+  }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
