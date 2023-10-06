@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { kv } from '@vercel/kv'
 import { Ratelimit } from '@upstash/ratelimit'
+import { RATE_LIMIT } from '@/constants'
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
       const ratelimit = new Ratelimit({
         redis: kv,
         // rate limit to 10 templates per day
-        limiter: Ratelimit.slidingWindow(10, '1 d')
+        limiter: Ratelimit.slidingWindow(RATE_LIMIT, '1 d')
       })
 
       const { success, limit, reset, remaining } = await ratelimit.limit(`ratelimit_${ip}`)
