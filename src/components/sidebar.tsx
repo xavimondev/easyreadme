@@ -2,7 +2,7 @@ import { ListTemplates } from '@/components/list-templates'
 import { FormRepository } from '@/components/form-repository'
 import { ColumnsIc } from '@/components/icons'
 import { TemplatesMobile } from '@/components/templates-mobile'
-import { CountTemplates } from '@/components/count-templates'
+import { CounterTemplate } from '@/components/counter-template'
 
 export function Sidebar() {
   return (
@@ -16,7 +16,7 @@ export function Sidebar() {
                 Builder
               </h2>
             </div>
-            <CountTemplates />
+            <CounterTemplate />
           </div>
           <FormRepository />
         </div>

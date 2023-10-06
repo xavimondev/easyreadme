@@ -3,7 +3,7 @@ import { RATE_LIMIT } from '@/constants'
 import { useRemaining } from '@/hooks/use-remaining'
 import { LoadingIc } from '@/components/icons'
 
-export function CountTemplates() {
+export function CounterTemplate() {
   const { data, isLoading } = useRemaining()
 
   return (
