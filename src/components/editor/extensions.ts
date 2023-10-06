@@ -133,7 +133,7 @@ export const DEFAULT_EXTENSIONS = [
   Link.configure({
     HTMLAttributes: {
       class:
-        'text-blue-300 hover:text-blue-400 no-underline hover:underline hover:underline-offset-2 transition-colors cursor-pointer'
+        'text-blue-500 hover:text-blue-600 dark:text-blue-300 hover:text-blue-400 no-underline hover:underline hover:underline-offset-2 transition-colors cursor-pointer'
     }
   }),
   TextAlign.configure({

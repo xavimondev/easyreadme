@@ -66,7 +66,7 @@ export function FormRepository() {
       <Button
         variant='secondary'
         type='submit'
-        className='flex gap-1 transition-colors'
+        className='flex gap-1 transition-colors border dark:border-gray-800 border-gray-400'
         disabled={isGenerating}
       >
         {!isGenerating ? (

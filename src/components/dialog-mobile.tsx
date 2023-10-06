@@ -53,7 +53,7 @@ export function DialogMobile() {
                     alt={altImage}
                     width={300}
                     height={300}
-                    className='rounded-md w-full h-full object-cover'
+                    className='rounded-md w-full h-full object-cover border border-gray-400 dark:border-none'
                   />
                 </div>
                 <h4 className='font-medium leading-none text-4xl text-center'>{nameTemplate}</h4>

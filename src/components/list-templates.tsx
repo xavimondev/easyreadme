@@ -34,12 +34,15 @@ export function TemplateItem({
               width={500}
               height={500}
               priority={nameTemplate === 'Minimal'}
-              className={cn('w-full h-[220px] rounded-md object-cover', {
-                'border border-sky-600': isSelected
-              })}
+              className={cn(
+                'w-full h-[220px] rounded-md object-cover border border-gray-300 dark:border-none',
+                {
+                  'border-2 border-sky-600': isSelected
+                }
+              )}
             />
             <figcaption
-              className={cn('text-sm text-gray-400 mt-2 text-center italic', {
+              className={cn('text-gray-400 mt-2 text-center italic font-semibold', {
                 'text-sky-600': isSelected
               })}
             >
