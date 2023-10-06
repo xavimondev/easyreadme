@@ -11,9 +11,9 @@ export default function Home() {
         <div className='flex h-14 items-center justify-between'>
           <Link
             href='/'
-            className='text-base sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 dark:from-cyan-500 to-blue-500 dark:to-blue-300'
+            className='text-base sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'
           >
-            readme.build
+            easyreadme
           </Link>
           <div className='flex gap-2 items-center'>
             <Link
@@ -35,17 +35,17 @@ export default function Home() {
           <div className='px-5 md:px-32 w-full sm:max-w-4xl flex flex-col gap-10 animate-delay-100 animate-fadeIn text-left'>
             <h1 className='text-black dark:text-white text-3xl lg:text-6xl !leading-tight font-semibold'>
               Craft{' '}
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500 dark:from-[#f9d07d] dark:to-[#cb4558]'>
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
                 Stunning{' '}
               </span>
               READMEs{' '}
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500 dark:from-[#f9d07d] dark:to-[#cb4558]'>
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
                 Effortlessly
               </span>
             </h1>
             <p className='text-gray-500 dark:text-gray-300/90 text-base sm:text-2xl'>
               Generate visually stunning READMEs effortlessly with the help of{' '}
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500 dark:from-[#f9d07d] dark:to-[#cb4558]'>
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
                 IA and elegant pre-designed templates.
               </span>
             </p>
@@ -75,8 +75,8 @@ export default function Home() {
             className='absolute w-1/2 sm:h-96 top-0 sm:top-64 right-0 sm:-right-40 opacity-50 filter blur-[100px] z-0 hidden sm:block'
           >
             <div className='relative'>
-              <div className='rounded-full h-52 sm:h-96 w-full bg-cyan-500 dark:bg-cyan-500'></div>
-              <div className='absolute top-32 left-0 sm:left-24 rounded-full h-48 sm:h-96 w-full bg-sky-800 dark:bg-sky-600'></div>
+              <div className='rounded-full h-52 sm:h-96 w-full bg-red-800 dark:bg-red-300'></div>
+              <div className='absolute top-32 left-0 sm:left-24 rounded-full h-48 sm:h-96 w-full bg-blue-800 dark:bg-blue-600'></div>
             </div>
           </div>
           <ImageTheme />
