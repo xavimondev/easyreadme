@@ -32,6 +32,7 @@ export function ImageTheme() {
       alt={`Screenshot application mode ${theme}`}
       width={3000}
       height={1800}
+      priority
       className='border 
       border-gray-500/50 
       rounded-md 
