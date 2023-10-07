@@ -24,7 +24,10 @@ export function FormRepository() {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const urlRepository = formData.get('urlRepository') as string
-    if (!isValidGitHubRepositoryURL({ url: urlRepository }) || !templateSelected) return
+    if (!isValidGitHubRepositoryURL({ url: urlRepository }) || !templateSelected) {
+      toast.error('Invalid GitHub URL')
+      return
+    }
 
     const msg = await checkRateLimit()
     if (msg) {
