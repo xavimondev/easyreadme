@@ -10,8 +10,7 @@ export const getPromptOverview = ({
 
 ${directoryTree}
 Provide a precise overview that captures the fundamental features and project's goal.
-Keep your response under 200 characters (including spaces).
-Only respond with a paragraph.`
+Keep your response under 250 characters.`
 }
 
 export const generateTechStack = ({
@@ -59,5 +58,5 @@ export const generateProjectSummary = ({
 ${directories}
 
 Provide a comprehensive summary per each path. Only responde with this format:
-- [**path**](path): Summary up to 200 characters.`
+- [**path**](path): Summary up to 100 characters.`
 }
