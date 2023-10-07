@@ -37,7 +37,7 @@ export function ImageTheme() {
       border-gray-500/50 
       rounded-md 
       shadow-md 
-      object-cover 
+      object-fill 
       object-center 
       w-full 
       h-full 
