@@ -44,8 +44,13 @@ export async function POST(req: Request) {
   } catch (error) {
     // Check if the error is an APIError
     if (error instanceof OpenAI.APIError) {
-      const { name, status, headers, message } = error
-      return NextResponse.json({ name, status, headers, message }, { status })
+      console.error(error.message)
+      const errorMessage = 'An error has ocurred with API Completions. Please try again.'
+      const { name, status, headers } = error
+      // if (error.code === 'context_length_exceeded') {
+      //   errorMessage = error.message
+      // }
+      return NextResponse.json({ name, status, headers, message: errorMessage }, { status })
     } else {
       throw error
     }

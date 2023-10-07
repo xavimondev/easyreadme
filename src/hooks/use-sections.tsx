@@ -14,7 +14,8 @@ export function useSections() {
       addContentToTemplate(`${completion}\n\n`)
     },
     onError: (err) => {
-      toast.error(err.message)
+      const error = JSON.parse(err.message)
+      toast.error(error.message)
     }
   })
 
