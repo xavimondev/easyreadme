@@ -10,6 +10,7 @@ export type Template = {
   urlAuthor?: string
   description?: string
   sections?: Section[]
+  srcVideo?: string
 }
 
 export type GitTreeResponse = {

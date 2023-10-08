@@ -14,7 +14,8 @@ export function TemplateItem({
   authorTemplate,
   urlAuthor,
   sections,
-  description
+  description,
+  srcVideo
 }: Template) {
   const templateSelected = useTemplate((state) => state.templateSelected)
   const setTemplateSelected = useTemplate((state) => state.setTemplateSelected)
@@ -59,7 +60,17 @@ export function TemplateItem({
           </figure>
         </div>
       </HoverCardTrigger>
-      <HoverCardContent className='w-80 min-h-[100px]' align='start' side='right'>
+      <HoverCardContent className='w-80 min-w-[450px] h-full' align='start' side='right'>
+        <div className='overflow-hidden w-full h-full mb-2'>
+          <video
+            controls
+            muted
+            poster='/video-fallback.webp'
+            controlsList='nofullscreen nodownload noremoteplayback noplaybackrate foobar'
+          >
+            <source src={srcVideo} type='video/webm' />
+          </video>
+        </div>
         <div className='flex flex-col gap-4'>
           <h4 className='font-medium leading-none'>{nameTemplate}</h4>
           <p className='text-sm text-muted-foreground'>{description}</p>

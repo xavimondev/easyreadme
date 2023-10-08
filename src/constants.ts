@@ -130,7 +130,9 @@ export const DEFAULT_TEMPLATES: Template[] = [
     nameTemplate: 'Minimal',
     description:
       'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
-    sections: ['overview', 'setting-up', 'run-locally', 'deploy', 'license']
+    sections: ['overview', 'setting-up', 'run-locally', 'deploy', 'license'],
+    srcVideo:
+      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/minimal_mqefxi.mp4'
   },
   {
     srcImage: '/templates/collaborate.webp',
@@ -148,7 +150,9 @@ export const DEFAULT_TEMPLATES: Template[] = [
       'run-locally',
       'contributors',
       'license'
-    ]
+    ],
+    srcVideo:
+      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/collab_nn15cr.mp4'
   },
   {
     srcImage: '/templates/inspire.webp',
@@ -169,7 +173,9 @@ export const DEFAULT_TEMPLATES: Template[] = [
       'contributors',
       'deploy',
       'license'
-    ]
+    ],
+    srcVideo:
+      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/inspire_aaoefb.mp4'
   },
   {
     srcImage: '/templates/empower.webp',
@@ -186,7 +192,9 @@ export const DEFAULT_TEMPLATES: Template[] = [
       'roadmap',
       'acknowledgements',
       'changelog'
-    ]
+    ],
+    srcVideo:
+      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/emp_bkyg5x.mp4'
   },
   {
     srcImage: '/templates/unleash.webp',
@@ -206,7 +214,9 @@ export const DEFAULT_TEMPLATES: Template[] = [
       'roadmap',
       'acknowledgements',
       'license'
-    ]
+    ],
+    srcVideo:
+      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782242/easyreadme/templates/demos/unleash_gicncc.mp4'
   }
 ]
 
