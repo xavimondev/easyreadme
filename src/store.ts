@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { NameTemplate } from '@/types'
+import { DEFAULT_CONTENT } from '@/constants'
 
 type TemplateState = {
   templateSelected: NameTemplate
@@ -13,7 +14,7 @@ type TemplateState = {
 
 export const useTemplate = create<TemplateState>()((set) => ({
   templateSelected: 'Minimal',
-  contentTemplate: '',
+  contentTemplate: DEFAULT_CONTENT,
   isGenerating: false,
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   addContentToTemplate: (content: string) =>
