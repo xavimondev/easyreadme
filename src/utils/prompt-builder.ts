@@ -31,7 +31,7 @@ export class PromptBuilder {
   }
 
   getBanner() {
-    return `<p style="text-align:center;"><a href=${this.urlRepository} target="_blank"><img src='/placeholder.png' width="100%" alt="Banner" /></a></p>`
+    return `<p style="text-align:center;"><a href=${this.urlRepository} target="_blank"><img src='/placeholder.jpg' width="100%" alt="Banner" /></a></p>`
   }
 
   getRepoName() {
