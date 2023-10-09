@@ -2,7 +2,7 @@ import { useCompletion } from 'ai/react'
 import { toast } from 'sonner'
 import { useTemplate } from '@/store'
 import { BadgeName, Section } from '@/types'
-import { PromptBuilder } from '@/utils/prompt-builder'
+import { RepositoryTemplate } from '@/utils/repository-template'
 import { README_SECTIONS } from '@/constants'
 
 export function useSections() {
@@ -19,25 +19,25 @@ export function useSections() {
     }
   })
 
-  const banner = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const banner = promptBuilder.getBanner()
+  const banner = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const banner = repositoryTemplate.getBanner()
     addContentToTemplate(`${banner}\n\n`)
   }
 
-  const overview = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    addContentToTemplate(`# ${promptBuilder.getRepoName()}\n\n`)
-    const promptOverview = await promptBuilder.getOverview()
+  const overview = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    addContentToTemplate(`# ${repositoryTemplate.getRepoName()}\n\n`)
+    const promptOverview = await repositoryTemplate.getOverview()
     await complete(promptOverview)
   }
 
-  const techStack = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const techStack = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     addContentToTemplate(`## Stack\n\n`)
-    const promptTechStack = await promptBuilder.getTechStack()
+    const promptTechStack = await repositoryTemplate.getTechStack()
     await complete(promptTechStack)
   }
 
-  const settingUp = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const promptSettingUp = await promptBuilder.getEnvironmentVariablesGuide()
+  const settingUp = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const promptSettingUp = await repositoryTemplate.getEnvironmentVariablesGuide()
     const header = `## ${README_SECTIONS['setting-up']}\n\n`
     if (!promptSettingUp) {
       addContentToTemplate(`${header}#### Your Environment Variable\n\n- Step 1\n\n- Step 2\n\n`)
@@ -48,91 +48,111 @@ export function useSections() {
     await complete(promptSettingUp)
   }
 
-  const runningLocally = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const runningLocally = await promptBuilder.getRunningLocally()
+  const runningLocally = async ({
+    repositoryTemplate
+  }: {
+    repositoryTemplate: RepositoryTemplate
+  }) => {
+    const runningLocally = await repositoryTemplate.getRunningLocally()
     addContentToTemplate(runningLocally)
   }
 
-  const acknowledgments = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const acknowledgments = promptBuilder.getAcknowledgments()
+  const acknowledgments = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const acknowledgments = repositoryTemplate.getAcknowledgments()
     addContentToTemplate(acknowledgments)
   }
 
-  const roadmap = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const roadmap = promptBuilder.getRoadmap()
+  const roadmap = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const roadmap = repositoryTemplate.getRoadmap()
     addContentToTemplate(roadmap)
   }
 
-  const changelog = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const changelog = promptBuilder.getChangelog()
+  const changelog = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const changelog = repositoryTemplate.getChangelog()
     addContentToTemplate(changelog)
   }
 
-  const commands = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const commands = promptBuilder.getCommands()
+  const commands = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const commands = repositoryTemplate.getCommands()
     addContentToTemplate(commands)
   }
 
-  const faq = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const faq = promptBuilder.getFaq()
+  const faq = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const faq = repositoryTemplate.getFaq()
     addContentToTemplate(faq)
   }
 
-  const projectStructure = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const projectStructure = await promptBuilder.getProjectStructure()
+  const projectStructure = async ({
+    repositoryTemplate
+  }: {
+    repositoryTemplate: RepositoryTemplate
+  }) => {
+    const projectStructure = await repositoryTemplate.getProjectStructure()
     addContentToTemplate(projectStructure)
   }
 
-  const license = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const license = await promptBuilder.getLicense()
+  const license = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const license = await repositoryTemplate.getLicense()
     addContentToTemplate(license)
   }
 
-  const deploy = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const deploy = promptBuilder.getDeploy()
+  const deploy = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const deploy = repositoryTemplate.getDeploy()
     addContentToTemplate(deploy)
   }
 
-  const tableContributors = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const table = await promptBuilder.getTableContributors({ contributorsPerRow: 7 })
+  const tableContributors = async ({
+    repositoryTemplate
+  }: {
+    repositoryTemplate: RepositoryTemplate
+  }) => {
+    const table = await repositoryTemplate.getTableContributors({ contributorsPerRow: 7 })
     addContentToTemplate(table)
   }
 
-  const galleryContributors = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const contributors = promptBuilder.getGalleryContributors()
+  const galleryContributors = ({
+    repositoryTemplate
+  }: {
+    repositoryTemplate: RepositoryTemplate
+  }) => {
+    const contributors = repositoryTemplate.getGalleryContributors()
     addContentToTemplate(contributors)
   }
 
   const badges = ({
-    promptBuilder,
+    repositoryTemplate,
     listBadges = ['stars', 'contributors', 'top_language', 'license']
   }: {
-    promptBuilder: PromptBuilder
+    repositoryTemplate: RepositoryTemplate
     listBadges?: BadgeName[]
   }) => {
-    const badges = promptBuilder.getBadges(...listBadges)
+    const badges = repositoryTemplate.getBadges(...listBadges)
     addContentToTemplate(badges)
   }
 
-  const prerequisites = ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
-    const prerequisites = promptBuilder.getPrerequisites()
+  const prerequisites = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const prerequisites = repositoryTemplate.getPrerequisites()
     addContentToTemplate(prerequisites)
   }
 
-  const projectSummary = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const projectSummary = async ({
+    repositoryTemplate
+  }: {
+    repositoryTemplate: RepositoryTemplate
+  }) => {
     addContentToTemplate(`## ${README_SECTIONS['project-summary']}\n\n`)
-    const promptProjectSummary = await promptBuilder.getProjectSummary()
+    const promptProjectSummary = await repositoryTemplate.getProjectSummary()
     await complete(promptProjectSummary)
   }
 
   const tableOfContents = ({
-    promptBuilder,
+    repositoryTemplate,
     sections
   }: {
-    promptBuilder: PromptBuilder
+    repositoryTemplate: RepositoryTemplate
     sections: Section[]
   }) => {
-    const contents = promptBuilder.getTableContents({ sections })
+    const contents = repositoryTemplate.getTableContents({ sections })
     addContentToTemplate(contents)
   }
 

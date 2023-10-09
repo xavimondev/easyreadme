@@ -1,7 +1,7 @@
 'use client'
 import { toast } from 'sonner'
 import { NameTemplate } from '@/types'
-import { PromptBuilder } from '@/utils/prompt-builder'
+import { RepositoryTemplate } from '@/utils/repository-template'
 import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useTemplate } from '@/store'
@@ -10,8 +10,6 @@ import { useRemaining } from '@/hooks/use-remaining'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { GitIc, LightningIc, LoadingIc } from '@/components/icons'
-
-let promptBuilder: PromptBuilder
 
 export function FormRepository() {
   const { minimal, collaborate, empower, inspire, unleash } = useTemplates()
@@ -35,9 +33,7 @@ export function FormRepository() {
       return
     }
 
-    if (!promptBuilder) {
-      promptBuilder = new PromptBuilder(urlRepository)
-    }
+    const repositoryTemplate = new RepositoryTemplate(urlRepository)
 
     clearContentTemplate()
     mutate()
@@ -49,7 +45,7 @@ export function FormRepository() {
       Inspire: inspire,
       Unleash: unleash
     }
-    await listTemplates[templateSelected]({ promptBuilder })
+    await listTemplates[templateSelected]({ repositoryTemplate })
   }
 
   return (

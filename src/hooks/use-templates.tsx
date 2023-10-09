@@ -1,4 +1,4 @@
-import { PromptBuilder } from '@/utils/prompt-builder'
+import { RepositoryTemplate } from '@/utils/repository-template'
 import { useSections } from '@/hooks/use-sections'
 import { useTemplate } from '@/store'
 
@@ -25,46 +25,50 @@ export function useTemplates() {
   } = useSections()
   const setIsGenerating = useTemplate((state) => state.setIsGenerating)
 
-  const minimal = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const minimal = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     setIsGenerating(true)
-    await overview({ promptBuilder })
-    await settingUp({ promptBuilder })
-    await runningLocally({ promptBuilder })
-    deploy({ promptBuilder })
-    await license({ promptBuilder })
+    await overview({ repositoryTemplate })
+    await settingUp({ repositoryTemplate })
+    await runningLocally({ repositoryTemplate })
+    deploy({ repositoryTemplate })
+    await license({ repositoryTemplate })
     setIsGenerating(false)
   }
 
-  const collaborate = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const collaborate = async ({
+    repositoryTemplate
+  }: {
+    repositoryTemplate: RepositoryTemplate
+  }) => {
     setIsGenerating(true)
-    banner({ promptBuilder })
+    banner({ repositoryTemplate })
     badges({
-      promptBuilder,
+      repositoryTemplate,
       listBadges: ['contributors', 'discussions', 'issues', 'pull_requests']
     })
     tableOfContents({
-      promptBuilder,
+      repositoryTemplate,
       sections: ['stack', 'project-summary', 'setting-up', 'run-locally', 'contributors', 'license']
     })
-    await techStack({ promptBuilder })
-    await projectSummary({ promptBuilder })
-    await settingUp({ promptBuilder })
-    await runningLocally({ promptBuilder })
-    await tableContributors({ promptBuilder })
-    await license({ promptBuilder })
+    await techStack({ repositoryTemplate })
+    await projectSummary({ repositoryTemplate })
+    await settingUp({ repositoryTemplate })
+    await runningLocally({ repositoryTemplate })
+    await tableContributors({ repositoryTemplate })
+    await license({ repositoryTemplate })
     setIsGenerating(false)
   }
 
-  const inspire = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const inspire = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     setIsGenerating(true)
-    banner({ promptBuilder })
+    banner({ repositoryTemplate })
     badges({
-      promptBuilder,
+      repositoryTemplate,
       listBadges: ['codesize', 'last_commit', 'commit_activity_month', 'license']
     })
-    await overview({ promptBuilder })
+    await overview({ repositoryTemplate })
     tableOfContents({
-      promptBuilder,
+      repositoryTemplate,
       sections: [
         'project-structure',
         'project-summary',
@@ -76,43 +80,43 @@ export function useTemplates() {
         'license'
       ]
     })
-    await projectStructure({ promptBuilder })
-    await projectSummary({ promptBuilder })
-    await techStack({ promptBuilder })
-    await settingUp({ promptBuilder })
-    await runningLocally({ promptBuilder })
-    galleryContributors({ promptBuilder })
-    deploy({ promptBuilder })
-    await license({ promptBuilder })
+    await projectStructure({ repositoryTemplate })
+    await projectSummary({ repositoryTemplate })
+    await techStack({ repositoryTemplate })
+    await settingUp({ repositoryTemplate })
+    await runningLocally({ repositoryTemplate })
+    galleryContributors({ repositoryTemplate })
+    deploy({ repositoryTemplate })
+    await license({ repositoryTemplate })
     setIsGenerating(false)
   }
 
-  const empower = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const empower = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     setIsGenerating(true)
-    await overview({ promptBuilder })
+    await overview({ repositoryTemplate })
     tableOfContents({
-      promptBuilder,
+      repositoryTemplate,
       sections: ['stack', 'setting-up', 'run-locally', 'roadmap', 'acknowledgements', 'changelog']
     })
-    await techStack({ promptBuilder })
-    await settingUp({ promptBuilder })
-    await runningLocally({ promptBuilder })
-    await roadmap({ promptBuilder })
-    acknowledgments({ promptBuilder })
-    await changelog({ promptBuilder })
+    await techStack({ repositoryTemplate })
+    await settingUp({ repositoryTemplate })
+    await runningLocally({ repositoryTemplate })
+    await roadmap({ repositoryTemplate })
+    acknowledgments({ repositoryTemplate })
+    await changelog({ repositoryTemplate })
     setIsGenerating(false)
   }
 
-  const unleash = async ({ promptBuilder }: { promptBuilder: PromptBuilder }) => {
+  const unleash = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     setIsGenerating(true)
-    banner({ promptBuilder })
+    banner({ repositoryTemplate })
     badges({
-      promptBuilder,
+      repositoryTemplate,
       listBadges: ['top_language', 'codesize', 'stars', 'deployment']
     })
-    await overview({ promptBuilder })
+    await overview({ repositoryTemplate })
     tableOfContents({
-      promptBuilder,
+      repositoryTemplate,
       sections: [
         'project-structure',
         'prerequisites',
@@ -123,13 +127,13 @@ export function useTemplates() {
         'license'
       ]
     })
-    await projectStructure({ promptBuilder })
-    prerequisites({ promptBuilder })
-    await runningLocally({ promptBuilder })
-    await faq({ promptBuilder })
-    await roadmap({ promptBuilder })
-    acknowledgments({ promptBuilder })
-    await license({ promptBuilder })
+    await projectStructure({ repositoryTemplate })
+    prerequisites({ repositoryTemplate })
+    await runningLocally({ repositoryTemplate })
+    await faq({ repositoryTemplate })
+    await roadmap({ repositoryTemplate })
+    acknowledgments({ repositoryTemplate })
+    await license({ repositoryTemplate })
     setIsGenerating(false)
   }
 

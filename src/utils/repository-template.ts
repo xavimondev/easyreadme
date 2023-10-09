@@ -19,16 +19,16 @@ import {
 } from '@/utils/prompts'
 import { getSetupCommands } from '@/utils/commands'
 
-export class PromptBuilder {
-  private urlRepository: string = 'https://github.com/xavimondev/boostgrammar.io'
-  private repoName: string | undefined
-  private repoOwner: string | undefined
+export class RepositoryTemplate {
+  private urlRepository: string
+  private repoName: string
+  private repoOwner: string
 
   constructor(urlRepository: string) {
     this.urlRepository = urlRepository
     const { repoName, owner } = getRepositoryDetails({ urlRepository })
-    this.repoName = repoName
-    this.repoOwner = owner
+    this.repoName = repoName as string
+    this.repoOwner = owner as string
   }
 
   getBanner() {
