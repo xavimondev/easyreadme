@@ -53,7 +53,7 @@ export class RepositoryTemplate {
       return promptOverview
     }
 
-    const tree = await getRepositoryStructure({ urlRepository: this.urlRepository })
+    const tree = await getRepositoryStructure({ repoName: this.repoName, owner: this.repoOwner })
     if (!tree) return promptOverview
 
     const fileDependencies = languageSetup.fileDependencies
@@ -92,7 +92,7 @@ export class RepositoryTemplate {
       return defaultSetup
     }
 
-    const tree = await getRepositoryStructure({ urlRepository: this.urlRepository }) // return the tree
+    const tree = await getRepositoryStructure({ repoName: this.repoName, owner: this.repoOwner }) // return the tree
     if (!tree) return defaultSetup
 
     const fileDependencies = languageSetup.fileDependencies // [package.json, ...]
@@ -195,7 +195,10 @@ Insert RUN commands
   }
 
   async getProjectStructure() {
-    const tree = await getRepositoryTreeDirectory({ urlRepository: this.urlRepository })
+    const tree = await getRepositoryTreeDirectory({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
     return `## ${README_SECTIONS['project-structure']}\n\n\`\`\`bash\n${tree}\`\`\`\n\n`
   }
 
@@ -287,7 +290,10 @@ Insert RUN commands
   }
 
   async getProjectSummary() {
-    const structure = await getRepositoryStructure({ urlRepository: this.urlRepository })
+    const structure = await getRepositoryStructure({
+      repoName: this.repoName,
+      owner: this.repoOwner
+    })
     if (!structure) return ''
 
     const directories = structure

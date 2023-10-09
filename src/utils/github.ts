@@ -79,8 +79,17 @@ const generateDirectoryTree = ({ tree }: { tree: Tree[] }) => {
   return transformTreeToString(treeFormatted)
 }
 
-export const getRepositoryTreeDirectory = async ({ urlRepository }: { urlRepository: string }) => {
-  const tree = await getRepositoryStructure({ urlRepository })
+export const getRepositoryTreeDirectory = async ({
+  owner,
+  repoName
+}: {
+  owner: string
+  repoName: string
+}) => {
+  const tree = await getRepositoryStructure({
+    owner,
+    repoName
+  })
   if (!tree) return ''
   const treeString = generateDirectoryTree({ tree })
   return treeString

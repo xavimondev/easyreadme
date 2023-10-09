@@ -1,14 +1,12 @@
 import { Tree } from '@/types'
-import { getRepositoryDetails } from '@/utils/github'
 
 export const getRepositoryStructure = async ({
-  urlRepository
+  owner,
+  repoName
 }: {
-  urlRepository: string
+  owner: string
+  repoName: string
 }): Promise<Tree[] | null> => {
-  const { owner, repoName } = getRepositoryDetails({
-    urlRepository
-  })
   try {
     const response = await fetch(`api/github/structure?repo=${repoName}&owner=${owner}`)
     const repository = await response.json()
