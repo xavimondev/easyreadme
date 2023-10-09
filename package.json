@@ -1,6 +1,7 @@
 {
-  "name": "readme-creator",
-  "version": "0.1.0",
+  "name": "easyreadme",
+  "description": "Easyreadme helps you simplify README creation and generate visually stunning ones with the help of IA and elegant pre-designed templates.",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
