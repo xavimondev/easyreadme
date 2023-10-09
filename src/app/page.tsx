@@ -72,7 +72,7 @@ export default function Home() {
           </div>
           <div
             aria-hidden='true'
-            className='absolute w-1/2 sm:h-96 top-0 sm:top-64 right-0 sm:-right-40 opacity-50 filter blur-[100px] z-0 hidden sm:block'
+            className='absolute w-1/2 sm:h-96 top-0 sm:top-64 right-0 sm:-right-40 opacity-50 backdrop-blur blur-3xl z-0 hidden sm:block'
           >
             <div className='relative'>
               <div className='rounded-full h-52 sm:h-96 w-full bg-red-800 dark:bg-red-300'></div>
@@ -113,13 +113,13 @@ export default function Home() {
         <section className='relative mt-36 sm:mt-0'>
           <div
             aria-hidden='true'
-            className='absolute overflow-hidden pointer-events-none top-0 right-5 opacity-50 blur-3xl'
+            className='absolute overflow-hidden pointer-events-none top-0 right-5 opacity-50 backdrop-blur blur-3xl'
           >
             <div className='rounded-full h-20 w-20 sm:h-52 dark:h-44 sm:w-52 bg-sky-600 dark:bg-sky-500'></div>
           </div>
           <div
             aria-hidden='true'
-            className='absolute overflow-hidden pointer-events-none bottom-24 left-5 opacity-50 blur-3xl hidden sm:block'
+            className='absolute overflow-hidden pointer-events-none bottom-24 left-5 opacity-50 backdrop-blur blur-3xl hidden sm:block'
           >
             <div className='rounded-full h-52 dark:h-44 w-32 bg-orange-600 dark:bg-orange-500'></div>
           </div>
