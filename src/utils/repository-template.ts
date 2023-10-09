@@ -12,7 +12,6 @@ import { getSetupCommands } from '@/utils/commands'
 import {
   getContributors,
   getFileContents,
-  getMainLanguage,
   getRepositoryStructure,
   getLicense
 } from '@/services/github'
@@ -48,11 +47,7 @@ export class RepositoryTemplate {
   async getOverview() {
     let promptOverview = getPromptRandomOverview({ repositoryName: this.repoName })
     // TODO: refactor ⬇️
-    const mainLanguage = await getMainLanguage({
-      repoName: this.repoName,
-      owner: this.repoOwner
-    })
-    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
+    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === this.language)
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
       return promptOverview
     }
@@ -86,11 +81,7 @@ export class RepositoryTemplate {
   }
 
   async getTechStack() {
-    const mainLanguage = await getMainLanguage({
-      repoName: this.repoName,
-      owner: this.repoOwner
-    })
-    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
+    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === this.language)
     const defaultSetup = `## ${README_SECTIONS['stack']}\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
       return defaultSetup
@@ -117,7 +108,7 @@ export class RepositoryTemplate {
     const lastSegment = segments.at(-1) as string // -> go.mod
     const parser = LANGUAGES_FILES_PARSERS[lastSegment]
     const dependencies = parser({ content: fileDependenciesContent })
-    const promptTechStack = generateTechStack({ dependencies, language: mainLanguage })
+    const promptTechStack = generateTechStack({ dependencies, language: this.language })
     return promptTechStack
   }
 
@@ -138,11 +129,7 @@ export class RepositoryTemplate {
   }
 
   async getRunningLocally() {
-    const mainLanguage = await getMainLanguage({
-      repoName: this.repoName,
-      owner: this.repoOwner
-    })
-    const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
+    const setup = LANGUAGES_SETUP.find(({ language }) => language === this.language)
 
     return `## ${README_SECTIONS['run-locally']}
 
@@ -303,13 +290,9 @@ Insert RUN commands
     const directories = structure
       .filter((files) => files.type === 'tree')
       .map((files) => files.path)
-    const mainLanguage = await getMainLanguage({
-      repoName: this.repoName,
-      owner: this.repoOwner
-    })
     const promptProjectSummary = generateProjectSummary({
       directories,
-      mainLanguage
+      mainLanguage: this.language
     })
     return promptProjectSummary
   }

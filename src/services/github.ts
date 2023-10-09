@@ -18,17 +18,6 @@ export const getRepositoryStructure = async ({
   }
 }
 
-export const getMainLanguage = async ({ owner, repoName }: { owner: string; repoName: string }) => {
-  try {
-    const response = await fetch(`api/github/language?repo=${repoName}&owner=${owner}`)
-    const language = await response.json()
-    return language.data
-  } catch (error) {
-    //console.error(error)
-    return null
-  }
-}
-
 export const getFileContents = async ({
   path,
   owner,
