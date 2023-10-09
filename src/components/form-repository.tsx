@@ -2,7 +2,7 @@
 import { toast } from 'sonner'
 import { NameTemplate } from '@/types'
 import { RepositoryTemplate } from '@/utils/repository-template'
-import { isValidGitHubRepositoryURL } from '@/utils/git-repository'
+import { isValidGitHubRepositoryURL } from '@/utils/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useTemplate } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'

@@ -1,15 +1,6 @@
 import { BadgeName, Section } from '@/types'
 import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
-import {
-  getBadgeByName,
-  getContributors,
-  getFileContents,
-  getLicense,
-  getMainLanguage,
-  getRepositoryDetails,
-  getRepositoryStructure,
-  getRepositoryTreeDirectory
-} from '@/utils/git-repository'
+import { getBadgeByName, getRepositoryDetails, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   generateProjectSummary,
   generateGuideEnvironmentVariables,
@@ -18,6 +9,13 @@ import {
   getPromptOverviewWithDependencies
 } from '@/utils/prompts'
 import { getSetupCommands } from '@/utils/commands'
+import {
+  getContributors,
+  getFileContents,
+  getMainLanguage,
+  getRepositoryStructure,
+  getLicense
+} from '@/services/github'
 
 export class RepositoryTemplate {
   private urlRepository: string
@@ -46,7 +44,10 @@ export class RepositoryTemplate {
   async getOverview() {
     let promptOverview = getPromptRandomOverview({ repositoryName: this.repoName as string })
     // TODO: refactor ⬇️
-    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
+    const mainLanguage = await getMainLanguage({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
       return promptOverview
@@ -63,7 +64,7 @@ export class RepositoryTemplate {
     const fileDependenciesContent = await getFileContents({
       path: filePath,
       owner: this.repoOwner as string,
-      repository: this.repoName as string
+      repoName: this.repoName as string
     })
     if (!fileDependenciesContent) return promptOverview
 
@@ -81,7 +82,10 @@ export class RepositoryTemplate {
   }
 
   async getTechStack() {
-    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
+    const mainLanguage = await getMainLanguage({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
     const defaultSetup = `## ${README_SECTIONS['stack']}\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
@@ -100,7 +104,7 @@ export class RepositoryTemplate {
     const fileDependenciesContent = await getFileContents({
       path: filePath,
       owner: this.repoOwner as string,
-      repository: this.repoName as string
+      repoName: this.repoName as string
     })
     if (!fileDependenciesContent) return defaultSetup
 
@@ -117,7 +121,7 @@ export class RepositoryTemplate {
     const fileEnviromentContent = await getFileContents({
       path: '.env.example',
       owner: this.repoOwner as string,
-      repository: this.repoName as string
+      repoName: this.repoName as string
     })
 
     if (!fileEnviromentContent) return null
@@ -130,7 +134,10 @@ export class RepositoryTemplate {
   }
 
   async getRunningLocally() {
-    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
+    const mainLanguage = await getMainLanguage({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
     const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
 
     return `## ${README_SECTIONS['run-locally']}
@@ -286,7 +293,10 @@ Insert RUN commands
     const directories = structure
       .filter((files) => files.type === 'tree')
       .map((files) => files.path)
-    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
+    const mainLanguage = await getMainLanguage({
+      repoName: this.repoName as string,
+      owner: this.repoOwner as string
+    })
     const promptProjectSummary = generateProjectSummary({
       directories,
       mainLanguage
