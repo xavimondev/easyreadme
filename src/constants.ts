@@ -50,6 +50,15 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
+    language: 'Vue',
+    fileDependencies: ['package.json'],
+    commands: {
+      install: ['pnpm install', 'npm install', 'yarn install'],
+      run: ['pnpm dev', 'npm run dev', 'yarn dev'],
+      test: ['npm run test']
+    }
+  },
+  {
     language: 'Python',
     fileDependencies: ['Pipfile', 'pyproject.toml', 'requirements.txt'],
     commands: {
