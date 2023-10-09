@@ -1,14 +1,17 @@
-// TODO: Ignore some files of the directory
-export const getPromptOverview = ({
+export const getPromptRandomOverview = ({ repositoryName }: { repositoryName: string }) => {
+  return `Generate an overview of the given project ${repositoryName}.Provide a precise overview that captures project's goal.
+Keep your response under 200 characters.`
+}
+
+export const getPromptOverviewWithDependencies = ({
   repositoryName,
-  directoryTree
+  dependencies
 }: {
   repositoryName: string
-  directoryTree: string
+  dependencies: string[]
 }) => {
-  return `Generate an overview of the given project using its name ${repositoryName} and its directory tree:
-
-${directoryTree}
+  return `Generate an overview of the given project ${repositoryName}. The following includes a list of dependencies:
+${dependencies}
 Provide a precise overview that captures the fundamental features and project's goal.
 Keep your response under 250 characters.`
 }

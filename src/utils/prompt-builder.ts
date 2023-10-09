@@ -14,7 +14,8 @@ import {
   generateProjectSummary,
   generateGuideEnvironmentVariables,
   generateTechStack,
-  getPromptOverview
+  getPromptRandomOverview,
+  getPromptOverviewWithDependencies
 } from '@/utils/prompts'
 import { getSetupCommands } from '@/utils/commands'
 
@@ -43,12 +44,38 @@ export class PromptBuilder {
   }
 
   async getOverview() {
-    const treeString = await getRepositoryTreeDirectory({
-      urlRepository: this.urlRepository
+    let promptOverview = getPromptRandomOverview({ repositoryName: this.repoName as string })
+    // TODO: refactor ⬇️
+    const mainLanguage = await getMainLanguage({ urlRepository: this.urlRepository })
+    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
+    if (!languageSetup || languageSetup.fileDependencies.length === 0) {
+      return promptOverview
+    }
+
+    const tree = await getRepositoryStructure({ urlRepository: this.urlRepository })
+    if (!tree) return promptOverview
+
+    const fileDependencies = languageSetup.fileDependencies
+    const filePath = fileDependencies.find((file) => tree.find((item) => item.path.includes(file)))
+    if (!filePath) return promptOverview
+
+    // if I have the path, get dependency file's contents
+    const fileDependenciesContent = await getFileContents({
+      path: filePath,
+      owner: this.repoOwner as string,
+      repository: this.repoName as string
     })
-    const promptOverview = getPromptOverview({
+    if (!fileDependenciesContent) return promptOverview
+
+    // split path like this -> src/main/go.mod = [src,main,go.mod]
+    const segments = filePath.split('/')
+    const lastSegment = segments.at(-1) as string // -> go.mod
+    const parser = LANGUAGES_FILES_PARSERS[lastSegment]
+    const dependencies = parser({ content: fileDependenciesContent })
+
+    promptOverview = getPromptOverviewWithDependencies({
       repositoryName: this.repoName as string,
-      directoryTree: treeString
+      dependencies
     })
     return promptOverview
   }
