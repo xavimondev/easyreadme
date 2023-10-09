@@ -42,11 +42,11 @@ export class RepositoryTemplate {
   }
 
   async getOverview() {
-    let promptOverview = getPromptRandomOverview({ repositoryName: this.repoName as string })
+    let promptOverview = getPromptRandomOverview({ repositoryName: this.repoName })
     // TODO: refactor ⬇️
     const mainLanguage = await getMainLanguage({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
@@ -63,8 +63,8 @@ export class RepositoryTemplate {
     // if I have the path, get dependency file's contents
     const fileDependenciesContent = await getFileContents({
       path: filePath,
-      owner: this.repoOwner as string,
-      repoName: this.repoName as string
+      owner: this.repoOwner,
+      repoName: this.repoName
     })
     if (!fileDependenciesContent) return promptOverview
 
@@ -75,7 +75,7 @@ export class RepositoryTemplate {
     const dependencies = parser({ content: fileDependenciesContent })
 
     promptOverview = getPromptOverviewWithDependencies({
-      repositoryName: this.repoName as string,
+      repositoryName: this.repoName,
       dependencies
     })
     return promptOverview
@@ -83,8 +83,8 @@ export class RepositoryTemplate {
 
   async getTechStack() {
     const mainLanguage = await getMainLanguage({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === mainLanguage)
     const defaultSetup = `## ${README_SECTIONS['stack']}\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
@@ -103,8 +103,8 @@ export class RepositoryTemplate {
     // once I have the path, fetch dependency file's contents
     const fileDependenciesContent = await getFileContents({
       path: filePath,
-      owner: this.repoOwner as string,
-      repoName: this.repoName as string
+      owner: this.repoOwner,
+      repoName: this.repoName
     })
     if (!fileDependenciesContent) return defaultSetup
 
@@ -120,8 +120,8 @@ export class RepositoryTemplate {
   async getEnvironmentVariablesGuide() {
     const fileEnviromentContent = await getFileContents({
       path: '.env.example',
-      owner: this.repoOwner as string,
-      repoName: this.repoName as string
+      owner: this.repoOwner,
+      repoName: this.repoName
     })
 
     if (!fileEnviromentContent) return null
@@ -135,8 +135,8 @@ export class RepositoryTemplate {
 
   async getRunningLocally() {
     const mainLanguage = await getMainLanguage({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
 
@@ -196,8 +196,8 @@ Insert RUN commands
 
   async getProjectStructure() {
     const tree = await getRepositoryTreeDirectory({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     return `## ${README_SECTIONS['project-structure']}\n\n\`\`\`bash\n${tree}\`\`\`\n\n`
   }
@@ -205,8 +205,8 @@ Insert RUN commands
   async getLicense() {
     const header = `## ${README_SECTIONS['license']}\n\n`
     const license = await getLicense({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     if (!license) return `${header}[**Add Your License**](https://choosealicense.com)\n\n`
     return `${header}This project is licensed under the **${license.name}** - see the [**${license.name}**](${license.url}) file for details.\n\n`
@@ -218,8 +218,8 @@ Insert RUN commands
 
   async getTableContributors({ contributorsPerRow }: { contributorsPerRow: number }) {
     const contributors = await getContributors({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     if (!contributors || contributors.length === 0) return ''
 
@@ -274,8 +274,8 @@ Insert RUN commands
     let html = `<p style="text-align:center;">`
     args.forEach((badge: BadgeName) => {
       const res = getBadgeByName({
-        repoName: this.repoName as string,
-        owner: this.repoOwner as string,
+        repoName: this.repoName,
+        owner: this.repoOwner,
         badge
       })
       const { label, url } = res
@@ -300,8 +300,8 @@ Insert RUN commands
       .filter((files) => files.type === 'tree')
       .map((files) => files.path)
     const mainLanguage = await getMainLanguage({
-      repoName: this.repoName as string,
-      owner: this.repoOwner as string
+      repoName: this.repoName,
+      owner: this.repoOwner
     })
     const promptProjectSummary = generateProjectSummary({
       directories,
