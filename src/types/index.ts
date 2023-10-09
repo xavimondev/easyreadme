@@ -56,3 +56,12 @@ export type BadgeName =
   | 'deployment'
 
 export type Section = keyof typeof README_SECTIONS
+
+export type GitRepository = {
+  repoName: string
+  owner: string
+  description: string
+  language: string
+  branch: string
+  urlRepository: string
+}

@@ -1,4 +1,5 @@
-import { Tree } from '@/types'
+import { GitRepository, Tree } from '@/types'
+import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
 
 export const getRepositoryStructure = async ({
   owner,
@@ -75,6 +76,19 @@ export const getLicense = async ({ repoName, owner }: { repoName: string; owner:
     const response = await fetch(`api/github/license?owner=${owner}&repo=${repoName}`)
     const license = await response.json()
     return license.data
+  } catch (error) {
+    // console.error(error)
+    return null
+  }
+}
+
+export const getRepositoryData = async ({ urlRepository }: { urlRepository: string }) => {
+  try {
+    const { repoName, owner } = getRepoNameAndOwnerFromUrl({ urlRepository })
+    const response = await fetch(`api/github/repo-details?owner=${owner}&repo=${repoName}`)
+    const data = await response.json()
+    if (data.error) throw new Error(data.error)
+    return data.data as GitRepository
   } catch (error) {
     // console.error(error)
     return null

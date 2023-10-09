@@ -1,6 +1,6 @@
-import { BadgeName, Section } from '@/types'
+import { BadgeName, GitRepository, Section } from '@/types'
 import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
-import { getBadgeByName, getRepositoryDetails, getRepositoryTreeDirectory } from '@/utils/github'
+import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   generateProjectSummary,
   generateGuideEnvironmentVariables,
@@ -21,12 +21,16 @@ export class RepositoryTemplate {
   private urlRepository: string
   private repoName: string
   private repoOwner: string
+  private description: string
+  private language: string
 
-  constructor(urlRepository: string) {
+  constructor(data: GitRepository) {
+    const { urlRepository, repoName, owner, description, language } = data
     this.urlRepository = urlRepository
-    const { repoName, owner } = getRepositoryDetails({ urlRepository })
-    this.repoName = repoName as string
-    this.repoOwner = owner as string
+    this.repoName = repoName
+    this.repoOwner = owner
+    this.description = description
+    this.language = language
   }
 
   getBanner() {

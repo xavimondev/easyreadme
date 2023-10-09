@@ -4,6 +4,7 @@ import { NameTemplate } from '@/types'
 import { RepositoryTemplate } from '@/utils/repository-template'
 import { isValidGitHubRepositoryURL } from '@/utils/github'
 import { checkRateLimit } from '@/services/rate-limit'
+import { getRepositoryData } from '@/services/github'
 import { useTemplate } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'
 import { useRemaining } from '@/hooks/use-remaining'
@@ -33,7 +34,13 @@ export function FormRepository() {
       return
     }
 
-    const repositoryTemplate = new RepositoryTemplate(urlRepository)
+    const data = await getRepositoryData({ urlRepository })
+    if (!data) {
+      toast.error('Repository not found. Enter a valid GitHub Repository URL.')
+      return
+    }
+
+    const repositoryTemplate = new RepositoryTemplate(data)
 
     clearContentTemplate()
     mutate()

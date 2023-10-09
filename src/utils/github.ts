@@ -16,7 +16,7 @@ import {
 import { getRepositoryStructure } from '@/services/github'
 import { BadgeName, Tree, TreeFormatted } from '@/types'
 
-export const getRepositoryDetails = ({ urlRepository }: { urlRepository: string }) => {
+export const getRepoNameAndOwnerFromUrl = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')
   const owner = urlParts.at(3)
   const repoName = urlParts.at(4)
