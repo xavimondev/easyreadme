@@ -9,7 +9,7 @@ import { CustomToaster } from '@/components/custom-toaster'
 const inter = Inter({ subsets: ['latin'], weight: ['500', '600', '700'] })
 
 const title = 'Easyreadme - IA Powered README Builder'
-const description = `Use easyreadme to simplify README creation, and generate visually stunning READMEs with the help of IA and elegant pre-designed templates.`
+const description = `Easyreadme helps you simplify README creation and generate visually stunning ones with the help of IA and elegant pre-designed templates.`
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title,
