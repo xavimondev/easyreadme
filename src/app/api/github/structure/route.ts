@@ -11,8 +11,9 @@ export async function GET(req: Request) {
     const params = new URL(req.url)
     const repoName = params.searchParams.get('repo')
     const owner = params.searchParams.get('owner')
+    const branch = params.searchParams.get('branch')
     const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repoName}/git/trees/main?recursive=1`,
+      `https://api.github.com/repos/${owner}/${repoName}/git/trees/${branch}?recursive=1`,
       {
         headers: {
           Accept: 'application/vnd.github+json',

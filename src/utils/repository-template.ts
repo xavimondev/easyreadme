@@ -22,14 +22,16 @@ export class RepositoryTemplate {
   private repoOwner: string
   private description: string
   private language: string
+  private defaultBranch: string
 
   constructor(data: GitRepository) {
-    const { urlRepository, repoName, owner, description, language } = data
+    const { urlRepository, repoName, owner, description, language, branch } = data
     this.urlRepository = urlRepository
     this.repoName = repoName
     this.repoOwner = owner
     this.description = description ?? ''
     this.language = language
+    this.defaultBranch = branch
   }
 
   getBanner() {
@@ -55,7 +57,11 @@ export class RepositoryTemplate {
       return promptOverview
     }
 
-    const tree = await getRepositoryStructure({ repoName: this.repoName, owner: this.repoOwner })
+    const tree = await getRepositoryStructure({
+      repoName: this.repoName,
+      owner: this.repoOwner,
+      branch: this.defaultBranch
+    })
     if (!tree) return promptOverview
 
     const fileDependencies = languageSetup.fileDependencies
@@ -86,18 +92,21 @@ export class RepositoryTemplate {
 
   async getTechStack() {
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === this.language)
-    const defaultSetup = `## ${README_SECTIONS['stack']}\n\n\`\`\`sh\nINSERT TECH STACK\`\`\``
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
-      return defaultSetup
+      return ''
     }
 
-    const tree = await getRepositoryStructure({ repoName: this.repoName, owner: this.repoOwner }) // return the tree
-    if (!tree) return defaultSetup
+    const tree = await getRepositoryStructure({
+      repoName: this.repoName,
+      owner: this.repoOwner,
+      branch: this.defaultBranch
+    }) // return the tree
+    if (!tree) return ''
 
     const fileDependencies = languageSetup.fileDependencies // [package.json, ...]
     // look each file from fileDependencies against tree to find the path
     const filePath = fileDependencies.find((file) => tree.find((item) => item.path.includes(file)))
-    if (!filePath) return defaultSetup
+    if (!filePath) return ''
 
     // once I have the path, fetch dependency file's contents
     const fileDependenciesContent = await getFileContents({
@@ -105,7 +114,7 @@ export class RepositoryTemplate {
       owner: this.repoOwner,
       repoName: this.repoName
     })
-    if (!fileDependenciesContent) return defaultSetup
+    if (!fileDependenciesContent) return ''
 
     // split path like this -> src/main/go.mod = [src,main,go.mod]
     const segments = filePath.split('/')
@@ -192,7 +201,8 @@ Insert RUN commands
   async getProjectStructure() {
     const tree = await getRepositoryTreeDirectory({
       repoName: this.repoName,
-      owner: this.repoOwner
+      owner: this.repoOwner,
+      branch: this.defaultBranch
     })
     return `## ${README_SECTIONS['project-structure']}\n\n\`\`\`bash\n${tree}\`\`\`\n\n`
   }
@@ -287,7 +297,8 @@ Insert RUN commands
   async getProjectSummary() {
     const structure = await getRepositoryStructure({
       repoName: this.repoName,
-      owner: this.repoOwner
+      owner: this.repoOwner,
+      branch: this.defaultBranch
     })
     if (!structure) return ''
 

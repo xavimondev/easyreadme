@@ -3,13 +3,17 @@ import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
 
 export const getRepositoryStructure = async ({
   owner,
-  repoName
+  repoName,
+  branch
 }: {
   owner: string
   repoName: string
+  branch: string
 }): Promise<Tree[] | null> => {
   try {
-    const response = await fetch(`api/github/structure?repo=${repoName}&owner=${owner}`)
+    const response = await fetch(
+      `api/github/structure?repo=${repoName}&owner=${owner}&branch=${branch}`
+    )
     const repository = await response.json()
     return repository.data
   } catch (error) {

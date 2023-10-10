@@ -33,6 +33,10 @@ export function useSections() {
   const techStack = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     addContentToTemplate(`## Stack\n\n`)
     const promptTechStack = await repositoryTemplate.getTechStack()
+    if (!promptTechStack) {
+      addContentToTemplate(`Include a concise explanation about the Tech Stack employed.`)
+      return
+    }
     await complete(promptTechStack)
   }
 
@@ -142,6 +146,10 @@ export function useSections() {
   }) => {
     addContentToTemplate(`## ${README_SECTIONS['project-summary']}\n\n`)
     const promptProjectSummary = await repositoryTemplate.getProjectSummary()
+    if (!promptProjectSummary) {
+      addContentToTemplate(`Insert your project's summary\n\n`)
+      return
+    }
     await complete(promptProjectSummary)
   }
 

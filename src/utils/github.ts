@@ -81,14 +81,17 @@ const generateDirectoryTree = ({ tree }: { tree: Tree[] }) => {
 
 export const getRepositoryTreeDirectory = async ({
   owner,
-  repoName
+  repoName,
+  branch
 }: {
   owner: string
   repoName: string
+  branch: string
 }) => {
   const tree = await getRepositoryStructure({
     owner,
-    repoName
+    repoName,
+    branch
   })
   if (!tree) return ''
   const treeString = generateDirectoryTree({ tree })
