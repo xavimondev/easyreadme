@@ -71,6 +71,7 @@ export const generateProjectSummary = ({
   return `Given the following directories from a ${mainLanguage} project:
 ${directories}
 
-Provide a comprehensive summary per each path. Only responde with this format:
-- [**path**](path): Summary up to 100 characters.`
+Craft a summary highlighting the top 10 essential directories of the project.
+Only responde with this format:
+- [**path**](path): Brief summary of primary functionalities/components (up to 100 characters).`
 }
