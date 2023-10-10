@@ -34,14 +34,15 @@ export const generateTechStack = ({
   dependencies: string
   language: string
 }) => {
-  return `Given the following ${language} project dependencies:
+  return `For the ${language} project, the following dependencies are utilized, covering crucial aspects like authentication, data fetching, 
+state management, animations, styling, server-client communication, testing, and deployment:
 ${dependencies}
 
-Pick the 8 most vital dependencies that cover essential aspects such as authentication, data fetching, state management, 
-animations, styling, server-client communication, testing, and deployment. 
+If the project has more than eight dependencies, please pick the eight most vital dependencies that cover the essential aspects mentioned above. 
+For projects with fewer than eight dependencies, focus only on the provided ones.
 Only respond with this format:
 - [name_dependency](link_resource): Brief explanation (up to 100 characters) about the dependency's role.
-Make sure to include the brackets around name_dependency in your response.`
+Ensure to include brackets around name_dependency in your response.`
 }
 
 export const generateGuideEnvironmentVariables = ({
