@@ -102,20 +102,20 @@ export const parseRequirementsTxt = ({ content }: { content: string }) => {
 
 export const parseBuildGradle = ({ content }: { content: string }) => {
   try {
-    const regex = /dependencies\s*{([\s\S]*?)}/
-    const match = regex.exec(content)
-    if (match && match[1]) {
-      const dependenciesBlock = match[1]
-      const dependencyRegex = /implementation\s+'[^:]+:([^:]+):[^']+'/g
-      const dependencies = []
-      let dependencyMatch
-      while ((dependencyMatch = dependencyRegex.exec(dependenciesBlock)) !== null) {
-        dependencies.push(dependencyMatch[1])
+    const dependenciesBlockRegex = /dependencies\s*{([^}]+)}/gs
+    const dependencyRegex = /['"](.*?)['"]/g
+    const dependencies = []
+    let dependenciesBlockMatch
+
+    while ((dependenciesBlockMatch = dependenciesBlockRegex.exec(content)) !== null) {
+      const dependenciesBlockContent = dependenciesBlockMatch[1]
+      let match
+
+      while ((match = dependencyRegex.exec(dependenciesBlockContent)) !== null) {
+        dependencies.push(match[1])
       }
-      return dependencies.join('\n')
-    } else {
-      return ''
     }
+    return dependencies.length === 0 ? '' : dependencies.join('\n')
   } catch (error) {
     console.error(error)
     return null
