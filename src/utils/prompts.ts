@@ -1,18 +1,29 @@
-export const getPromptRandomOverview = ({ repositoryName }: { repositoryName: string }) => {
-  return `Generate an overview of the given project ${repositoryName}.Provide a precise overview that captures project's goal.
+export const getPromptRandomOverview = ({
+  repositoryName,
+  projectDescription
+}: {
+  repositoryName: string
+  projectDescription: string
+}) => {
+  return `Generate a detailed project overview for ${repositoryName}.
+${projectDescription !== '' ? `This project is described as ${projectDescription}.` : ''}
 Keep your response under 200 characters.`
 }
 
 export const getPromptOverviewWithDependencies = ({
   repositoryName,
-  dependencies
+  dependencies,
+  projectDescription
 }: {
   repositoryName: string
   dependencies: string[]
+  projectDescription: string
 }) => {
-  return `Generate an overview of the given project ${repositoryName}. The following includes a list of dependencies:
-${dependencies}
-Provide a precise overview that captures the fundamental features and project's goal.
+  return `Generate a detailed project overview for ${repositoryName}.
+${projectDescription !== '' ? `This project is described as ${projectDescription}.` : ''} 
+It relies on:
+${dependencies} 
+to function efficiently and effectively.
 Keep your response under 250 characters.`
 }
 

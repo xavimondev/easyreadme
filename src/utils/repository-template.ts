@@ -28,7 +28,7 @@ export class RepositoryTemplate {
     this.urlRepository = urlRepository
     this.repoName = repoName
     this.repoOwner = owner
-    this.description = description
+    this.description = description ?? ''
     this.language = language
   }
 
@@ -45,7 +45,10 @@ export class RepositoryTemplate {
   }
 
   async getOverview() {
-    let promptOverview = getPromptRandomOverview({ repositoryName: this.repoName })
+    let promptOverview = getPromptRandomOverview({
+      repositoryName: this.repoName,
+      projectDescription: this.description
+    })
     // TODO: refactor ⬇️
     const languageSetup = LANGUAGES_SETUP.find((item) => item.language === this.language)
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
@@ -75,7 +78,8 @@ export class RepositoryTemplate {
 
     promptOverview = getPromptOverviewWithDependencies({
       repositoryName: this.repoName,
-      dependencies
+      dependencies,
+      projectDescription: this.description
     })
     return promptOverview
   }
