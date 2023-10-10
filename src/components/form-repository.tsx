@@ -15,6 +15,7 @@ import { GitIc, LightningIc, LoadingIc } from '@/components/icons'
 export function FormRepository() {
   const { minimal, collaborate, empower, inspire, unleash } = useTemplates()
   const isGenerating = useTemplate((state) => state.isGenerating)
+  const setIsGenerating = useTemplate((state) => state.setIsGenerating)
   const templateSelected = useTemplate((state) => state.templateSelected)
   const clearContentTemplate = useTemplate((state) => state.clearContentTemplate)
   const { mutate } = useRemaining()
@@ -28,15 +29,18 @@ export function FormRepository() {
       return
     }
 
+    setIsGenerating(true)
     const msg = await checkRateLimit()
     if (msg) {
       toast.error(msg)
+      setIsGenerating(false)
       return
     }
 
     const data = await getRepositoryData({ urlRepository })
     if (!data) {
       toast.error('Repository not found. Enter a valid GitHub Repository URL.')
+      setIsGenerating(false)
       return
     }
 
@@ -53,6 +57,7 @@ export function FormRepository() {
       Unleash: unleash
     }
     await listTemplates[templateSelected]({ repositoryTemplate })
+    setIsGenerating(false)
   }
 
   return (

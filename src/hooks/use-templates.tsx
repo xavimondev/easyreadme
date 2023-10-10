@@ -26,7 +26,6 @@ export function useTemplates() {
   const setIsGenerating = useTemplate((state) => state.setIsGenerating)
 
   const minimal = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    setIsGenerating(true)
     await overview({ repositoryTemplate })
     await settingUp({ repositoryTemplate })
     await runningLocally({ repositoryTemplate })
@@ -40,7 +39,6 @@ export function useTemplates() {
   }: {
     repositoryTemplate: RepositoryTemplate
   }) => {
-    setIsGenerating(true)
     banner({ repositoryTemplate })
     badges({
       repositoryTemplate,
@@ -60,7 +58,6 @@ export function useTemplates() {
   }
 
   const inspire = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    setIsGenerating(true)
     banner({ repositoryTemplate })
     badges({
       repositoryTemplate,
@@ -92,7 +89,6 @@ export function useTemplates() {
   }
 
   const empower = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    setIsGenerating(true)
     await overview({ repositoryTemplate })
     tableOfContents({
       repositoryTemplate,
@@ -108,7 +104,6 @@ export function useTemplates() {
   }
 
   const unleash = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    setIsGenerating(true)
     banner({ repositoryTemplate })
     badges({
       repositoryTemplate,
