@@ -37,12 +37,11 @@ export const generateTechStack = ({
   return `Given the following ${language} project dependencies:
 ${dependencies}
 
-Pick the 8 most important dependencies that cover the following aspects: authentication, data fetching, state management, 
-animations, styling, server-client communication, testing and deployment. 
-Generate a summary like this:
-- [name_dependency](link_resource): Short explanation about the dependency.Limit your response to a maximum of 100 characters.
-Where link_resource is dependency's url information.
-Only respond with a bullet list.`
+Pick the 8 most vital dependencies that cover essential aspects such as authentication, data fetching, state management, 
+animations, styling, server-client communication, testing, and deployment. 
+Only respond with this format:
+- [name_dependency](link_resource): Brief explanation (up to 100 characters) about the dependency's role.
+Make sure to include the brackets around name_dependency in your response.`
 }
 
 export const generateGuideEnvironmentVariables = ({
@@ -72,6 +71,6 @@ export const generateProjectSummary = ({
 ${directories}
 
 Craft a summary highlighting the top 10 essential directories of the project.
-Only responde with this format:
+Only respond with this format:
 - [**path**](path): Brief summary of primary functionalities/components (up to 100 characters).`
 }
