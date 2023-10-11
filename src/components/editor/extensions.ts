@@ -6,20 +6,9 @@ import TableRow from '@tiptap/extension-table-row'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import Link from '@tiptap/extension-link'
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import CodeBlock from '@tiptap/extension-code-block'
 import TextAlign from '@tiptap/extension-text-align'
 import Heading from '@tiptap/extension-heading'
-import css from 'highlight.js/lib/languages/css'
-import js from 'highlight.js/lib/languages/javascript'
-import ts from 'highlight.js/lib/languages/typescript'
-import html from 'highlight.js/lib/languages/xml'
-import { common, createLowlight } from 'lowlight'
-
-const lowlight = createLowlight(common)
-lowlight.register('html', html)
-lowlight.register('css', css)
-lowlight.register('js', js)
-lowlight.register('ts', ts)
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -121,9 +110,7 @@ export const DEFAULT_EXTENSIONS = [
       class: '-my-1'
     }
   }),
-  CodeBlockLowlight.configure({
-    lowlight
-  }),
+  CodeBlock,
   CustomImage.configure({
     inline: true,
     HTMLAttributes: {

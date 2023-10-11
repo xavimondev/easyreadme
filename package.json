@@ -20,7 +20,6 @@
     "@radix-ui/react-tabs": "1.0.4",
     "@tiptap/core": "2.1.8",
     "@tiptap/extension-code-block": "2.1.11",
-    "@tiptap/extension-code-block-lowlight": "2.1.8",
     "@tiptap/extension-heading": "2.1.8",
     "@tiptap/extension-image": "2.1.8",
     "@tiptap/extension-link": "2.1.8",
