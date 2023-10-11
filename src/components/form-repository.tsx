@@ -91,7 +91,7 @@ export function FormRepository() {
         ) : (
           <>
             Generating
-            <LoadingIc className='animate-twSpin h-4 w-4' />
+            <LoadingIc className='animate-spin h-4 w-4' />
           </>
         )}
       </Button>

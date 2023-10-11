@@ -32,7 +32,7 @@ export default function Home() {
       <main>
         {/* Screenshots 1500x900 */}
         <section className='flex items-center relative mt-16 lg:mt-0 sm:mb-0 overflow-x-hidden overflow-y-hidden lg:h-screen'>
-          <div className='px-5 md:px-32 w-full sm:max-w-4xl flex flex-col gap-10 animate-delay-100 animate-fadeIn text-left'>
+          <div className='px-5 md:px-32 w-full sm:max-w-4xl flex flex-col gap-10 animate-delay-100 animate-fade-in text-left'>
             <h1 className='text-black dark:text-white text-3xl lg:text-6xl !leading-tight font-semibold'>
               Craft{' '}
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>

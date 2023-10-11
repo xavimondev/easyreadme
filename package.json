@@ -67,7 +67,6 @@
     "@tailwindcss/typography": "0.5.9",
     "@typescript-eslint/eslint-plugin": "6.6.0",
     "@typescript-eslint/parser": "6.6.0",
-    "animated-tailwindcss": "4.0.0",
     "eslint": "8.48.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-react-hooks": "4.6.0",

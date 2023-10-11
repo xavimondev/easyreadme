@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss'
-import { withAnimations } from 'animated-tailwindcss'
 
 const config: Config = {
   darkMode: ['class'],
@@ -85,11 +84,15 @@ const config: Config = {
         },
         'enter-in-view': {
           to: { opacity: '1' }
+        },
+        'fade-in': {
+          from: { opacity: '0' }
         }
       },
       animation: {
         'increase-text': 'increase-text 1s linear forwards',
-        'enter-in-view': 'enter-in-view .3s forwards'
+        'enter-in-view': 'enter-in-view .3s forwards',
+        'fade-in': 'fade-in 1s both'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -105,5 +108,4 @@ const config: Config = {
   plugins: [require('@tailwindcss/typography'), require('tailwind-scrollbar-hide')]
 }
 
-// @ts-ignore
-export default withAnimations(config)
+export default config
