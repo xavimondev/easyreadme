@@ -16,7 +16,7 @@ export const getPromptOverviewWithDependencies = ({
   projectDescription
 }: {
   repositoryName: string
-  dependencies: string[]
+  dependencies: string
   projectDescription: string
 }) => {
   return `Generate a detailed project overview for ${repositoryName}.

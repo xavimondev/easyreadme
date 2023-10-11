@@ -11,10 +11,12 @@ import {
   PULL_REQUESTS_URL,
   STARS_URL,
   TOP_LANGUAGE_URL,
-  WATCHERS_URL
+  WATCHERS_URL,
+  LANGUAGES_FILES_PARSERS,
+  LANGUAGES_SETUP
 } from '@/constants'
-import { getRepositoryStructure } from '@/services/github'
-import { BadgeName, Tree, TreeFormatted } from '@/types'
+import { getRepositoryStructure, getFileContents } from '@/services/github'
+import { BadgeName, Tree, TreeFormatted, TypeFile } from '@/types'
 
 export const getRepoNameAndOwnerFromUrl = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')
@@ -168,4 +170,63 @@ export const getBadgeByName = ({
   }
 
   return badgeOptions[badge]
+}
+
+export const getDependencies = async ({
+  language,
+  repoName,
+  owner,
+  defaultBranch
+}: {
+  language: string
+  repoName: string
+  owner: string
+  defaultBranch: string
+}): Promise<string | null> => {
+  try {
+    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === language)
+    if (!languageSetup || languageSetup.fileDependencies.length === 0) {
+      return null
+    }
+
+    // return the tree
+    const tree = await getRepositoryStructure({
+      repoName: repoName,
+      owner: owner,
+      branch: defaultBranch
+    })
+    if (!tree) return null
+
+    const fileDependencies = languageSetup.fileDependencies
+    // Get only the first path found
+    const fileFound = tree
+      .filter((file) => file.type === TypeFile.Blob)
+      .find((item) => fileDependencies.find((file) => item.path.includes(file)))
+    if (!fileFound) return null
+
+    const filePath = fileFound.path
+    // once I have the path, fetch dependency file's contents
+    const fileDependenciesContent = await getFileContents({
+      path: filePath,
+      owner: owner,
+      repoName: repoName
+    })
+    if (!fileDependenciesContent) return null
+
+    const segments = filePath.split('/')
+    const lastSegment = segments.at(-1) as string
+    const parser = LANGUAGES_FILES_PARSERS[lastSegment.toLowerCase()]
+    if (!parser) {
+      return null
+    }
+
+    const dependencies = parser({ content: fileDependenciesContent })
+
+    if (!dependencies) {
+      return null
+    }
+    return dependencies
+  } catch (error) {
+    return null
+  }
 }
