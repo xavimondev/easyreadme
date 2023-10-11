@@ -22,7 +22,7 @@ export function TemplateItem({
   const isSelected = templateSelected === nameTemplate
 
   return (
-    <HoverCard openDelay={0} closeDelay={0}>
+    <HoverCard openDelay={200} closeDelay={0}>
       <HoverCardTrigger asChild>
         <div
           className='w-full rounded-md overflow-hidden cursor-pointer'
