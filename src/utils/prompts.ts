@@ -50,15 +50,14 @@ export const generateGuideEnvironmentVariables = ({
 }: {
   environmentVars: string
 }) => {
-  return `Given the following environment variables:
-${environmentVars}
+  return `${environmentVars}
 
-Please provide a brief and precise guide to generate their values.
-Each guide should have a header and a enumerated list.
+For each environment variable mentioned above, provide a brief guide to generate its value. 
+If any variables are unknown due to the limitations of the completion API's knowledge, 
+please insert the message "Insert a guide" for those variables.
 Only responde with this format:
 #### [Environment Variable]
-[Bullet points to a maximun of 5]
-`
+- [Up to 5 bullet point instructions, each not exceeding 100 characters]`
 }
 
 export const generateProjectSummary = ({
