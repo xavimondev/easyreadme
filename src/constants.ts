@@ -232,9 +232,9 @@ export const DEFAULT_TEMPLATES: Template[] = [
 export const README_SECTIONS = {
   banner: '🏞️ Banner',
   stack: '💻 Stack',
-  'project-summary': '📝 Project summary',
-  'setting-up': '⚙️ Setting up',
-  'run-locally': '🚀 Run locally',
+  'project-summary': '📝 Project Summary',
+  'setting-up': '⚙️ Setting Up',
+  'run-locally': '🚀 Run Locally',
   contributors: '🙌 Contributors',
   license: '📄 License',
   'project-structure': '📁 Project Structure',
