@@ -23,13 +23,13 @@ export type GitTreeResponse = {
 export type Tree = {
   path: string
   mode?: string
-  type: Type
+  type: TypeFile
   sha?: string
   size?: number
   url?: string
 }
 
-enum Type {
+export enum TypeFile {
   Blob = 'blob',
   Tree = 'tree'
 }
