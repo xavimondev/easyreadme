@@ -30,7 +30,6 @@ export default function Home() {
         </div>
       </header>
       <main>
-        {/* Screenshots 1500x900 */}
         <section className='flex items-center relative mt-16 lg:mt-0 sm:mb-0 overflow-x-hidden overflow-y-hidden lg:h-screen'>
           <div className='px-5 md:px-32 w-full sm:max-w-4xl flex flex-col gap-10 animate-delay-100 animate-fade-in text-left'>
             <h1 className='text-black dark:text-white text-3xl lg:text-6xl !leading-tight font-semibold'>
@@ -50,8 +49,8 @@ export default function Home() {
               </span>
             </p>
             <Link
-              className='w-32 
-              sm:h-10 
+              className='w-32
+              h-10 
               shadow-[0_6px_12px_rgba(0,0,0,.2)] 
               dark:shadow-[0_6px_12px_rgba(255,255,255,.2)] 
               bg-primary 
@@ -72,11 +71,11 @@ export default function Home() {
           </div>
           <div
             aria-hidden='true'
-            className='absolute w-1/2 sm:h-96 top-0 sm:top-64 right-0 sm:-right-40 opacity-50 backdrop-blur blur-3xl z-0 hidden sm:block'
+            className='absolute w-1/2 sm:h-[32rem] top-0 sm:top-52 right-0 sm:-right-32 opacity-50 backdrop-blur blur-3xl z-0 hidden sm:block'
           >
             <div className='relative'>
-              <div className='rounded-full h-52 sm:h-96 w-full bg-red-800 dark:bg-red-300'></div>
-              <div className='absolute top-32 left-0 sm:left-24 rounded-full h-48 sm:h-96 w-full bg-blue-800 dark:bg-blue-600'></div>
+              <div className='rounded-full h-52 sm:h-[32rem] w-full bg-red-800 dark:bg-red-300'></div>
+              <div className='absolute top-32 left-0 sm:left-24 rounded-full h-48 sm:h-[32rem] w-full bg-blue-800 dark:bg-blue-600'></div>
             </div>
           </div>
           <ImageTheme />
