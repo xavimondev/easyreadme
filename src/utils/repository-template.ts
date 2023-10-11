@@ -99,7 +99,7 @@ export class RepositoryTemplate {
     return promptGuideEnvironmentVariables
   }
 
-  async getRunningLocally() {
+  getRunningLocally() {
     const setup = LANGUAGES_SETUP.find(({ language }) => language === this.language)
 
     return `## ${README_SECTIONS['run-locally']}

@@ -52,12 +52,8 @@ export function useSections() {
     await complete(promptSettingUp)
   }
 
-  const runningLocally = async ({
-    repositoryTemplate
-  }: {
-    repositoryTemplate: RepositoryTemplate
-  }) => {
-    const runningLocally = await repositoryTemplate.getRunningLocally()
+  const runningLocally = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+    const runningLocally = repositoryTemplate.getRunningLocally()
     addContentToTemplate(runningLocally)
   }
 
