@@ -34,7 +34,7 @@ export function useSections() {
     addContentToTemplate(`## ${README_SECTIONS['stack']}\n\n`)
     const promptTechStack = await repositoryTemplate.getTechStack()
     if (!promptTechStack) {
-      addContentToTemplate(`Include a concise explanation about the Tech Stack employed.`)
+      addContentToTemplate(`Include a concise explanation about the Tech Stack employed.\n\n`)
       return
     }
     await complete(promptTechStack)
