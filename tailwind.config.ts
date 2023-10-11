@@ -87,12 +87,17 @@ const config: Config = {
         },
         'fade-in': {
           from: { opacity: '0' }
+        },
+        'slide-in-right': {
+          from: { transform: 'translate3d(100%, 0, 0)', visibility: 'visible' },
+          to: { transform: 'translate3d(0, 0, 0)' }
         }
       },
       animation: {
         'increase-text': 'increase-text 1s linear forwards',
         'enter-in-view': 'enter-in-view .3s forwards',
-        'fade-in': 'fade-in 1s both'
+        'fade-in': 'fade-in 1s both',
+        'slide-in-right': 'slide-in-right .6s linear'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

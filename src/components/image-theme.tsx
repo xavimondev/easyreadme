@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { useTheme } from 'next-themes'
 
 const IMAGES_PATHS = {
-  dark: '/hero/builder_dark.webp',
-  light: '/hero/builder_light.webp'
+  dark: '/hero/dark-builder.webp',
+  light: '/hero/light-builder.webp'
 }
 
 export function ImageTheme() {
@@ -27,34 +27,15 @@ export function ImageTheme() {
     'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
   return (
-    <Image
-      src={srcImage}
-      alt={`Screenshot application mode ${theme}`}
-      width={3000}
-      height={1800}
-      priority
-      className='border 
-      border-gray-500/50 
-      rounded-md 
-      shadow-md 
-      object-fill 
-      object-center 
-      w-full 
-      h-full 
-      absolute 
-      lg:left-[75%] 
-      xl:left-[65%] 
-      2xl:left-[60%] 
-      md:w-[900px] 
-      md:h-[50vh] 
-      lg:h-[50vh]
-      xl:w-[1000px] 
-      xl:h-[60vh]
-      2xl:w-[1300px] 
-      2xl:h-[75vh] 
-      hidden 
-      lg:block 
-      animate-slideInRight'
-    />
+    <div className='w-full lg:h-[775px] lg:w-[1195px] absolute lg:left-[75%] xl:left-[65%] 2xl:left-[55%] hidden lg:block animate-slide-in-right'>
+      <Image
+        src={srcImage}
+        alt={`Screenshot application mode ${theme}`}
+        width={1195}
+        height={775}
+        priority
+        className='border border-gray-500/50 rounded-md object-cover object-center w-full h-full'
+      />
+    </div>
   )
 }
