@@ -174,22 +174,22 @@ export const parseGoMod = ({ content }: { content: string }) => {
 
 export const parseCargo = ({ content }: { content: string }) => {
   try {
-    const dependencies = []
-    let isInHeaderDependencies = false
+    const regex = /\[(\w+\.)?dependencies\]\s*([\s\S]*?)(?=(\[\w+\.?\w*\])|$)/g
+    const dependencies: string[] = []
+    let match
 
-    const lines = content.split('\n')
+    while ((match = regex.exec(content)) !== null) {
+      const dependencyBlock = match[2]
+      const dependencyLines = dependencyBlock.split('\n')
 
-    for (const line of lines) {
-      const trimmedLinea = line.trim()
-
-      if (trimmedLinea === '[dependencies]') {
-        isInHeaderDependencies = true
-      } else if (isInHeaderDependencies && trimmedLinea && !trimmedLinea.startsWith('[')) {
-        const [dependencyName] = trimmedLinea.split('=')
-        dependencies.push(dependencyName.trim())
-      } else if (isInHeaderDependencies && trimmedLinea && trimmedLinea.startsWith('[')) {
-        break
-      }
+      dependencyLines.forEach((line) => {
+        line = line.trim()
+        // Ignore comments and empty lines
+        if (line && !line.startsWith('#')) {
+          const dependency = line.split('=')[0].trim()
+          dependencies.push(dependency)
+        }
+      })
     }
 
     return dependencies.join('\n')
