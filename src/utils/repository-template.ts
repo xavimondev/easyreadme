@@ -1,4 +1,4 @@
-import { BadgeName, GitRepository, Section } from '@/types'
+import { BadgeName, GitRepository, Section, TypeFile } from '@/types'
 import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
@@ -65,9 +65,14 @@ export class RepositoryTemplate {
     if (!tree) return promptOverview
 
     const fileDependencies = languageSetup.fileDependencies
-    const filePath = fileDependencies.find((file) => tree.find((item) => item.path.includes(file)))
-    if (!filePath) return promptOverview
+    // Get only the first path found
+    const fileFound = tree
+      .filter((file) => file.type === TypeFile.Blob)
+      .find((item) => fileDependencies.find((file) => item.path.includes(file)))
 
+    if (!fileFound) return promptOverview
+
+    const filePath = fileFound.path
     // if I have the path, get dependency file's contents
     const fileDependenciesContent = await getFileContents({
       path: filePath,
@@ -76,10 +81,13 @@ export class RepositoryTemplate {
     })
     if (!fileDependenciesContent) return promptOverview
 
-    // split path like this -> src/main/go.mod = [src,main,go.mod]
     const segments = filePath.split('/')
-    const lastSegment = segments.at(-1) as string // -> go.mod
-    const parser = LANGUAGES_FILES_PARSERS[lastSegment]
+    const lastSegment = segments.at(-1) as string
+    const parser = LANGUAGES_FILES_PARSERS[lastSegment.toLowerCase()]
+    if (!parser) {
+      return promptOverview
+    }
+
     const dependencies = parser({ content: fileDependenciesContent })
 
     promptOverview = getPromptOverviewWithDependencies({
@@ -103,11 +111,14 @@ export class RepositoryTemplate {
     }) // return the tree
     if (!tree) return ''
 
-    const fileDependencies = languageSetup.fileDependencies // [package.json, ...]
-    // look each file from fileDependencies against tree to find the path
-    const filePath = fileDependencies.find((file) => tree.find((item) => item.path.includes(file)))
-    if (!filePath) return ''
+    const fileDependencies = languageSetup.fileDependencies
+    // Get only the first path found
+    const fileFound = tree
+      .filter((file) => file.type === TypeFile.Blob)
+      .find((item) => fileDependencies.find((file) => item.path.includes(file)))
+    if (!fileFound) return ''
 
+    const filePath = fileFound.path
     // once I have the path, fetch dependency file's contents
     const fileDependenciesContent = await getFileContents({
       path: filePath,
@@ -116,10 +127,13 @@ export class RepositoryTemplate {
     })
     if (!fileDependenciesContent) return ''
 
-    // split path like this -> src/main/go.mod = [src,main,go.mod]
     const segments = filePath.split('/')
-    const lastSegment = segments.at(-1) as string // -> go.mod
-    const parser = LANGUAGES_FILES_PARSERS[lastSegment]
+    const lastSegment = segments.at(-1) as string
+    const parser = LANGUAGES_FILES_PARSERS[lastSegment.toLowerCase()]
+    if (!parser) {
+      return ''
+    }
+
     const dependencies = parser({ content: fileDependenciesContent })
     const promptTechStack = generateTechStack({ dependencies, language: this.language })
     return promptTechStack
