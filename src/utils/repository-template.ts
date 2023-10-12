@@ -35,7 +35,7 @@ export class RepositoryTemplate {
   }
 
   getBanner() {
-    return `<p style="text-align:center;"><a href=${this.urlRepository} target="_blank"><img src='/placeholder.jpg' width="100%" alt="Banner" /></a></p>`
+    return `<p style="text-align:center;">\n<a href=${this.urlRepository} target="_blank">\n<img src='/placeholder.jpg' width="100%" alt="Banner" />\n</a>\n</p>`
   }
 
   getRepoName() {
@@ -194,7 +194,7 @@ Insert RUN commands
         contributions: contributions
       })
     )
-    let table = `## ${README_SECTIONS['contributors']}\n\n<table style="border:1px solid #404040;text-align:center;width:100%">`
+    let table = `## ${README_SECTIONS['contributors']}\n\n<table style="border:1px solid #404040;text-align:center;width:100%">\n`
     let totalCells = 1
     const MAX_WIDTH_ROW = 100
     const width = (MAX_WIDTH_ROW / contributorsPerRow).toFixed(2)
@@ -234,7 +234,7 @@ Insert RUN commands
   }
 
   getBadges(...args: BadgeName[]) {
-    let html = `<p style="text-align:center;">`
+    let html = `<p style="text-align:center;">\n`
     args.forEach((badge: BadgeName) => {
       const res = getBadgeByName({
         repoName: this.repoName,
