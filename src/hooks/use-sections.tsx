@@ -62,22 +62,22 @@ export function useSections() {
     addContentToTemplate(acknowledgments)
   }
 
-  const roadmap = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+  const roadmap = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     const roadmap = repositoryTemplate.getRoadmap()
     addContentToTemplate(roadmap)
   }
 
-  const changelog = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+  const changelog = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     const changelog = repositoryTemplate.getChangelog()
     addContentToTemplate(changelog)
   }
 
-  const commands = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+  const commands = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     const commands = repositoryTemplate.getCommands()
     addContentToTemplate(commands)
   }
 
-  const faq = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
+  const faq = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     const faq = repositoryTemplate.getFaq()
     addContentToTemplate(faq)
   }

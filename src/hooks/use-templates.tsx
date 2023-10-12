@@ -97,9 +97,9 @@ export function useTemplates() {
     await techStack({ repositoryTemplate })
     await settingUp({ repositoryTemplate })
     runningLocally({ repositoryTemplate })
-    await roadmap({ repositoryTemplate })
+    roadmap({ repositoryTemplate })
     acknowledgments({ repositoryTemplate })
-    await changelog({ repositoryTemplate })
+    changelog({ repositoryTemplate })
     setIsGenerating(false)
   }
 
@@ -125,8 +125,8 @@ export function useTemplates() {
     await projectStructure({ repositoryTemplate })
     prerequisites({ repositoryTemplate })
     runningLocally({ repositoryTemplate })
-    await faq({ repositoryTemplate })
-    await roadmap({ repositoryTemplate })
+    faq({ repositoryTemplate })
+    roadmap({ repositoryTemplate })
     acknowledgments({ repositoryTemplate })
     await license({ repositoryTemplate })
     setIsGenerating(false)
