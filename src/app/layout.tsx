@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: '/',
-    siteName: 'Easyreadme.dev',
+    siteName: 'Easyreadme.com',
     locale: 'en_US',
     type: 'website',
     images: [
