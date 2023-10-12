@@ -5,9 +5,9 @@ export const getPromptRandomOverview = ({
   repositoryName: string
   projectDescription: string
 }) => {
-  return `Generate a detailed project overview for ${repositoryName}.
+  return `Craft an overview for ${repositoryName}.
 ${projectDescription !== '' ? `This project is described as ${projectDescription}.` : ''}
-Keep your response under 200 characters.`
+Ensure to keep your response under 200 characters.`
 }
 
 export const getPromptOverviewWithDependencies = ({
@@ -19,12 +19,11 @@ export const getPromptOverviewWithDependencies = ({
   dependencies: string
   projectDescription: string
 }) => {
-  return `Generate a detailed project overview for ${repositoryName}.
+  return `Craft an overview for ${repositoryName}.
 ${projectDescription !== '' ? `This project is described as ${projectDescription}.` : ''} 
-It relies on:
+The project relies on various libraries and tools, including the following essential dependencies
 ${dependencies} 
-to function efficiently and effectively.
-Keep your response under 250 characters.`
+Ensure to keep your response under 250 characters.`
 }
 
 export const generateTechStack = ({
