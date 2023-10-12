@@ -12,6 +12,6 @@ export const getPathFromUrl = ({ path }: { path: string }) => {
   return pathParts.slice(0, -1).join('/')
 }
 
-export const getTextWithoutExtraLines = ({ text }: { text: string }) => {
-  return text.replace(/\n\s*\n/g, '\n')
+export const removeLeadingSpaces = ({ text }: { text: string }): string => {
+  return text.replace(/^\s+/gm, '')
 }
