@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { NameTemplate } from '@/types'
 import { DEFAULT_CONTENT } from '@/constants'
 
-type TemplateState = {
+type BuilderState = {
   templateSelected: NameTemplate
   setTemplateSelected: (templateName: NameTemplate) => void
   contentTemplate: string
@@ -12,7 +12,7 @@ type TemplateState = {
   setIsGenerating: (isGenerating: boolean) => void
 }
 
-export const useTemplate = create<TemplateState>()((set) => ({
+export const useBuilder = create<BuilderState>()((set) => ({
   templateSelected: 'Minimal',
   contentTemplate: DEFAULT_CONTENT,
   isGenerating: false,

@@ -3,12 +3,12 @@ import { useCallback, useRef, useState } from 'react'
 import Image from 'next/image'
 import { NameTemplate } from '@/types'
 import { DEFAULT_TEMPLATES } from '@/constants'
-import { useTemplate } from '@/store'
+import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 import { DrawerMobile } from '@/components/ui/drawer-mobile'
 
 export function DialogMobile() {
-  const setTemplateSelected = useTemplate((state) => state.setTemplateSelected)
+  const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
   const sliderRef = useRef<HTMLDivElement | null>(null)
   const itemSelectedRef = useRef<string>('')
   const [open, setOpen] = useState(false)

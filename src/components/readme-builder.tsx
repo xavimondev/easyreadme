@@ -1,12 +1,12 @@
 'use client'
 import { useCompletion } from 'ai/react'
-import { useTemplate } from '@/store'
+import { useBuilder } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CustomEditor } from '@/components/editor'
 import { CodeBlock } from '@/components/code-block'
 
 export function ReadmeBuilder() {
-  const contentTemplate = useTemplate((store) => store.contentTemplate)
+  const contentTemplate = useBuilder((store) => store.contentTemplate)
   const { completion } = useCompletion({
     id: 'readme'
   })

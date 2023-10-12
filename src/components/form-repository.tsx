@@ -5,7 +5,7 @@ import { RepositoryTemplate } from '@/utils/repository-template'
 import { isValidGitHubRepositoryURL } from '@/utils/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { getRepositoryData } from '@/services/github'
-import { useTemplate } from '@/store'
+import { useBuilder } from '@/store'
 import { useTemplates } from '@/hooks/use-templates'
 import { useRemaining } from '@/hooks/use-remaining'
 import { Input } from '@/components/ui/input'
@@ -14,10 +14,10 @@ import { GitIc, LightningIc, LoadingIc } from '@/components/icons'
 
 export function FormRepository() {
   const { minimal, collaborate, empower, inspire, unleash } = useTemplates()
-  const isGenerating = useTemplate((state) => state.isGenerating)
-  const setIsGenerating = useTemplate((state) => state.setIsGenerating)
-  const templateSelected = useTemplate((state) => state.templateSelected)
-  const clearContentTemplate = useTemplate((state) => state.clearContentTemplate)
+  const isGenerating = useBuilder((state) => state.isGenerating)
+  const setIsGenerating = useBuilder((state) => state.setIsGenerating)
+  const templateSelected = useBuilder((state) => state.templateSelected)
+  const clearContentTemplate = useBuilder((state) => state.clearContentTemplate)
   const { mutate } = useRemaining()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

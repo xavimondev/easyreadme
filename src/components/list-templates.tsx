@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
 import { Template } from '@/types'
 import { cn } from '@/lib/utils'
-import { useTemplate } from '@/store'
+import { useBuilder } from '@/store'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 
 export function TemplateItem({
@@ -17,8 +17,8 @@ export function TemplateItem({
   description,
   srcVideo
 }: Template) {
-  const templateSelected = useTemplate((state) => state.templateSelected)
-  const setTemplateSelected = useTemplate((state) => state.setTemplateSelected)
+  const templateSelected = useBuilder((state) => state.templateSelected)
+  const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
   const isSelected = templateSelected === nameTemplate
 
   return (

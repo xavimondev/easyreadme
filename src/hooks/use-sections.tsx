@@ -1,12 +1,12 @@
 import { useCompletion } from 'ai/react'
 import { toast } from 'sonner'
-import { useTemplate } from '@/store'
+import { useBuilder } from '@/store'
 import { BadgeName, Section } from '@/types'
 import { RepositoryTemplate } from '@/utils/repository-template'
 import { README_SECTIONS } from '@/constants'
 
 export function useSections() {
-  const addContentToTemplate = useTemplate((state) => state.addContentToTemplate)
+  const addContentToTemplate = useBuilder((state) => state.addContentToTemplate)
   const { complete, setCompletion } = useCompletion({
     id: 'readme',
     onFinish: (_prompt, completion) => {

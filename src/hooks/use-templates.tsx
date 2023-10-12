@@ -1,6 +1,6 @@
 import { RepositoryTemplate } from '@/utils/repository-template'
 import { useSections } from '@/hooks/use-sections'
-import { useTemplate } from '@/store'
+import { useBuilder } from '@/store'
 
 export function useTemplates() {
   const {
@@ -23,7 +23,7 @@ export function useTemplates() {
     projectSummary,
     tableOfContents
   } = useSections()
-  const setIsGenerating = useTemplate((state) => state.setIsGenerating)
+  const setIsGenerating = useBuilder((state) => state.setIsGenerating)
 
   const minimal = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
     await overview({ repositoryTemplate })
