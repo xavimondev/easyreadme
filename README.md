@@ -38,6 +38,7 @@ Easyreadme is a project that simplifies README creation by generating visually s
 - [tiptap/core](https://github.com/ueberdosis/tiptap): A highly customizable and extendable rich text editor framework.
 - [swr](https://github.com/vercel/swr): Handles data fetching, caching, and synchronization with the server.
 - [zustand](https://github.com/pmndrs/zustand): A small, fast, and scalable state management library.
+- [phosphoricons](https://phosphoricons.com/): A flexible icon family for interfaces, diagrams, presentations
 
 ## 📝 Project Summary
 
