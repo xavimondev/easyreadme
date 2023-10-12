@@ -1,6 +1,8 @@
 import { ReadmeBuilder } from '@/components/readme-builder'
 import { Sidebar } from '@/components/sidebar'
 
+export const dynamic = 'force-dynamic'
+
 export default function Builder() {
   return (
     <main className='p-2 min-h-screen'>
