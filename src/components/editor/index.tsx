@@ -1,14 +1,11 @@
 'use client'
 import { useCallback, useEffect } from 'react'
 import { type Editor, EditorContent, useEditor } from '@tiptap/react'
-import { useTemplate } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 
 export function CustomEditor({ content }: { content: string }) {
-  const isGenerating = useTemplate((state) => state.isGenerating)
   const editor = useEditor({
     editable: false,
-    // autofocus: 'all',
     injectCSS: false,
     content,
     editorProps: {
@@ -38,12 +35,6 @@ export function CustomEditor({ content }: { content: string }) {
       editor.commands.clearContent()
     }
   }, [content])
-
-  useEffect(() => {
-    if (!editor) return
-
-    editor.setEditable(!isGenerating)
-  }, [isGenerating])
 
   return (
     <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-366px)] md:h-[calc(100vh-63px)]'>
