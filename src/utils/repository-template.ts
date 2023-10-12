@@ -15,6 +15,7 @@ import {
   getRepositoryStructure,
   getLicense
 } from '@/services/github'
+import { removeLeadingSpaces } from '.'
 
 export class RepositoryTemplate {
   private urlRepository: string
@@ -35,7 +36,12 @@ export class RepositoryTemplate {
   }
 
   getBanner() {
-    return `<p style="text-align:center;">\n<a href=${this.urlRepository} target="_blank">\n<img src='/placeholder.jpg' width="100%" alt="Banner" />\n</a>\n</p>`
+    const banner = `<p style="text-align:center;">\n
+        <a href=${this.urlRepository} target="_blank">\n
+        <img src='/placeholder.jpg' width="100%" alt="Banner" />\n
+        </a>\n
+      </p>`
+    return removeLeadingSpaces({ text: banner }) + `\n\n`
   }
 
   getRepoName() {
@@ -101,59 +107,73 @@ export class RepositoryTemplate {
 
   getRunningLocally() {
     const setup = LANGUAGES_SETUP.find(({ language }) => language === this.language)
+    const runningLocally = `## ${README_SECTIONS['run-locally']}\n\n
+        1.Clone the ${this.repoName} repository:\n\n
+        \`\`\`sh
+        git clone ${this.urlRepository}
+        \`\`\`\n\n
+        2.Install the dependencies with one of the package managers listed below:\n\n
+        ${
+          setup
+            ? getSetupCommands({ commands: setup.commands['install'] })
+            : `\`\`\`sh 
+        Insert INSTALL commands 
+        \`\`\``
+        }\n\n
+        3.Start the development mode:\n\n
+        ${
+          setup
+            ? getSetupCommands({ commands: setup.commands['run'] })
+            : `\`\`\`sh 
+        Insert RUN commands 
+        \`\`\``
+        }`
 
-    return `## ${README_SECTIONS['run-locally']}
-
-1.Clone the ${this.repoName} repository:
-
-\`\`\`sh
-git clone ${this.urlRepository}
-\`\`\`
-
-2.Install dependencies:
-
-${
-  setup
-    ? getSetupCommands({ commands: setup.commands['install'] })
-    : `\`\`\`sh 
-Insert INSTALL commands 
-\`\`\``
-}
-
-3.Start the development mode:
-
-${
-  setup
-    ? getSetupCommands({ commands: setup.commands['run'] })
-    : `\`\`\`sh 
-Insert RUN commands 
-\`\`\``
-}
-`
+    return removeLeadingSpaces({ text: runningLocally }) + `\n\n`
   }
 
   getAcknowledgments() {
-    return `## ${README_SECTIONS['acknowledgements']}\n\n\`- [Awesome Tool](https://awesometool.link)\`\n\n\`- [Awesome Inspiration](https://awesomeinsp.link)\`\n\n`
+    const acknowledgments = `## ${README_SECTIONS['acknowledgements']}\n\n
+      - [Awesome Tool](https://awesometool.link).\n\n
+      - [Awesome Inspiration](https://awesomeinsp.link).`
+    return removeLeadingSpaces({ text: acknowledgments }) + `\n\n`
   }
 
   getRoadmap() {
-    return `## ${README_SECTIONS['roadmap']}\n\n- [X] **Task 1:** Implement feature one.\n\n- [   ] **Task 2:** Develop feature two.\n\n- [   ] **Task 3:** Enhance X.\n\n`
+    const roadmap = `## ${README_SECTIONS['roadmap']}\n\n
+    - [X] **Task 1:** Implement feature one.\n\n
+    - [   ] **Task 2:** Develop feature two.\n\n
+    - [   ] **Task 3:** Enhance X.`
+    return removeLeadingSpaces({ text: roadmap }) + `\n\n`
   }
 
   getChangelog() {
-    return `## ${README_SECTIONS['changelog']}\n\n> All notable changes to this project will be documented in this section.\n\n#### [Version X.X.X] - YYYY-MM-DD\n\n
-- New features or enhancements added in this release.\n\n- Fixes to errors or problems.\n\n`
+    const changeLog = `## ${README_SECTIONS['changelog']}\n\n
+    > All notable changes to this project will be documented in this section.\n\n
+    #### [Version X.X.X] - YYYY-MM-DD\n\n
+    - New features or enhancements added in this release.\n\n
+    - Fixes to errors or problems.`
+    return removeLeadingSpaces({ text: changeLog }) + `\n\n`
   }
 
   // useful for vscode extensions
   getCommands() {
-    return `## ${README_SECTIONS['commands']}\n\nThis extension contributes the following commands to the Command palette:\n\n- \`Command name\`: Command description.\n\n- \`Authenticate\`: Command description.\n\n`
+    const commands = `## ${README_SECTIONS['commands']}\n\n
+    This extension contributes the following commands to the Command palette:\n\n
+    - \`Command name\`: Command description.\n\n
+    - \`Authenticate\`: Command description.`
+    return removeLeadingSpaces({ text: commands }) + `\n\n`
   }
 
   getFaq() {
-    return `## ${README_SECTIONS['faq']}\n\n#### 1. What is this project about?\n\nThis project aims to **briefly describe your project's purpose and goals**.\n\n
-#### 2. Can I contribute to this project?\n\nYes, we welcome contributions! Please refer to our [Contribution Guidelines](CONTRIBUTING.md) for more information on how to contribute.\n\n
-#### 3. Any other question\n\nYour answer.\n\n`
+    const faq = `## ${README_SECTIONS['faq']}\n\n
+          #### 1. What is this project about?\n\n
+          This project aims to **briefly describe your project's purpose and goals**.\n\n
+          #### 2. Can I contribute to this project?\n\n
+          Yes, we welcome contributions! Please refer to our [Contribution Guidelines](CONTRIBUTING.md) for more information on how to contribute.\n\n
+          #### 3. Any other question\n\n
+          Your answer.`
+    return removeLeadingSpaces({ text: faq }) + `\n\n`
   }
 
   async getProjectStructure() {
@@ -229,8 +249,11 @@ Insert RUN commands
   }
 
   getGalleryContributors() {
-    return `## ${README_SECTIONS['contributors']}\n\n<a href="https://github.com/${this.repoOwner}/${this.repoName}/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=${this.repoOwner}/${this.repoName}" /></a>\n\n`
+    const contributors = `## ${README_SECTIONS['contributors']}\n\n
+    <a href="https://github.com/${this.repoOwner}/${this.repoName}/graphs/contributors">\n
+    <img src="https://contrib.rocks/image?repo=${this.repoOwner}/${this.repoName}" />\n
+    </a>`
+    return removeLeadingSpaces({ text: contributors }) + `\n\n`
   }
 
   getBadges(...args: BadgeName[]) {
