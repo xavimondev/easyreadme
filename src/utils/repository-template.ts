@@ -242,7 +242,7 @@ Insert RUN commands
         badge
       })
       const { label, url } = res
-      html += `<img src="${url}" alt=${label} />\n`
+      html += `<img src="${url}" alt="${label}" />\n`
     })
     html += `</p>\n\n`
     return html
