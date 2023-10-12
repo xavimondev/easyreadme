@@ -160,7 +160,7 @@ export default function Home() {
                 <div className='border overflow-hidden rounded-md w-full hidden lg:block absolute -bottom-1 left-7 sm:max-w-sm'>
                   <video autoPlay muted loop>
                     <source
-                      src='https://res.cloudinary.com/xavimon/video/upload/v1/easyreadme/gb5hkxxppqpvqvo4zfbj'
+                      src='https://res.cloudinary.com/xavimon/video/upload/v1697152335/easyreadme/streaming_n3dvyl.mp4'
                       type='video/webm'
                     />
                   </video>
