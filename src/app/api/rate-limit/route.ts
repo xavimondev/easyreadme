@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       const ip = req.headers.get('x-forwarded-for')
       const ratelimit = new Ratelimit({
         redis: kv,
-        // rate limit to 10 templates per day
+        // rate limit to 8 templates per day
         limiter: Ratelimit.slidingWindow(RATE_LIMIT, '1 d')
       })
 
