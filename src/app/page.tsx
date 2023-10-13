@@ -30,8 +30,17 @@ export default function Home() {
         </div>
       </header>
       <main>
-        <section className='flex items-center relative mt-16 lg:mt-0 sm:mb-0 overflow-x-hidden overflow-y-hidden lg:h-screen'>
-          <div className='px-5 md:px-32 w-full sm:max-w-4xl flex flex-col gap-10 animate-delay-100 animate-fade-in text-left'>
+        <section className='mt-16 lg:mt-32 px-5 md:px-32'>
+          <div
+            aria-hidden='true'
+            className='absolute w-36 sm:h-36 top-0 sm:top-32 right-0 sm:right-56 opacity-50 backdrop-blur blur-3xl z-0 hidden lg:block'
+          >
+            <div className='relative'>
+              <div className='rounded-full sm:h-36 w-full bg-red-800 dark:bg-red-300'></div>
+              <div className='absolute top-32 left-0 sm:left-24 rounded-full sm:h-36 w-full bg-blue-800 dark:bg-blue-600'></div>
+            </div>
+          </div>
+          <div className='w-full mx-auto sm:max-w-4xl flex flex-col items-center gap-8 text-center animate-fade-in animate-delay-100 mb-0 lg:mb-32'>
             <h1 className='text-black dark:text-white text-3xl lg:text-6xl !leading-tight font-semibold'>
               Craft{' '}
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
@@ -42,8 +51,8 @@ export default function Home() {
                 Effortlessly
               </span>
             </h1>
-            <p className='text-gray-500 dark:text-gray-300/90 text-base sm:text-2xl'>
-              Generate visually stunning READMEs effortlessly with the help of{' '}
+            <p className='mx-auto max-w-md sm:max-w-2xl text-gray-500 dark:text-gray-300/90 text-base sm:text-2xl'>
+              Generate visually stunning READMEs with{' '}
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
                 IA and elegant pre-designed templates.
               </span>
@@ -69,18 +78,19 @@ export default function Home() {
               <ChevronRightIc className='h-4 w-4 sm:h-4 sm:w-4' />
             </Link>
           </div>
-          <div
-            aria-hidden='true'
-            className='absolute w-1/2 sm:h-[32rem] top-0 sm:top-52 right-0 sm:-right-32 opacity-50 backdrop-blur blur-3xl z-0 hidden sm:block'
-          >
-            <div className='relative'>
-              <div className='rounded-full h-52 sm:h-[32rem] w-full bg-red-800 dark:bg-red-300'></div>
-              <div className='absolute top-32 left-0 sm:left-24 rounded-full h-48 sm:h-[32rem] w-full bg-blue-800 dark:bg-blue-600'></div>
+          <div className='hidden lg:flex justify-center relative w-full'>
+            <div
+              aria-hidden='true'
+              className='absolute w-[300px] sm:h-[700px] bottom-0 sm:top-14 left-0 md:left-4 xl:left-72 opacity-40 backdrop-blur blur-3xl z-0 hidden sm:block'
+            >
+              <div className='relative'>
+                <div className='rounded-full sm:h-[600px] w-full bg-red-800 dark:bg-red-300'></div>
+              </div>
             </div>
+            <ImageTheme />
           </div>
-          <ImageTheme />
         </section>
-        <section className='hidden sm:block sm:h-[200vh]'>
+        <section className='hidden lg:block sm:h-[200vh]'>
           <div className='sm:sticky sm:top-0 sm:h-screen'>
             <Stars />
             <div className='mx-auto w-full sm:max-w-5xl px-4 sm:px-6 lg:px-8 flex h-full items-center justify-center relative'>
@@ -109,7 +119,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='relative mt-36 sm:mt-0'>
+        <section className='relative sm:mt-0'>
           <div
             aria-hidden='true'
             className='absolute overflow-hidden pointer-events-none top-0 right-5 opacity-50 backdrop-blur blur-3xl'
@@ -122,7 +132,7 @@ export default function Home() {
           >
             <div className='rounded-full h-52 dark:h-44 w-32 bg-orange-600 dark:bg-orange-500'></div>
           </div>
-          <div className='mx-auto w-full md:max-w-3xl lg:max-w-4xl mt-28 px-5 md:px-0'>
+          <div className='mx-auto w-full md:max-w-3xl lg:max-w-4xl mt-16 px-5 md:px-0'>
             <div className='sm:flex flex-col gap-6 text-center'>
               <h2 className='text-2xl sm:text-4xl leading-tight font-semibold'>
                 <span className='text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 dark:via-sky-400 dark:to-blue-400'>
