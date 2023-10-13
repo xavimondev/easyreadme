@@ -1,14 +1,16 @@
-type StarsProps = {
-  countStars?: number
-}
+'use client'
+import { useRef } from 'react'
 
-export function Stars({ countStars = 200 }: StarsProps) {
+export function Stars() {
+  const widthRef = useRef(window.innerWidth)
+  const countStars = Math.floor(widthRef.current / 10) - 2
+
   return (
     <>
       {Array.from({ length: countStars }, (_, index) => {
         const left = index * 10
         const delay = Math.floor(Math.random() * 1000)
-        const extraTop = Math.floor(Math.random() * 550)
+        const extraTop = Math.floor(Math.random() * 600)
         const dimension = Math.random() * 4
         return (
           <div
