@@ -1,21 +1,24 @@
-<p style="text-align:center;">
+<p align="center">
   <a href=https://github.com/xavimondev/easyreadme target="_blank">
     <img src='https://easyreadme.vercel.app/banner.jpg' width="100%" alt="Banner" />
   </a>
 </p>
 
-<div align="center">
+<p align="center">
   <img src="https://img.shields.io/github/contributors/xavimondev/easyreadme" alt="GitHub contributors" />
   <img src="https://img.shields.io/github/stars/xavimondev/easyreadme" alt="GitHub Stars" />
   <img src="https://img.shields.io/github/issues/xavimondev/easyreadme" alt="GitHub issues" />
   <img src="https://img.shields.io/github/issues-pr/xavimondev/easyreadme" alt="GitHub pull request" />
   <img src="https://img.shields.io/github/license/xavimondev/easyreadme" alt="GitHub License" />
-</div>
+</p>
 
 <p><p>
 <p><p>
 
-Easyreadme is a project that simplifies README creation by generating visually stunning READMEs using pre-designed templates and intelligent AI. It relies on a wide range of technologies and libraries including React, Tailwind CSS, Tiptap, OpenAI, and more.
+## 📌 Overview
+
+Easyreadme is a project that simplifies README creation by generating visually stunning READMEs using pre-designed templates and AI. It supports generating READMEs for JavaScript/TypeScript, Rust, Java, Go, PHP, and Python projects.
+It relies on a wide range of technologies and libraries including React, Tailwind CSS, Tiptap, OpenAI, and more.
 
 ## 🔍 Table of Contents
 
@@ -106,6 +109,11 @@ npm run dev
 
 yarn dev
 ```
+
+## 🗺️ Roadmap
+
+- [ ] **Let users create their own templates.**
+- [ ] **Extend support for monorepos and libraries.**
 
 ## 📄 License
 
