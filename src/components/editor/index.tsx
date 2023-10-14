@@ -1,6 +1,6 @@
 'use client'
 import { useCallback, useEffect } from 'react'
-import { type Editor, EditorContent, useEditor } from '@tiptap/react'
+import { type Editor, EditorContent, useEditor, type Extensions } from '@tiptap/react'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 
 export function CustomEditor({ content }: { content: string }) {
@@ -14,7 +14,7 @@ export function CustomEditor({ content }: { content: string }) {
           'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-405px)] md:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
       }
     },
-    extensions: DEFAULT_EXTENSIONS
+    extensions: DEFAULT_EXTENSIONS as Extensions
   })
 
   // Scroll without focus
