@@ -1,9 +1,13 @@
 'use client'
-import { useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 export function Stars() {
-  const widthRef = useRef(window.innerWidth)
-  const countStars = Math.floor(widthRef.current / 10) - 2
+  const [countStars, setCountStars] = useState(0)
+
+  useEffect(() => {
+    const countStars = Math.floor(window.innerWidth / 10) - 2
+    setCountStars(countStars)
+  }, [])
 
   return (
     <>
