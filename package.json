@@ -23,6 +23,7 @@
     "@tiptap/extension-heading": "2.1.8",
     "@tiptap/extension-image": "2.1.8",
     "@tiptap/extension-link": "2.1.8",
+    "@tiptap/extension-paragraph": "2.1.12",
     "@tiptap/extension-table": "2.1.8",
     "@tiptap/extension-table-cell": "2.1.8",
     "@tiptap/extension-table-header": "2.1.8",

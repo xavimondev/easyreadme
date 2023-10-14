@@ -36,7 +36,7 @@ export class RepositoryTemplate {
   }
 
   getBanner() {
-    const banner = `<p style="text-align:center;">\n
+    const banner = `<p align="center">\n
         <a href=${this.urlRepository} target="_blank">\n
         <img src='/placeholder.jpg' width="100%" alt="Banner" />\n
         </a>\n
@@ -257,7 +257,7 @@ export class RepositoryTemplate {
   }
 
   getBadges(...args: BadgeName[]) {
-    let html = `<p style="text-align:center;">\n`
+    let html = `<p align="center">\n`
     args.forEach((badge: BadgeName) => {
       const res = getBadgeByName({
         repoName: this.repoName,
@@ -267,7 +267,7 @@ export class RepositoryTemplate {
       const { label, url } = res
       html += `<img src="${url}" alt="${label}" />\n`
     })
-    html += `</p>\n\n`
+    html += `</p>\n\n<p></p>\n<p></p>\n\n`
     return html
   }
 

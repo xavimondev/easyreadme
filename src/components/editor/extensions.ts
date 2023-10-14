@@ -9,6 +9,7 @@ import Link from '@tiptap/extension-link'
 import CodeBlock from '@tiptap/extension-code-block'
 import TextAlign from '@tiptap/extension-text-align'
 import Heading from '@tiptap/extension-heading'
+import Paragraph from '@tiptap/extension-paragraph'
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -54,6 +55,18 @@ const CustomTableCell = TableCell.extend({
     }
   }
 })
+
+const CustomParagraph = Paragraph.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      align: {
+        default: null
+      }
+    }
+  }
+})
+
 export const DEFAULT_EXTENSIONS = [
   StarterKit.configure({
     codeBlock: false,
@@ -130,5 +143,6 @@ export const DEFAULT_EXTENSIONS = [
     HTMLAttributes: {
       spellcheck: 'false'
     }
-  })
+  }),
+  CustomParagraph
 ]
