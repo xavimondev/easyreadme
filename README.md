@@ -4,13 +4,16 @@
   </a>
 </p>
 
-<p style="text-align:center;">
+<div align="center">
   <img src="https://img.shields.io/github/contributors/xavimondev/easyreadme" alt="GitHub contributors" />
   <img src="https://img.shields.io/github/stars/xavimondev/easyreadme" alt="GitHub Stars" />
   <img src="https://img.shields.io/github/issues/xavimondev/easyreadme" alt="GitHub issues" />
   <img src="https://img.shields.io/github/issues-pr/xavimondev/easyreadme" alt="GitHub pull request" />
   <img src="https://img.shields.io/github/license/xavimondev/easyreadme" alt="GitHub License" />
-</p>
+</div>
+
+<p><p>
+<p><p>
 
 Easyreadme is a project that simplifies README creation by generating visually stunning READMEs using pre-designed templates and intelligent AI. It relies on a wide range of technologies and libraries including React, Tailwind CSS, Tiptap, OpenAI, and more.
 
