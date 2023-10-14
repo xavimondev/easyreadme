@@ -33,11 +33,11 @@ export default function Home() {
         <section className='mt-16 lg:mt-32 px-5 md:px-32'>
           <div
             aria-hidden='true'
-            className='absolute w-36 sm:h-36 top-0 sm:top-32 right-0 sm:right-56 opacity-50 backdrop-blur blur-3xl z-0 hidden lg:block'
+            className='absolute w-36 sm:h-36 top-0 sm:top-56 right-0 sm:right-60 opacity-50 backdrop-blur blur-3xl z-0 hidden lg:block'
           >
             <div className='relative'>
               <div className='rounded-full sm:h-36 w-full bg-red-800 dark:bg-red-300'></div>
-              <div className='absolute top-32 left-0 sm:left-24 rounded-full sm:h-36 w-full bg-blue-800 dark:bg-blue-600'></div>
+              <div className='absolute top-24 left-0 sm:left-24 rounded-full sm:h-36 w-full bg-blue-800 dark:bg-blue-600'></div>
             </div>
           </div>
           <div className='w-full mx-auto sm:max-w-4xl flex flex-col items-center gap-8 text-center animate-fade-in animate-delay-100 mb-0 lg:mb-32'>
@@ -81,10 +81,10 @@ export default function Home() {
           <div className='hidden lg:flex justify-center relative w-full'>
             <div
               aria-hidden='true'
-              className='absolute w-[300px] sm:h-[700px] bottom-0 sm:top-14 left-0 md:left-4 xl:left-72 opacity-40 backdrop-blur blur-3xl z-0 hidden sm:block'
+              className='absolute w-[300px] sm:h-[200px] bottom-0 sm:top-14 left-0 md:left-4 xl:left-72 opacity-40 backdrop-blur blur-3xl z-0 hidden sm:block'
             >
               <div className='relative'>
-                <div className='rounded-full sm:h-[600px] w-full bg-red-800 dark:bg-red-300'></div>
+                <div className='rounded-full sm:h-[200px] w-full bg-red-800 dark:bg-red-300'></div>
               </div>
             </div>
             <ImageTheme />
