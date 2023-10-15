@@ -95,15 +95,20 @@ git clone https://github.com/xavimondev/easyreadme
 ```bash
 pnpm install
 
+bun install
+
 npm install
 
 yarn install
+
 ```
 
 3.Start the development mode:
 
 ```bash
 pnpm dev
+
+bun dev
 
 npm run dev
 
