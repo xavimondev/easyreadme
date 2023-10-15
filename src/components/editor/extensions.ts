@@ -71,6 +71,7 @@ export const DEFAULT_EXTENSIONS = [
   StarterKit.configure({
     codeBlock: false,
     heading: false,
+    paragraph: false,
     code: {
       HTMLAttributes: {
         spellcheck: 'false'
