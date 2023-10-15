@@ -17,8 +17,8 @@ export const LANGUAGES_SETUP = [
     language: 'JavaScript',
     fileDependencies: ['package.json'],
     commands: {
-      install: ['pnpm install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'npm run dev', 'yarn dev'],
+      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
+      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
       test: ['npm run test']
     }
   },
@@ -26,8 +26,8 @@ export const LANGUAGES_SETUP = [
     language: 'TypeScript',
     fileDependencies: ['package.json'],
     commands: {
-      install: ['pnpm install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'npm run dev', 'yarn dev'],
+      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
+      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
       test: ['npm run test']
     }
   },
@@ -35,8 +35,8 @@ export const LANGUAGES_SETUP = [
     language: 'Svelte',
     fileDependencies: ['package.json'],
     commands: {
-      install: ['pnpm install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'npm run dev', 'yarn dev'],
+      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
+      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
       test: ['npm run test']
     }
   },
@@ -44,8 +44,8 @@ export const LANGUAGES_SETUP = [
     language: 'Astro',
     fileDependencies: ['package.json'],
     commands: {
-      install: ['pnpm install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'npm run dev', 'yarn dev'],
+      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
+      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
       test: ['npm run test']
     }
   },
@@ -53,8 +53,8 @@ export const LANGUAGES_SETUP = [
     language: 'Vue',
     fileDependencies: ['package.json'],
     commands: {
-      install: ['pnpm install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'npm run dev', 'yarn dev'],
+      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
+      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
       test: ['npm run test']
     }
   },
