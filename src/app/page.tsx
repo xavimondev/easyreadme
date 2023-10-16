@@ -54,7 +54,7 @@ export default function Home() {
             <p className='mx-auto max-w-md sm:max-w-2xl text-gray-500 dark:text-gray-300/90 text-base sm:text-2xl'>
               Generate visually stunning READMEs with{' '}
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
-                IA and elegant pre-designed templates.
+                AI and elegant pre-designed templates.
               </span>
             </p>
             <Link
