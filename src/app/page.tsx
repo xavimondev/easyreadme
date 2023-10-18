@@ -33,7 +33,7 @@ export default function Home() {
         <section className='mt-16 lg:mt-32 px-5 md:px-32'>
           <div
             aria-hidden='true'
-            className='absolute w-36 sm:h-36 top-0 sm:top-56 right-0 sm:right-60 opacity-50 backdrop-blur blur-3xl z-0 hidden lg:block'
+            className='absolute w-72 sm:h-44 top-0 sm:top-[1px] scale-150 right-0 sm:right-56 opacity-50 backdrop-blur blur-3xl z-0 hidden lg:block'
           >
             <div className='relative'>
               <div className='rounded-full sm:h-36 w-full bg-red-800 dark:bg-red-300'></div>
@@ -41,7 +41,7 @@ export default function Home() {
             </div>
           </div>
           <div className='w-full mx-auto sm:max-w-4xl flex flex-col items-center gap-8 text-center animate-fade-in animate-delay-100 mb-0 lg:mb-32'>
-            <h1 className='text-black dark:text-white text-3xl lg:text-6xl !leading-tight font-semibold'>
+            <h1 className='text-black dark:text-white text-3xl lg:text-7xl !leading-tight font-bold'>
               Craft{' '}
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
                 Stunning{' '}
@@ -51,7 +51,7 @@ export default function Home() {
                 Effortlessly
               </span>
             </h1>
-            <p className='mx-auto max-w-md sm:max-w-2xl text-gray-500 dark:text-gray-300/90 text-base sm:text-2xl'>
+            <p className='mx-auto max-w-md sm:max-w-xl text-gray-500 dark:text-gray-300/90 text-base sm:text-xl'>
               Generate visually stunning READMEs with{' '}
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-700 dark:from-blue-300 dark:to-violet-400'>
                 AI and elegant pre-designed templates.
@@ -79,14 +79,6 @@ export default function Home() {
             </Link>
           </div>
           <div className='hidden lg:flex justify-center relative w-full'>
-            <div
-              aria-hidden='true'
-              className='absolute w-[300px] sm:h-[200px] bottom-0 sm:top-14 left-0 md:left-4 xl:left-72 opacity-40 backdrop-blur blur-3xl z-0 hidden sm:block'
-            >
-              <div className='relative'>
-                <div className='rounded-full sm:h-[200px] w-full bg-red-800 dark:bg-red-300'></div>
-              </div>
-            </div>
             <ImageTheme />
           </div>
         </section>
@@ -134,12 +126,12 @@ export default function Home() {
           </div>
           <div className='mx-auto w-full md:max-w-3xl lg:max-w-4xl mt-16 px-5 md:px-0'>
             <div className='sm:flex flex-col gap-6 text-center'>
-              <h2 className='text-2xl sm:text-4xl leading-tight font-semibold'>
+              <h2 className='text-2xl sm:text-5xl leading-tight font-semibold'>
                 <span className='text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 dark:via-sky-400 dark:to-blue-400'>
                   Edge Streaming, AI, Copy-Paste
                 </span>
               </h2>
-              <p className='text-base sm:text-2xl text-gray-500 dark:text-white/80 mt-5'>
+              <p className='mx-auto md:max-w-3xl text-base sm:text-lg text-gray-500 dark:text-white/80 mt-5'>
                 Generate READMEs with instant streaming, templates, and effortless copy-paste
                 functionality. Your projects, brilliantly documented.
               </p>
@@ -158,8 +150,8 @@ export default function Home() {
               relative 
               overflow-hidden'
               >
-                <div className='px-9 py-8 mr-8 w-full lg:max-w-[330px]'>
-                  <h3 className='mt-4 text-lg sm:text-4xl sm:leading-tight text-transparent bg-clip-text bg-gradient-to-tr from-yellow-500 to-orange-500 dark:from-[#fffbab] dark:to-[#b59501]'>
+                <div className='px-9 py-8 mr-8 w-full lg:max-w-[350px]'>
+                  <h3 className='font-semibold mt-4 text-xl sm:text-4xl sm:leading-tight text-transparent bg-clip-text bg-gradient-to-tr from-yellow-500 to-orange-500 dark:from-[#fffbab] dark:to-[#b59501]'>
                     seamless experience with streaming
                   </h3>
                   <p className='mt-4 sm:mt-10 lg:-mr-16'>
@@ -179,7 +171,7 @@ export default function Home() {
               <div className='lg:flex-1 flex flex-col sm:flex-row lg:flex-col gap-5'>
                 <div className='flex-1 p-9 border rounded-lg flex flex-col justify-end dark:bg-black/30 dark:border-gray-500/20 relative overflow-hidden'>
                   <div className='w-full h-full absolute -top-10 sm:top-0 -right-2 sm:right-0 bg-circles'></div>
-                  <h4 className='mt-12 sm:mt-20 font-bold text-base sm:text-lg text-transparent bg-clip-text bg-gradient-to-tr from-green-500 to-teal-300 dark:from-[#a5e29c] dark:to-[#1b7b2c]'>
+                  <h4 className='mt-12 sm:mt-20 font-semibold text-xl sm:text-3xl text-transparent bg-clip-text bg-gradient-to-tr from-green-500 to-teal-300 dark:from-[#a5e29c] dark:to-[#1b7b2c]'>
                     Let AI handle the complexity
                   </h4>
                   <p className='mt-2'>
@@ -191,7 +183,7 @@ export default function Home() {
                   <div className='w-full flex justify-center'>
                     <CopyWithGradientIc className='w-12 h-12 sm:w-[70px] sm:h-[70px]' />
                   </div>
-                  <h4 className='mt-4 sm:mt-6 font-bold text-base sm:text-lg text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-red-500'>
+                  <h4 className='mt-4 sm:mt-6 font-semibold text-xl sm:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-red-500'>
                     Copy-Paste ease
                   </h4>
                   <p className='mt-2'>
