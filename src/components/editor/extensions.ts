@@ -10,6 +10,7 @@ import CodeBlock from '@tiptap/extension-code-block'
 import TextAlign from '@tiptap/extension-text-align'
 import Heading from '@tiptap/extension-heading'
 import Paragraph from '@tiptap/extension-paragraph'
+import DragAndDrop from '@/components/editor/custom-extensions/drag-and-drop'
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -145,5 +146,6 @@ export const DEFAULT_EXTENSIONS = [
       spellcheck: 'false'
     }
   }),
-  CustomParagraph
+  CustomParagraph,
+  DragAndDrop
 ]

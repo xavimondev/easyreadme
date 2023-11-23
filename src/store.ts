@@ -7,6 +7,7 @@ type BuilderState = {
   setTemplateSelected: (templateName: NameTemplate) => void
   contentTemplate: string
   addContentToTemplate: (content: string) => void
+  setContentTemplate: (content: string) => void
   clearContentTemplate: () => void
   isGenerating: boolean
   setIsGenerating: (isGenerating: boolean) => void
@@ -19,6 +20,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   addContentToTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
+  setContentTemplate: (content: string) => set({ contentTemplate: content }),
   clearContentTemplate: () => set({ contentTemplate: '' }),
   setIsGenerating: (isGenerating) => set({ isGenerating })
 }))
