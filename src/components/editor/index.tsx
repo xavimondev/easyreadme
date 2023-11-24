@@ -2,6 +2,11 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { type Editor, EditorContent, useEditor, type Extensions } from '@tiptap/react'
 import { useDebouncedCallback } from 'use-debounce'
+import {
+  addNewlinesBetweenBadges,
+  replaceBadgesMarkdownToHtml,
+  replaceBannerMarkdownToHtml
+} from '@/utils'
 import { useBuilder } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 
@@ -10,9 +15,13 @@ export function CustomEditor({ content }: { content: string }) {
   const avoidUpdateState = useRef<boolean>(false)
   const debounce = useDebouncedCallback(({ editor }) => {
     const markdown = editor.storage.markdown.getMarkdown()
-    setContentTemplate(markdown)
+    // TODO: This stuff can be improved
+    const markdownParsedWithBanner = replaceBannerMarkdownToHtml({ markdownContent: markdown })
+    const markdownLines = addNewlinesBetweenBadges({ markdownContent: markdownParsedWithBanner })
+    const content = replaceBadgesMarkdownToHtml({ markdownContent: markdownLines })
+    setContentTemplate(content)
     avoidUpdateState.current = true
-  }, 1000)
+  }, 700)
 
   const editor = useEditor({
     editable: true,
@@ -30,7 +39,7 @@ export function CustomEditor({ content }: { content: string }) {
     }
   })
 
-  // Scroll without focus
+  // FIXME: https://github.com/xavimondev/easyreadme/issues/4
   const scrollToSelection = useCallback((editor: Editor) => {
     const { node } = editor.view.domAtPos(editor.state.selection.anchor)
     if (node) {
