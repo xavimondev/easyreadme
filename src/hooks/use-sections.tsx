@@ -25,7 +25,7 @@ export function useSections() {
   }
 
   const overview = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    addContentToTemplate(`# ${README_SECTIONS['overview']}\n\n`)
+    addContentToTemplate(`## ${README_SECTIONS['overview']}\n\n`)
     const promptOverview = await repositoryTemplate.getOverview()
     await complete(promptOverview)
   }

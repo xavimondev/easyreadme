@@ -267,7 +267,7 @@ export class RepositoryTemplate {
       const { label, url } = res
       html += `<img src="${url}" alt="${label}" />\n`
     })
-    html += `</p>\n\n<p></p>\n<p></p>\n\n`
+    html += `</p>\n\n`
     return html
   }
 

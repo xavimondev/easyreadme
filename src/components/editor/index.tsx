@@ -1,11 +1,30 @@
 'use client'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { type Editor, EditorContent, useEditor, type Extensions } from '@tiptap/react'
+import { useDebouncedCallback } from 'use-debounce'
+import {
+  addNewlinesBetweenBadges,
+  replaceBadgesMarkdownToHtml,
+  replaceBannerMarkdownToHtml
+} from '@/utils'
+import { useBuilder } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 
 export function CustomEditor({ content }: { content: string }) {
+  const setContentTemplate = useBuilder((store) => store.setContentTemplate)
+  const avoidUpdateState = useRef<boolean>(false)
+  const debounce = useDebouncedCallback(({ editor }) => {
+    const markdown = editor.storage.markdown.getMarkdown()
+    // TODO: This stuff can be improved
+    const markdownParsedWithBanner = replaceBannerMarkdownToHtml({ markdownContent: markdown })
+    const markdownLines = addNewlinesBetweenBadges({ markdownContent: markdownParsedWithBanner })
+    const content = replaceBadgesMarkdownToHtml({ markdownContent: markdownLines })
+    setContentTemplate(content)
+    avoidUpdateState.current = true
+  }, 700)
+
   const editor = useEditor({
-    editable: false,
+    editable: true,
     injectCSS: false,
     content,
     editorProps: {
@@ -14,10 +33,13 @@ export function CustomEditor({ content }: { content: string }) {
           'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-405px)] md:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
       }
     },
-    extensions: DEFAULT_EXTENSIONS as Extensions
+    extensions: DEFAULT_EXTENSIONS as Extensions,
+    onUpdate: ({ editor }) => {
+      debounce({ editor })
+    }
   })
 
-  // Scroll without focus
+  // FIXME: https://github.com/xavimondev/easyreadme/issues/4
   const scrollToSelection = useCallback((editor: Editor) => {
     const { node } = editor.view.domAtPos(editor.state.selection.anchor)
     if (node) {
@@ -26,7 +48,7 @@ export function CustomEditor({ content }: { content: string }) {
   }, [])
 
   useEffect(() => {
-    if (!editor) return
+    if (!editor || avoidUpdateState.current) return
 
     if (content !== '') {
       editor.commands.setContent(content)
@@ -37,7 +59,7 @@ export function CustomEditor({ content }: { content: string }) {
   }, [content])
 
   return (
-    <div className='border border-black dark:border-white/20 w-full rounded-md p-5 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-366px)] md:h-[calc(100vh-63px)]'>
+    <div className='border border-black dark:border-white/20 w-full rounded-md p-9 bg-white/95 dark:bg-white/5 relative h-[calc(100vh-366px)] md:h-[calc(100vh-63px)]'>
       <EditorContent editor={editor} className='w-full' />
     </div>
   )
