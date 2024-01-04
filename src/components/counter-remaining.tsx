@@ -14,7 +14,6 @@ export function CounterRemaining() {
         justify-center 
         w-full 
         text-sm 
-        2xl:text-base 
         text-transparent 
         bg-clip-text 
         bg-gradient-to-t 
