@@ -72,7 +72,7 @@ export default function Home() {
               text-sm 
               font-medium 
               transition-colors'
-              href='/builder'
+              href='/generator'
             >
               Get Started
               <ChevronRightIc className='h-4 w-4 sm:h-4 sm:w-4' />

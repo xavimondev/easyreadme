@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CustomEditor } from '@/components/editor'
 import { CodeBlock } from '@/components/code-block'
 
-export function ReadmeBuilder() {
+export function ReadmeGenerator() {
   const contentTemplate = useBuilder((store) => store.contentTemplate)
   const { completion } = useCompletion({
     id: 'readme'

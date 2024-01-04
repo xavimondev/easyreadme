@@ -13,7 +13,7 @@ export function Sidebar() {
             <div className='flex items-center gap-1.5'>
               <ColumnsIc className='w-5 h-5' />
               <h2 className='text-black dark:text-white font-semibold text-base sm:text-xl'>
-                Builder
+                Generator
               </h2>
             </div>
             <CounterRemaining />
