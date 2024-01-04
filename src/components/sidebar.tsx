@@ -2,7 +2,6 @@ import { ListTemplates } from '@/components/list-templates'
 import { FormRepository } from '@/components/form-repository'
 import { ColumnsIc } from '@/components/icons'
 import { TemplatesMobile } from '@/components/templates-mobile'
-import { CounterRemaining } from '@/components/counter-remaining'
 
 export function Sidebar() {
   return (
@@ -16,7 +15,6 @@ export function Sidebar() {
                 Generator
               </h2>
             </div>
-            <CounterRemaining />
           </div>
           <FormRepository />
         </div>
