@@ -10,7 +10,6 @@ import CodeBlock from '@tiptap/extension-code-block'
 import TextAlign from '@tiptap/extension-text-align'
 import Heading from '@tiptap/extension-heading'
 import Paragraph from '@tiptap/extension-paragraph'
-import DragAndDrop from '@/components/editor/custom-extensions/drag-and-drop'
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -135,7 +134,7 @@ export const DEFAULT_EXTENSIONS = [
   Link.configure({
     HTMLAttributes: {
       class:
-        'text-blue-500 hover:text-blue-600 dark:text-blue-300 hover:text-blue-400 no-underline hover:underline hover:underline-offset-2 transition-colors cursor-pointer'
+        'text-blue-500 hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-400 no-underline hover:underline hover:underline-offset-2 transition-colors cursor-pointer'
     }
   }),
   TextAlign.configure({
@@ -146,6 +145,5 @@ export const DEFAULT_EXTENSIONS = [
       spellcheck: 'false'
     }
   }),
-  CustomParagraph,
-  DragAndDrop
+  CustomParagraph
 ]
