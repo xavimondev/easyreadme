@@ -6,7 +6,8 @@ import {
   generateGuideEnvironmentVariables,
   generateTechStack,
   getPromptRandomOverview,
-  getPromptOverviewWithDependencies
+  getPromptOverviewWithDependencies,
+  generateTechStackJson
 } from '@/utils/prompts'
 import { getSetupCommands } from '@/utils/commands'
 import {
@@ -86,6 +87,20 @@ export class RepositoryTemplate {
     if (!dependencies) return ''
 
     const promptTechStack = generateTechStack({ dependencies, language: this.language })
+    return promptTechStack
+  }
+
+  async getTechStackJson() {
+    const dependencies = await getDependencies({
+      repoName: this.repoName,
+      owner: this.repoOwner,
+      language: this.language,
+      defaultBranch: this.defaultBranch
+    })
+
+    if (!dependencies) return ''
+
+    const promptTechStack = generateTechStackJson({ dependencies, language: this.language })
     return promptTechStack
   }
 

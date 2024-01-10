@@ -44,6 +44,30 @@ Only respond with this format:
 Ensure to include brackets around name_dependency in your response.`
 }
 
+export const generateTechStackJson = ({
+  dependencies,
+  language
+}: {
+  dependencies: string
+  language: string
+}) => {
+  return `For the ${language} project, the following dependencies are utilized, covering crucial aspects like authentication, data fetching, 
+state management, animations, styling, server-client communication, testing, and deployment:
+${dependencies}
+
+If the project has more than eight dependencies, please pick the eight most vital dependencies that cover the essential aspects mentioned above. 
+For projects with fewer than eight dependencies, focus only on the provided ones.
+
+Follow this format:
+{
+  name: NAME_DEPENDENCY, 
+  link: LINK_RESOURCE, 
+  description: Brief explanation (up to 100 characters) about the dependency's role.
+}
+
+Only respond with an object JSON called dependencies.`
+}
+
 export const generateGuideEnvironmentVariables = ({
   environmentVars
 }: {
