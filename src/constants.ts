@@ -1,4 +1,4 @@
-import { Template } from '@/types'
+import { BadgeName, Template } from '@/types'
 
 import {
   parseBuildGradle,
@@ -271,3 +271,19 @@ Ready to create a stunning README for your project? 👀
 2. **Choose a template that suits your project 🤔**.
 3. **Click the Generate ⚡️ Button**.
 `
+
+export const LIST_BADGES: { id: BadgeName; name: string }[] = [
+  { id: 'forks', name: 'Forks' },
+  { id: 'codesize', name: 'Codesize' },
+  { id: 'stars', name: 'Stars' },
+  { id: 'watchers', name: 'Watchers' },
+  { id: 'contributors', name: 'Contributors' },
+  { id: 'last_commit', name: 'Last Commit' },
+  { id: 'license', name: 'License' },
+  { id: 'top_language', name: 'Top Language' },
+  { id: 'discussions', name: 'Discussions' },
+  { id: 'issues', name: 'Issues' },
+  { id: 'pull_requests', name: 'Pull Requests' },
+  { id: 'deployment', name: 'Deployment' },
+  { id: 'commit_activity_month', name: 'Commits' }
+]
