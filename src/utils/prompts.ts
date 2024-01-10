@@ -83,6 +83,26 @@ Only responde with this format:
 - [Up to 5 bullet point instructions, each not exceeding 100 characters]`
 }
 
+export const generateGuideEnvironmentVariablesJson = ({
+  environmentVars
+}: {
+  environmentVars: string
+}) => {
+  return `${environmentVars}
+
+For each environment variable mentioned above, provide a brief guide to generate its value. 
+If any variables are unknown due to the limitations of the completion API's knowledge, 
+please insert the message "Insert a guide" for those variables.
+
+Follow this format:
+{
+  name: ENVIRONMENT VARIABLE NAME,
+  steps: [Up to 5 bullet point instructions, each not exceeding 100 characters]
+}
+
+Only respond with an object JSON called data.`
+}
+
 export const generateProjectSummary = ({
   directories,
   mainLanguage

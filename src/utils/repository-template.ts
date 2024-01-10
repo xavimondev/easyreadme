@@ -8,7 +8,8 @@ import {
   getPromptRandomOverview,
   getPromptOverviewWithDependencies,
   generateTechStackJson,
-  generateProjectSummaryJson
+  generateProjectSummaryJson,
+  generateGuideEnvironmentVariablesJson
 } from '@/utils/prompts'
 import { getSetupCommands } from '@/utils/commands'
 import {
@@ -115,6 +116,22 @@ export class RepositoryTemplate {
     if (!fileEnviromentContent) return null
 
     const promptGuideEnvironmentVariables = generateGuideEnvironmentVariables({
+      environmentVars: fileEnviromentContent
+    })
+
+    return promptGuideEnvironmentVariables
+  }
+
+  async getEnvironmentVariablesGuideJson() {
+    const fileEnviromentContent = await getFileContents({
+      path: '.env.example',
+      owner: this.repoOwner,
+      repoName: this.repoName
+    })
+
+    if (!fileEnviromentContent) return ''
+
+    const promptGuideEnvironmentVariables = generateGuideEnvironmentVariablesJson({
       environmentVars: fileEnviromentContent
     })
 
