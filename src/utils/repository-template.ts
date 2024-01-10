@@ -7,7 +7,8 @@ import {
   generateTechStack,
   getPromptRandomOverview,
   getPromptOverviewWithDependencies,
-  generateTechStackJson
+  generateTechStackJson,
+  generateProjectSummaryJson
 } from '@/utils/prompts'
 import { getSetupCommands } from '@/utils/commands'
 import {
@@ -302,6 +303,24 @@ export class RepositoryTemplate {
       .filter((files) => files.type === 'tree')
       .map((files) => files.path)
     const promptProjectSummary = generateProjectSummary({
+      directories,
+      mainLanguage: this.language
+    })
+    return promptProjectSummary
+  }
+
+  async getProjectSummaryJson() {
+    const structure = await getRepositoryStructure({
+      repoName: this.repoName,
+      owner: this.repoOwner,
+      branch: this.defaultBranch
+    })
+    if (!structure) return ''
+
+    const directories = structure
+      .filter((files) => files.type === 'tree')
+      .map((files) => files.path)
+    const promptProjectSummary = generateProjectSummaryJson({
       directories,
       mainLanguage: this.language
     })

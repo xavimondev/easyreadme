@@ -97,3 +97,24 @@ Craft a summary highlighting the top 10 essential directories of the project.
 Only respond with this format:
 - [**path**](path): Brief summary of primary functionalities/components (up to 100 characters).`
 }
+
+export const generateProjectSummaryJson = ({
+  directories,
+  mainLanguage
+}: {
+  directories: string[]
+  mainLanguage: string
+}) => {
+  return `Given the following directories from a ${mainLanguage} project:
+${directories}
+
+Craft a summary highlighting the top 8 essential directories of the project.
+Follow this format:
+{
+  name: PATH,
+  link: PATH,
+  description: Brief summary of primary functionalities/components (up to 80 characters).
+}
+
+Only respond with an object JSON called data.`
+}
