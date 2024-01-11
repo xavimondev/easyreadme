@@ -1,4 +1,4 @@
-import { BadgeName, GitRepository, Section } from '@/types'
+import { BadgeName, GitRepository, SectionKey } from '@/types'
 import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import { getBadgeByName, getDependencies, getRepositoryTreeDirectory } from '@/utils/github'
 import {
@@ -344,7 +344,7 @@ export class RepositoryTemplate {
     return promptProjectSummary
   }
 
-  getTableContents({ sections }: { sections: Section[] }) {
+  getTableContents({ sections }: { sections: SectionKey[] }) {
     const header = `## ${README_SECTIONS['table-contents']}\n\n`
     let table = ''
     sections.forEach((section) => {
