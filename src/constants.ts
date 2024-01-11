@@ -1,5 +1,4 @@
-import { BadgeName, Template } from '@/types'
-
+import { BadgeName, Section, Template } from '@/types'
 import {
   parseBuildGradle,
   parseCargo,
@@ -286,4 +285,115 @@ export const LIST_BADGES: { id: BadgeName; name: string }[] = [
   { id: 'pull_requests', name: 'Pull Requests' },
   { id: 'deployment', name: 'Deployment' },
   { id: 'commit_activity_month', name: 'Commits' }
+]
+
+export const README_SECTIONS_DATA: Section[] = [
+  {
+    id: 'banner',
+    name: 'Banner',
+    emoji: '🏞️',
+    description: 'Introduction and details about the project banner.'
+  },
+  {
+    id: 'stack',
+    name: 'Stack',
+    emoji: '💻',
+    description: 'Information about the technology stack used in the project.'
+  },
+  {
+    id: 'project-summary',
+    name: 'Project Summary',
+    emoji: '📝',
+    description: 'A brief summary highlighting the key aspects of the project.'
+  },
+  {
+    id: 'setting-up',
+    name: 'Setting Up',
+    emoji: '⚙️',
+    description: 'Instructions and details on setting up the project.'
+  },
+  {
+    id: 'run-locally',
+    name: 'Run Locally',
+    emoji: '🚀',
+    description: 'Guidelines on running the project locally for development.'
+  },
+  {
+    id: 'contributors',
+    name: 'Contributors',
+    emoji: '🙌',
+    description: 'Recognition and details about project contributors.'
+  },
+  {
+    id: 'license',
+    name: 'License',
+    emoji: '📄',
+    description: 'Details about the licensing of the project.'
+  },
+  {
+    id: 'project-structure',
+    name: 'Project Structure',
+    emoji: '📁',
+    description: 'Overview of the structure of the project.'
+  },
+  {
+    id: 'deploy',
+    name: 'Deploy',
+    emoji: '☁️',
+    description: 'Instructions and information on deploying the project.'
+  },
+  {
+    id: 'roadmap',
+    name: 'Roadmap',
+    emoji: '🗺️',
+    description: 'The planned development path and milestones of the project.'
+  },
+  {
+    id: 'acknowledgements',
+    name: 'Acknowledgements',
+    emoji: '🙏',
+    description: 'Highlighting invaluable support in project achievements.'
+  },
+  {
+    id: 'changelog',
+    name: 'Changelog',
+    emoji: '📜',
+    description: 'Record of changes made to the project, usually version-wise.'
+  },
+  {
+    id: 'prerequisites',
+    name: 'Prerequisites',
+    emoji: '✅',
+    description: 'List of dependencies needed to use the project.'
+  },
+  {
+    id: 'faq',
+    name: 'FAQ',
+    emoji: '🤔',
+    description: 'Questions and their answers related to the project.'
+  },
+  {
+    id: 'commands',
+    name: 'Commands',
+    emoji: '⚡',
+    description: 'Commonly used commands or actions in the project.'
+  },
+  {
+    id: 'table-contents',
+    name: 'Table of Contents',
+    emoji: '🔍',
+    description: 'An organized list of contents for easy navigation and reference.'
+  },
+  {
+    id: 'overview',
+    name: 'Overview',
+    emoji: '📌',
+    description: 'An Overview for high-level project understanding.'
+  },
+  {
+    id: 'badges',
+    name: 'Badges',
+    emoji: '🛡️',
+    description: 'Information about badges used in the project and their meanings.'
+  }
 ]

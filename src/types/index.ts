@@ -1,6 +1,33 @@
-import { README_SECTIONS } from '@/constants'
-
 export type NameTemplate = 'Minimal' | 'Collaborate' | 'Inspire' | 'Empower' | 'Unleash'
+
+export type SectionKey =
+  | 'banner'
+  | 'stack'
+  | 'project-summary'
+  | 'setting-up'
+  | 'run-locally'
+  | 'contributors'
+  | 'license'
+  | 'project-structure'
+  | 'deploy'
+  | 'roadmap'
+  | 'acknowledgements'
+  | 'changelog'
+  | 'prerequisites'
+  | 'faq'
+  | 'commands'
+  | 'table-contents'
+  | 'overview'
+  | 'badges'
+
+export type Section = {
+  id: SectionKey
+  name: string
+  emoji: string | undefined
+  description: string
+}
+
+export type SectionState = Section & { added: boolean }
 
 export type Template = {
   srcImage: string
@@ -9,7 +36,7 @@ export type Template = {
   authorTemplate?: string
   urlAuthor?: string
   description?: string
-  sections?: Section[]
+  sections?: SectionKey[]
   srcVideo?: string
 }
 
@@ -54,8 +81,6 @@ export type BadgeName =
   | 'issues'
   | 'pull_requests'
   | 'deployment'
-
-export type Section = keyof typeof README_SECTIONS
 
 export type GitRepository = {
   repoName: string
