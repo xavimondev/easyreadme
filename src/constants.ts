@@ -373,7 +373,7 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'Questions and their answers related to the project.'
   },
   {
-    id: 'commands',
+    id: 'ext-commands',
     name: 'Commands',
     emoji: '⚡',
     description: 'Commonly used commands or actions in the project.'

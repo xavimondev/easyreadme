@@ -3,7 +3,7 @@ import { ReactNodeViewRenderer } from '@tiptap/react'
 import { Commands } from '@/components/editor/components/commands'
 
 export default Node.create({
-  name: 'commands-node',
+  name: 'ext-commands',
   group: 'block',
   atom: true,
   draggable: true,

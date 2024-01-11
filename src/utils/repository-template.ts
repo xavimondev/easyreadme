@@ -348,7 +348,7 @@ export class RepositoryTemplate {
     const header = `## ${README_SECTIONS['table-contents']}\n\n`
     let table = ''
     sections.forEach((section) => {
-      const sectionValue = README_SECTIONS[section]
+      const sectionValue = README_SECTIONS[section === 'ext-commands' ? 'commands' : section]
       table += `* [${sectionValue}](#${section})\n\n`
     })
     return `${header}${table}`

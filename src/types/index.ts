@@ -15,7 +15,7 @@ export type SectionKey =
   | 'changelog'
   | 'prerequisites'
   | 'faq'
-  | 'commands'
+  | 'ext-commands'
   | 'table-contents'
   | 'overview'
   | 'badges'
