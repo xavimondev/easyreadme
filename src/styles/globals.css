@@ -110,6 +110,6 @@
   }
 }
 
-p:has(span.node-badges) {
+p:has(span.node-custom-badges) {
   text-align: center;
 }
