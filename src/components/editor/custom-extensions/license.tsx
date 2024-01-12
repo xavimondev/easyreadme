@@ -17,11 +17,8 @@ export default Node.create({
   },
   addAttributes() {
     return {
-      url: {
-        default: undefined
-      },
-      name: {
-        default: undefined
+      license: {
+        default: {}
       }
     }
   },
@@ -30,9 +27,10 @@ export default Node.create({
       insertLicense:
         ({ license }: { license: any }) =>
         ({ editor }: any) => {
-          return editor.commands.insertContent(
-            `<License url="${license?.url}" name="${license?.name}"></License>`
-          )
+          return editor.commands.insertContent({
+            type: NodeName.LICENSE,
+            attrs: { license }
+          })
         }
     }
   },

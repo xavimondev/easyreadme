@@ -3,9 +3,10 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { ActionsBar } from './actions-bar'
 
 export function License({ deleteNode, node }: any) {
-  const { attrs } = node
-  const name = attrs.name
-  const url = attrs.url
+  const {
+    attrs: { license }
+  } = node
+  const { name, url } = license
 
   return (
     <NodeViewWrapper as='div'>
