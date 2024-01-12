@@ -1,87 +1,46 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { NodeName } from '@/types'
-import { ContributorsGallery, ContributorsTable } from '@/components/editor/components/contributors'
+import { Contributors } from '@/components/editor/components/contributors'
 
-export const ContributorsGalleryNode = Node.create({
-  name: NodeName.CONTRIBUTORS_GALLERY,
+export default Node.create({
+  name: NodeName.CONTRIBUTORS,
   group: 'block',
   atom: true,
   draggable: true,
   parseHTML() {
     return [
       {
-        tag: 'ContributorsGallery'
+        tag: 'ContributorsNode'
       }
     ]
   },
   addAttributes() {
     return {
-      owner: {
-        default: undefined
-      },
-      repository: {
-        default: undefined
-      }
-    }
-  },
-  addCommands(): any {
-    return {
-      insertContributorsGallery:
-        ({ owner, repository }: { owner: string; repository: string }) =>
-        async ({ editor }: any) => {
-          return editor.commands.insertContent(
-            `<ContributorsGallery owner="${owner}" repository="${repository}"></ContributorsGallery>`
-          )
-        }
-    }
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ['ContributorsGallery', mergeAttributes(HTMLAttributes)]
-  },
-  addNodeView() {
-    return ReactNodeViewRenderer(ContributorsGallery)
-  }
-})
-
-export const ContributorsTableNode = Node.create({
-  name: NodeName.CONTRIBUTORS_TABLE,
-  group: 'block',
-  atom: true,
-  draggable: true,
-  parseHTML() {
-    return [
-      {
-        tag: 'ContributorsTable'
-      }
-    ]
-  },
-  addAttributes() {
-    return {
-      listContributors: {
-        default: []
-      },
-      repository: {
+      type: {
         default: ''
+      },
+      data: {
+        default: {}
       }
     }
   },
   addCommands(): any {
     return {
-      insertContributorsTable:
-        ({ listContributors, repository }: { listContributors: []; repository: string }) =>
-        async ({ editor }: any) => {
+      insertContributors:
+        ({ type, data }: { type: string; data: any }) =>
+        ({ editor }: any) => {
           return editor.commands.insertContent({
-            type: 'contributorsTable',
-            attrs: { listContributors, repository }
+            type: NodeName.CONTRIBUTORS,
+            attrs: { type, data }
           })
         }
     }
   },
   renderHTML({ HTMLAttributes }) {
-    return ['ContributorsTable', mergeAttributes(HTMLAttributes)]
+    return ['ContributorsNode', mergeAttributes(HTMLAttributes)]
   },
   addNodeView() {
-    return ReactNodeViewRenderer(ContributorsTable)
+    return ReactNodeViewRenderer(Contributors)
   }
 })
