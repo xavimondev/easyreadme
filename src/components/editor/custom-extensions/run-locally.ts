@@ -24,12 +24,15 @@ export default Node.create({
   },
   addCommands(): any {
     return {
-      inserRunLocally:
-        ({ mainLanguage }: { mainLanguage: string | undefined }) =>
+      insertRunLocally:
+        ({ mainLanguage }: { mainLanguage: string }) =>
         ({ editor }: any) => {
-          return editor.commands.insertContent(
-            `<RunLocally mainLanguage="${mainLanguage}"></RunLocally>`
-          )
+          return editor.commands.insertContent({
+            type: NodeName.RUN_LOCALLY,
+            attrs: {
+              mainLanguage
+            }
+          })
         }
     }
   },
