@@ -26,9 +26,9 @@ export default Node.create({
     return {
       insertEnvVariablesGuide:
         ({ content }: { content: string }) =>
-        async ({ editor }: any) => {
+        ({ editor }: any) => {
           return editor.commands.insertContent({
-            type: 'envVariablesGuide',
+            type: NodeName.SETTING_UP,
             attrs: { content }
           })
         }

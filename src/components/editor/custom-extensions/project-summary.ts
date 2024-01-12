@@ -26,9 +26,9 @@ export default Node.create({
     return {
       insertProjectSummary:
         ({ content }: { content: string }) =>
-        async ({ editor }: any) => {
+        ({ editor }: any) => {
           return editor.commands.insertContent({
-            type: 'projectSummary',
+            type: NodeName.PROJECT_SUMMARY,
             attrs: { content }
           })
         }

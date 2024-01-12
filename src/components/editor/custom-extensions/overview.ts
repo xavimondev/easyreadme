@@ -26,9 +26,9 @@ export default Node.create({
     return {
       insertOverview:
         ({ content }: { content: string }) =>
-        async ({ editor }: any) => {
+        ({ editor }: any) => {
           return editor.commands.insertContent({
-            type: 'overview',
+            type: NodeName.OVERVIEW,
             attrs: { content }
           })
         }

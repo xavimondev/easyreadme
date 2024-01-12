@@ -12,7 +12,7 @@ export default Node.create({
   parseHTML() {
     return [
       {
-        tag: 'Badges'
+        tag: 'Badge'
       }
     ]
   },
@@ -32,7 +32,7 @@ export default Node.create({
             .chain()
             .focus()
             .insertContent({
-              type: 'badges',
+              type: NodeName.BADGE,
               attrs: {
                 data
               }
@@ -42,7 +42,7 @@ export default Node.create({
     }
   },
   renderHTML({ HTMLAttributes }) {
-    return ['Badges', mergeAttributes(HTMLAttributes)]
+    return ['Badge', mergeAttributes(HTMLAttributes)]
   },
   addNodeView() {
     return ReactNodeViewRenderer(Badge)

@@ -26,9 +26,9 @@ export default Node.create({
     return {
       insertTechStack:
         ({ content }: { content: string }) =>
-        async ({ editor }: any) => {
+        ({ editor }: any) => {
           return editor.commands.insertContent({
-            type: 'techStack',
+            type: NodeName.TECH_STACK,
             attrs: { content }
           })
         }

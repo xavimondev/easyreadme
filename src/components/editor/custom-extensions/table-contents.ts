@@ -26,9 +26,9 @@ export default Node.create({
     return {
       insertTableContents:
         ({ content }: { content: string }) =>
-        async ({ editor }: any) => {
+        ({ editor }: any) => {
           return editor.commands.insertContent({
-            type: 'tableContents',
+            type: NodeName.TABLE_CONTENTS,
             attrs: { content }
           })
         }
