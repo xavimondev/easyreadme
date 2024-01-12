@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { RunLocally } from '@/components/editor/components/run-locally'
 
 export default Node.create({
-  name: 'runlocally',
+  name: NodeName.RUN_LOCALLY,
   group: 'block',
   atom: true,
   draggable: true,

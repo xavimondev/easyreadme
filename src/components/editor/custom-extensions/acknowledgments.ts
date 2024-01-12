@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Acknowledgments } from '@/components/editor/components/acknowledgments'
 
 export default Node.create({
-  name: 'acknowledgments',
+  name: NodeName.ACKNOWLEDGEMENTS,
   group: 'block',
   atom: true,
   draggable: true,

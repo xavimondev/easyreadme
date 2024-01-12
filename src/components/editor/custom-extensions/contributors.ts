@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { ContributorsGallery, ContributorsTable } from '@/components/editor/components/contributors'
 
 export const ContributorsGalleryNode = Node.create({
-  name: 'contributorsGallery',
+  name: NodeName.CONTRIBUTORS_GALLERY,
   group: 'block',
   atom: true,
   draggable: true,
@@ -44,7 +45,7 @@ export const ContributorsGalleryNode = Node.create({
 })
 
 export const ContributorsTableNode = Node.create({
-  name: 'contributorsTable',
+  name: NodeName.CONTRIBUTORS_TABLE,
   group: 'block',
   atom: true,
   draggable: true,

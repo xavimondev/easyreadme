@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { TableContents } from '@/components/editor/components/table-contents'
 
 export default Node.create({
-  name: 'tableContents',
+  name: NodeName.TABLE_CONTENTS,
   group: 'block',
   atom: true,
   draggable: true,

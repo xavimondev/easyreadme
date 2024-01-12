@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Prerequisites } from '@/components/editor/components/prerequisites'
 
 export default Node.create({
-  name: 'prerequisites',
+  name: NodeName.PREREQUISITES,
   group: 'block',
   atom: true,
   draggable: true,

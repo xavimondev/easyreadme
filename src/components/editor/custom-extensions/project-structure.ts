@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { ProjectStructure } from '@/components/editor/components/project-structure'
 
 export default Node.create({
-  name: 'projectStructure',
+  name: NodeName.PROJECT_STRUCTURE,
   group: 'block',
   atom: true,
   draggable: true,

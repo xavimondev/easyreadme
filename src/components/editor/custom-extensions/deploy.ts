@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Deploy } from '@/components/editor/components/deploy'
 
 export default Node.create({
-  name: 'deploy',
+  name: NodeName.DEPLOY,
   group: 'block',
   atom: true,
   draggable: true,

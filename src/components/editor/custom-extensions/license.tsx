@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { License } from '@/components/editor/components/license'
 
 export default Node.create({
-  name: 'license',
+  name: NodeName.LICENSE,
   group: 'block',
   atom: true,
   draggable: true,

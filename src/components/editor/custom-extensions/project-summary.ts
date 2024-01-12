@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { ProjectSummary } from '@/components/editor/components/project-summary'
 
 export default Node.create({
-  name: 'projectSummary',
+  name: NodeName.PROJECT_SUMMARY,
   group: 'block',
   atom: true,
   draggable: true,

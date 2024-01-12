@@ -20,6 +20,28 @@ export type SectionKey =
   | 'overview'
   | 'badges'
 
+export enum NodeName {
+  BANNER = 'custom-banner',
+  TECH_STACK = 'custom-techStack',
+  PROJECT_SUMMARY = 'custom-projectSummary',
+  SETTING_UP = 'custom-envVariablesGuide',
+  RUN_LOCALLY = 'custom-runlocally',
+  CONTRIBUTORS_TABLE = 'custom-contributorsTable',
+  CONTRIBUTORS_GALLERY = 'custom-contributorsGallery',
+  LICENSE = 'custom-license',
+  PROJECT_STRUCTURE = 'custom-projectStructure',
+  DEPLOY = 'custom-deploy',
+  ROADMAP = 'custom-roadmap',
+  ACKNOWLEDGEMENTS = 'custom-acknowledgments',
+  CHANGELOG = 'custom-changelog',
+  PREREQUISITES = 'custom-prerequisites',
+  FAQ = 'custom-faq',
+  COMMANDS = 'custom-commands',
+  TABLE_CONTENTS = 'custom-tableContents',
+  OVERVIEW = 'custom-overview',
+  BADGE = 'custom-badges'
+}
+
 export type Section = {
   id: SectionKey
   name: string

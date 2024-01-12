@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { TechStack } from '@/components/editor/components/tech-stack'
 
 export default Node.create({
-  name: 'techStack',
+  name: NodeName.TECH_STACK,
   group: 'block',
   atom: true,
   draggable: true,

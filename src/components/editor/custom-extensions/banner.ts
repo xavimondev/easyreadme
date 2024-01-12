@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Banner } from '@/components/editor/components/banner'
 
 export default Node.create({
-  name: 'banner',
+  name: NodeName.BANNER,
   group: 'block',
   atom: true,
   draggable: true,

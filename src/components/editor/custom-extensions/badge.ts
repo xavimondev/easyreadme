@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Badge } from '@/components/editor/components/badge'
 
 export default Node.create({
-  name: 'badges',
+  name: NodeName.BADGE,
   group: 'inline',
   inline: true,
   atom: false,

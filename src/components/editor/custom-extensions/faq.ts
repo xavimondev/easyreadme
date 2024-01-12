@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Faq } from '@/components/editor/components/faq'
 
 export default Node.create({
-  name: 'faq',
+  name: NodeName.FAQ,
   group: 'block',
   atom: true,
   draggable: true,

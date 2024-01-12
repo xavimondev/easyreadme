@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { Roadmap } from '@/components/editor/components/roadmap'
 
 export default Node.create({
-  name: 'roadmap',
+  name: NodeName.ROADMAP,
   group: 'block',
   atom: true,
   draggable: true,

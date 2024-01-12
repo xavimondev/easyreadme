@@ -1,9 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { NodeName } from '@/types'
 import { EnvVariablesGuide } from '@/components/editor/components/env-variables-guide'
 
 export default Node.create({
-  name: 'envVariablesGuide',
+  name: NodeName.SETTING_UP,
   group: 'block',
   atom: true,
   draggable: true,
