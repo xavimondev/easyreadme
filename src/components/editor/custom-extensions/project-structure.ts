@@ -18,7 +18,7 @@ export default Node.create({
   addAttributes() {
     return {
       tree: {
-        default: undefined
+        default: ''
       }
     }
   },
@@ -27,9 +27,12 @@ export default Node.create({
       insertProjectStructure:
         ({ tree }: { tree: string }) =>
         async ({ editor }: any) => {
-          return editor.commands.insertContent(
-            `<ProjectStructure tree="${tree}"></ProjectStructure>`
-          )
+          return editor.commands.insertContent({
+            type: NodeName.PROJECT_STRUCTURE,
+            attrs: {
+              tree
+            }
+          })
         }
     }
   },

@@ -11,9 +11,11 @@ export function ProjectStructure({ deleteNode, node }: any) {
       <div className='relative group'>
         <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
           <h2>{README_SECTIONS['project-structure']}</h2>
-          <pre>
-            <code className='language-markdown !outline-none'>{tree}</code>
-          </pre>
+          {tree && (
+            <pre>
+              <code className='language-markdown !outline-none'>{tree}</code>
+            </pre>
+          )}
         </div>
         <ActionsBar removeSection={deleteNode} />
       </div>
