@@ -1,3 +1,6 @@
+'use client'
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
 import { SectionKey } from '@/types'
 
 type ContributorsOptionsProps = {
@@ -5,18 +8,22 @@ type ContributorsOptionsProps = {
 }
 
 export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
+  const [optionSelected, setOptionSelected] = useState('')
   return (
     <div className='flex gap-10 mt-2'>
       <div
-        className='flex flex-col gap-2 border border-white/20 rounded-md p-3 cursor-pointer'
-        onClick={() =>
+        className={cn('flex flex-col gap-2 border border-white/20 rounded-md p-3 cursor-pointer', {
+          'border-yellow-300': optionSelected === 'gallery'
+        })}
+        onClick={() => {
+          setOptionSelected('gallery')
           addSection({
-            section: 'badges',
+            section: 'contributors',
             options: {
               data: 'gallery'
             }
           })
-        }
+        }}
       >
         <div className='flex gap-1'>
           <div className='rounded-full bg-slate-600 h-7 w-7'></div>
@@ -44,15 +51,18 @@ export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
         </span>
       </div>
       <div
-        className='flex flex-col gap-2 border-2 border-white/75 rounded-md p-3 cursor-pointer'
-        onClick={() =>
+        className={cn('flex flex-col gap-2 border border-white/20 rounded-md p-3 cursor-pointer', {
+          'border-yellow-300': optionSelected === 'table'
+        })}
+        onClick={() => {
+          setOptionSelected('table')
           addSection({
-            section: 'badges',
+            section: 'contributors',
             options: {
               data: 'table'
             }
           })
-        }
+        }}
       >
         <div className='flex gap-1'>
           <div className='rounded-md bg-slate-600 h-7 w-7'></div>
