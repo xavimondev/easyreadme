@@ -1,11 +1,9 @@
 'use client'
-import { PropsWithChildren, useMemo } from 'react'
+import { PropsWithChildren } from 'react'
 import { SectionKey } from '@/types'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 import { CheckIc, PlusIc } from '@/components/icons'
-import { BadgesOptions } from '@/components/editor/components/badges-options'
-import { ContributorsOptions } from '@/components/editor/components/contributors-options'
 
 type SectionItemProps = {
   name: string
@@ -40,17 +38,12 @@ function SectionItem({
 }
 
 type ListSectionsProps = {
+  customSections: Partial<Record<SectionKey, JSX.Element>>
   addSection: ({ section, options }: { section: SectionKey; options?: { data: any } }) => void
 }
 
-export function ListSections({ addSection }: ListSectionsProps) {
+export function ListSections({ customSections, addSection }: ListSectionsProps) {
   const sections = useBuilder((store) => store.listSections)
-  const customSections: Partial<Record<SectionKey, JSX.Element>> = useMemo(() => {
-    return {
-      badges: <BadgesOptions addSection={addSection} />,
-      contributors: <ContributorsOptions addSection={addSection} />
-    }
-  }, [])
 
   return (
     <div className='flex flex-col gap-2 w-full'>
