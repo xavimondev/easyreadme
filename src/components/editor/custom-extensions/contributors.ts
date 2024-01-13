@@ -17,6 +17,9 @@ export default Node.create({
   },
   addAttributes() {
     return {
+      endPos: {
+        default: 0
+      },
       type: {
         default: ''
       },
@@ -28,12 +31,16 @@ export default Node.create({
   addCommands(): any {
     return {
       insertContributors:
-        ({ type, data }: { type: string; data: any }) =>
+        ({ endPos, type, data }: { endPos: number; type: string; data: any }) =>
         ({ editor }: any) => {
-          return editor.commands.insertContent({
-            type: NodeName.CONTRIBUTORS,
-            attrs: { type, data }
-          })
+          return editor
+            .chain()
+            .insertContentAt(endPos, {
+              type: NodeName.CONTRIBUTORS,
+              attrs: { type, data }
+            })
+            .focus('end')
+            .run()
         }
     }
   },

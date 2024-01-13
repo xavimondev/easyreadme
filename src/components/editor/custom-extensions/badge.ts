@@ -18,6 +18,9 @@ export default Node.create({
   },
   addAttributes() {
     return {
+      endPos: {
+        default: 0
+      },
       data: {
         default: []
       }
@@ -26,17 +29,17 @@ export default Node.create({
   addCommands(): any {
     return {
       insertBadge:
-        ({ data }: { data: any }) =>
+        ({ endPos, data }: { endPos: number; data: any }) =>
         ({ editor }: any) => {
           return editor
             .chain()
-            .focus()
-            .insertContent({
+            .insertContentAt(endPos, {
               type: NodeName.BADGE,
               attrs: {
                 data
               }
             })
+            .focus('end')
             .run()
         }
     }

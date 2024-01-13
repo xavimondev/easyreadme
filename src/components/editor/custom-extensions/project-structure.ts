@@ -17,6 +17,9 @@ export default Node.create({
   },
   addAttributes() {
     return {
+      endPos: {
+        default: 0
+      },
       tree: {
         default: ''
       }
@@ -25,14 +28,18 @@ export default Node.create({
   addCommands(): any {
     return {
       insertProjectStructure:
-        ({ tree }: { tree: string }) =>
+        ({ endPos, tree }: { endPos: number; tree: string }) =>
         async ({ editor }: any) => {
-          return editor.commands.insertContent({
-            type: NodeName.PROJECT_STRUCTURE,
-            attrs: {
-              tree
-            }
-          })
+          return editor
+            .chain()
+            .insertContentAt(endPos, {
+              type: NodeName.PROJECT_STRUCTURE,
+              attrs: {
+                tree
+              }
+            })
+            .focus('end')
+            .run()
         }
     }
   },

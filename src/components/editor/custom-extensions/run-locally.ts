@@ -17,6 +17,9 @@ export default Node.create({
   },
   addAttributes() {
     return {
+      endPos: {
+        default: 0
+      },
       mainLanguage: {
         default: ''
       }
@@ -25,14 +28,18 @@ export default Node.create({
   addCommands(): any {
     return {
       insertRunLocally:
-        ({ mainLanguage }: { mainLanguage: string }) =>
+        ({ endPos, mainLanguage }: { endPos: number; mainLanguage: string }) =>
         ({ editor }: any) => {
-          return editor.commands.insertContent({
-            type: NodeName.RUN_LOCALLY,
-            attrs: {
-              mainLanguage
-            }
-          })
+          return editor
+            .chain()
+            .insertContentAt(endPos, {
+              type: NodeName.RUN_LOCALLY,
+              attrs: {
+                mainLanguage
+              }
+            })
+            .focus('end')
+            .run()
         }
     }
   },

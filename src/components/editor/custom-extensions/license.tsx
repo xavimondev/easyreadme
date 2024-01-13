@@ -17,6 +17,9 @@ export default Node.create({
   },
   addAttributes() {
     return {
+      endPos: {
+        default: 0
+      },
       license: {
         default: {}
       }
@@ -25,12 +28,16 @@ export default Node.create({
   addCommands(): any {
     return {
       insertLicense:
-        ({ license }: { license: any }) =>
+        ({ endPos, license }: { endPos: number; license: any }) =>
         ({ editor }: any) => {
-          return editor.commands.insertContent({
-            type: NodeName.LICENSE,
-            attrs: { license }
-          })
+          return editor
+            .chain()
+            .insertContentAt(endPos, {
+              type: NodeName.LICENSE,
+              attrs: { license }
+            })
+            .focus('end')
+            .run()
         }
     }
   },
