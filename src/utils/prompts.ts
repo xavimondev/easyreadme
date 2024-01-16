@@ -55,8 +55,8 @@ export const generateTechStackJson = ({
 state management, animations, styling, server-client communication, testing, and deployment:
 ${dependencies}
 
-If the project has more than eight dependencies, please pick the eight most vital dependencies that cover the essential aspects mentioned above. 
-For projects with fewer than eight dependencies, focus only on the provided ones.
+If the project has more than five dependencies, please pick the five most vital dependencies that cover the essential aspects mentioned above. 
+For projects with fewer than five dependencies, focus only on the provided ones.
 
 Follow this format:
 {
