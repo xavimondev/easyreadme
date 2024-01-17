@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 import { Transaction } from '@tiptap/pm/state'
 import { findChildren } from '@tiptap/core'
 import { useEditor } from '@tiptap/react'
-import { SectionKey } from '@/types'
+import { NodeName } from '@/types'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import { RepositoryTemplate } from '@/utils/repository-template'
 import { getContributors, getLicense, getRepositoryData } from '@/services/github'
@@ -72,7 +72,7 @@ export function BuilderSections() {
   })
 
   const removeNodeFromEditor = useCallback(
-    (section: SectionKey) => {
+    (section: NodeName) => {
       const nodes = Object.values(editor?.schema.nodes ?? {}).filter((node) =>
         node.name.includes('custom-')
       )
@@ -105,7 +105,7 @@ export function BuilderSections() {
     // Get previous nodes to detect deleted ones
     transaction.before.forEach((node) => {
       if (node.type.name && !nodeNames.has(node.type.name)) {
-        updateSection(node.type.name as SectionKey)
+        updateSection(node.type.name as NodeName)
       }
     })
   }, [])
@@ -114,7 +114,7 @@ export function BuilderSections() {
     section,
     options
   }: {
-    section: SectionKey
+    section: NodeName
     options?: { data: any }
   }) => {
     const repository = await getRepositoryData({
@@ -123,11 +123,11 @@ export function BuilderSections() {
     if (!repository) return
     const repositoryTemplate = new RepositoryTemplate(repository!)
     const sectionItem = listSections.find((sec) => sec.id === section)
-    // FIXME: removeNodeFromEditor does not update state because nodes have different ids/names
-    removeNodeFromEditor(section)
+
     updateSection(section)
 
     if (sectionItem && sectionItem.added) {
+      removeNodeFromEditor(section)
       return
     }
 
@@ -136,9 +136,9 @@ export function BuilderSections() {
 
     const endPos = editor?.state.doc.resolve(editor.state.doc.childCount).end() ?? 0
 
-    if (section === 'acknowledgements') {
+    if (section === NodeName.ACKNOWLEDGEMENTS) {
       editor?.chain().insertContentAt(endPos, '<Acknowledgments />').focus('end').run()
-    } else if (section === 'badges') {
+    } else if (section === NodeName.BADGE) {
       // TODO
       const { data } = options ?? {}
       const { id } = data
@@ -154,13 +154,13 @@ export function BuilderSections() {
           endPos,
           data: badge
         })
-    } else if (section === 'banner') {
+    } else if (section === NodeName.BANNER) {
       editor?.chain().insertContentAt(endPos, '<Banner />').focus('end').run()
-    } else if (section === 'changelog') {
+    } else if (section === NodeName.CHANGELOG) {
       editor?.chain().insertContentAt(endPos, '<Changelog />').focus('end').run()
-    } else if (section === 'ext-commands') {
+    } else if (section === NodeName.COMMANDS) {
       editor?.chain().insertContentAt(endPos, '<Commands />').focus('end').run()
-    } else if (section === 'contributors') {
+    } else if (section === NodeName.CONTRIBUTORS) {
       const { data } = options ?? {}
 
       if (data === 'gallery') {
@@ -201,11 +201,11 @@ export function BuilderSections() {
           }
         })
       }
-    } else if (section === 'deploy') {
+    } else if (section === NodeName.DEPLOY) {
       editor?.chain().insertContentAt(endPos, '<Deploy />').focus('end').run()
-    } else if (section === 'faq') {
+    } else if (section === NodeName.FAQ) {
       editor?.chain().insertContentAt(endPos, '<Faq />').focus('end').run()
-    } else if (section === 'license') {
+    } else if (section === NodeName.LICENSE) {
       const license = await getLicense({
         repoName: repositoryName,
         owner
@@ -215,7 +215,13 @@ export function BuilderSections() {
         endPos,
         license
       })
-    } else if (section === 'overview') {
+    } else if (section === NodeName.OVERVIEW) {
+      // @ts-ignore
+      editor?.chain().insertOverview({ endPos, showPlaceholder: true })
+
+      //Updating content
+      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
       const prompt = await repositoryTemplate.getOverview()
       const request = await fetch('/api/ai', {
         method: 'POST',
@@ -229,11 +235,15 @@ export function BuilderSections() {
       })
       const response = await request.json()
       const overview = response.data
-      // @ts-ignore
-      editor?.chain().insertOverview({ endPos, content: overview })
-    } else if (section === 'prerequisites') {
+      const newContent = {
+        ...nodoActual?.attrs,
+        content: overview,
+        showPlaceholder: false
+      }
+      editor?.chain().updateAttributes(NodeName.OVERVIEW, newContent).run()
+    } else if (section === NodeName.PREREQUISITES) {
       editor?.chain().insertContentAt(endPos, '<Prerequisites />').focus('end').run()
-    } else if (section === 'project-structure') {
+    } else if (section === NodeName.PROJECT_STRUCTURE) {
       const tree = await getRepositoryTreeDirectory({
         repoName: repositoryName,
         owner: owner,
@@ -242,15 +252,24 @@ export function BuilderSections() {
 
       // @ts-ignore
       editor?.chain().insertProjectStructure({ endPos, tree })
-    } else if (section === 'project-summary') {
-      let projectSummary = ''
+    } else if (section === NodeName.PROJECT_SUMMARY) {
+      // @ts-ignore
+      editor?.chain().insertProjectSummary({ endPos, showPlaceholder: true })
+
+      // Updating content
+      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+
       const prompt = await repositoryTemplate.getProjectSummaryJson()
       if (prompt === '') {
-        projectSummary = `Insert your project's summary.`
-        // @ts-ignore
-        editor?.chain().insertProjectSummary({ content: projectSummary })
+        const newContent = {
+          ...nodoActual?.attrs,
+          content: []
+        }
+        editor?.chain().updateAttributes(NodeName.PROJECT_SUMMARY, newContent).run()
         return
       }
+
       const request = await fetch('/api/ai', {
         method: 'POST',
         body: JSON.stringify({
@@ -262,23 +281,34 @@ export function BuilderSections() {
         }
       })
       const response = await request.json()
-      projectSummary = response.data.data
-      // @ts-ignore
-      editor?.chain().insertProjectSummary({ endPos, content: projectSummary })
-    } else if (section === 'roadmap') {
+      const newContent = {
+        ...nodoActual?.attrs,
+        content: response.data.data,
+        showPlaceholder: false
+      }
+      editor?.chain().updateAttributes(NodeName.PROJECT_SUMMARY, newContent).run()
+    } else if (section === NodeName.ROADMAP) {
       // @ts-ignore
       editor?.chain().insertContentAt(endPos, '<Roadmap />').focus('end').run()
-    } else if (section === 'run-locally') {
+    } else if (section === NodeName.RUN_LOCALLY) {
       // @ts-ignore
       editor?.chain().insertRunLocally({ endPos, mainLanguage: repository.language })
-    } else if (section === 'setting-up') {
-      let environmentVariables = ''
+    } else if (section === NodeName.SETTING_UP) {
+      // @ts-ignore
+      editor?.chain().insertEnvVariablesGuide({ endPos, showPlaceholder: true })
+
+      // Updating content
+      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+
       const prompt = await repositoryTemplate.getEnvironmentVariablesGuideJson()
       if (prompt === '') {
-        environmentVariables = `Insert your environment variables.`
-        console.log(environmentVariables)
-        // @ts-ignore
-        editor?.chain().insertEnvVariablesGuide({ content: environmentVariables })
+        const newContent = {
+          ...nodoActual?.attrs,
+          content: [],
+          showPlaceholder: false
+        }
+        editor?.chain().updateAttributes(NodeName.SETTING_UP, newContent).run()
         return
       }
       const request = await fetch('/api/ai', {
@@ -292,16 +322,29 @@ export function BuilderSections() {
         }
       })
       const response = await request.json()
-      environmentVariables = response.data.data
+      const newContent = {
+        ...nodoActual?.attrs,
+        content: response.data.data,
+        showPlaceholder: false
+      }
+      editor?.chain().updateAttributes(NodeName.SETTING_UP, newContent).run()
+    } else if (section === NodeName.TECH_STACK) {
       // @ts-ignore
-      editor?.chain().insertEnvVariablesGuide({ endPos, content: environmentVariables })
-    } else if (section === 'stack') {
-      let stack = ''
+      editor?.chain().insertTechStack({ endPos, showPlaceholder: true })
+
       const prompt = await repositoryTemplate.getTechStackJson()
+
+      // Updating content
+      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+
       if (prompt === '') {
-        stack = `Include a concise explanation about the Tech Stack employed.`
-        // @ts-ignore
-        editor?.chain().insertTechStack({ endPos, content: stack.dependencies })
+        const newContent = {
+          ...nodoActual?.attrs,
+          content: [],
+          showPlaceholder: false
+        }
+        editor?.chain().updateAttributes(NodeName.TECH_STACK, newContent).run()
         return
       }
       const request = await fetch('/api/ai', {
@@ -315,10 +358,13 @@ export function BuilderSections() {
         }
       })
       const response = await request.json()
-      stack = response.data
-      // @ts-ignore
-      editor?.chain().insertTechStack({ endPos, content: stack.dependencies })
-    } else if (section === 'table-contents') {
+      const newContent = {
+        ...nodoActual?.attrs,
+        content: response.data.dependencies,
+        showPlaceholder: false
+      }
+      editor?.chain().updateAttributes(NodeName.TECH_STACK, newContent).run()
+    } else if (section === NodeName.TABLE_CONTENTS) {
       // TODO: List by order in what items were added
       const sectionList = listSections.filter((sec) => sec.id !== section && sec.added)
       // @ts-ignore
@@ -326,10 +372,10 @@ export function BuilderSections() {
     }
   }
 
-  const customSections: Partial<Record<SectionKey, JSX.Element>> = useMemo(() => {
+  const customSections: Partial<Record<NodeName, JSX.Element>> = useMemo(() => {
     return {
-      badges: <BadgesOptions addSection={addSection} />,
-      contributors: <ContributorsOptions addSection={addSection} />
+      [NodeName.BADGE]: <BadgesOptions addSection={addSection} />,
+      [NodeName.CONTRIBUTORS]: <ContributorsOptions addSection={addSection} />
     }
   }, [editor])
 
