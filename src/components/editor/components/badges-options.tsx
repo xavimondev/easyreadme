@@ -1,4 +1,4 @@
-import { BadgeName, SectionKey } from '@/types'
+import { BadgeName, NodeName } from '@/types'
 import { LIST_BADGES } from '@/constants'
 import { PlusIc } from '@/components/icons'
 import { Button } from '@/components/ui/button'
@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 type BadgeItemProps = {
   id: BadgeName
   name: string
-  addSection: ({ section, options }: { section: SectionKey; options?: { data: any } }) => void
+  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
 }
 
 function BadgeItem({ id, name, addSection }: BadgeItemProps) {
@@ -21,7 +21,7 @@ function BadgeItem({ id, name, addSection }: BadgeItemProps) {
         className='rounded-none h-full border-none p-0 m-0'
         onClick={() =>
           addSection({
-            section: 'badges',
+            section: NodeName.BADGE,
             options: {
               data: { id }
             }
@@ -35,7 +35,7 @@ function BadgeItem({ id, name, addSection }: BadgeItemProps) {
 }
 
 type BadgesOptionsProps = {
-  addSection: ({ section, options }: { section: SectionKey; options?: { data: any } }) => void
+  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
 }
 
 export function BadgesOptions({ addSection }: BadgesOptionsProps) {

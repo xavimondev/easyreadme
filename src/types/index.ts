@@ -42,7 +42,7 @@ export enum NodeName {
 }
 
 export type Section = {
-  id: SectionKey
+  id: NodeName
   name: string
   emoji: string | undefined
   description: string

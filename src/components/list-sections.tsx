@@ -1,6 +1,6 @@
 'use client'
 import { PropsWithChildren } from 'react'
-import { SectionKey } from '@/types'
+import { NodeName } from '@/types'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 import { CheckIc, PlusIc } from '@/components/icons'
@@ -38,8 +38,8 @@ function SectionItem({
 }
 
 type ListSectionsProps = {
-  customSections: Partial<Record<SectionKey, JSX.Element>>
-  addSection: ({ section, options }: { section: SectionKey; options?: { data: any } }) => void
+  customSections: Partial<Record<NodeName, JSX.Element>>
+  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
 }
 
 export function ListSections({ customSections, addSection }: ListSectionsProps) {

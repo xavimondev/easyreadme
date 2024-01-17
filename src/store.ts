@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { NameTemplate, SectionKey, SectionState } from '@/types'
+import { NameTemplate, NodeName, SectionState } from '@/types'
 import { DEFAULT_CONTENT, README_SECTIONS_DATA } from '@/constants'
 
 const INITIAL_STATE_SECTIONS: SectionState[] = README_SECTIONS_DATA.map((section) => {
@@ -19,7 +19,7 @@ type BuilderState = {
   isGenerating: boolean
   setIsGenerating: (isGenerating: boolean) => void
   listSections: SectionState[]
-  updateSection: (section: SectionKey) => void
+  updateSection: (section: NodeName) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -33,7 +33,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   setContentTemplate: (content: string) => set({ contentTemplate: content }),
   clearContentTemplate: () => set({ contentTemplate: '' }),
   setIsGenerating: (isGenerating) => set({ isGenerating }),
-  updateSection: (section: SectionKey) => {
+  updateSection: (section: NodeName) => {
     set((prevSections) => ({
       listSections: prevSections.listSections.map((s) =>
         s.id === section ? { ...s, added: !s.added } : s

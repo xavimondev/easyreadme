@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react'
+import { NodeName } from '@/types'
 import { cn } from '@/lib/utils'
-import { SectionKey } from '@/types'
 
 type ContributorsOptionsProps = {
-  addSection: ({ section, options }: { section: SectionKey; options?: { data: any } }) => void
+  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
 }
 
 export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
@@ -18,7 +18,7 @@ export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
         onClick={() => {
           setOptionSelected('gallery')
           addSection({
-            section: 'contributors',
+            section: NodeName.CONTRIBUTORS,
             options: {
               data: 'gallery'
             }
@@ -57,7 +57,7 @@ export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
         onClick={() => {
           setOptionSelected('table')
           addSection({
-            section: 'contributors',
+            section: NodeName.CONTRIBUTORS,
             options: {
               data: 'table'
             }
