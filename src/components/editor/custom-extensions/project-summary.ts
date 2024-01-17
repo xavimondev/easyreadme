@@ -1,6 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { NodeName } from '@/types'
+import { NODE_DEFAULT_VALUES } from '@/constants'
 import { ProjectSummary } from '@/components/editor/components/project-summary'
 
 export default Node.create({
@@ -17,9 +18,7 @@ export default Node.create({
   },
   addAttributes() {
     return {
-      endPos: {
-        default: 0
-      },
+      ...NODE_DEFAULT_VALUES,
       content: {
         default: []
       }
@@ -28,13 +27,21 @@ export default Node.create({
   addCommands(): any {
     return {
       insertProjectSummary:
-        ({ endPos, content }: { endPos: number; content: string }) =>
+        ({
+          endPos,
+          content,
+          showPlaceholder
+        }: {
+          endPos: number
+          content: string
+          showPlaceholder: boolean
+        }) =>
         ({ editor }: any) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
               type: NodeName.PROJECT_SUMMARY,
-              attrs: { content }
+              attrs: { content, showPlaceholder }
             })
             .focus('end')
             .run()

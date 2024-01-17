@@ -9,7 +9,7 @@ import {
   parsePom,
   parsePyProject,
   parseRequirementsTxt
-} from './utils/parse'
+} from '@/utils/parse'
 
 export const LANGUAGES_SETUP = [
   {
@@ -397,3 +397,12 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'Information about badges used in the project and their meanings.'
   }
 ]
+
+export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
+  endPos: {
+    default: 0
+  },
+  showPlaceholder: {
+    default: false
+  }
+}
