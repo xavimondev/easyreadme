@@ -381,7 +381,7 @@ export function BuilderSections() {
   }, [editor])
 
   return (
-    <div className='h-full w-full grid grid-cols-1 md:grid-cols-[500px,_1fr] gap-3 mt-4 mx-2'>
+    <div className='h-full w-full grid grid-cols-1 md:grid-cols-[430px,_1fr] gap-3 mt-4 mx-2'>
       <div className='flex flex-col gap-2'>
         <Searcher />
         <ListSections customSections={customSections} addSection={addSection} />

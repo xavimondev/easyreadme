@@ -13,7 +13,7 @@ function BadgeItem({ id, name, addSection }: BadgeItemProps) {
   return (
     <div className='w-full flex border border-dashed border-gray-600/30 rounded-md items-center overflow-hidden h-8'>
       <div className='w-full border-none flex'>
-        <span className='font-medium justify-center text-sm ml-3'>{name}</span>
+        <span className='font-medium justify-center text-[0.77rem] ml-2'>{name}</span>
       </div>
       <Button
         size='icon'
