@@ -1,4 +1,4 @@
-import { BadgeName, NodeName, Section, Template } from '@/types'
+import { BadgeName, NodeName, Section, SectionState, Template } from '@/types'
 import {
   parseBuildGradle,
   parseCargo,
@@ -406,3 +406,10 @@ export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
     default: false
   }
 }
+
+export const INITIAL_STATE_SECTIONS: SectionState[] = README_SECTIONS_DATA.map((section) => {
+  return {
+    ...section,
+    added: false
+  }
+})

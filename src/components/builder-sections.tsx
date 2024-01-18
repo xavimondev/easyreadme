@@ -31,6 +31,7 @@ import EnvVariablesGuide from '@/components/editor/custom-extensions/env-variabl
 import TableContents from '@/components/editor/custom-extensions/table-contents'
 import { BadgesOptions } from '@/components/editor/components/badges-options'
 import { ContributorsOptions } from '@/components/editor/components/contributors-options'
+import { Searcher } from '@/components/searcher'
 
 export function BuilderSections() {
   const updateSection = useBuilder((store) => store.updateSection)
@@ -381,7 +382,10 @@ export function BuilderSections() {
 
   return (
     <div className='h-full w-full grid grid-cols-1 md:grid-cols-[500px,_1fr] gap-3 mt-4 mx-2'>
-      <ListSections customSections={customSections} addSection={addSection} />
+      <div className='flex flex-col gap-2'>
+        <Searcher />
+        <ListSections customSections={customSections} addSection={addSection} />
+      </div>
       <CustomEditor editor={editor} />
     </div>
   )
