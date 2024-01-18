@@ -279,10 +279,10 @@ export const LIST_BADGES: { id: BadgeName; name: string }[] = [
   { id: 'contributors', name: 'Contributors' },
   { id: 'last_commit', name: 'Last Commit' },
   { id: 'license', name: 'License' },
-  { id: 'top_language', name: 'Top Language' },
+  { id: 'top_language', name: 'Language' },
   { id: 'discussions', name: 'Discussions' },
   { id: 'issues', name: 'Issues' },
-  { id: 'pull_requests', name: 'Pull Requests' },
+  { id: 'pull_requests', name: 'Pull Request' },
   { id: 'deployment', name: 'Deployment' },
   { id: 'commit_activity_month', name: 'Commits' }
 ]
@@ -292,7 +292,7 @@ export const README_SECTIONS_DATA: Section[] = [
     id: NodeName.BANNER,
     name: 'Banner',
     emoji: '🏞️',
-    description: 'Introduction and details about the project banner.'
+    description: 'Picture of your project.'
   },
   {
     id: NodeName.TECH_STACK,
@@ -304,25 +304,25 @@ export const README_SECTIONS_DATA: Section[] = [
     id: NodeName.PROJECT_SUMMARY,
     name: 'Project Summary',
     emoji: '📝',
-    description: 'A brief summary highlighting the key aspects of the project.'
+    description: 'A brief summary of the project.'
   },
   {
     id: NodeName.SETTING_UP,
     name: 'Setting Up',
     emoji: '⚙️',
-    description: 'Instructions and details on setting up the project.'
+    description: 'Instructions on setting up the project.'
   },
   {
     id: NodeName.RUN_LOCALLY,
     name: 'Run Locally',
     emoji: '🚀',
-    description: 'Guidelines on running the project locally for development.'
+    description: 'Guidelines on running the project locally.'
   },
   {
     id: NodeName.CONTRIBUTORS,
     name: 'Contributors',
     emoji: '🙌',
-    description: 'Recognition and details about project contributors.'
+    description: 'Recognition about project contributors.'
   },
   {
     id: NodeName.LICENSE,
@@ -340,25 +340,25 @@ export const README_SECTIONS_DATA: Section[] = [
     id: NodeName.DEPLOY,
     name: 'Deploy',
     emoji: '☁️',
-    description: 'Instructions and information on deploying the project.'
+    description: 'Instructions on deploying the project.'
   },
   {
     id: NodeName.ROADMAP,
     name: 'Roadmap',
     emoji: '🗺️',
-    description: 'The planned development path and milestones of the project.'
+    description: 'The planned development path of the project.'
   },
   {
     id: NodeName.ACKNOWLEDGEMENTS,
     name: 'Acknowledgements',
     emoji: '🙏',
-    description: 'Highlighting invaluable support in project achievements.'
+    description: 'Highlighting invaluable support.'
   },
   {
     id: NodeName.CHANGELOG,
     name: 'Changelog',
     emoji: '📜',
-    description: 'Record of changes made to the project, usually version-wise.'
+    description: 'Record of changes made to the project.'
   },
   {
     id: NodeName.PREREQUISITES,
@@ -382,7 +382,7 @@ export const README_SECTIONS_DATA: Section[] = [
     id: NodeName.TABLE_CONTENTS,
     name: 'Table of Contents',
     emoji: '🔍',
-    description: 'An organized list of contents for easy navigation and reference.'
+    description: 'An organized list of contents for easy navigation.'
   },
   {
     id: NodeName.OVERVIEW,
@@ -394,7 +394,7 @@ export const README_SECTIONS_DATA: Section[] = [
     id: NodeName.BADGE,
     name: 'Badges',
     emoji: '🛡️',
-    description: 'Information about badges used in the project and their meanings.'
+    description: 'Show metrics for your project.'
   }
 ]
 
