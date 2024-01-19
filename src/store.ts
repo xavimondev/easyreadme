@@ -13,7 +13,6 @@ type BuilderState = {
   setIsGenerating: (isGenerating: boolean) => void
   listSections: SectionState[]
   updateSection: (section: NodeName) => void
-  setSections: (sections: SectionState[]) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -33,6 +32,5 @@ export const useBuilder = create<BuilderState>()((set) => ({
         s.id === section ? { ...s, added: !s.added } : s
       )
     }))
-  },
-  setSections: (sections: SectionState[]) => set({ listSections: sections })
+  }
 }))
