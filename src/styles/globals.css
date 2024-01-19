@@ -113,3 +113,7 @@
 p:has(span.node-custom-badges) {
   text-align: center;
 }
+
+.lucide {
+  stroke-width: 1.5px;
+}

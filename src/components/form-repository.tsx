@@ -1,5 +1,6 @@
 'use client'
 import { toast } from 'sonner'
+import { Zap, Loader2 } from 'lucide-react'
 import { NameTemplate } from '@/types'
 import { RepositoryTemplate } from '@/utils/repository-template'
 import { isValidGitHubRepositoryURL } from '@/utils/github'
@@ -10,7 +11,7 @@ import { useTemplates } from '@/hooks/use-templates'
 import { useRemaining } from '@/hooks/use-remaining'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { GitIc, LightningIc, LoadingIc } from '@/components/icons'
+import { GitIc } from '@/components/icons'
 
 export function FormRepository() {
   const { minimal, collaborate, empower, inspire, unleash } = useTemplates()
@@ -86,12 +87,12 @@ export function FormRepository() {
         {!isGenerating ? (
           <>
             Generate
-            <LightningIc className='h-4 w-4' />
+            <Zap className='h-4 w-4' />
           </>
         ) : (
           <>
             Generating
-            <LoadingIc className='animate-spin h-4 w-4' />
+            <Loader2 className='animate-spin h-4 w-4' />
           </>
         )}
       </Button>

@@ -1,9 +1,9 @@
 'use client'
 import { PropsWithChildren } from 'react'
+import { Plus, Trash } from 'lucide-react'
 import { NodeName } from '@/types'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
-import { PlusIc, RemoveIc } from '@/components/icons'
 
 type SectionItemProps = {
   name: string
@@ -28,7 +28,7 @@ function SectionItem({
         </div>
         {children == null ? (
           <Button size='icon' onClick={addSection}>
-            {added ? <RemoveIc className='w-4 h-4' /> : <PlusIc className='w-4 h-4' />}
+            {added ? <Trash className='w-4 h-4' /> : <Plus className='w-4 h-4' />}
           </Button>
         ) : null}
       </div>

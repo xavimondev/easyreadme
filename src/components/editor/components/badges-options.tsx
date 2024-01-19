@@ -1,6 +1,6 @@
+import { Plus } from 'lucide-react'
 import { BadgeName, NodeName } from '@/types'
 import { LIST_BADGES } from '@/constants'
-import { PlusIc } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 
 type BadgeItemProps = {
@@ -28,7 +28,7 @@ function BadgeItem({ id, name, addSection }: BadgeItemProps) {
           })
         }
       >
-        <PlusIc className='w-4 h-4' />
+        <Plus className='w-4 h-4' />
       </Button>
     </div>
   )

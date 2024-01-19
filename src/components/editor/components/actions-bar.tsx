@@ -1,4 +1,5 @@
-import { RemoveIc } from '@/components/icons'
+import { Trash } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 
 export function ActionsBar({ removeSection }: any) {
@@ -15,7 +16,7 @@ export function ActionsBar({ removeSection }: any) {
         className='bg-red-500 hover:bg-red-600 transition-colors duration-300 ease-in-out'
         onClick={removeSection}
       >
-        <RemoveIc className='w-4 h-4 text-white' />
+        <Trash className='w-4 h-4 text-white' />
       </Button>
     </div>
   )

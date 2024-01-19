@@ -1,8 +1,7 @@
 'use client'
-
 import { useEffect, useState } from 'react'
+import { Check, Copy } from 'lucide-react'
 import { copyToClipboard } from '@/utils'
-import { CheckIc, CopyIc } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 
 type CopyButtonProps = {
@@ -31,7 +30,7 @@ export function CopyButton({ content }: CopyButtonProps) {
         await copyToClipboard(content)
       }}
     >
-      {isCopied ? <CheckIc className='w-5 h-5' /> : <CopyIc className='w-5 h-5' />}
+      {isCopied ? <Check className='w-5 h-5' /> : <Copy className='w-5 h-5' />}
     </Button>
   )
 }

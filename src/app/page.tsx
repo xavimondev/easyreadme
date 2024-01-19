@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { ChevronRightIc, CopyWithGradientIc, GitHubOctopusIc } from '@/components/icons'
+import { ChevronRight } from 'lucide-react'
+import { CopyWithGradientIc, GitHubOctopusIc } from '@/components/icons'
 import { ImageTheme } from '@/components/image-theme'
 import { ModeToggle } from '@/components/mode-toggle'
 import { Stars } from '@/components/stars'
@@ -75,7 +76,7 @@ export default function Home() {
               href='/generator'
             >
               Get Started
-              <ChevronRightIc className='h-4 w-4 sm:h-4 sm:w-4' />
+              <ChevronRight className='h-4 w-4 sm:h-4 sm:w-4' />
             </Link>
           </div>
           <div className='hidden lg:flex justify-center relative w-full'>

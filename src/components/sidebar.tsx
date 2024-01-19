@@ -1,6 +1,6 @@
+import { Blocks } from 'lucide-react'
 import { ListTemplates } from '@/components/list-templates'
 import { FormRepository } from '@/components/form-repository'
-import { ColumnsIc } from '@/components/icons'
 import { TemplatesMobile } from '@/components/templates-mobile'
 
 export function Sidebar() {
@@ -10,7 +10,7 @@ export function Sidebar() {
         <div className='md:sticky z-10 md:pt-3 md:pb-4 flex flex-col gap-4 bg-white dark:bg-[#09090B] md:top-0'>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-1.5'>
-              <ColumnsIc className='w-5 h-5' />
+              <Blocks className='w-5 h-5' />
               <h2 className='text-black dark:text-white font-semibold text-base sm:text-xl'>
                 Generator
               </h2>
