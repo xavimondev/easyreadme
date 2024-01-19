@@ -1,11 +1,14 @@
 import { NodeViewWrapper } from '@tiptap/react'
-import { ActionsBar } from './actions-bar'
 import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import { getSetupCommands } from '@/utils/commands'
+import { useBuilder } from '@/store'
+import { ActionsBar } from './actions-bar'
 
 export function RunLocally({ deleteNode, node }: any) {
-  const { attrs } = node
+  const updateSection = useBuilder((store) => store.updateSection)
+  const { attrs, type } = node
   const mainLanguage = attrs.mainLanguage
+  const nodeName = type.name
 
   const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
   const secondStep = setup
@@ -43,7 +46,12 @@ export function RunLocally({ deleteNode, node }: any) {
             </li>
           </ul>
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

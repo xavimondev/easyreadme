@@ -1,7 +1,8 @@
 import { NodeViewWrapper } from '@tiptap/react'
 import { README_SECTIONS } from '@/constants'
-import { ActionsBar } from './actions-bar'
+import { useBuilder } from '@/store'
 import { PlaceholderGuide } from '@/components/placeholder'
+import { ActionsBar } from './actions-bar'
 
 type GuideListProps = {
   data: any
@@ -29,8 +30,10 @@ function GuideList({ data }: GuideListProps) {
   )
 }
 export function EnvVariablesGuide({ deleteNode, node }: any) {
-  const { attrs } = node
+  const { attrs, type } = node
   const { content, showPlaceholder } = attrs
+  const updateSection = useBuilder((store) => store.updateSection)
+  const nodeName = type.name
 
   return (
     <NodeViewWrapper as='div'>
@@ -45,7 +48,12 @@ export function EnvVariablesGuide({ deleteNode, node }: any) {
             <GuideList data={content} />
           )}
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

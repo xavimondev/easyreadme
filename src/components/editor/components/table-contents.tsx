@@ -1,11 +1,15 @@
 import { NodeViewWrapper } from '@tiptap/react'
 import { SectionState } from '@/types'
 import { README_SECTIONS } from '@/constants'
+import { useBuilder } from '@/store'
 import { ActionsBar } from './actions-bar'
 
 export function TableContents({ deleteNode, node }: any) {
-  const { attrs } = node
+  const updateSection = useBuilder((store) => store.updateSection)
+  const { attrs, type } = node
   const data = attrs.content
+  const nodeName = type.name
+
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
@@ -30,7 +34,12 @@ export function TableContents({ deleteNode, node }: any) {
             })}
           </ul>
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

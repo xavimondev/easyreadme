@@ -1,12 +1,16 @@
-import { README_SECTIONS } from '@/constants'
 import { NodeViewWrapper } from '@tiptap/react'
+import { README_SECTIONS } from '@/constants'
+import { useBuilder } from '@/store'
 import { ActionsBar } from './actions-bar'
 
 export function License({ deleteNode, node }: any) {
+  const updateSection = useBuilder((store) => store.updateSection)
   const {
-    attrs: { license }
+    attrs: { license },
+    type
   } = node
   const { name, url } = license
+  const nodeName = type.name
 
   return (
     <NodeViewWrapper as='div'>
@@ -32,7 +36,12 @@ export function License({ deleteNode, node }: any) {
             </p>
           )}
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

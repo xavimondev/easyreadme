@@ -1,8 +1,12 @@
 import { NodeViewWrapper } from '@tiptap/react'
 import { README_SECTIONS } from '@/constants'
+import { useBuilder } from '@/store'
 import { ActionsBar } from './actions-bar'
 
-export function Faq({ deleteNode }: any) {
+export function Faq({ deleteNode, extension }: any) {
+  const updateSection = useBuilder((store) => store.updateSection)
+  const { name } = extension
+
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>
       <div className='relative group'>
@@ -29,7 +33,12 @@ export function Faq({ deleteNode }: any) {
           <h4 spellCheck='false'>3. What is this project about?</h4>
           <p>Your answer.</p>
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(name)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

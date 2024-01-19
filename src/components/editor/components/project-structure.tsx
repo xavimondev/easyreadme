@@ -1,10 +1,13 @@
 import { NodeViewWrapper } from '@tiptap/react'
 import { README_SECTIONS } from '@/constants'
+import { useBuilder } from '@/store'
 import { ActionsBar } from './actions-bar'
 
 export function ProjectStructure({ deleteNode, node }: any) {
-  const { attrs } = node
+  const { attrs, type } = node
   const tree = attrs.tree
+  const nodeName = type.name
+  const updateSection = useBuilder((store) => store.updateSection)
 
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>
@@ -17,7 +20,12 @@ export function ProjectStructure({ deleteNode, node }: any) {
             </pre>
           )}
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

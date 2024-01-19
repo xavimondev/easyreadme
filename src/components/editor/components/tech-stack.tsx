@@ -2,6 +2,7 @@ import { README_SECTIONS } from '@/constants'
 import { NodeViewWrapper } from '@tiptap/react'
 import { ActionsBar } from './actions-bar'
 import { PlaceholderList } from '@/components/placeholder'
+import { useBuilder } from '@/store'
 
 type TechListProps = {
   data: any
@@ -31,8 +32,10 @@ function TechList({ data }: TechListProps) {
   )
 }
 export function TechStack({ deleteNode, node }: any) {
-  const { attrs } = node
+  const updateSection = useBuilder((store) => store.updateSection)
+  const { attrs, type } = node
   const { content, showPlaceholder } = attrs
+  const nodeName = type.name
 
   return (
     <NodeViewWrapper as='div'>
@@ -47,7 +50,12 @@ export function TechStack({ deleteNode, node }: any) {
             <TechList data={content} />
           )}
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )

@@ -2,6 +2,7 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { type Node } from '@tiptap/pm/model'
 import { groupItems } from '@/utils/groupItems'
 import { README_SECTIONS } from '@/constants'
+import { useBuilder } from '@/store'
 import { ActionsBar } from './actions-bar'
 
 function Gallery({ data }: { data: any }) {
@@ -75,6 +76,9 @@ type ContributorsProps = {
 export function Contributors({ deleteNode, node }: ContributorsProps) {
   const { attrs } = node
   const { type, data } = attrs
+  const updateSection = useBuilder((store) => store.updateSection)
+  const nodeName: any = node.type.name
+
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
@@ -82,7 +86,12 @@ export function Contributors({ deleteNode, node }: ContributorsProps) {
           <h2>{README_SECTIONS['contributors']}</h2>
           {type === 'gallery' ? <Gallery data={data} /> : <Table data={data} />}
         </div>
-        <ActionsBar removeSection={deleteNode} />
+        <ActionsBar
+          removeSection={() => {
+            updateSection(nodeName)
+            deleteNode()
+          }}
+        />
       </div>
     </NodeViewWrapper>
   )
