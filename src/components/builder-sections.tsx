@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 import { Transaction } from '@tiptap/pm/state'
 import { findChildren } from '@tiptap/core'
 import { useEditor } from '@tiptap/react'
-import { NodeName } from '@/types'
+import { ContributorOption, NodeName } from '@/types'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import { RepositoryTemplate } from '@/utils/repository-template'
 import { getContributors, getLicense, getRepositoryData } from '@/services/github'
@@ -127,7 +127,7 @@ export function BuilderSections() {
 
     updateSection(section)
 
-    if (sectionItem && sectionItem.added) {
+    if (sectionItem?.added) {
       removeNodeFromEditor(section)
       return
     }
@@ -163,17 +163,12 @@ export function BuilderSections() {
       editor?.chain().insertContentAt(endPos, '<Commands />').focus('end').run()
     } else if (section === NodeName.CONTRIBUTORS) {
       const { data } = options ?? {}
+      let extraData = undefined
 
-      if (data === 'gallery') {
-        // @ts-ignore
-        editor?.chain().insertContributors({
-          endPos,
-          type: 'gallery',
-          data: {
-            owner,
-            repository: repositoryName
-          }
-        })
+      if (data === ContributorOption.GALLERY) {
+        extraData = {
+          owner
+        }
       } else {
         const contributors = await getContributors({
           repoName: repositoryName,
@@ -192,16 +187,20 @@ export function BuilderSections() {
               contributor.username !== 'dependabot[bot]' && contributor.username !== owner
           )
 
-        // @ts-ignore
-        editor?.chain().insertContributors({
-          endPos,
-          type: 'table',
-          data: {
-            listContributors,
-            repository: repositoryName
-          }
-        })
+        extraData = {
+          listContributors
+        }
       }
+
+      // @ts-ignore
+      editor?.chain().insertContributors({
+        endPos,
+        type: data,
+        data: {
+          ...extraData,
+          repository: repositoryName
+        }
+      })
     } else if (section === NodeName.DEPLOY) {
       editor?.chain().insertContentAt(endPos, '<Deploy />').focus('end').run()
     } else if (section === NodeName.FAQ) {
@@ -378,7 +377,7 @@ export function BuilderSections() {
       [NodeName.BADGE]: <BadgesOptions addSection={addSection} />,
       [NodeName.CONTRIBUTORS]: <ContributorsOptions addSection={addSection} />
     }
-  }, [editor])
+  }, [editor, addSection])
 
   return (
     <div className='h-full w-full grid grid-cols-1 md:grid-cols-[430px,_1fr] gap-3 mt-4 mx-2'>

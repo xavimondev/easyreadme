@@ -111,3 +111,8 @@ export type GitRepository = {
   branch: string
   urlRepository: string
 }
+
+export enum ContributorOption {
+  GALLERY = 'gallery',
+  TABLE = 'table'
+}
