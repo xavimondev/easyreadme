@@ -1,8 +1,6 @@
-'use client'
 import { PropsWithChildren } from 'react'
 import { Plus, Trash } from 'lucide-react'
-import { NodeName } from '@/types'
-import { useBuilder } from '@/store'
+import { NodeName, SectionState } from '@/types'
 import { Button } from '@/components/ui/button'
 
 type SectionItemProps = {
@@ -38,16 +36,15 @@ function SectionItem({
 }
 
 type ListSectionsProps = {
+  listSections: SectionState[]
   customSections: Partial<Record<NodeName, JSX.Element>>
   addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
 }
 
-export function ListSections({ customSections, addSection }: ListSectionsProps) {
-  const sections = useBuilder((store) => store.listSections)
-
+export function ListSections({ listSections, customSections, addSection }: ListSectionsProps) {
   return (
     <div className='flex flex-col gap-2 w-full'>
-      {sections
+      {listSections
         .toSorted((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
         .map(({ id, name, description, added }) => {
           const children = customSections[id]

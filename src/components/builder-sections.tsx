@@ -1,6 +1,5 @@
 'use client'
-import { useCallback, useMemo } from 'react'
-import { Transaction } from '@tiptap/pm/state'
+import { useCallback, useMemo, useState } from 'react'
 import { findChildren } from '@tiptap/core'
 import { useEditor } from '@tiptap/react'
 import { ContributorOption, NodeName } from '@/types'
@@ -34,8 +33,8 @@ import { ContributorsOptions } from '@/components/editor/components/contributors
 import { Searcher } from '@/components/searcher'
 
 export function BuilderSections() {
-  const updateSection = useBuilder((store) => store.updateSection)
-  const listSections = useBuilder((store) => store.listSections)
+  const [filterSection, setFilterSection] = useState('')
+  const { updateSection, listSections } = useBuilder((store) => store)
   const editor = useEditor({
     editable: true,
     injectCSS: false,
@@ -66,10 +65,7 @@ export function BuilderSections() {
       EnvVariablesGuide,
       TableContents,
       ContributorsNode
-    ],
-    onUpdate: ({ transaction }) => {
-      checkForNodeDeletions({ transaction })
-    }
+    ]
   })
 
   const removeNodeFromEditor = useCallback(
@@ -95,21 +91,6 @@ export function BuilderSections() {
     },
     [editor]
   )
-
-  const checkForNodeDeletions = useCallback(({ transaction }: { transaction: Transaction }) => {
-    const nodeNames = new Set<string>()
-    transaction.doc.forEach((node) => {
-      if (node.type.name) {
-        nodeNames.add(node.type.name)
-      }
-    })
-    // Get previous nodes to detect deleted ones
-    transaction.before.forEach((node) => {
-      if (node.type.name && !nodeNames.has(node.type.name)) {
-        updateSection(node.type.name as NodeName)
-      }
-    })
-  }, [])
 
   const addSection = async ({
     section,
@@ -140,7 +121,6 @@ export function BuilderSections() {
     if (section === NodeName.ACKNOWLEDGEMENTS) {
       editor?.chain().insertContentAt(endPos, '<Acknowledgments />').focus('end').run()
     } else if (section === NodeName.BADGE) {
-      // TODO
       const { data } = options ?? {}
       const { id } = data
       const badge = getBadgeByName({
@@ -379,11 +359,23 @@ export function BuilderSections() {
     }
   }, [editor, addSection])
 
+  const listSectionsFiltered = useMemo(() => {
+    return filterSection !== '' && filterSection.length > 0
+      ? listSections.filter((section) =>
+          section.name.toLowerCase().includes(filterSection.toLowerCase())
+        )
+      : listSections
+  }, [filterSection, listSections])
+
   return (
     <div className='h-full w-full grid grid-cols-1 md:grid-cols-[430px,_1fr] gap-3 mt-4 mx-2'>
       <div className='flex flex-col gap-2'>
-        <Searcher />
-        <ListSections customSections={customSections} addSection={addSection} />
+        <Searcher setFilterSection={setFilterSection} />
+        <ListSections
+          listSections={listSectionsFiltered}
+          customSections={customSections}
+          addSection={addSection}
+        />
       </div>
       <CustomEditor editor={editor} />
     </div>

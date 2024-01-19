@@ -1,12 +1,13 @@
 'use client'
+import { Dispatch, SetStateAction } from 'react'
 import { Search } from 'lucide-react'
-import { INITIAL_STATE_SECTIONS } from '@/constants'
-import { useBuilder } from '@/store'
 import { Input } from '@/components/ui/input'
 
-export function Searcher() {
-  const setSections = useBuilder((store) => store.setSections)
+type SearcherProps = {
+  setFilterSection: Dispatch<SetStateAction<string>>
+}
 
+export function Searcher({ setFilterSection }: SearcherProps) {
   return (
     <div className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full'>
       <form>
@@ -15,13 +16,7 @@ export function Searcher() {
           <Input
             placeholder='Search sections'
             className='pl-9'
-            onChange={(e) => {
-              const input = e.currentTarget.value.toLocaleLowerCase()
-              const data = INITIAL_STATE_SECTIONS.filter((section) =>
-                section.name.toLowerCase().includes(input)
-              )
-              setSections(data)
-            }}
+            onChange={(e) => setFilterSection(e.target.value)}
           />
         </div>
       </form>
