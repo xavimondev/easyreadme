@@ -1,10 +1,11 @@
-import { NodeViewWrapper } from '@tiptap/react'
-import { type Node } from '@tiptap/pm/model'
 import { ContributorOption } from '@/types'
-import { groupItems } from '@/utils/groupItems'
+import { type Node } from '@tiptap/pm/model'
+import { NodeViewWrapper } from '@tiptap/react'
+
 import { README_SECTIONS } from '@/constants'
+import { groupItems } from '@/utils/groupItems'
 import { useBuilder } from '@/store'
-import { ActionsBar } from './actions-bar'
+import { ActionsBar } from '@/components/editor/components/actions-bar'
 
 function Gallery({ data }: { data: any }) {
   const { repository, owner } = data

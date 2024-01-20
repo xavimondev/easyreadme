@@ -1,5 +1,6 @@
-import { create } from 'zustand'
 import { NameTemplate, NodeName, SectionState } from '@/types'
+import { create } from 'zustand'
+
 import { DEFAULT_CONTENT, INITIAL_STATE_SECTIONS } from '@/constants'
 
 type BuilderState = {

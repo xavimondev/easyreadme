@@ -1,7 +1,9 @@
 'use client'
+
 import { useEffect, useState } from 'react'
-import { Check, Copy } from 'lucide-react'
 import { copyToClipboard } from '@/utils'
+import { Check, Copy } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 
 type CopyButtonProps = {

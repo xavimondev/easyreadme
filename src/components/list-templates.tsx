@@ -1,8 +1,10 @@
 'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
-import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
 import { Template } from '@/types'
+
+import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'

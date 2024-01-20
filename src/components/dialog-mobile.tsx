@@ -1,7 +1,9 @@
 'use client'
+
 import { useCallback, useRef, useState } from 'react'
 import Image from 'next/image'
 import { NameTemplate } from '@/types'
+
 import { DEFAULT_TEMPLATES } from '@/constants'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'

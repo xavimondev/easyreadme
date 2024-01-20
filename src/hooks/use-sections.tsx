@@ -1,9 +1,10 @@
+import { BadgeName, Section } from '@/types'
 import { useCompletion } from 'ai/react'
 import { toast } from 'sonner'
-import { useBuilder } from '@/store'
-import { BadgeName, Section } from '@/types'
-import { RepositoryTemplate } from '@/utils/repository-template'
+
 import { README_SECTIONS } from '@/constants'
+import { RepositoryTemplate } from '@/utils/repository-template'
+import { useBuilder } from '@/store'
 
 export function useSections() {
   const addContentToTemplate = useBuilder((state) => state.addContentToTemplate)

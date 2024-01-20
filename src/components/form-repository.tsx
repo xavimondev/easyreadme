@@ -1,16 +1,18 @@
 'use client'
-import { toast } from 'sonner'
-import { Zap, Loader2 } from 'lucide-react'
+
 import { NameTemplate } from '@/types'
-import { RepositoryTemplate } from '@/utils/repository-template'
+import { Loader2, Zap } from 'lucide-react'
+import { toast } from 'sonner'
+
 import { isValidGitHubRepositoryURL } from '@/utils/github'
-import { checkRateLimit } from '@/services/rate-limit'
+import { RepositoryTemplate } from '@/utils/repository-template'
 import { getRepositoryData } from '@/services/github'
+import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
-import { useTemplates } from '@/hooks/use-templates'
 import { useRemaining } from '@/hooks/use-remaining'
-import { Input } from '@/components/ui/input'
+import { useTemplates } from '@/hooks/use-templates'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { GitIc } from '@/components/icons'
 
 export function FormRepository() {

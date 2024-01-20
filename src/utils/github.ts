@@ -1,3 +1,5 @@
+import { BadgeName, Tree, TreeFormatted, TypeFile } from '@/types'
+
 import {
   CODESIZE_URL,
   COMMIT_ACTIVITY_MONTH_URL,
@@ -6,17 +8,16 @@ import {
   DISCUSSIONS_URL,
   FORKS_URL,
   ISSUES_URL,
+  LANGUAGES_FILES_PARSERS,
+  LANGUAGES_SETUP,
   LAST_COMMIT_URL,
   LICENSE_URL,
   PULL_REQUESTS_URL,
   STARS_URL,
   TOP_LANGUAGE_URL,
-  WATCHERS_URL,
-  LANGUAGES_FILES_PARSERS,
-  LANGUAGES_SETUP
+  WATCHERS_URL
 } from '@/constants'
-import { getRepositoryStructure, getFileContents } from '@/services/github'
-import { BadgeName, Tree, TreeFormatted, TypeFile } from '@/types'
+import { getFileContents, getRepositoryStructure } from '@/services/github'
 
 export const getRepoNameAndOwnerFromUrl = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')

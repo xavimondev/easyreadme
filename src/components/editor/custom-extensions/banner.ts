@@ -1,6 +1,7 @@
-import { Node, mergeAttributes } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
 import { NodeName } from '@/types'
+import { mergeAttributes, Node } from '@tiptap/core'
+import { ReactNodeViewRenderer } from '@tiptap/react'
+
 import { Banner } from '@/components/editor/components/banner'
 
 export default Node.create({
