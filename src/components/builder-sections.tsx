@@ -31,6 +31,7 @@ import TableContents from '@/components/editor/custom-extensions/table-contents'
 import { BadgesOptions } from '@/components/editor/components/badges-options'
 import { ContributorsOptions } from '@/components/editor/components/contributors-options'
 import { Searcher } from '@/components/searcher'
+import { SECTIONS_EXCLUDED_FROM_UPDATES } from '@/constants'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
@@ -120,12 +121,12 @@ export function BuilderSections() {
 
     if (
       (section === NodeName.CONTRIBUTORS && !sectionItem?.added) ||
-      section !== NodeName.CONTRIBUTORS
+      !SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)
     ) {
       updateSection(section)
     }
 
-    if (sectionItem?.added && section !== NodeName.CONTRIBUTORS) {
+    if (sectionItem?.added && !SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)) {
       removeNodeFromEditor(section)
       return
     }
