@@ -1,6 +1,7 @@
-import { NodeName } from '@/types'
 import { mergeAttributes, Node } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+
+import { NodeName } from '@/types/builder'
 
 import { NODE_DEFAULT_VALUES } from '@/constants'
 import { EnvVariablesGuide } from '@/components/editor/components/env-variables-guide'

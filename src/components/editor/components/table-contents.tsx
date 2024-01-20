@@ -1,5 +1,6 @@
-import { SectionState } from '@/types'
 import { NodeViewWrapper } from '@tiptap/react'
+
+import { SectionState } from '@/types/builder'
 
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'

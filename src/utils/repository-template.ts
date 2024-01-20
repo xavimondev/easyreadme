@@ -1,4 +1,6 @@
-import { BadgeName, GitRepository, SectionKey } from '@/types'
+import { BadgeName } from '@/types/builder'
+import { GitRepository } from '@/types/git'
+import { SectionKey } from '@/types/readme'
 
 import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import { getSetupCommands } from '@/utils/commands'

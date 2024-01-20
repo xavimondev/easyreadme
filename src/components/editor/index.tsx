@@ -1,12 +1,16 @@
 'use client'
+
 import { useCallback, useEffect, useRef } from 'react'
-import { type Editor, EditorContent, useEditor, type Extensions } from '@tiptap/react'
-import { useDebouncedCallback } from 'use-debounce'
 import {
   addNewlinesBetweenBadges,
   replaceBadgesMarkdownToHtml,
   replaceBannerMarkdownToHtml
 } from '@/utils'
+import { EditorContent, useEditor } from '@tiptap/react'
+import { useDebouncedCallback } from 'use-debounce'
+
+import type { Editor, Extensions } from '@tiptap/react'
+
 import { useBuilder } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 

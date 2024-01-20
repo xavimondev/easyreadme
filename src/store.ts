@@ -1,5 +1,7 @@
-import { NameTemplate, NodeName, SectionState } from '@/types'
 import { create } from 'zustand'
+
+import { NodeName, SectionState } from '@/types/builder'
+import { NameTemplate } from '@/types/readme'
 
 import { DEFAULT_CONTENT, INITIAL_STATE_SECTIONS } from '@/constants'
 

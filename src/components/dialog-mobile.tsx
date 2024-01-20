@@ -2,7 +2,8 @@
 
 import { useCallback, useRef, useState } from 'react'
 import Image from 'next/image'
-import { NameTemplate } from '@/types'
+
+import { NameTemplate } from '@/types/readme'
 
 import { DEFAULT_TEMPLATES } from '@/constants'
 import { useBuilder } from '@/store'

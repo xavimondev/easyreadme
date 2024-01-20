@@ -1,6 +1,7 @@
-import { ContributorOption } from '@/types'
 import { type Node } from '@tiptap/pm/model'
 import { NodeViewWrapper } from '@tiptap/react'
+
+import { ContributorOption } from '@/types/builder'
 
 import { README_SECTIONS } from '@/constants'
 import { groupItems } from '@/utils/groupItems'

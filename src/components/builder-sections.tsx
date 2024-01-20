@@ -1,9 +1,10 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
-import { ContributorOption, NodeName } from '@/types'
 import { findChildren } from '@tiptap/core'
 import { useEditor } from '@tiptap/react'
+
+import { ContributorOption, NodeName } from '@/types/builder'
 
 import { SECTIONS_EXCLUDED_FROM_UPDATES } from '@/constants'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'

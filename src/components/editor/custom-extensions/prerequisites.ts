@@ -1,6 +1,7 @@
-import { NodeName } from '@/types'
 import { mergeAttributes, Node } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+
+import { NodeName } from '@/types/builder'
 
 import { Prerequisites } from '@/components/editor/components/prerequisites'
 

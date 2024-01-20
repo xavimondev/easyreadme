@@ -1,6 +1,7 @@
-import { BadgeName, Section } from '@/types'
 import { useCompletion } from 'ai/react'
 import { toast } from 'sonner'
+
+import { BadgeName, Section } from '@/types/builder'
 
 import { README_SECTIONS } from '@/constants'
 import { RepositoryTemplate } from '@/utils/repository-template'

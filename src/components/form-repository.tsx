@@ -1,8 +1,9 @@
 'use client'
 
-import { NameTemplate } from '@/types'
 import { Loader2, Zap } from 'lucide-react'
 import { toast } from 'sonner'
+
+import { NameTemplate } from '@/types/readme'
 
 import { isValidGitHubRepositoryURL } from '@/utils/github'
 import { RepositoryTemplate } from '@/utils/repository-template'

@@ -1,4 +1,4 @@
-import { GitRepository, Tree } from '@/types'
+import { GitRepository, Tree } from '@/types/git'
 
 import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
 

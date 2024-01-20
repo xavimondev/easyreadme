@@ -1,4 +1,5 @@
-import { BadgeName, NodeName, Section, SectionState, Template } from '@/types'
+import { BadgeName, NodeName, Section, SectionState } from '@/types/builder'
+import { Template } from '@/types/readme'
 
 import {
   parseBuildGradle,

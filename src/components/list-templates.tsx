@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Template } from '@/types'
+
+import { Template } from '@/types/readme'
 
 import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
 import { cn } from '@/lib/utils'

@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ContributorOption, NodeName } from '@/types'
+
+import { ContributorOption, NodeName } from '@/types/builder'
 
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'

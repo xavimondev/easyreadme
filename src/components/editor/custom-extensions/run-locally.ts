@@ -1,6 +1,7 @@
-import { NodeName } from '@/types'
 import { mergeAttributes, Node } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+
+import { NodeName } from '@/types/builder'
 
 import { RunLocally } from '@/components/editor/components/run-locally'
 

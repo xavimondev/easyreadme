@@ -1,4 +1,5 @@
-import { BadgeName, Tree, TreeFormatted, TypeFile } from '@/types'
+import { BadgeName } from '@/types/builder'
+import { Tree, TreeFormatted, TypeFile } from '@/types/git'
 
 import {
   CODESIZE_URL,

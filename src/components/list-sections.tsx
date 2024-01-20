@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
-import { NodeName, SectionState } from '@/types'
 import { Plus, Trash } from 'lucide-react'
+
+import { NodeName, SectionState } from '@/types/builder'
 
 import { Button } from '@/components/ui/button'
 

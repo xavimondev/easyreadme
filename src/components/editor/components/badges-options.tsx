@@ -1,5 +1,6 @@
-import { BadgeName, NodeName } from '@/types'
 import { Plus } from 'lucide-react'
+
+import { BadgeName, NodeName } from '@/types/builder'
 
 import { LIST_BADGES } from '@/constants'
 import { Button } from '@/components/ui/button'
