@@ -1,8 +1,9 @@
 import { NodeViewWrapper } from '@tiptap/react'
+
 import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import { getSetupCommands } from '@/utils/commands'
 import { useBuilder } from '@/store'
-import { ActionsBar } from './actions-bar'
+import { ActionsBar } from '@/components/editor/components/actions-bar'
 
 export function RunLocally({ deleteNode, node }: any) {
   const updateSection = useBuilder((store) => store.updateSection)

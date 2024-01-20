@@ -1,6 +1,8 @@
 'use client'
+
 import { Dispatch, SetStateAction } from 'react'
 import { Search } from 'lucide-react'
+
 import { Input } from '@/components/ui/input'
 
 type SearcherProps = {

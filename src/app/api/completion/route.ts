@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-import OpenAI from 'openai'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import OpenAI from 'openai'
 
 export const runtime = 'edge'
 

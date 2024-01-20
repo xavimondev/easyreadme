@@ -1,6 +1,7 @@
 import { NodeViewWrapper } from '@tiptap/react'
+
 import { useBuilder } from '@/store'
-import { ActionsBar } from './actions-bar'
+import { ActionsBar } from '@/components/editor/components/actions-bar'
 
 export function Banner({ deleteNode, extension }: any) {
   const updateSection = useBuilder((store) => store.updateSection)

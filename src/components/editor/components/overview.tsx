@@ -1,7 +1,8 @@
 import { NodeViewWrapper } from '@tiptap/react'
+
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
-import { ActionsBar } from './actions-bar'
+import { ActionsBar } from '@/components/editor/components/actions-bar'
 import { PlaceholderParagraph } from '@/components/placeholder'
 
 export function Overview({ deleteNode, node }: any) {

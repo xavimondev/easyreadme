@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
+
 import { CopyWithGradientIc, GitHubOctopusIc } from '@/components/icons'
 import { ImageTheme } from '@/components/image-theme'
 import { ModeToggle } from '@/components/mode-toggle'

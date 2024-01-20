@@ -1,9 +1,11 @@
 'use client'
+
 import { useCompletion } from 'ai/react'
+
 import { useBuilder } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CustomEditor } from '@/components/editor'
 import { CodeBlock } from '@/components/code-block'
+import { CustomEditor } from '@/components/editor'
 
 export function ReadmeGenerator() {
   const contentTemplate = useBuilder((store) => store.contentTemplate)

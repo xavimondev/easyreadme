@@ -1,8 +1,9 @@
-import { README_SECTIONS } from '@/constants'
 import { NodeViewWrapper } from '@tiptap/react'
-import { ActionsBar } from './actions-bar'
-import { PlaceholderList } from '@/components/placeholder'
+
+import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
+import { ActionsBar } from '@/components/editor/components/actions-bar'
+import { PlaceholderList } from '@/components/placeholder'
 
 type TechListProps = {
   data: any

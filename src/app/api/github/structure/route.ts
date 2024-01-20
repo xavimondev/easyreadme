@@ -1,5 +1,5 @@
-import { GitTreeResponse, Tree } from '@/types'
 import { NextResponse } from 'next/server'
+import { GitTreeResponse, Tree } from '@/types'
 
 export async function GET(req: Request) {
   try {

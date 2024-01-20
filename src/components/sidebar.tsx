@@ -1,6 +1,7 @@
 import { Blocks } from 'lucide-react'
-import { ListTemplates } from '@/components/list-templates'
+
 import { FormRepository } from '@/components/form-repository'
+import { ListTemplates } from '@/components/list-templates'
 import { TemplatesMobile } from '@/components/templates-mobile'
 
 export function Sidebar() {

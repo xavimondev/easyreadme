@@ -1,4 +1,5 @@
 import { GitRepository, Tree } from '@/types'
+
 import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
 
 export const getRepositoryStructure = async ({

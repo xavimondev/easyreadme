@@ -1,15 +1,15 @@
-import StarterKit from '@tiptap/starter-kit'
-import { Markdown } from 'tiptap-markdown'
+import CodeBlock from '@tiptap/extension-code-block'
+import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
+import Paragraph from '@tiptap/extension-paragraph'
 import Table from '@tiptap/extension-table'
-import TableRow from '@tiptap/extension-table-row'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
-import Link from '@tiptap/extension-link'
-import CodeBlock from '@tiptap/extension-code-block'
+import TableRow from '@tiptap/extension-table-row'
 import TextAlign from '@tiptap/extension-text-align'
-import Heading from '@tiptap/extension-heading'
-import Paragraph from '@tiptap/extension-paragraph'
+import StarterKit from '@tiptap/starter-kit'
+import { Markdown } from 'tiptap-markdown'
 
 const CustomImage = Image.extend({
   addAttributes() {

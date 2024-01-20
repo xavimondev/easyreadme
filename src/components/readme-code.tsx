@@ -1,8 +1,9 @@
 'use client'
+
 import { useEffect } from 'react'
+import markdown from 'highlight.js/lib/languages/markdown'
 import { useTheme } from 'next-themes'
 import Lowlight from 'react-lowlight'
-import markdown from 'highlight.js/lib/languages/markdown'
 
 type ReadmeCodeProps = {
   content: string

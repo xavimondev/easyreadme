@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { kv } from '@vercel/kv'
+
 import { RATE_LIMIT } from '@/constants'
 
 export async function GET(req: Request) {

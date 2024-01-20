@@ -1,23 +1,25 @@
 import { BadgeName, GitRepository, SectionKey } from '@/types'
+
 import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
+import { getSetupCommands } from '@/utils/commands'
 import { getBadgeByName, getDependencies, getRepositoryTreeDirectory } from '@/utils/github'
 import {
-  generateProjectSummary,
   generateGuideEnvironmentVariables,
-  generateTechStack,
-  getPromptRandomOverview,
-  getPromptOverviewWithDependencies,
-  generateTechStackJson,
+  generateGuideEnvironmentVariablesJson,
+  generateProjectSummary,
   generateProjectSummaryJson,
-  generateGuideEnvironmentVariablesJson
+  generateTechStack,
+  generateTechStackJson,
+  getPromptOverviewWithDependencies,
+  getPromptRandomOverview
 } from '@/utils/prompts'
-import { getSetupCommands } from '@/utils/commands'
 import {
   getContributors,
   getFileContents,
-  getRepositoryStructure,
-  getLicense
+  getLicense,
+  getRepositoryStructure
 } from '@/services/github'
+
 import { removeLeadingSpaces } from '.'
 
 export class RepositoryTemplate {

@@ -1,6 +1,6 @@
 import { RepositoryTemplate } from '@/utils/repository-template'
-import { useSections } from '@/hooks/use-sections'
 import { useBuilder } from '@/store'
+import { useSections } from '@/hooks/use-sections'
 
 export function useTemplates() {
   const {

@@ -1,7 +1,8 @@
 import { NodeViewWrapper } from '@tiptap/react'
+
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
-import { ActionsBar } from './actions-bar'
+import { ActionsBar } from '@/components/editor/components/actions-bar'
 
 export function Prerequisites({ deleteNode, extension }: any) {
   const updateSection = useBuilder((store) => store.updateSection)
