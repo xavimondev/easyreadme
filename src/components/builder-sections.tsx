@@ -73,7 +73,7 @@ export function BuilderSections() {
       const nodes = Object.values(editor?.schema.nodes ?? {}).filter((node) =>
         node.name.includes('custom-')
       )
-      // console.log(nodes)
+
       editor?.commands.forEach(nodes, (_, { tr, commands }) => {
         const item = findChildren(tr.doc, (node) => {
           return node.type.name === section
@@ -92,6 +92,18 @@ export function BuilderSections() {
     [editor]
   )
 
+  const findNodeByName = (nodeName: NodeName) => {
+    let foundNode = null
+
+    editor?.state.doc.descendants((node) => {
+      if (node.type.name === nodeName) {
+        foundNode = node
+      }
+    })
+
+    return foundNode
+  }
+
   const addSection = async ({
     section,
     options
@@ -106,9 +118,14 @@ export function BuilderSections() {
     const repositoryTemplate = new RepositoryTemplate(repository!)
     const sectionItem = listSections.find((sec) => sec.id === section)
 
-    updateSection(section)
+    if (
+      (section === NodeName.CONTRIBUTORS && !sectionItem?.added) ||
+      section !== NodeName.CONTRIBUTORS
+    ) {
+      updateSection(section)
+    }
 
-    if (sectionItem?.added) {
+    if (sectionItem?.added && section !== NodeName.CONTRIBUTORS) {
       removeNodeFromEditor(section)
       return
     }
@@ -142,14 +159,26 @@ export function BuilderSections() {
     } else if (section === NodeName.COMMANDS) {
       editor?.chain().insertContentAt(endPos, '<Commands />').focus('end').run()
     } else if (section === NodeName.CONTRIBUTORS) {
-      const { data } = options ?? {}
-      let extraData = undefined
+      let nodeFound = null
+      const node = findNodeByName(section)
 
-      if (data === ContributorOption.GALLERY) {
-        extraData = {
-          owner
-        }
+      if (!node) {
+        editor
+          ?.chain()
+          // @ts-ignore
+          .insertContributors({
+            endPos
+          })
       } else {
+        nodeFound = node
+      }
+
+      const { data } = options ?? {}
+      let attrsData: any = {
+        owner: owner
+      }
+
+      if (data === ContributorOption.TABLE) {
         const contributors = await getContributors({
           repoName: repositoryName,
           owner
@@ -167,20 +196,26 @@ export function BuilderSections() {
               contributor.username !== 'dependabot[bot]' && contributor.username !== owner
           )
 
-        extraData = {
+        attrsData = {
           listContributors
         }
       }
 
-      // @ts-ignore
-      editor?.chain().insertContributors({
-        endPos,
+      if (!node) {
+        // Updating content
+        const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
+        nodeFound = editor?.state.tr.doc.nodeAt(endPosFinal)
+      }
+
+      const newContent = {
+        ...nodeFound?.attrs,
         type: data,
         data: {
-          ...extraData,
+          ...attrsData,
           repository: repositoryName
         }
-      })
+      }
+      editor?.chain().updateAttributes(NodeName.CONTRIBUTORS, newContent).run()
     } else if (section === NodeName.DEPLOY) {
       editor?.chain().insertContentAt(endPos, '<Deploy />').focus('end').run()
     } else if (section === NodeName.FAQ) {

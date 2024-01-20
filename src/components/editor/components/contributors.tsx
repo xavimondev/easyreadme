@@ -1,5 +1,6 @@
 import { NodeViewWrapper } from '@tiptap/react'
 import { type Node } from '@tiptap/pm/model'
+import { ContributorOption } from '@/types'
 import { groupItems } from '@/utils/groupItems'
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
@@ -84,7 +85,11 @@ export function Contributors({ deleteNode, node }: ContributorsProps) {
       <div className='relative group'>
         <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
           <h2>{README_SECTIONS['contributors']}</h2>
-          {type === 'gallery' ? <Gallery data={data} /> : <Table data={data} />}
+          {type === '' ? null : type === ContributorOption.GALLERY ? (
+            <Gallery data={data} />
+          ) : (
+            <Table data={data} />
+          )}
         </div>
         <ActionsBar
           removeSection={() => {

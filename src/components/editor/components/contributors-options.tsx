@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ContributorOption, NodeName } from '@/types'
 import { cn } from '@/lib/utils'
+import { useBuilder } from '@/store'
 
 type ContributorsOptionsProps = {
   addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
@@ -32,8 +33,15 @@ function RowSquares() {
 }
 export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
   const [optionSelected, setOptionSelected] = useState<ContributorOption | undefined>()
-  // const listSections = useBuilder((store) => store.listSections)
-  // const isAdded = listSections.find((section) => section.id === NodeName.CONTRIBUTORS)?.added
+  const listSections = useBuilder((store) => store.listSections)
+  const isAdded = listSections.find((section) => section.id === NodeName.CONTRIBUTORS)?.added
+
+  // TODO: Figure out a better way to remove selected option
+  useEffect(() => {
+    if (!isAdded) {
+      setOptionSelected(undefined)
+    }
+  }, [isAdded])
 
   const handleCheck = (option: ContributorOption) => {
     if (option === optionSelected) return
