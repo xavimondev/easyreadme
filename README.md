@@ -22,15 +22,15 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 
 ## 🔍 Table of Contents
 
-* [💻 Stack](#stack)
+- [💻 Stack](#stack)
 
-* [📝 Project Summary](#project-summary)
+- [📝 Project Summary](#project-summary)
 
-* [⚙️ Setting Up](#setting-up)
+- [⚙️ Setting Up](#setting-up)
 
-* [🚀 Run Locally](#run-locally)
+- [🚀 Run Locally](#run-locally)
 
-* [📄 License](#license)
+- [📄 License](#license)
 
 ## 💻 Stack
 
@@ -62,6 +62,7 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 ## ⚙️ Setting Up
 
 #### OPENAI_API_KEY
+
 - Go to the [OpenAI website](https://openai.com/).
 - Sign in to your account or create a new one.
 - Navigate to your [API settings](https://platform.openai.com/account/api-keys).
@@ -69,6 +70,7 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - Copy the generated Secret key.
 
 #### GITHUB_ACCESS_TOKEN
+
 - Go to the GitHub website.
 - Sign in to your account or create a new one.
 - Navigate to your account settings.
@@ -76,11 +78,12 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - Generate a new personal access token with the necessary permissions.
 
 #### KV_REST_API_URL and KV_REST_API_TOKEN
+
 - Go to the [Vercel website](https://vercel.com/).
 - Sign in to your account or create a new one.
 - Navigate to Storage section.
 - Create a new KV Database.
-- Copy the KV_REST_API_URL and KV_REST_API_TOKEN from under the *.env.local* tab.
+- Copy the KV_REST_API_URL and KV_REST_API_TOKEN from under the **.env.local** tab.
 
 ## 🚀 Run Locally
 
