@@ -1,9 +1,17 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
+import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
 import { ProjectStructure } from '@/components/editor/views/project-structure'
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    [NodeName.PROJECT_STRUCTURE]: {
+      insertProjectStructure: ({ endPos, tree }: { endPos: number; tree: string }) => ReturnType
+    }
+  }
+}
 
 export default Node.create({
   name: NodeName.PROJECT_STRUCTURE,
@@ -31,7 +39,7 @@ export default Node.create({
     return {
       insertProjectStructure:
         ({ endPos, tree }: { endPos: number; tree: string }) =>
-        async ({ editor }: any) => {
+        async ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {

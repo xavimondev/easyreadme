@@ -1,9 +1,25 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
+import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
 import { Contributors } from '@/components/editor/views/contributors'
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    [NodeName.CONTRIBUTORS]: {
+      insertContributors: ({
+        endPos,
+        type,
+        data
+      }: {
+        endPos: number
+        type?: string
+        data?: any
+      }) => ReturnType
+    }
+  }
+}
 
 export default Node.create({
   name: NodeName.CONTRIBUTORS,
@@ -34,7 +50,7 @@ export default Node.create({
     return {
       insertContributors:
         ({ endPos, type, data }: { endPos: number; type: string; data: any }) =>
-        ({ editor }: any) => {
+        ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {

@@ -1,9 +1,23 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
+import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
 import { RunLocally } from '@/components/editor/views/run-locally'
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    [NodeName.RUN_LOCALLY]: {
+      insertRunLocally: ({
+        endPos,
+        mainLanguage
+      }: {
+        endPos: number
+        mainLanguage: string
+      }) => ReturnType
+    }
+  }
+}
 
 export default Node.create({
   name: NodeName.RUN_LOCALLY,
@@ -31,7 +45,7 @@ export default Node.create({
     return {
       insertRunLocally:
         ({ endPos, mainLanguage }: { endPos: number; mainLanguage: string }) =>
-        ({ editor }: any) => {
+        ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {

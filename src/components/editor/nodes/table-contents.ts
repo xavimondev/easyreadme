@@ -1,9 +1,17 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
+import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
 import { TableContents } from '@/components/editor/views/table-contents'
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    [NodeName.TABLE_CONTENTS]: {
+      insertTableContents: ({ endPos, content }: { endPos: number; content: any }) => ReturnType
+    }
+  }
+}
 
 export default Node.create({
   name: NodeName.TABLE_CONTENTS,
@@ -30,8 +38,8 @@ export default Node.create({
   addCommands(): any {
     return {
       insertTableContents:
-        ({ endPos, content }: { endPos: number; content: string }) =>
-        ({ editor }: any) => {
+        ({ endPos, content }: { endPos: number; content: any }) =>
+        ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {

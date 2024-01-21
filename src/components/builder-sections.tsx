@@ -149,13 +149,10 @@ export function BuilderSections() {
         repoName: repositoryName,
         badge: id
       })
-      editor
-        ?.chain()
-        // @ts-ignore
-        .insertBadge({
-          endPos,
-          data: badge
-        })
+      editor?.chain().insertBadge({
+        endPos,
+        data: badge
+      })
     } else if (section === NodeName.BANNER) {
       editor?.chain().insertContentAt(endPos, '<Banner />').focus('end').run()
     } else if (section === NodeName.CHANGELOG) {
@@ -167,12 +164,9 @@ export function BuilderSections() {
       const node = findNodeByName(section)
 
       if (!node) {
-        editor
-          ?.chain()
-          // @ts-ignore
-          .insertContributors({
-            endPos
-          })
+        editor?.chain().insertContributors({
+          endPos
+        })
       } else {
         nodeFound = node
       }
@@ -229,13 +223,11 @@ export function BuilderSections() {
         repoName: repositoryName,
         owner
       })
-      // @ts-ignore
       editor?.chain().insertLicense({
         endPos,
         license
       })
     } else if (section === NodeName.OVERVIEW) {
-      // @ts-ignore
       editor?.chain().insertOverview({ endPos, showPlaceholder: true })
 
       //Updating content
@@ -269,10 +261,8 @@ export function BuilderSections() {
         branch: repository?.branch
       })
 
-      // @ts-ignore
       editor?.chain().insertProjectStructure({ endPos, tree })
     } else if (section === NodeName.PROJECT_SUMMARY) {
-      // @ts-ignore
       editor?.chain().insertProjectSummary({ endPos, showPlaceholder: true })
 
       // Updating content
@@ -307,13 +297,10 @@ export function BuilderSections() {
       }
       editor?.chain().updateAttributes(NodeName.PROJECT_SUMMARY, newContent).run()
     } else if (section === NodeName.ROADMAP) {
-      // @ts-ignore
       editor?.chain().insertContentAt(endPos, '<Roadmap />').focus('end').run()
     } else if (section === NodeName.RUN_LOCALLY) {
-      // @ts-ignore
       editor?.chain().insertRunLocally({ endPos, mainLanguage: repository.language })
     } else if (section === NodeName.SETTING_UP) {
-      // @ts-ignore
       editor?.chain().insertEnvVariablesGuide({ endPos, showPlaceholder: true })
 
       // Updating content
@@ -348,7 +335,6 @@ export function BuilderSections() {
       }
       editor?.chain().updateAttributes(NodeName.SETTING_UP, newContent).run()
     } else if (section === NodeName.TECH_STACK) {
-      // @ts-ignore
       editor?.chain().insertTechStack({ endPos, showPlaceholder: true })
 
       const prompt = await repositoryTemplate.getTechStackJson()
@@ -386,7 +372,7 @@ export function BuilderSections() {
     } else if (section === NodeName.TABLE_CONTENTS) {
       // TODO: List by order in what items were added
       const sectionList = listSections.filter((sec) => sec.id !== section && sec.added)
-      // @ts-ignore
+
       editor?.chain().insertTableContents({ endPos, content: sectionList })
     }
   }

@@ -1,10 +1,26 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { ReactNodeViewRenderer } from '@tiptap/react'
+import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
 import { NODE_DEFAULT_VALUES } from '@/constants'
 import { EnvVariablesGuide } from '@/components/editor/views/env-variables-guide'
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    [NodeName.SETTING_UP]: {
+      insertEnvVariablesGuide: ({
+        endPos,
+        content,
+        showPlaceholder
+      }: {
+        endPos: number
+        content?: string
+        showPlaceholder: boolean
+      }) => ReturnType
+    }
+  }
+}
 
 export default Node.create({
   name: NodeName.SETTING_UP,
@@ -38,7 +54,7 @@ export default Node.create({
           content: string
           showPlaceholder: boolean
         }) =>
-        ({ editor }: any) => {
+        ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
