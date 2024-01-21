@@ -1,5 +1,6 @@
 'use client'
-import { type Editor, EditorContent } from '@tiptap/react'
+
+import { EditorContent, type Editor } from '@tiptap/react'
 
 export function CustomEditor({ editor }: { editor: Editor | null }) {
   return (
