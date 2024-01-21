@@ -1,14 +1,17 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
+import { NodeName } from '@/types/builder'
+import { ViewProps } from '@/types/view'
+
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
-export function ProjectStructure({ deleteNode, node }: any) {
+export function ProjectStructure({ deleteNode, node }: ViewProps) {
+  const updateSection = useBuilder((store) => store.updateSection)
   const { attrs, type } = node
   const tree = attrs.tree
-  const nodeName = type.name
-  const updateSection = useBuilder((store) => store.updateSection)
+  const nodeName = type.name as NodeName
 
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>

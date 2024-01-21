@@ -1,15 +1,18 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
+import { NodeName } from '@/types/builder'
+import { ViewProps } from '@/types/view'
+
 import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
 import { getSetupCommands } from '@/utils/commands'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
-export function RunLocally({ deleteNode, node }: any) {
+export function RunLocally({ deleteNode, node }: ViewProps) {
   const updateSection = useBuilder((store) => store.updateSection)
   const { attrs, type } = node
   const mainLanguage = attrs.mainLanguage
-  const nodeName = type.name
+  const nodeName = type.name as NodeName
 
   const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
   const secondStep = setup

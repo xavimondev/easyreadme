@@ -2,7 +2,11 @@ import { Trash } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-export function ActionsBar({ removeSection }: any) {
+type ActionsBarProps = {
+  removeSection: () => void
+}
+
+export function ActionsBar({ removeSection }: ActionsBarProps) {
   return (
     <div className='flex gap-2 items-center top-2 right-2 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out'>
       <div

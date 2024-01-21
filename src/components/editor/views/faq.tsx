@@ -1,12 +1,15 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
+import { NodeName } from '@/types/builder'
+import { ViewProps } from '@/types/view'
+
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
-export function Faq({ deleteNode, extension }: any) {
+export function Faq({ deleteNode, node }: ViewProps) {
   const updateSection = useBuilder((store) => store.updateSection)
-  const { name } = extension
+  const nodeName = node.type.name as NodeName
 
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>
@@ -36,7 +39,7 @@ export function Faq({ deleteNode, extension }: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(name)
+            updateSection(nodeName)
             deleteNode()
           }}
         />

@@ -1,7 +1,7 @@
 import { type Node } from '@tiptap/pm/model'
 import { NodeViewWrapper } from '@tiptap/react'
 
-import { ContributorOption } from '@/types/builder'
+import { ContributorOption, NodeName } from '@/types/builder'
 
 import { README_SECTIONS } from '@/constants'
 import { groupItems } from '@/utils/groupItems'
@@ -72,7 +72,7 @@ function Table({ data }: { data: any }) {
 }
 
 type ContributorsProps = {
-  deleteNode: VoidFunction
+  deleteNode: () => void
   node: Node
 }
 
@@ -80,7 +80,7 @@ export function Contributors({ deleteNode, node }: ContributorsProps) {
   const { attrs } = node
   const { type, data } = attrs
   const updateSection = useBuilder((store) => store.updateSection)
-  const nodeName: any = node.type.name
+  const nodeName = node.type.name as NodeName
 
   return (
     <NodeViewWrapper as='div'>

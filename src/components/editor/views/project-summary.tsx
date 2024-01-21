@@ -1,5 +1,8 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
+import { NodeName } from '@/types/builder'
+import { ViewProps } from '@/types/view'
+
 import { README_SECTIONS } from '@/constants'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
@@ -32,11 +35,11 @@ function DirectorySummaryList({ data }: DirectorySummaryListProps) {
     </ul>
   )
 }
-export function ProjectSummary({ deleteNode, node }: any) {
+export function ProjectSummary({ deleteNode, node }: ViewProps) {
   const updateSection = useBuilder((store) => store.updateSection)
   const { attrs, type } = node
   const { content, showPlaceholder } = attrs
-  const nodeName = type.name
+  const nodeName = type.name as NodeName
 
   return (
     <NodeViewWrapper as='div'>
