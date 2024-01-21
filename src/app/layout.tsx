@@ -1,10 +1,13 @@
-import '../styles/globals.css'
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+
+import type { Metadata } from 'next'
+
 import { APP_URL } from '@/constants'
-import { ThemeProvider } from '@/components/theme-provider'
 import { CustomToaster } from '@/components/custom-toaster'
+import { ThemeProvider } from '@/components/theme-provider'
+
+import '../styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'], weight: ['500', '600', '700'] })
 
