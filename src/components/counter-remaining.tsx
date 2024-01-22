@@ -7,22 +7,11 @@ export function CounterRemaining() {
   const { data, isLoading } = useRemaining()
 
   return (
-    <div className='w-full flex items-center justify-center rounded-md px-6 py-1.5 border border-sky-300/20'>
-      <span
-        className='font-medium 
-        flex 
-        items-center 
-        justify-center 
-        w-full 
-        text-sm 
-        text-transparent 
-        bg-clip-text 
-        bg-gradient-to-t 
-        from-sky-300 
-        to-sky-600'
-      >
+    <div className='relative h-auto w-full overflow-hidden rounded-md border border-slate-800 p-[0.7px] backdrop-blur-3xl'>
+      <span className='absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]' />
+      <div className='inline-flex h-full w-full items-center justify-center rounded-md bg-slate-900 px-3 py-1.5 text-sm font-medium text-white backdrop-blur-3xl'>
         {isLoading ? 0 : data.remaining} / {RATE_LIMIT} templates
-      </span>
+      </div>
     </div>
   )
 }
