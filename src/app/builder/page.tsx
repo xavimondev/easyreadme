@@ -9,7 +9,7 @@ export default function Builder() {
       <Header>
         <div className='flex h-12 items-center justify-between'>
           MiLog
-          <div className='flex gap-2 items-center w-[280px]'>
+          <div className='flex gap-2 items-center w-[300px]'>
             <CounterRemaining />
             <ViewCodeButton />
           </div>

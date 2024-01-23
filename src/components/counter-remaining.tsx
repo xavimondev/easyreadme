@@ -16,10 +16,14 @@ export function CounterRemaining() {
     <>
       <HoverCard openDelay={200} closeDelay={0}>
         <HoverCardTrigger asChild>
-          <div className='relative h-auto w-full overflow-hidden rounded-md border border-slate-800 p-[1px] backdrop-blur-3xl'>
-            <span className='absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]' />
-            <div className='inline-flex h-full w-full items-center justify-center rounded-md bg-slate-900 px-3 py-1.5 text-sm font-medium text-white backdrop-blur-3xl'>
-              {isLoading ? 0 : data.remaining} / {RATE_LIMIT} templates
+          <div className='relative h-auto w-full'>
+            <div className='absolute top-0 flex w-full justify-center'>
+              <div className='left-0 h-[1px] animate-border-width rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-purple-300 to-[rgba(17,17,17,0)] transition-all duration-1000' />
+            </div>
+            <div className='flex h-full items-center justify-center rounded-md border border-slate-800 bg-slate-900/50 px-3 py-2'>
+              <p className='text-sm text-transparent bg-clip-text bg-gradient-to-t from-purple-400 to-purple-200'>
+                {isLoading ? 0 : data.remaining} / {RATE_LIMIT} generations
+              </p>
             </div>
           </div>
         </HoverCardTrigger>
@@ -28,7 +32,7 @@ export function CounterRemaining() {
             <div className='space-y-2'>
               <p className='text-sm text-muted-foreground'>
                 You have{' '}
-                <span className='text-cyan-400 font-medium'>
+                <span className='text-transparent bg-clip-text bg-gradient-to-t from-purple-400 to-purple-200'>
                   {data?.remaining} / {RATE_LIMIT} generations
                 </span>{' '}
                 left. Use your API Key to keep generating AI sections.
