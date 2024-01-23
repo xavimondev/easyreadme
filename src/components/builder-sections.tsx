@@ -33,8 +33,7 @@ import Roadmap from '@/components/editor/nodes/roadmap'
 import RunLocally from '@/components/editor/nodes/run-locally'
 import TableContents from '@/components/editor/nodes/table-contents'
 import TechStack from '@/components/editor/nodes/tech-stack'
-import { ListSections } from '@/components/list-sections'
-import { Searcher } from '@/components/searcher'
+import { Sidebar } from '@/components/sidebar'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
@@ -394,14 +393,12 @@ export function BuilderSections() {
 
   return (
     <div className='h-full w-full grid grid-cols-1 md:grid-cols-[430px,_1fr] gap-3 mt-4 mx-2'>
-      <div className='flex flex-col gap-2'>
-        <Searcher setFilterSection={setFilterSection} />
-        <ListSections
-          listSections={listSectionsFiltered}
-          customSections={customSections}
-          addSection={addSection}
-        />
-      </div>
+      <Sidebar
+        setFilterSection={setFilterSection}
+        customSections={customSections}
+        listSectionsFiltered={listSectionsFiltered}
+        addSection={addSection}
+      />
       <CustomEditor editor={editor} />
     </div>
   )
