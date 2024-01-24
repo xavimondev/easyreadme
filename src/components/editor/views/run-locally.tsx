@@ -3,8 +3,9 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { NodeName } from '@/types/builder'
 import { ViewProps } from '@/types/view'
 
-import { LANGUAGES_SETUP, README_SECTIONS } from '@/constants'
+import { LANGUAGES_SETUP } from '@/constants'
 import { getSetupCommands } from '@/utils/commands'
+import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
@@ -13,6 +14,7 @@ export function RunLocally({ deleteNode, node }: ViewProps) {
   const { attrs, type } = node
   const mainLanguage = attrs.mainLanguage
   const nodeName = type.name as NodeName
+  const section = findSection({ section: nodeName })
 
   const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
   const secondStep = setup
@@ -25,7 +27,7 @@ export function RunLocally({ deleteNode, node }: ViewProps) {
     <NodeViewWrapper as='div'>
       <div className='relative group'>
         <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
-          <h2>{README_SECTIONS['run-locally']}</h2>
+          <h2>{section?.name}</h2>
           <ul
             className='list-decimal list-outside leading-4 dark:marker:text-white marker:text-black'
             data-tight='true'

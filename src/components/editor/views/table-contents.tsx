@@ -3,7 +3,7 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { NodeName, SectionState } from '@/types/builder'
 import { ViewProps } from '@/types/view'
 
-import { README_SECTIONS } from '@/constants'
+import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
@@ -12,12 +12,13 @@ export function TableContents({ deleteNode, node }: ViewProps) {
   const { attrs, type } = node
   const data = attrs.content
   const nodeName = type.name as NodeName
+  const section = findSection({ section: nodeName })
 
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
         <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
-          <h2>{README_SECTIONS['table-contents']}</h2>
+          <h2>{section?.name}</h2>
           <ul className='list-disc list-outside leading-4 tight' data-tight='true'>
             {data.map((section: SectionState) => {
               return (

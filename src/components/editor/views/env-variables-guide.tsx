@@ -3,7 +3,7 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { NodeName } from '@/types/builder'
 import { ViewProps } from '@/types/view'
 
-import { README_SECTIONS } from '@/constants'
+import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 import { PlaceholderGuide } from '@/components/placeholder'
@@ -40,12 +40,13 @@ export function EnvVariablesGuide({ deleteNode, node }: ViewProps) {
   const { content, showPlaceholder } = attrs
   const updateSection = useBuilder((store) => store.updateSection)
   const nodeName = type.name as NodeName
+  const section = findSection({ section: nodeName })
 
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
         <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
-          <h2>{README_SECTIONS['setting-up']}</h2>
+          <h2>{section?.name}</h2>
           {showPlaceholder ? (
             <PlaceholderGuide />
           ) : content.length === 0 ? (

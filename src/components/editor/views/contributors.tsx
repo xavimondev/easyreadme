@@ -3,8 +3,8 @@ import { NodeViewWrapper } from '@tiptap/react'
 
 import { ContributorOption, NodeName } from '@/types/builder'
 
-import { README_SECTIONS } from '@/constants'
 import { groupItems } from '@/utils/groupItems'
+import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
@@ -81,12 +81,13 @@ export function Contributors({ deleteNode, node }: ContributorsProps) {
   const { type, data } = attrs
   const updateSection = useBuilder((store) => store.updateSection)
   const nodeName = node.type.name as NodeName
+  const section = findSection({ section: nodeName })
 
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
         <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
-          <h2>{README_SECTIONS['contributors']}</h2>
+          <h2>{section?.name}</h2>
           {type === '' ? null : type === ContributorOption.GALLERY ? (
             <Gallery data={data} />
           ) : (
