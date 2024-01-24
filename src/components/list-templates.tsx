@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { Template } from '@/types/readme'
 
-import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
+import { LIST_TEMPLATES, README_SECTIONS_DATA } from '@/constants'
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
@@ -17,8 +17,7 @@ export function TemplateItem({
   authorTemplate,
   urlAuthor,
   sections,
-  description,
-  srcVideo
+  description
 }: Template) {
   const templateSelected = useBuilder((state) => state.templateSelected)
   const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
@@ -64,16 +63,6 @@ export function TemplateItem({
         </div>
       </HoverCardTrigger>
       <HoverCardContent className='w-80 min-w-[450px] h-full' align='start' side='right'>
-        <div className='overflow-hidden w-full h-full mb-2'>
-          <video
-            controls
-            muted
-            poster='/video-fallback.webp'
-            controlsList='nofullscreen nodownload noremoteplayback noplaybackrate foobar'
-          >
-            <source src={srcVideo} type='video/webm' />
-          </video>
-        </div>
         <div className='flex flex-col gap-4'>
           <h4 className='font-medium leading-none'>{nameTemplate}</h4>
           <p className='text-sm text-muted-foreground'>{description}</p>
@@ -82,10 +71,10 @@ export function TemplateItem({
               <span className='font-medium'>Sections({sections.length}):</span>
               <ul className='text-sm list-disc list-inside space-y-1'>
                 {sections.map((section) => {
-                  const sectionName = README_SECTIONS[section]
+                  const sectionName = README_SECTIONS_DATA.find((sec) => sec.id === section)
                   return (
                     <li key={section} className='text-muted-foreground'>
-                      {sectionName}
+                      {sectionName?.name}
                     </li>
                   )
                 })}
@@ -101,7 +90,7 @@ export function TemplateItem({
 export function ListTemplates() {
   return (
     <div className='flex flex-col gap-6'>
-      {DEFAULT_TEMPLATES.map((template: Template) => (
+      {LIST_TEMPLATES.map((template: Template) => (
         <TemplateItem key={template.nameTemplate} {...template} />
       ))}
     </div>

@@ -133,16 +133,20 @@ export const ISSUES_URL = `${BADGES_URL}/issues`
 export const PULL_REQUESTS_URL = `${BADGES_URL}/issues-pr`
 export const DEPLOYMENTS_URL = `${BADGES_URL}/deployments`
 
-export const DEFAULT_TEMPLATES: Template[] = [
+export const LIST_TEMPLATES: Template[] = [
   {
     srcImage: '/templates/minimal.webp',
     altImage: 'Screenshot template Minimal',
     nameTemplate: 'Minimal',
     description:
       'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
-    sections: ['overview', 'setting-up', 'run-locally', 'deploy', 'license'],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/minimal_mqefxi.mp4'
+    sections: [
+      NodeName.OVERVIEW,
+      NodeName.SETTING_UP,
+      NodeName.RUN_LOCALLY,
+      NodeName.DEPLOY,
+      NodeName.LICENSE
+    ]
   },
   {
     srcImage: '/templates/collaborate.webp',
@@ -151,18 +155,16 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'Enhance project collaboration with comprehensive project docs. Streamline setup, development, and collaboration processes for smoother project execution.',
     sections: [
-      'banner',
-      'badges',
-      'table-contents',
-      'stack',
-      'project-summary',
-      'setting-up',
-      'run-locally',
-      'contributors',
-      'license'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/collab_nn15cr.mp4'
+      NodeName.BANNER,
+      NodeName.BADGE,
+      NodeName.TABLE_CONTENTS,
+      NodeName.TECH_STACK,
+      NodeName.PROJECT_SUMMARY,
+      NodeName.SETTING_UP,
+      NodeName.RUN_LOCALLY,
+      NodeName.CONTRIBUTORS,
+      NodeName.LICENSE
+    ]
   },
   {
     srcImage: '/templates/inspire.webp',
@@ -171,21 +173,17 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'From project structure to deployment, Inspire streamlines every aspect for seamless development and collaboration.',
     sections: [
-      'banner',
-      'badges',
-      'overview',
-      'table-contents',
-      'project-structure',
-      'project-summary',
-      'stack',
-      'setting-up',
-      'run-locally',
-      'contributors',
-      'deploy',
-      'license'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/inspire_aaoefb.mp4'
+      NodeName.TABLE_CONTENTS,
+      NodeName.OVERVIEW,
+      NodeName.PROJECT_STRUCTURE,
+      NodeName.PROJECT_SUMMARY,
+      NodeName.TECH_STACK,
+      NodeName.SETTING_UP,
+      NodeName.RUN_LOCALLY,
+      NodeName.CONTRIBUTORS,
+      NodeName.DEPLOY,
+      NodeName.LICENSE
+    ]
   },
   {
     srcImage: '/templates/empower.webp',
@@ -194,62 +192,21 @@ export const DEFAULT_TEMPLATES: Template[] = [
     description:
       'Empower your project with structured documentation. Facilitate setup, development, and future planning for a more impactful project.',
     sections: [
-      'overview',
-      'table-contents',
-      'stack',
-      'setting-up',
-      'run-locally',
-      'roadmap',
-      'acknowledgements',
-      'changelog'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/emp_bkyg5x.mp4'
-  },
-  {
-    srcImage: '/templates/unleash.webp',
-    altImage: 'Screenshot template Pinnacle',
-    nameTemplate: 'Unleash',
-    description:
-      'Unleash the full potential of your project with a dynamic documentation hub. From setup to FAQs, empower your team for a seamless project journey.',
-    sections: [
-      'banner',
-      'badges',
-      'overview',
-      'table-contents',
-      'project-structure',
-      'prerequisites',
-      'run-locally',
-      'faq',
-      'roadmap',
-      'acknowledgements',
-      'license'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782242/easyreadme/templates/demos/unleash_gicncc.mp4'
+      NodeName.BANNER,
+      NodeName.BADGE,
+      NodeName.TABLE_CONTENTS,
+      NodeName.OVERVIEW,
+      NodeName.PREREQUISITES,
+      NodeName.PROJECT_STRUCTURE,
+      NodeName.TECH_STACK,
+      NodeName.CONTRIBUTORS,
+      NodeName.ACKNOWLEDGEMENTS,
+      NodeName.CHANGELOG,
+      NodeName.ROADMAP,
+      NodeName.DEPLOY
+    ]
   }
 ]
-
-export const README_SECTIONS = {
-  banner: '🏞️ Banner',
-  stack: '💻 Stack',
-  'project-summary': '📝 Project Summary',
-  'setting-up': '⚙️ Setting Up',
-  'run-locally': '🚀 Run Locally',
-  contributors: '🙌 Contributors',
-  license: '📄 License',
-  'project-structure': '📁 Project Structure',
-  deploy: '☁️ Deploy',
-  roadmap: '🗺️ Roadmap',
-  acknowledgements: '🙏 Acknowledgements',
-  changelog: '📜 Changelog',
-  prerequisites: '✅ Prerequisites',
-  faq: '🤔 FAQ',
-  commands: '⚡ Commands',
-  'table-contents': '🔍 Table of Contents',
-  overview: '📌 Overview',
-  badges: '🛡️ Badges'
-}
 
 export const APP_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://easyreadme.vercel.app'

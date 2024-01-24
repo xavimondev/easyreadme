@@ -1,3 +1,5 @@
+import { NodeName } from './builder'
+
 export type NameTemplate = 'Minimal' | 'Collaborate' | 'Inspire' | 'Empower' | 'Unleash'
 
 export type SectionKey =
@@ -27,6 +29,6 @@ export type Template = {
   authorTemplate?: string
   urlAuthor?: string
   description?: string
-  sections?: SectionKey[]
+  sections?: NodeName[]
   srcVideo?: string
 }

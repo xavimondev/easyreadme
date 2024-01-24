@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import { NameTemplate } from '@/types/readme'
 
-import { DEFAULT_TEMPLATES } from '@/constants'
+import { LIST_TEMPLATES } from '@/constants'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 import { DrawerMobile } from '@/components/ui/drawer-mobile'
@@ -44,7 +44,7 @@ export function DialogMobile() {
           ref={sliderRef}
           onScroll={handleScroll}
         >
-          {DEFAULT_TEMPLATES.map(({ nameTemplate, description, srcImage, altImage }) => {
+          {LIST_TEMPLATES.map(({ nameTemplate, description, srcImage, altImage }) => {
             return (
               <div
                 key={nameTemplate}
