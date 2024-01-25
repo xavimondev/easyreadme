@@ -32,7 +32,7 @@ export default Node.create({
         default: 0
       },
       data: {
-        default: []
+        default: {}
       }
     }
   },
