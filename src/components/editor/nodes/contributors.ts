@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from '@tiptap/core'
 import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
-import { NodeName } from '@/types/builder'
+import { ContributorOption, NodeName } from '@/types/builder'
 
 import { Contributors } from '@/components/editor/views/contributors'
 
@@ -14,7 +14,7 @@ declare module '@tiptap/core' {
         data
       }: {
         endPos: number
-        type?: string
+        type?: string | ContributorOption
         data?: any
       }) => ReturnType
     }
@@ -49,7 +49,7 @@ export default Node.create({
   addCommands(): any {
     return {
       insertContributors:
-        ({ endPos, type, data }: { endPos: number; type: string; data: any }) =>
+        ({ endPos, type, data }: { endPos: number; type: string | ContributorOption; data: any }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
