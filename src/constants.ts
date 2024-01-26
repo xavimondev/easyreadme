@@ -180,7 +180,6 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.TECH_STACK,
       NodeName.SETTING_UP,
       NodeName.RUN_LOCALLY,
-      NodeName.CONTRIBUTORS,
       NodeName.DEPLOY,
       NodeName.LICENSE
     ]
@@ -197,7 +196,6 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.TABLE_CONTENTS,
       NodeName.OVERVIEW,
       NodeName.PREREQUISITES,
-      NodeName.PROJECT_STRUCTURE,
       NodeName.TECH_STACK,
       NodeName.CONTRIBUTORS,
       NodeName.ACKNOWLEDGEMENTS,
