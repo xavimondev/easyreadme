@@ -12,7 +12,7 @@ import { ActionsBar } from '@/components/editor/views/actions-bar'
 export function RunLocally({ deleteNode, node }: ViewProps) {
   const updateSection = useBuilder((store) => store.updateSection)
   const { attrs, type } = node
-  const mainLanguage = attrs.mainLanguage
+  const { mainLanguage, repoName, urlRepository } = attrs.data
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -23,6 +23,7 @@ export function RunLocally({ deleteNode, node }: ViewProps) {
   const thirdStep = setup
     ? getSetupCommands({ commands: setup.commands['run'] })
     : `Insert RUN commands`
+
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
@@ -33,9 +34,9 @@ export function RunLocally({ deleteNode, node }: ViewProps) {
             data-tight='true'
           >
             <li>
-              <p>Clone {`supaplay`} repository:</p>
+              <p>Clone {repoName} repository:</p>
               <pre>
-                <code className='language-markdown !outline-none'>{`git clone https://github.com/xavimondev/supaplay`}</code>
+                <code className='language-markdown !outline-none'>{`git clone ${urlRepository}`}</code>
               </pre>
             </li>
             <li>

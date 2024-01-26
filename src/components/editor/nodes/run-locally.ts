@@ -8,13 +8,7 @@ import { RunLocally } from '@/components/editor/views/run-locally'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.RUN_LOCALLY]: {
-      insertRunLocally: ({
-        endPos,
-        mainLanguage
-      }: {
-        endPos: number
-        mainLanguage: string
-      }) => ReturnType
+      insertRunLocally: ({ endPos, data }: { endPos: number; data: any }) => ReturnType
     }
   }
 }
@@ -36,22 +30,22 @@ export default Node.create({
       endPos: {
         default: 0
       },
-      mainLanguage: {
-        default: ''
+      data: {
+        default: {}
       }
     }
   },
   addCommands(): any {
     return {
       insertRunLocally:
-        ({ endPos, mainLanguage }: { endPos: number; mainLanguage: string }) =>
+        ({ endPos, data }: { endPos: number; data: any }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
               type: NodeName.RUN_LOCALLY,
               attrs: {
-                mainLanguage
+                data
               }
             })
             .focus('end')
