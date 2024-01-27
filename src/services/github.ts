@@ -88,3 +88,24 @@ export const getRepositoryData = async ({ urlRepository }: { urlRepository: stri
     return null
   }
 }
+
+export const getGenerationAI = async ({
+  format,
+  prompt
+}: {
+  format: 'json' | 'string'
+  prompt: string
+}) => {
+  const request = await fetch('/api/ai', {
+    method: 'POST',
+    body: JSON.stringify({
+      format,
+      prompt
+    }),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+  const response = await request.json()
+  return response
+}

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 
 type ContributorsOptionsProps = {
-  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
+  buildReadme: ({ data, options }: { data: NodeName; options?: { data: any } }) => void
 }
 
 function RowCircles() {
@@ -34,7 +34,7 @@ function RowSquares() {
     </div>
   )
 }
-export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
+export function ContributorsOptions({ buildReadme }: ContributorsOptionsProps) {
   const [optionSelected, setOptionSelected] = useState<ContributorOption | undefined>()
   const listSections = useBuilder((store) => store.listSections)
   const isAdded = listSections.find((section) => section.id === NodeName.CONTRIBUTORS)?.added
@@ -49,8 +49,8 @@ export function ContributorsOptions({ addSection }: ContributorsOptionsProps) {
   const handleCheck = (option: ContributorOption) => {
     if (option === optionSelected) return
     setOptionSelected(option)
-    addSection({
-      section: NodeName.CONTRIBUTORS,
+    buildReadme({
+      data: NodeName.CONTRIBUTORS,
       options: {
         data: option
       }

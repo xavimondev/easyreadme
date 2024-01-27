@@ -9,14 +9,14 @@ type SectionItemProps = {
   name: string
   description: string
   added: boolean
-  addSection?: VoidFunction
+  buildReadme?: VoidFunction
 }
 
 function SectionItem({
   name,
   description,
   added,
-  addSection,
+  buildReadme,
   children
 }: PropsWithChildren<SectionItemProps>) {
   return (
@@ -27,7 +27,7 @@ function SectionItem({
           <p className='text-sm text-muted-foreground'>{description}</p>
         </div>
         {children == null ? (
-          <Button size='icon' onClick={addSection}>
+          <Button size='icon' onClick={buildReadme}>
             {added ? <Trash className='w-4 h-4' /> : <Plus className='w-4 h-4' />}
           </Button>
         ) : null}
@@ -40,10 +40,10 @@ function SectionItem({
 type ListSectionsProps = {
   listSections: SectionState[]
   customSections: Partial<Record<NodeName, JSX.Element>>
-  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
+  buildReadme: ({ data }: { data: NodeName | NodeName[] }) => Promise<void>
 }
 
-export function ListSections({ listSections, customSections, addSection }: ListSectionsProps) {
+export function ListSections({ listSections, customSections, buildReadme }: ListSectionsProps) {
   return (
     <div className='flex flex-col gap-2 w-full'>
       {listSections
@@ -56,7 +56,7 @@ export function ListSections({ listSections, customSections, addSection }: ListS
               name={name}
               added={added}
               description={description}
-              addSection={() => addSection({ section: id })}
+              buildReadme={() => buildReadme({ data: id })}
             >
               {children}
             </SectionItem>

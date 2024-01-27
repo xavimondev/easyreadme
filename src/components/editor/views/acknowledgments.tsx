@@ -8,7 +8,7 @@ import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 export function Acknowledgments({ deleteNode, node }: ViewProps) {
-  const updateSection = useBuilder((store) => store.updateSection)
+  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -52,6 +52,7 @@ export function Acknowledgments({ deleteNode, node }: ViewProps) {
           removeSection={() => {
             updateSection(nodeName)
             deleteNode()
+            removeSectionFromTableOfContents(nodeName)
           }}
         />
       </div>

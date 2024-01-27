@@ -9,7 +9,7 @@ import { ActionsBar } from '@/components/editor/views/actions-bar'
 import { PlaceholderParagraph } from '@/components/placeholder'
 
 export function Overview({ deleteNode, node }: ViewProps) {
-  const updateSection = useBuilder((store) => store.updateSection)
+  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
   const { content, showPlaceholder } = attrs
   const nodeName = type.name as NodeName
@@ -26,6 +26,7 @@ export function Overview({ deleteNode, node }: ViewProps) {
           removeSection={() => {
             updateSection(nodeName)
             deleteNode()
+            removeSectionFromTableOfContents(nodeName)
           }}
         />
       </div>

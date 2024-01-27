@@ -36,7 +36,7 @@ function TechList({ data }: TechListProps) {
   )
 }
 export function TechStack({ deleteNode, node }: ViewProps) {
-  const updateSection = useBuilder((store) => store.updateSection)
+  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
   const { content, showPlaceholder } = attrs
   const nodeName = type.name as NodeName
@@ -59,6 +59,7 @@ export function TechStack({ deleteNode, node }: ViewProps) {
           removeSection={() => {
             updateSection(nodeName)
             deleteNode()
+            removeSectionFromTableOfContents(nodeName)
           }}
         />
       </div>

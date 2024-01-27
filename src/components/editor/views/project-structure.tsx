@@ -8,7 +8,7 @@ import { useBuilder } from '@/store'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 export function ProjectStructure({ deleteNode, node }: ViewProps) {
-  const updateSection = useBuilder((store) => store.updateSection)
+  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
   const tree = attrs.tree
   const nodeName = type.name as NodeName
@@ -29,6 +29,7 @@ export function ProjectStructure({ deleteNode, node }: ViewProps) {
           removeSection={() => {
             updateSection(nodeName)
             deleteNode()
+            removeSectionFromTableOfContents(nodeName)
           }}
         />
       </div>

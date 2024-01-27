@@ -8,10 +8,16 @@ import { Button } from '@/components/ui/button'
 type BadgeItemProps = {
   id: BadgeName
   name: string
-  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
+  buildReadme: ({
+    data,
+    options
+  }: {
+    data: NodeName | NodeName[]
+    options?: { data: any }
+  }) => Promise<void>
 }
 
-function BadgeItem({ id, name, addSection }: BadgeItemProps) {
+function BadgeItem({ id, name, buildReadme }: BadgeItemProps) {
   return (
     <div className='w-full flex border border-dashed border-gray-600/30 rounded-md items-center overflow-hidden h-8'>
       <div className='w-full border-none flex'>
@@ -22,8 +28,8 @@ function BadgeItem({ id, name, addSection }: BadgeItemProps) {
         variant='ghost'
         className='rounded-none h-full border-none p-0 m-0'
         onClick={() =>
-          addSection({
-            section: NodeName.BADGE,
+          buildReadme({
+            data: NodeName.BADGE,
             options: {
               data: { id }
             }
@@ -37,14 +43,14 @@ function BadgeItem({ id, name, addSection }: BadgeItemProps) {
 }
 
 type BadgesOptionsProps = {
-  addSection: ({ section, options }: { section: NodeName; options?: { data: any } }) => void
+  buildReadme: ({ data }: { data: NodeName | NodeName[] }) => Promise<void>
 }
 
-export function BadgesOptions({ addSection }: BadgesOptionsProps) {
+export function BadgesOptions({ buildReadme }: BadgesOptionsProps) {
   return (
     <div className='w-full grid grid-cols-3 gap-4'>
       {LIST_BADGES.map(({ id, name }) => {
-        return <BadgeItem key={id} id={id} name={name} addSection={addSection} />
+        return <BadgeItem key={id} id={id} name={name} buildReadme={buildReadme} />
       })}
     </div>
   )

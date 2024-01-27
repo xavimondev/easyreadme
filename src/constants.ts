@@ -372,3 +372,8 @@ export const INITIAL_STATE_SECTIONS: SectionState[] = README_SECTIONS_DATA.map((
 })
 
 export const SECTIONS_EXCLUDED_FROM_UPDATES = [NodeName.CONTRIBUTORS, NodeName.BADGE]
+export const SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS = [
+  NodeName.TABLE_CONTENTS,
+  NodeName.BADGE,
+  NodeName.BANNER
+]

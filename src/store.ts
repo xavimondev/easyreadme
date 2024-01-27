@@ -5,6 +5,11 @@ import { NameTemplate } from '@/types/readme'
 
 import { DEFAULT_CONTENT, INITIAL_STATE_SECTIONS } from '@/constants'
 
+type TableOfContentsSection = {
+  id: NodeName
+  name: string
+}
+
 type BuilderState = {
   templateSelected: NameTemplate | undefined
   setTemplateSelected: (templateName: NameTemplate) => void
@@ -16,6 +21,11 @@ type BuilderState = {
   setIsGenerating: (isGenerating: boolean) => void
   listSections: SectionState[]
   updateSection: (section: NodeName | NodeName[]) => void
+  tableOfContents: TableOfContentsSection[]
+  addSectionToTableOfContents: (
+    tableOfContents: TableOfContentsSection[] | TableOfContentsSection
+  ) => void
+  removeSectionFromTableOfContents: (section: NodeName) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -23,6 +33,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   contentTemplate: DEFAULT_CONTENT,
   isGenerating: false,
   listSections: INITIAL_STATE_SECTIONS,
+  tableOfContents: [],
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   addContentToTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
@@ -30,8 +41,8 @@ export const useBuilder = create<BuilderState>()((set) => ({
   clearContentTemplate: () => set({ contentTemplate: '' }),
   setIsGenerating: (isGenerating) => set({ isGenerating }),
   updateSection: (data: NodeName | NodeName[]) => {
-    set((prevSections) => ({
-      listSections: prevSections.listSections.map((s) => {
+    set((prevValues) => ({
+      listSections: prevValues.listSections.map((s) => {
         if (Array.isArray(data)) {
           const isSectionIncluded = data.includes(s.id)
 
@@ -40,5 +51,15 @@ export const useBuilder = create<BuilderState>()((set) => ({
         return s.id === data ? { ...s, added: !s.added } : s
       })
     }))
-  }
+  },
+  addSectionToTableOfContents: (
+    tableOfContents: TableOfContentsSection[] | TableOfContentsSection
+  ) =>
+    set((prevValues) => ({
+      tableOfContents: prevValues.tableOfContents.concat(tableOfContents)
+    })),
+  removeSectionFromTableOfContents: (section: NodeName) =>
+    set((prevValues) => ({
+      tableOfContents: prevValues.tableOfContents.filter((item) => item.id !== section)
+    }))
 }))

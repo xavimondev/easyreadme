@@ -38,7 +38,7 @@ function GuideList({ data }: GuideListProps) {
 export function EnvVariablesGuide({ deleteNode, node }: ViewProps) {
   const { attrs, type } = node
   const { content, showPlaceholder } = attrs
-  const updateSection = useBuilder((store) => store.updateSection)
+  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -59,6 +59,7 @@ export function EnvVariablesGuide({ deleteNode, node }: ViewProps) {
           removeSection={() => {
             updateSection(nodeName)
             deleteNode()
+            removeSectionFromTableOfContents(nodeName)
           }}
         />
       </div>

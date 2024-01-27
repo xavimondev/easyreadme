@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { NodeName, SectionState } from '@/types/builder'
 
 import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ListSections } from '@/components/list-sections'
 import { ListTemplates } from '@/components/list-templates'
@@ -12,24 +13,14 @@ type SidebarProps = {
   setFilterSection: Dispatch<SetStateAction<string>>
   customSections: Partial<Record<NodeName, JSX.Element>>
   listSectionsFiltered: SectionState[]
-  addSection: ({
-    section,
-    options
-  }: {
-    section: NodeName
-    options?:
-      | {
-          data: any
-        }
-      | undefined
-  }) => Promise<void>
+  buildReadme: ({ data }: { data: NodeName | NodeName[] }) => Promise<void>
 }
 
 export function Sidebar({
   setFilterSection,
   customSections,
   listSectionsFiltered,
-  addSection
+  buildReadme
 }: SidebarProps) {
   return (
     <aside className='h-full md:h-[calc(100vh-18px)]'>
@@ -46,11 +37,12 @@ export function Sidebar({
           </TabsTrigger>
         </TabsList>
         <TabsContent value='templates'>
-          <div className='w-full h-full mt-4 hidden md:block'>
-            <h3 className='text-black/40 dark:text-white/50 mb-4 font-semibold text-sm sm:text-lg'>
-              Templates
-            </h3>
-            <ListTemplates />
+          <div className='w-full h-full hidden md:block'>
+            <p className='text-muted-foreground text-sm mt-4 mb-5'>
+              A simple text explaining the porpuse of templates
+            </p>
+            <ListTemplates buildReadme={buildReadme} />
+            <Separator className='my-6' />
           </div>
         </TabsContent>
         <TabsContent value='custom'>
@@ -59,7 +51,7 @@ export function Sidebar({
             <ListSections
               listSections={listSectionsFiltered}
               customSections={customSections}
-              addSection={addSection}
+              buildReadme={buildReadme}
             />
           </div>
         </TabsContent>
