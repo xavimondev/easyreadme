@@ -393,8 +393,6 @@ export function useReadme() {
     return foundNode
   }
 
-  // FIXME: sections are not generating in specified order
-  // FIXME: Make badges draggable
   const buildReadme = async ({
     data,
     options
