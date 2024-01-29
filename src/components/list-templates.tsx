@@ -20,7 +20,7 @@ export function TemplateItem({ template, buildReadme }: TemplateItemProps) {
   const isSelected = templateSelected === nameTemplate
 
   return (
-    <HoverCard openDelay={100} closeDelay={0}>
+    <HoverCard openDelay={200} closeDelay={0}>
       <HoverCardTrigger asChild>
         <div
           className={cn(
@@ -76,7 +76,7 @@ type ListTemplatesProps = {
 
 export function ListTemplates({ buildReadme }: ListTemplatesProps) {
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-3 px-3.5'>
       {LIST_TEMPLATES.map((template: Template) => (
         <TemplateItem key={template.nameTemplate} template={template} buildReadme={buildReadme} />
       ))}

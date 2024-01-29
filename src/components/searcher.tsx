@@ -11,7 +11,7 @@ type SearcherProps = {
 
 export function Searcher({ setFilterSection }: SearcherProps) {
   return (
-    <div className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full'>
+    <div className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full px-3.5'>
       <form>
         <div className='relative'>
           <Search className='absolute left-3.5 top-2.5 h-4 w-4 text-muted-foreground' />

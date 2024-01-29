@@ -33,7 +33,7 @@ export function BuilderSections() {
   }, [filterSection, listSections])
 
   return (
-    <div className='h-full w-full grid grid-cols-1 md:grid-cols-[430px,_1fr] gap-3 mt-4 mx-2'>
+    <main className='h-full w-full grid grid-cols-1 md:grid-cols-[450px,_1fr]'>
       <Sidebar
         setFilterSection={setFilterSection}
         customSections={customSections}
@@ -41,6 +41,6 @@ export function BuilderSections() {
         buildReadme={buildReadme}
       />
       <CustomEditor editor={editor} />
-    </div>
+    </main>
   )
 }

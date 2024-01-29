@@ -4,6 +4,7 @@ import { Plus, Trash } from 'lucide-react'
 import { NodeName, SectionState } from '@/types/builder'
 
 import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 type SectionItemProps = {
   name: string
@@ -45,23 +46,25 @@ type ListSectionsProps = {
 
 export function ListSections({ listSections, customSections, buildReadme }: ListSectionsProps) {
   return (
-    <div className='flex flex-col gap-2 w-full'>
-      {listSections
-        .toSorted((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-        .map(({ id, name, description, added }) => {
-          const children = customSections[id]
-          return (
-            <SectionItem
-              key={id}
-              name={name}
-              added={added}
-              description={description}
-              buildReadme={() => buildReadme({ data: id })}
-            >
-              {children}
-            </SectionItem>
-          )
-        })}
-    </div>
+    <ScrollArea className='md:h-[calc(100vh-172px)]'>
+      <div className='flex flex-col gap-2 w-full overflow-hidden px-3.5'>
+        {listSections
+          .toSorted((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
+          .map(({ id, name, description, added }) => {
+            const children = customSections[id]
+            return (
+              <SectionItem
+                key={id}
+                name={name}
+                added={added}
+                description={description}
+                buildReadme={() => buildReadme({ data: id })}
+              >
+                {children}
+              </SectionItem>
+            )
+          })}
+      </div>
+    </ScrollArea>
   )
 }

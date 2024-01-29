@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction } from 'react'
 import { NodeName, SectionState } from '@/types/builder'
 
 import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { CounterRemaining } from '@/components/counter-remaining'
 import { ListSections } from '@/components/list-sections'
 import { ListTemplates } from '@/components/list-templates'
 import { Searcher } from '@/components/searcher'
@@ -23,26 +23,25 @@ export function Sidebar({
   buildReadme
 }: SidebarProps) {
   return (
-    <aside className='h-full md:h-[calc(100vh-18px)]'>
-      <Tabs defaultValue='templates' className='w-full'>
-        <TabsList className='grid w-full grid-cols-2'>
-          <TabsTrigger value='templates'>Templates</TabsTrigger>
-          <TabsTrigger value='custom'>
-            <div className='flex items-center gap-2'>
-              Customize{' '}
-              <Badge className='border bg-purple-900/80 hover:bg-purple-800 transition-colors duration-200'>
-                <span className='text-white dark:text-purple-100'>New</span>
-              </Badge>
-            </div>
-          </TabsTrigger>
-        </TabsList>
+    <aside className='w-full h-full py-2 border border-r-0 rounded-l-md border-black dark:border-white/20'>
+      <Tabs defaultValue='templates'>
+        <div className='flex items-center gap-3 px-3.5'>
+          <TabsList className='ml-auto'>
+            <TabsTrigger value='templates'>Templates</TabsTrigger>
+            <TabsTrigger value='custom'>
+              <div className='flex items-center gap-1'>
+                Customize{' '}
+                <Badge className='border bg-purple-900/80 hover:bg-purple-800 transition-colors duration-200 text-white text-xs dark:text-purple-100'>
+                  New
+                </Badge>
+              </div>
+            </TabsTrigger>
+          </TabsList>
+          <CounterRemaining />
+        </div>
         <TabsContent value='templates'>
           <div className='w-full h-full hidden md:block'>
-            <p className='text-muted-foreground text-sm mt-4 mb-5'>
-              A simple text explaining the porpuse of templates
-            </p>
             <ListTemplates buildReadme={buildReadme} />
-            <Separator className='my-6' />
           </div>
         </TabsContent>
         <TabsContent value='custom'>
