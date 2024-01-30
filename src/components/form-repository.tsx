@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Command } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { isValidGitHubRepositoryURL } from '@/utils/github'
@@ -10,6 +9,7 @@ import { useBuilder } from '@/store'
 import { useKeyPress } from '@/hooks/use-keypress'
 import useLocalStorage from '@/hooks/use-local-storage'
 import { Input } from '@/components/ui/input'
+import { CommandK } from '@/components/command-k'
 import { GitIc } from '@/components/icons'
 
 const LIST_ITEMS = [
@@ -131,10 +131,7 @@ export function FormRepository() {
               <X className='w-4 h-4' />
             </span>
           ) : null} */}
-          <div className='flex gap-1 items-center pointer-events-none absolute inset-y-0 right-0 pr-2 group-focus-within:hidden text-black/50 dark:text-white/40'>
-            <Command className='w-4 h-4' />
-            <span>K</span>
-          </div>
+          <CommandK />
         </div>
       </form>
       <div className='absolute z-10 top-[2.10rem] hidden group-focus-within:block w-full border border-neutral-600 rounded-b-md group-focus-within:border-t-0 bg-neutral-950 shadow-lg'>
