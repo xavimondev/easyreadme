@@ -6,11 +6,8 @@ import { toast } from 'sonner'
 
 import { isValidGitHubRepositoryURL } from '@/utils/github'
 import { cn } from '@/lib/utils'
-import { getRepositoryData } from '@/services/github'
-import { checkRateLimit } from '@/services/rate-limit'
-import { useBuilder } from '@/store'
 import { useKeyPress } from '@/hooks/use-keypress'
-import { useRemaining } from '@/hooks/use-remaining'
+import useLocalStorage from '@/hooks/use-local-storage'
 import { Input } from '@/components/ui/input'
 import { GitIc } from '@/components/icons'
 
@@ -38,9 +35,8 @@ export function FormRepository() {
   const downPress = useKeyPress('ArrowDown', inputRef)
   const upPress = useKeyPress('ArrowUp', inputRef)
   const enterPress = useKeyPress('Enter', inputRef)
-  const templateSelected = useBuilder((state) => state.templateSelected)
-  const { mutate } = useRemaining()
-
+  const { content, setValue } = useLocalStorage<Array<string>>('repositories', [])
+  console.log(content)
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -59,20 +55,20 @@ export function FormRepository() {
   }, [])
 
   useEffect(() => {
-    if (LIST_ITEMS.length && downPress) {
-      setCursor((prevState) => (prevState < LIST_ITEMS.length - 1 ? prevState + 1 : 0))
+    if (content.length && downPress) {
+      setCursor((prevState) => (prevState < content.length - 1 ? prevState + 1 : 0))
     }
-  }, [downPress])
+  }, [downPress, content])
 
   useEffect(() => {
-    if (LIST_ITEMS.length && upPress) {
-      setCursor((prevState) => (prevState > 0 ? prevState - 1 : LIST_ITEMS.length - 1))
+    if (content.length && upPress) {
+      setCursor((prevState) => (prevState > 0 ? prevState - 1 : content.length - 1))
     }
   }, [upPress])
 
   useEffect(() => {
-    if (LIST_ITEMS.length > 0 && enterPress) {
-      setInputValue(LIST_ITEMS[cursor].name)
+    if (content.length > 0 && enterPress) {
+      setInputValue(content[cursor])
       // FIXME: Close command bar when an option is pressed
     }
   }, [cursor, enterPress])
@@ -81,12 +77,23 @@ export function FormRepository() {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const urlRepository = formData.get('urlRepository') as string
-    if (!isValidGitHubRepositoryURL({ url: urlRepository }) || !templateSelected) {
+    const listRepositories = content
+
+    if (!isValidGitHubRepositoryURL({ url: urlRepository })) {
       toast.error('Invalid GitHub URL')
       return
     }
 
-    const msg = await checkRateLimit()
+    // Saving in localstorage
+    let data = undefined
+    if (listRepositories.length <= 4) {
+      data = listRepositories.concat(urlRepository)
+    } else {
+      data = listRepositories.slice(1).concat(urlRepository)
+    }
+    setValue(data)
+
+    /* const msg = await checkRateLimit()
     if (msg) {
       toast.error(msg)
       return
@@ -96,18 +103,14 @@ export function FormRepository() {
     if (!data) {
       toast.error('Repository not found. Enter a valid GitHub Repository URL.')
       return
-    }
-
-    mutate()
+    }*/
   }
 
   const listRepositoriesFiltered = useMemo(() => {
     return inputValue.trim().length > 0
-      ? listRepositories.filter((repository) =>
-          repository.name.toLowerCase().includes(inputValue.toLowerCase())
-        )
-      : listRepositories
-  }, [inputValue, listRepositories])
+      ? content.filter((repository) => repository.toLowerCase().includes(inputValue.toLowerCase()))
+      : content
+  }, [inputValue, content])
 
   return (
     <div className='flex flex-col relative z-10 group'>
@@ -149,16 +152,16 @@ export function FormRepository() {
             {listRepositoriesFiltered.map((item, i) => {
               return (
                 <li
-                  key={item.id}
+                  key={item}
                   className={cn(
                     'px-4 py-2 hover:bg-neutral-800 hover:text-white/80 cursor-pointer',
                     {
                       'bg-neutral-800 text-white/80': i === cursor
                     }
                   )}
-                  onClick={() => setInputValue(item.name)}
+                  onClick={() => setInputValue(item)}
                 >
-                  {item.name}
+                  {item}
                 </li>
               )
             })}
