@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 
 import { NodeName, SectionState } from '@/types/builder'
+import { GitRepository } from '@/types/git'
 import { NameTemplate } from '@/types/readme'
 
 import { DEFAULT_CONTENT, INITIAL_STATE_SECTIONS } from '@/constants'
@@ -26,6 +27,10 @@ type BuilderState = {
     tableOfContents: TableOfContentsSection[] | TableOfContentsSection
   ) => void
   removeSectionFromTableOfContents: (section: NodeName) => void
+  gitRepositoryData: GitRepository | undefined
+  setGitRepositoryData: (data: GitRepository) => void
+  gitUrlRepository: string
+  setGitUrlRepository: (url: string) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -34,6 +39,8 @@ export const useBuilder = create<BuilderState>()((set) => ({
   isGenerating: false,
   listSections: INITIAL_STATE_SECTIONS,
   tableOfContents: [],
+  gitRepositoryData: undefined,
+  gitUrlRepository: '',
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   addContentToTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
@@ -61,5 +68,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   removeSectionFromTableOfContents: (section: NodeName) =>
     set((prevValues) => ({
       tableOfContents: prevValues.tableOfContents.filter((item) => item.id !== section)
-    }))
+    })),
+  setGitRepositoryData: (data) => set({ gitRepositoryData: data }),
+  setGitUrlRepository: (url) => set({ gitUrlRepository: url })
 }))

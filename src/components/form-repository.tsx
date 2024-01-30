@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 
 import { isValidGitHubRepositoryURL } from '@/utils/github'
 import { cn } from '@/lib/utils'
+import { useBuilder } from '@/store'
 import { useKeyPress } from '@/hooks/use-keypress'
 import useLocalStorage from '@/hooks/use-local-storage'
 import { Input } from '@/components/ui/input'
@@ -27,16 +28,18 @@ const LIST_ITEMS = [
 ]
 
 export function FormRepository() {
+  // FIXME: Maybe this is not necessary anymore because there's a global state
   const [inputValue, setInputValue] = useState('')
   const [listRepositories, setListRepositories] = useState(LIST_ITEMS)
   const [cursor, setCursor] = useState<number>(0)
+  const setGitUrlRepository = useBuilder((store) => store.setGitUrlRepository)
   // const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const downPress = useKeyPress('ArrowDown', inputRef)
   const upPress = useKeyPress('ArrowUp', inputRef)
   const enterPress = useKeyPress('Enter', inputRef)
   const { content, setValue } = useLocalStorage<Array<string>>('repositories', [])
-  console.log(content)
+
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -75,8 +78,7 @@ export function FormRepository() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const urlRepository = formData.get('urlRepository') as string
+    const urlRepository = inputValue
     const listRepositories = content
 
     if (!isValidGitHubRepositoryURL({ url: urlRepository })) {
@@ -92,18 +94,7 @@ export function FormRepository() {
       data = listRepositories.slice(1).concat(urlRepository)
     }
     setValue(data)
-
-    /* const msg = await checkRateLimit()
-    if (msg) {
-      toast.error(msg)
-      return
-    }
-
-    const data = await getRepositoryData({ urlRepository })
-    if (!data) {
-      toast.error('Repository not found. Enter a valid GitHub Repository URL.')
-      return
-    }*/
+    setGitUrlRepository(urlRepository)
   }
 
   const listRepositoriesFiltered = useMemo(() => {
