@@ -6,11 +6,10 @@ import { NodeName } from '@/types/builder'
 
 import { useBuilder } from '@/store'
 import { useReadme } from '@/hooks/use-readme'
+import { BadgesOptions } from '@/components/badges-options'
+import { ContributorsOptions } from '@/components/contributors-options'
 import { CustomEditor } from '@/components/editor/custom-editor'
 import { Sidebar } from '@/components/sidebar'
-
-import { BadgesOptions } from './badges-options'
-import { ContributorsOptions } from './contributors-options'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
