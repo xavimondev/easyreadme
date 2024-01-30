@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Command } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -31,12 +31,13 @@ const LIST_ITEMS = [
 
 export function FormRepository() {
   const [inputValue, setInputValue] = useState('')
+  const [listRepositories, setListRepositories] = useState(LIST_ITEMS)
+  const [cursor, setCursor] = useState<number>(0)
   // const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const downPress = useKeyPress('ArrowDown', inputRef)
   const upPress = useKeyPress('ArrowUp', inputRef)
   const enterPress = useKeyPress('Enter', inputRef)
-  const [cursor, setCursor] = useState<number>(0)
   const templateSelected = useBuilder((state) => state.templateSelected)
   const { mutate } = useRemaining()
 
@@ -100,6 +101,14 @@ export function FormRepository() {
     mutate()
   }
 
+  const listRepositoriesFiltered = useMemo(() => {
+    return inputValue.trim().length > 0
+      ? listRepositories.filter((repository) =>
+          repository.name.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      : listRepositories
+  }, [inputValue, listRepositories])
+
   return (
     <div className='flex flex-col z-10 group'>
       <form className='flex gap-2' onSubmit={handleSubmit}>
@@ -135,21 +144,28 @@ export function FormRepository() {
         </div>
       </form>
       <div className='hidden group-focus-within:block z-10 w-full border border-t-0 group-focus-within:border-neutral-600 group-focus-within:rounded-b-md bg-black/10 shadow-lg'>
-        <ul className='py-1 text-white/50 text-sm'>
-          {LIST_ITEMS.map((item, i) => {
-            return (
-              <li
-                key={item.id}
-                className={cn('px-4 py-2 hover:bg-neutral-800 hover:text-white/80 cursor-pointer', {
-                  'bg-neutral-800 text-white/80': i === cursor
-                })}
-                onClick={() => setInputValue(item.name)}
-              >
-                {item.name}
-              </li>
-            )
-          })}
-        </ul>
+        {listRepositoriesFiltered.length > 0 ? (
+          <ul className='py-1 text-white/50 text-sm'>
+            {listRepositoriesFiltered.map((item, i) => {
+              return (
+                <li
+                  key={item.id}
+                  className={cn(
+                    'px-4 py-2 hover:bg-neutral-800 hover:text-white/80 cursor-pointer',
+                    {
+                      'bg-neutral-800 text-white/80': i === cursor
+                    }
+                  )}
+                  onClick={() => setInputValue(item.name)}
+                >
+                  {item.name}
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          <span className='block p-1 text-sm text-white/50 text-center'>No repositories found</span>
+        )}
       </div>
     </div>
   )
