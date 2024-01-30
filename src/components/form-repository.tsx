@@ -5,16 +5,38 @@ import { Command } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { isValidGitHubRepositoryURL } from '@/utils/github'
+import { cn } from '@/lib/utils'
 import { getRepositoryData } from '@/services/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
+import { useKeyPress } from '@/hooks/use-keypress'
 import { useRemaining } from '@/hooks/use-remaining'
 import { Input } from '@/components/ui/input'
 import { GitIc } from '@/components/icons'
 
+const LIST_ITEMS = [
+  {
+    id: 0,
+    name: 'https://google.com.pe'
+  },
+  {
+    id: 1,
+    name: 'https://twitchtv.com'
+  },
+  {
+    id: 2,
+    name: 'https://github.com'
+  }
+]
+
 export function FormRepository() {
   const [inputValue, setInputValue] = useState('')
+  // const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const downPress = useKeyPress('ArrowDown', inputRef)
+  const upPress = useKeyPress('ArrowUp', inputRef)
+  const enterPress = useKeyPress('Enter', inputRef)
+  const [cursor, setCursor] = useState<number>(0)
   const templateSelected = useBuilder((state) => state.templateSelected)
   const { mutate } = useRemaining()
 
@@ -34,6 +56,25 @@ export function FormRepository() {
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
+
+  useEffect(() => {
+    if (LIST_ITEMS.length && downPress) {
+      setCursor((prevState) => (prevState < LIST_ITEMS.length - 1 ? prevState + 1 : 0))
+    }
+  }, [downPress])
+
+  useEffect(() => {
+    if (LIST_ITEMS.length && upPress) {
+      setCursor((prevState) => (prevState > 0 ? prevState - 1 : LIST_ITEMS.length - 1))
+    }
+  }, [upPress])
+
+  useEffect(() => {
+    if (LIST_ITEMS.length > 0 && enterPress) {
+      setInputValue(LIST_ITEMS[cursor].name)
+      // FIXME: Close command bar when an option is pressed
+    }
+  }, [cursor, enterPress])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -93,11 +134,21 @@ export function FormRepository() {
           </div>
         </div>
       </form>
-      <div className='z-10 w-full border border-t-0 group-focus-within:border-neutral-600 group-focus-within:rounded-b-md bg-black/10 shadow-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-100'>
+      <div className='hidden group-focus-within:block z-10 w-full border border-t-0 group-focus-within:border-neutral-600 group-focus-within:rounded-b-md bg-black/10 shadow-lg'>
         <ul className='py-1 text-white/50 text-sm'>
-          <li className='px-4 py-2 hover:bg-neutral-800 hover:text-white/80'>Previous Search 1</li>
-          <li className='px-4 py-2 hover:bg-neutral-800 hover:text-white/80'>Previous Search 2</li>
-          <li className='px-4 py-2 hover:bg-neutral-800 hover:text-white/80'>Previous Search 3</li>
+          {LIST_ITEMS.map((item, i) => {
+            return (
+              <li
+                key={item.id}
+                className={cn('px-4 py-2 hover:bg-neutral-800 hover:text-white/80 cursor-pointer', {
+                  'bg-neutral-800 text-white/80': i === cursor
+                })}
+                onClick={() => setInputValue(item.name)}
+              >
+                {item.name}
+              </li>
+            )
+          })}
         </ul>
       </div>
     </div>
