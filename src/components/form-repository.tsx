@@ -110,7 +110,7 @@ export function FormRepository() {
   }, [inputValue, listRepositories])
 
   return (
-    <div className='flex flex-col z-10 group'>
+    <div className='flex flex-col relative z-10 group'>
       <form className='flex gap-2' onSubmit={handleSubmit}>
         <div className='relative flex w-[500px] items-center border group-focus-within:border-neutral-600 rounded-md group-focus-within:rounded-b-none bg-neutral-800/60 focus-within:bg-transparent transition-colors duration-200'>
           <div className='flex items-center pointer-events-none absolute inset-y-0 group-focus-within:left-0 left-[90px] pl-0 group-focus-within:pl-3 text-black/50 dark:text-white/40'>
@@ -126,7 +126,7 @@ export function FormRepository() {
             onChange={(e) => setInputValue(e.target.value)}
             name='urlRepository'
             value={inputValue}
-            className='w-full pl-9 border-none focus-visible:outline-none focus-visible:ring-0 placeholder:text-center text-center group-focus-within:placeholder:text-left group-focus-within:text-left group-focus-within:placeholder:text-white/60 placeholder:text-white/40'
+            className='w-full h-8 pl-9 border-none focus-visible:outline-none focus-visible:ring-0 placeholder:text-center text-center group-focus-within:placeholder:text-left group-focus-within:text-left group-focus-within:placeholder:text-white/60 placeholder:text-white/40'
             placeholder='https://github.com/xavimondev/easyreadme'
           />
           {/* {inputValue.length > 0 ? (
@@ -143,9 +143,9 @@ export function FormRepository() {
           </div>
         </div>
       </form>
-      <div className='hidden group-focus-within:block z-10 w-full border border-t-0 group-focus-within:border-neutral-600 group-focus-within:rounded-b-md bg-black/10 shadow-lg'>
+      <div className='absolute z-10 top-[2.10rem] hidden group-focus-within:block w-full border border-neutral-600 rounded-b-md group-focus-within:border-t-0 bg-neutral-950 shadow-lg'>
         {listRepositoriesFiltered.length > 0 ? (
-          <ul className='py-1 text-white/50 text-sm'>
+          <ul className='text-white/50 text-sm'>
             {listRepositoriesFiltered.map((item, i) => {
               return (
                 <li
