@@ -13,15 +13,15 @@ import { Sidebar } from '@/components/sidebar'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
-  const { listSections } = useBuilder((store) => store)
-  const { editor, buildReadme } = useReadme()
+  const { listSections, readmeEditor } = useBuilder((store) => store)
+  const { buildReadme } = useReadme()
 
   const customSections: Partial<Record<NodeName, JSX.Element>> = useMemo(() => {
     return {
       [NodeName.BADGE]: <BadgesOptions buildReadme={buildReadme} />,
       [NodeName.CONTRIBUTORS]: <ContributorsOptions buildReadme={buildReadme} />
     }
-  }, [editor])
+  }, [readmeEditor])
 
   const listSectionsFiltered = useMemo(() => {
     return filterSection !== '' && filterSection.length > 0
@@ -39,7 +39,7 @@ export function BuilderSections() {
         listSectionsFiltered={listSectionsFiltered}
         buildReadme={buildReadme}
       />
-      <CustomEditor editor={editor} />
+      <CustomEditor />
     </main>
   )
 }

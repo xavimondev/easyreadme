@@ -1,3 +1,4 @@
+import { type Editor } from '@tiptap/core'
 import { create } from 'zustand'
 
 import { NodeName, SectionState } from '@/types/builder'
@@ -31,6 +32,8 @@ type BuilderState = {
   setGitRepositoryData: (data: GitRepository) => void
   gitUrlRepository: string
   setGitUrlRepository: (url: string) => void
+  readmeEditor: Editor | undefined
+  setReadmeEditor: (editor: Editor) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -41,6 +44,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   tableOfContents: [],
   gitRepositoryData: undefined,
   gitUrlRepository: '',
+  readmeEditor: undefined,
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   addContentToTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
@@ -70,5 +74,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
       tableOfContents: prevValues.tableOfContents.filter((item) => item.id !== section)
     })),
   setGitRepositoryData: (data) => set({ gitRepositoryData: data }),
-  setGitUrlRepository: (url) => set({ gitUrlRepository: url })
+  setGitUrlRepository: (url) => set({ gitUrlRepository: url }),
+  setReadmeEditor: (editor) => set({ readmeEditor: editor })
 }))

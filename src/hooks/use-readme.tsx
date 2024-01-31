@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { findChildren, useEditor } from '@tiptap/react'
+import { findChildren } from '@tiptap/react'
 
 import { BadgeName, ContributorOption, NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
@@ -14,25 +14,7 @@ import {
 } from '@/utils/readme'
 import { getContributors, getGenerationAI, getLicense } from '@/services/github'
 import { useBuilder } from '@/store'
-import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
-import Acknowledgments from '@/components/editor/nodes/acknowledgments'
-import Badge from '@/components/editor/nodes/badge'
-import Banner from '@/components/editor/nodes/banner'
-import Changelog from '@/components/editor/nodes/changelog'
-import Commands from '@/components/editor/nodes/commands'
-import ContributorsNode from '@/components/editor/nodes/contributors'
-import Deploy from '@/components/editor/nodes/deploy'
-import EnvVariablesGuide from '@/components/editor/nodes/env-variables-guide'
-import Faq from '@/components/editor/nodes/faq'
-import License from '@/components/editor/nodes/license'
-import Overview from '@/components/editor/nodes/overview'
-import Prerequisites from '@/components/editor/nodes/prerequisites'
-import ProjectStructure from '@/components/editor/nodes/project-structure'
-import ProjectSummary from '@/components/editor/nodes/project-summary'
-import Roadmap from '@/components/editor/nodes/roadmap'
-import RunLocally from '@/components/editor/nodes/run-locally'
-import TableContents from '@/components/editor/nodes/table-contents'
-import TechStack from '@/components/editor/nodes/tech-stack'
+import { useSections } from '@/hooks/use-sections'
 
 const DEFAULT_REPOSITORY_DATA: GitRepository = {
   urlRepository: 'https://github.com/xavimondev/easyreadme',
@@ -173,195 +155,49 @@ const DEFAULT_BADGES: BadgeName[] = [
 const dataRepository = undefined
 
 export function useReadme() {
-  // const tableOfContents = useRef<{ id: NodeName; name: string }[]>()
   const {
     updateSection,
     listSections,
     addSectionToTableOfContents,
-    removeSectionFromTableOfContents
+    removeSectionFromTableOfContents,
+    gitRepositoryData,
+    readmeEditor
   } = useBuilder((store) => store)
-  const editor = useEditor({
-    editable: true,
-    injectCSS: false,
-    editorProps: {
-      attributes: {
-        class:
-          'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-none font-default focus:outline-none h-[calc(100vh-405px)] md:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
-      }
-    },
-    extensions: [
-      ...DEFAULT_EXTENSIONS,
-      Roadmap,
-      Banner,
-      Acknowledgments,
-      RunLocally,
-      License,
-      ProjectStructure,
-      Badge,
-      Changelog,
-      Prerequisites,
-      Faq,
-      Commands,
-      Deploy,
-      Overview,
-      TechStack,
-      ProjectSummary,
-      EnvVariablesGuide,
-      TableContents,
-      ContributorsNode
-    ]
-  })
-
-  const addAcknowledgment = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Acknowledgments />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addBanner = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Banner />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addChangelog = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Changelog />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addCommands = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Commands />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addDeploy = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Deploy />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addFaq = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Faq />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addLicense = useCallback(
-    ({ endPos, license }: { endPos: number; license: any }) => {
-      editor?.chain().insertLicense({
-        endPos,
-        license
-      })
-    },
-    [editor]
-  )
-
-  const addPrerequisites = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Prerequisites />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addProjectStructure = useCallback(
-    ({ endPos, tree }: { endPos: number; tree: string }) => {
-      editor?.chain().insertProjectStructure({ endPos, tree })
-    },
-    [editor]
-  )
-
-  const addRoadmap = useCallback(
-    ({ endPos }: { endPos: number }) => {
-      editor?.chain().insertContentAt(endPos, '<Roadmap />').focus('end').run()
-    },
-    [editor]
-  )
-
-  const addRunLocally = useCallback(
-    ({ endPos, data }: { endPos: number; data: any }) => {
-      editor?.chain().insertRunLocally({ endPos, data })
-    },
-    [editor]
-  )
-
-  const addTableOfContent = useCallback(
-    ({ endPos, content }: { endPos: number; content: any }) => {
-      editor?.chain().insertTableContents({ endPos, content })
-    },
-    [editor]
-  )
-
-  const addBadge = useCallback(
-    ({ endPos, data }: { endPos: number; data: any }) => {
-      editor?.chain().insertBadge({
-        endPos,
-        data
-      })
-    },
-    [editor]
-  )
-
-  const addContributor = useCallback(
-    ({ endPos, type, data }: { endPos: number; type?: ContributorOption; data?: any }) => {
-      editor?.chain().insertContributors({
-        endPos,
-        data,
-        type
-      })
-    },
-    [editor]
-  )
-
-  const addOverview = useCallback(
-    ({ endPos, data }: { endPos: number; data: any }) => {
-      editor?.chain().insertOverview({ endPos, ...data })
-    },
-    [editor]
-  )
-
-  const addProjectSummary = useCallback(
-    ({ endPos, data }: { endPos: number; data: any }) => {
-      editor?.chain().insertProjectSummary({ endPos, ...data })
-    },
-    [editor]
-  )
-
-  const addSettingUpGuide = useCallback(
-    ({ endPos, data }: { endPos: number; data: any }) => {
-      editor?.chain().insertEnvVariablesGuide({ endPos, ...data })
-    },
-    [editor]
-  )
-
-  const addTechStack = useCallback(
-    ({ endPos, data }: { endPos: number; data: any }) => {
-      editor?.chain().insertTechStack({ endPos, ...data })
-    },
-    [editor]
-  )
+  const {
+    addAcknowledgment,
+    addBanner,
+    addChangelog,
+    addCommands,
+    addContributor,
+    addBadge,
+    addDeploy,
+    addFaq,
+    addLicense,
+    addOverview,
+    addPrerequisites,
+    addProjectStructure,
+    addProjectSummary,
+    addRoadmap,
+    addRunLocally,
+    addSettingUpGuide,
+    addTableOfContent,
+    addTechStack
+  } = useSections()
 
   const updateNode = useCallback(
     ({ node, data }: { node: NodeName; data?: any }) => {
-      editor?.chain().updateAttributes(node, data).run()
+      readmeEditor?.chain().updateAttributes(node, data).run()
     },
-    [editor]
+    [readmeEditor]
   )
 
   const removeNode = useCallback(
     (section: NodeName) => {
-      const nodes = Object.values(editor?.schema.nodes ?? {}).filter((node) =>
+      const nodes = Object.values(readmeEditor?.schema.nodes ?? {}).filter((node) =>
         node.name.includes('custom-')
       )
 
-      editor?.commands.forEach(nodes, (_, { tr, commands }) => {
+      readmeEditor?.commands.forEach(nodes, (_, { tr, commands }) => {
         const item = findChildren(tr.doc, (node) => {
           return node.type.name === section
         })?.[0]
@@ -374,17 +210,17 @@ export function useReadme() {
         })
       })
     },
-    [editor]
+    [readmeEditor]
   )
 
   const clearEditorContent = useCallback(() => {
-    editor?.commands.clearContent()
-  }, [editor])
+    readmeEditor?.commands.clearContent()
+  }, [readmeEditor])
 
   const findNodeByName = (nodeName: NodeName) => {
     let foundNode = null
 
-    editor?.state.doc.descendants((node) => {
+    readmeEditor?.state.doc.descendants((node) => {
       if (node.type.name === nodeName) {
         foundNode = node
       }
@@ -474,9 +310,9 @@ export function useReadme() {
     options?: { data: any }
   }) => {
     const { repoName, owner, branch, description, language, urlRepository } =
-      DEFAULT_REPOSITORY_DATA
+      gitRepositoryData ?? DEFAULT_REPOSITORY_DATA
 
-    const endPos = editor?.state.doc.resolve(editor.state.doc.childCount).end() ?? 0
+    const endPos = readmeEditor?.state.doc.resolve(readmeEditor.state.doc.childCount).end() ?? 0
 
     if (section === NodeName.ACKNOWLEDGEMENTS) {
       addAcknowledgment({ endPos })
@@ -573,8 +409,9 @@ export function useReadme() {
       }
 
       if (!node) {
-        const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
-        nodeFound = editor?.state.tr.doc.nodeAt(endPosFinal)
+        const endPosFinal =
+          readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+        nodeFound = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
       }
 
       const newContent = {
@@ -620,8 +457,9 @@ export function useReadme() {
         }
       })
 
-      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+      const endPosFinal =
+        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
 
       const prompt = await getOverviewData({
         branch,
@@ -669,8 +507,9 @@ export function useReadme() {
           showPlaceholder: true
         }
       })
-      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+      const endPosFinal =
+        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
 
       const prompt = await getProjectSummaryData({
         owner,
@@ -738,8 +577,9 @@ export function useReadme() {
           showPlaceholder: true
         }
       })
-      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+      const endPosFinal =
+        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
 
       const prompt = await getEnvironmentVariablesGuideData({
         owner,
@@ -793,8 +633,9 @@ export function useReadme() {
         repoName
       })
 
-      const endPosFinal = editor?.state.doc.resolve(editor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = editor?.state.tr.doc.nodeAt(endPosFinal)
+      const endPosFinal =
+        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
 
       if (prompt === '') {
         const newContent = {
@@ -830,7 +671,6 @@ export function useReadme() {
   }
 
   return {
-    editor,
     buildReadme
   }
 }

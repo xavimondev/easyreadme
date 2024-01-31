@@ -1,186 +1,166 @@
-import { useCompletion } from 'ai/react'
-import { toast } from 'sonner'
+import { useCallback } from 'react'
 
-import { BadgeName, Section } from '@/types/builder'
+import { ContributorOption } from '@/types/builder'
 
-import { README_SECTIONS } from '@/constants'
-import { RepositoryTemplate } from '@/utils/repository-template'
 import { useBuilder } from '@/store'
 
 export function useSections() {
-  const addContentToTemplate = useBuilder((state) => state.addContentToTemplate)
-  const { complete, setCompletion } = useCompletion({
-    id: 'readme',
-    onFinish: (_prompt, completion) => {
-      setCompletion('')
-      addContentToTemplate(`${completion}\n\n`)
+  const readmeEditor = useBuilder((store) => store.readmeEditor)
+
+  const addAcknowledgment = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Acknowledgments />').focus('end').run()
     },
-    onError: (err) => {
-      const error = JSON.parse(err.message)
-      toast.error(error.message)
-    }
-  })
+    [readmeEditor]
+  )
 
-  const banner = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const banner = repositoryTemplate.getBanner()
-    addContentToTemplate(`${banner}\n\n`)
-  }
+  const addBanner = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Banner />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-  const overview = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    addContentToTemplate(`## ${README_SECTIONS['overview']}\n\n`)
-    const promptOverview = await repositoryTemplate.getOverview()
-    await complete(promptOverview)
-  }
+  const addChangelog = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Changelog />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-  const techStack = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    addContentToTemplate(`## ${README_SECTIONS['stack']}\n\n`)
-    const promptTechStack = await repositoryTemplate.getTechStack()
-    if (!promptTechStack) {
-      addContentToTemplate(`Include a concise explanation about the Tech Stack employed.\n\n`)
-      return
-    }
-    await complete(promptTechStack)
-  }
+  const addCommands = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Commands />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-  const settingUp = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const promptSettingUp = await repositoryTemplate.getEnvironmentVariablesGuide()
-    const header = `## ${README_SECTIONS['setting-up']}\n\n`
-    if (!promptSettingUp) {
-      addContentToTemplate(`${header}#### Your Environment Variable\n\n- Step 1\n\n- Step 2\n\n`)
-      return
-    }
+  const addDeploy = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Deploy />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-    addContentToTemplate(`${header}`)
-    await complete(promptSettingUp)
-  }
+  const addFaq = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Faq />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-  const runningLocally = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const runningLocally = repositoryTemplate.getRunningLocally()
-    addContentToTemplate(runningLocally)
-  }
+  const addLicense = useCallback(
+    ({ endPos, license }: { endPos: number; license: any }) => {
+      readmeEditor?.chain().insertLicense({
+        endPos,
+        license
+      })
+    },
+    [readmeEditor]
+  )
 
-  const acknowledgments = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const acknowledgments = repositoryTemplate.getAcknowledgments()
-    addContentToTemplate(acknowledgments)
-  }
+  const addPrerequisites = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Prerequisites />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-  const roadmap = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const roadmap = repositoryTemplate.getRoadmap()
-    addContentToTemplate(roadmap)
-  }
+  const addProjectStructure = useCallback(
+    ({ endPos, tree }: { endPos: number; tree: string }) => {
+      readmeEditor?.chain().insertProjectStructure({ endPos, tree })
+    },
+    [readmeEditor]
+  )
 
-  const changelog = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const changelog = repositoryTemplate.getChangelog()
-    addContentToTemplate(changelog)
-  }
+  const addRoadmap = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertContentAt(endPos, '<Roadmap />').focus('end').run()
+    },
+    [readmeEditor]
+  )
 
-  const commands = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const commands = repositoryTemplate.getCommands()
-    addContentToTemplate(commands)
-  }
+  const addRunLocally = useCallback(
+    ({ endPos, data }: { endPos: number; data: any }) => {
+      readmeEditor?.chain().insertRunLocally({ endPos, data })
+    },
+    [readmeEditor]
+  )
 
-  const faq = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const faq = repositoryTemplate.getFaq()
-    addContentToTemplate(faq)
-  }
+  const addTableOfContent = useCallback(
+    ({ endPos, content }: { endPos: number; content: any }) => {
+      readmeEditor?.chain().insertTableContents({ endPos, content })
+    },
+    [readmeEditor]
+  )
 
-  const projectStructure = async ({
-    repositoryTemplate
-  }: {
-    repositoryTemplate: RepositoryTemplate
-  }) => {
-    const projectStructure = await repositoryTemplate.getProjectStructure()
-    addContentToTemplate(projectStructure)
-  }
+  const addBadge = useCallback(
+    ({ endPos, data }: { endPos: number; data: any }) => {
+      readmeEditor?.chain().insertBadge({
+        endPos,
+        data
+      })
+    },
+    [readmeEditor]
+  )
 
-  const license = async ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const license = await repositoryTemplate.getLicense()
-    addContentToTemplate(license)
-  }
+  const addContributor = useCallback(
+    ({ endPos, type, data }: { endPos: number; type?: ContributorOption; data?: any }) => {
+      readmeEditor?.chain().insertContributors({
+        endPos,
+        data,
+        type
+      })
+    },
+    [readmeEditor]
+  )
 
-  const deploy = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const deploy = repositoryTemplate.getDeploy()
-    addContentToTemplate(deploy)
-  }
+  const addOverview = useCallback(
+    ({ endPos, data }: { endPos: number; data: any }) => {
+      readmeEditor?.chain().insertOverview({ endPos, ...data })
+    },
+    [readmeEditor]
+  )
 
-  const tableContributors = async ({
-    repositoryTemplate
-  }: {
-    repositoryTemplate: RepositoryTemplate
-  }) => {
-    const table = await repositoryTemplate.getTableContributors({ contributorsPerRow: 7 })
-    addContentToTemplate(table)
-  }
+  const addProjectSummary = useCallback(
+    ({ endPos, data }: { endPos: number; data: any }) => {
+      readmeEditor?.chain().insertProjectSummary({ endPos, ...data })
+    },
+    [readmeEditor]
+  )
 
-  const galleryContributors = ({
-    repositoryTemplate
-  }: {
-    repositoryTemplate: RepositoryTemplate
-  }) => {
-    const contributors = repositoryTemplate.getGalleryContributors()
-    addContentToTemplate(contributors)
-  }
+  const addSettingUpGuide = useCallback(
+    ({ endPos, data }: { endPos: number; data: any }) => {
+      readmeEditor?.chain().insertEnvVariablesGuide({ endPos, ...data })
+    },
+    [readmeEditor]
+  )
 
-  const badges = ({
-    repositoryTemplate,
-    listBadges = ['stars', 'contributors', 'top_language', 'license']
-  }: {
-    repositoryTemplate: RepositoryTemplate
-    listBadges?: BadgeName[]
-  }) => {
-    const badges = repositoryTemplate.getBadges(...listBadges)
-    addContentToTemplate(badges)
-  }
-
-  const prerequisites = ({ repositoryTemplate }: { repositoryTemplate: RepositoryTemplate }) => {
-    const prerequisites = repositoryTemplate.getPrerequisites()
-    addContentToTemplate(prerequisites)
-  }
-
-  const projectSummary = async ({
-    repositoryTemplate
-  }: {
-    repositoryTemplate: RepositoryTemplate
-  }) => {
-    addContentToTemplate(`## ${README_SECTIONS['project-summary']}\n\n`)
-    const promptProjectSummary = await repositoryTemplate.getProjectSummary()
-    if (!promptProjectSummary) {
-      addContentToTemplate(`Insert your project's summary\n\n`)
-      return
-    }
-    await complete(promptProjectSummary)
-  }
-
-  const tableOfContents = ({
-    repositoryTemplate,
-    sections
-  }: {
-    repositoryTemplate: RepositoryTemplate
-    sections: Section[]
-  }) => {
-    const contents = repositoryTemplate.getTableContents({ sections })
-    addContentToTemplate(contents)
-  }
+  const addTechStack = useCallback(
+    ({ endPos, data }: { endPos: number; data: any }) => {
+      readmeEditor?.chain().insertTechStack({ endPos, ...data })
+    },
+    [readmeEditor]
+  )
 
   return {
-    banner,
-    overview,
-    techStack,
-    settingUp,
-    runningLocally,
-    acknowledgments,
-    roadmap,
-    changelog,
-    commands,
-    faq,
-    projectStructure,
-    license,
-    deploy,
-    tableContributors,
-    galleryContributors,
-    badges,
-    prerequisites,
-    projectSummary,
-    tableOfContents
+    addAcknowledgment,
+    addBadge,
+    addBanner,
+    addChangelog,
+    addCommands,
+    addContributor,
+    addDeploy,
+    addFaq,
+    addLicense,
+    addOverview,
+    addPrerequisites,
+    addProjectStructure,
+    addProjectSummary,
+    addRoadmap,
+    addRunLocally,
+    addTableOfContent,
+    addTechStack,
+    addSettingUpGuide
   }
 }
