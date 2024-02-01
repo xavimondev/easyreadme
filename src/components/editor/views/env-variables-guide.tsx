@@ -50,7 +50,7 @@ export function EnvVariablesGuide({ deleteNode, node }: ViewProps) {
           {showPlaceholder ? (
             <PlaceholderGuide />
           ) : content.length === 0 ? (
-            <p>Insert your environment variables</p>
+            <p>Insert your environment variables.</p>
           ) : (
             <GuideList data={content} />
           )}
