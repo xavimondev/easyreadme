@@ -10,7 +10,7 @@ export const getRepositoryStructure = async ({
   owner: string
   repoName: string
   branch: string
-}): Promise<Tree[] | null> => {
+}): Promise<Tree[] | undefined> => {
   try {
     const response = await fetch(
       `api/github/structure?repo=${repoName}&owner=${owner}&branch=${branch}`
@@ -18,8 +18,7 @@ export const getRepositoryStructure = async ({
     const repository = await response.json()
     return repository.data
   } catch (error) {
-    //console.error(error)
-    return null
+    return
   }
 }
 
@@ -39,8 +38,7 @@ export const getFileContents = async ({
     const contents = await response.json()
     return contents.data
   } catch (error) {
-    // console.log(error)
-    return null
+    return
   }
 }
 
@@ -60,8 +58,7 @@ export const getContributors = async ({
     const contributors = await response.json()
     return contributors.data
   } catch (error) {
-    // console.error(error)
-    return null
+    return
   }
 }
 
@@ -71,8 +68,7 @@ export const getLicense = async ({ repoName, owner }: { repoName: string; owner:
     const license = await response.json()
     return license.data
   } catch (error) {
-    // console.error(error)
-    return null
+    return
   }
 }
 
@@ -85,7 +81,7 @@ export const getRepositoryData = async ({ urlRepository }: { urlRepository: stri
     return data.data as GitRepository
   } catch (error) {
     // console.error(error)
-    return null
+    return
   }
 }
 
