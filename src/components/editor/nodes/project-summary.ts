@@ -15,7 +15,7 @@ declare module '@tiptap/core' {
         showPlaceholder
       }: {
         endPos: number
-        content?: string
+        content?: Array<{ name: string; link: string; description: string }>
         showPlaceholder: boolean
       }) => ReturnType
     }
@@ -51,7 +51,7 @@ export default Node.create({
           showPlaceholder
         }: {
           endPos: number
-          content: string
+          content: Array<{ name: string; link: string; description: string }>
           showPlaceholder: boolean
         }) =>
         ({ editor }: { editor: Editor }) => {
