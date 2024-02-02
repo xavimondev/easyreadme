@@ -6,10 +6,7 @@ import { ContributorOption, NodeName } from '@/types/builder'
 
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
-
-type ContributorsOptionsProps = {
-  buildReadme: ({ data, options }: { data: NodeName; options?: { data: any } }) => void
-}
+import { useReadme } from '@/hooks/use-readme'
 
 function RowCircles() {
   return (
@@ -34,9 +31,10 @@ function RowSquares() {
     </div>
   )
 }
-export function ContributorsOptions({ buildReadme }: ContributorsOptionsProps) {
+export function ContributorsOptions() {
   const [optionSelected, setOptionSelected] = useState<ContributorOption | undefined>()
   const listSections = useBuilder((store) => store.listSections)
+  const { buildCustomReadme } = useReadme()
   const isAdded = listSections.find((section) => section.id === NodeName.CONTRIBUTORS)?.added
 
   // TODO: Figure out a better way to remove selected option
@@ -49,8 +47,8 @@ export function ContributorsOptions({ buildReadme }: ContributorsOptionsProps) {
   const handleCheck = (option: ContributorOption) => {
     if (option === optionSelected) return
     setOptionSelected(option)
-    buildReadme({
-      data: NodeName.CONTRIBUTORS,
+    buildCustomReadme({
+      section: NodeName.CONTRIBUTORS,
       options: {
         data: option
       }

@@ -1,4 +1,5 @@
 import { BuilderSections } from '@/components/builder-sections'
+import { FormRepository } from '@/components/form-repository'
 import { Header } from '@/components/header'
 import { ViewCodeButton } from '@/components/view-code-button'
 
@@ -8,6 +9,7 @@ export default function Builder() {
       <Header>
         <div className='flex pb-2 items-center justify-between'>
           MiLog
+          <FormRepository />
           <ViewCodeButton />
         </div>
       </Header>

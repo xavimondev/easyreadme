@@ -13,15 +13,9 @@ type SidebarProps = {
   setFilterSection: Dispatch<SetStateAction<string>>
   customSections: Partial<Record<NodeName, JSX.Element>>
   listSectionsFiltered: SectionState[]
-  buildReadme: ({ data }: { data: NodeName | NodeName[] }) => Promise<void>
 }
 
-export function Sidebar({
-  setFilterSection,
-  customSections,
-  listSectionsFiltered,
-  buildReadme
-}: SidebarProps) {
+export function Sidebar({ setFilterSection, customSections, listSectionsFiltered }: SidebarProps) {
   return (
     <aside className='w-full h-full py-2 border border-r-0 rounded-l-md border-black dark:border-white/20'>
       <Tabs defaultValue='templates'>
@@ -41,17 +35,13 @@ export function Sidebar({
         </div>
         <TabsContent value='templates'>
           <div className='w-full h-full hidden md:block'>
-            <ListTemplates buildReadme={buildReadme} />
+            <ListTemplates />
           </div>
         </TabsContent>
         <TabsContent value='custom'>
           <div className='flex flex-col gap-2'>
             <Searcher setFilterSection={setFilterSection} />
-            <ListSections
-              listSections={listSectionsFiltered}
-              customSections={customSections}
-              buildReadme={buildReadme}
-            />
+            <ListSections listSections={listSectionsFiltered} customSections={customSections} />
           </div>
         </TabsContent>
       </Tabs>

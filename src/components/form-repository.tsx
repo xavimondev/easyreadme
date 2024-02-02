@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 import { useKeyPress } from '@/hooks/use-keypress'
 import useLocalStorage from '@/hooks/use-local-storage'
+import { useReadme } from '@/hooks/use-readme'
 import { Input } from '@/components/ui/input'
 import { CommandK } from '@/components/command-k'
 import { GitIc } from '@/components/icons'
@@ -33,6 +34,7 @@ export function FormRepository() {
   const [listRepositories, setListRepositories] = useState(LIST_ITEMS)
   const [cursor, setCursor] = useState<number>(0)
   const setGitUrlRepository = useBuilder((store) => store.setGitUrlRepository)
+  const { buildTemplate } = useReadme()
   // const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const downPress = useKeyPress('ArrowDown', inputRef)
@@ -76,6 +78,7 @@ export function FormRepository() {
     }
   }, [cursor, enterPress])
 
+  // TODO: submit should also triggers when user selects an item
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const urlRepository = inputValue
@@ -94,7 +97,11 @@ export function FormRepository() {
       data = listRepositories.slice(1).concat(urlRepository)
     }
     setValue(data)
-    setGitUrlRepository(urlRepository)
+
+    // Generating readme from command bar
+    buildTemplate({
+      url: urlRepository
+    })
   }
 
   const listRepositoriesFiltered = useMemo(() => {
@@ -123,14 +130,6 @@ export function FormRepository() {
             className='w-full h-8 pl-9 border-none focus-visible:outline-none focus-visible:ring-0 placeholder:text-center text-center group-focus-within:placeholder:text-left group-focus-within:text-left group-focus-within:placeholder:text-white/60 placeholder:text-white/40'
             placeholder='https://github.com/xavimondev/easyreadme'
           />
-          {/* {inputValue.length > 0 ? (
-            <span
-              className='group-focus-within:flex items-center absolute inset-y-0 right-0 pr-2 hidden text-black/50 dark:text-white/40 focus:outline-none focus:ring-1 focus:ring-neutral-500'
-              onClick={() => setInputValue('')}
-            >
-              <X className='w-4 h-4' />
-            </span>
-          ) : null} */}
           <CommandK />
         </div>
       </form>

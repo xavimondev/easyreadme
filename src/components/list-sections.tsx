@@ -3,6 +3,7 @@ import { Plus, Trash } from 'lucide-react'
 
 import { NodeName, SectionState } from '@/types/builder'
 
+import { useReadme } from '@/hooks/use-readme'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
@@ -10,16 +11,11 @@ type SectionItemProps = {
   name: string
   description: string
   added: boolean
-  buildReadme?: VoidFunction
 }
 
-function SectionItem({
-  name,
-  description,
-  added,
-  buildReadme,
-  children
-}: PropsWithChildren<SectionItemProps>) {
+function SectionItem({ name, description, added, children }: PropsWithChildren<SectionItemProps>) {
+  const { buildCustomReadme } = useReadme()
+
   return (
     <div className='flex flex-col gap-2 rounded-lg border p-4'>
       <div className='w-full flex flex-row items-center justify-between'>
@@ -28,7 +24,7 @@ function SectionItem({
           <p className='text-sm text-muted-foreground'>{description}</p>
         </div>
         {children == null ? (
-          <Button size='icon' onClick={buildReadme}>
+          <Button size='icon' onClick={() => buildCustomReadme({ section: name as NodeName })}>
             {added ? <Trash className='w-4 h-4' /> : <Plus className='w-4 h-4' />}
           </Button>
         ) : null}
@@ -41,10 +37,9 @@ function SectionItem({
 type ListSectionsProps = {
   listSections: SectionState[]
   customSections: Partial<Record<NodeName, JSX.Element>>
-  buildReadme: ({ data }: { data: NodeName | NodeName[] }) => Promise<void>
 }
 
-export function ListSections({ listSections, customSections, buildReadme }: ListSectionsProps) {
+export function ListSections({ listSections, customSections }: ListSectionsProps) {
   return (
     <ScrollArea className='md:h-[calc(100vh-172px)]'>
       <div className='flex flex-col gap-2 w-full overflow-hidden px-3.5'>
@@ -53,13 +48,7 @@ export function ListSections({ listSections, customSections, buildReadme }: List
           .map(({ id, name, description, added }) => {
             const children = customSections[id]
             return (
-              <SectionItem
-                key={id}
-                name={name}
-                added={added}
-                description={description}
-                buildReadme={() => buildReadme({ data: id })}
-              >
+              <SectionItem key={id} name={name} added={added} description={description}>
                 {children}
               </SectionItem>
             )

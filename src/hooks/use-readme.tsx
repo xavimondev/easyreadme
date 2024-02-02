@@ -1,10 +1,15 @@
 import { useCallback } from 'react'
 import { findChildren } from '@tiptap/react'
+import { toast } from 'sonner'
 
 import { BadgeName, ContributorOption, NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
-import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS, SECTIONS_EXCLUDED_FROM_UPDATES } from '@/constants'
+import {
+  LIST_TEMPLATES,
+  SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS,
+  SECTIONS_EXCLUDED_FROM_UPDATES
+} from '@/constants'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
@@ -12,7 +17,7 @@ import {
   getProjectSummaryData,
   getTechStackData
 } from '@/utils/readme'
-import { getContributors, getGenerationAI, getLicense } from '@/services/github'
+import { getContributors, getGenerationAI, getLicense, getRepositoryData } from '@/services/github'
 import { useBuilder } from '@/store'
 import { useSections } from '@/hooks/use-sections'
 
@@ -152,7 +157,6 @@ const DEFAULT_BADGES: BadgeName[] = [
   'deployment',
   'license'
 ]
-const dataRepository = undefined
 
 export function useReadme() {
   const {
@@ -161,7 +165,11 @@ export function useReadme() {
     addSectionToTableOfContents,
     removeSectionFromTableOfContents,
     gitRepositoryData,
-    readmeEditor
+    readmeEditor,
+    gitUrlRepository,
+    setGitUrlRepository,
+    setGitRepositoryData,
+    templateSelected
   } = useBuilder((store) => store)
   const {
     addAcknowledgment,
@@ -229,60 +237,91 @@ export function useReadme() {
     return foundNode
   }
 
-  const buildReadme = async ({
-    data,
-    options
-  }: {
-    data: NodeName | NodeName[]
-    options?: { data: any }
-  }) => {
-    if (Array.isArray(data)) {
-      const hasTableOfContentsSection = data.find((sec) => sec === NodeName.TABLE_CONTENTS)
-      if (hasTableOfContentsSection) {
-        // Updating table of contents with new sections
-        const newTableOfContents = data
-          .filter((section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section))
-          .map((sectionId) => {
-            const sectionName = listSections.find((sec) => sec.id === sectionId)!
-            return {
-              id: sectionName.id,
-              name: sectionName.name
-            }
-          })
-        addSectionToTableOfContents(newTableOfContents)
+  const checkGitRepositoryData = async ({ urlRepository }: { urlRepository?: string }) => {
+    // console.log('Looking for', urlRepository)
+    if (urlRepository && gitUrlRepository !== urlRepository) setGitUrlRepository(urlRepository)
+
+    const isNewData = gitRepositoryData?.urlRepository !== urlRepository
+
+    if (isNewData && urlRepository) {
+      const data = await getRepositoryData({ urlRepository })
+      if (data) {
+        setGitRepositoryData(data)
       }
+      return data
+    }
+    return gitRepositoryData
+  }
 
-      let sectionsToUpdate = data
-      const addedSections = listSections
-        .filter((section) => section.added)
-        .map((section) => section.id)
-
-      if (addedSections.length > 0) {
-        const deletedSections = addedSections.filter((section) => !data.includes(section))
-        const newAddedSections = data.filter((section) => !addedSections.includes(section))
-        sectionsToUpdate = deletedSections.concat(newAddedSections)
-      }
-
-      clearEditorContent()
-      updateSection(sectionsToUpdate)
-      for (let i = 0; i < data.length; i++) {
-        const sectionId = data.at(i)
-        await addSection({
-          section: sectionId!,
-          options
-        })
-      }
-
+  const getTemplateSections = ({ template }: { template?: string }) => {
+    const query = template ?? (templateSelected as string)
+    if (!query) {
+      toast.info(`You haven't selected a template.`)
       return
     }
 
-    const sectionItem = listSections.find((sec) => sec.id === data)!
+    return LIST_TEMPLATES.find(({ nameTemplate }) => nameTemplate === query)!.sections
+  }
 
-    if (!SECTIONS_EXCLUDED_FROM_UPDATES.includes(data)) {
-      updateSection(data)
+  const buildTemplate = async ({ template, url }: { template?: string; url?: string }) => {
+    const gitData = await checkGitRepositoryData({ urlRepository: url })
+
+    const sections = getTemplateSections({ template })
+    if (!sections) return
+
+    // FIXME: duplicate sections - useRef could ne ideal
+    const hasTableOfContentsSection = sections.find((sec) => sec === NodeName.TABLE_CONTENTS)
+    if (hasTableOfContentsSection) {
+      // Updating table of contents with new sections
+      const newTableOfContents = sections
+        .filter((section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section))
+        .map((sectionId) => {
+          const sectionName = listSections.find((sec) => sec.id === sectionId)!
+          return {
+            id: sectionName.id,
+            name: sectionName.name
+          }
+        })
+
+      addSectionToTableOfContents(newTableOfContents)
     }
 
-    if (!sectionItem.added && !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(data)) {
+    let sectionsToUpdate = sections
+    const addedSections = listSections
+      .filter((section) => section.added)
+      .map((section) => section.id)
+
+    if (addedSections.length > 0) {
+      const deletedSections = addedSections.filter((section) => !sections.includes(section))
+      const newAddedSections = sections.filter((section) => !addedSections.includes(section))
+      sectionsToUpdate = deletedSections.concat(newAddedSections)
+    }
+
+    clearEditorContent()
+    updateSection(sectionsToUpdate)
+    for (let i = 0; i < sectionsToUpdate.length; i++) {
+      const sectionId = sectionsToUpdate.at(i)
+      await addSection({
+        section: sectionId!,
+        gitData
+      })
+    }
+  }
+
+  const buildCustomReadme = async ({
+    section,
+    options
+  }: {
+    section: NodeName
+    options?: { data: any }
+  }) => {
+    const sectionItem = listSections.find((sec) => sec.id === section)!
+
+    if (!SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)) {
+      updateSection(section)
+    }
+
+    if (!sectionItem.added && !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)) {
       // adding new section to table of contents
       addSectionToTableOfContents({
         id: sectionItem.id,
@@ -290,29 +329,40 @@ export function useReadme() {
       })
     }
 
-    if (sectionItem.added && !SECTIONS_EXCLUDED_FROM_UPDATES.includes(data)) {
-      removeNode(data) // removing node from editor
-      removeSectionFromTableOfContents(data) // removing section from table of contents
+    if (sectionItem.added && !SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)) {
+      removeNode(section) // removing node from editor
+      removeSectionFromTableOfContents(section) // removing section from table of contents
       return
     }
 
     await addSection({
-      section: data,
+      section: section,
       options
     })
   }
 
   const addSection = async ({
     section,
+    gitData,
     options
   }: {
     section: NodeName
+    gitData?: GitRepository
     options?: { data: any }
   }) => {
+    const repositoryData = gitData ?? gitRepositoryData
     const { repoName, owner, branch, description, language, urlRepository } =
-      gitRepositoryData ?? DEFAULT_REPOSITORY_DATA
-
-    const endPos = readmeEditor?.state.doc.resolve(readmeEditor.state.doc.childCount).end() ?? 0
+      repositoryData ?? DEFAULT_REPOSITORY_DATA
+    let endPos = 0
+    const lastNode = readmeEditor?.state.doc.lastChild
+    if (lastNode) {
+      const lastNodePos = readmeEditor?.state.doc.resolve(
+        readmeEditor?.state.doc.content.size - lastNode.nodeSize
+      )
+      const { pos } = lastNodePos
+      endPos = pos
+    }
+    console.log(endPos)
 
     if (section === NodeName.ACKNOWLEDGEMENTS) {
       addAcknowledgment({ endPos })
@@ -323,7 +373,6 @@ export function useReadme() {
         badgesData = data
       }
       if (Array.isArray(badgesData)) {
-        console.log(badgesData)
         for (let i = 0; i < badgesData.length; i++) {
           const id = badgesData.at(i)
           const badge = getBadgeByName({
@@ -345,11 +394,12 @@ export function useReadme() {
         badge: id
       })
       addBadge({
-        endPos,
+        endPos: endPos,
         data: badge
       })
     } else if (section === NodeName.BANNER) {
-      addBanner({ endPos })
+      console.log(endPos)
+      addBanner({ endPos: endPos })
     } else if (section === NodeName.CHANGELOG) {
       addChangelog({ endPos })
     } else if (section === NodeName.COMMANDS) {
@@ -357,9 +407,8 @@ export function useReadme() {
     } else if (section === NodeName.CONTRIBUTORS) {
       // TODO: make sure to skip when user selects table from customize tab
       if (!options) {
-        console.log('no contributors')
         addContributor({
-          endPos,
+          endPos: endPos,
           data: {
             repository: repoName,
             owner
@@ -375,7 +424,7 @@ export function useReadme() {
 
       if (!node) {
         addContributor({
-          endPos
+          endPos: endPos
         })
       } else {
         nodeFound = node
@@ -432,16 +481,17 @@ export function useReadme() {
     } else if (section === NodeName.FAQ) {
       addFaq({ endPos })
     } else if (section === NodeName.LICENSE) {
+      console.log(endPos)
       let license = DEFAULT_DATA_CACHED[section]
-      if (dataRepository) {
+      if (repositoryData) {
         license = await getLicense({
           repoName,
           owner
         })
       }
-      addLicense({ endPos, license })
+      addLicense({ endPos: endPos, license })
     } else if (section === NodeName.OVERVIEW) {
-      if (!dataRepository) {
+      if (!repositoryData) {
         const data = DEFAULT_DATA_CACHED[section]
         addOverview({
           endPos,
@@ -450,16 +500,16 @@ export function useReadme() {
         return
       }
 
-      addOverview({
-        endPos,
-        data: {
-          showPlaceholder: true
-        }
-      })
+      // addOverview({
+      //   endPos,
+      //   data: {
+      //     showPlaceholder: true
+      //   }
+      // })
 
-      const endPosFinal =
-        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
+      // const endPosFinal =
+      //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      // const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
 
       const prompt = await getOverviewData({
         branch,
@@ -472,17 +522,18 @@ export function useReadme() {
         format: 'string',
         prompt
       })
-      const overview = response.data
-      const newContent = {
-        ...nodoActual?.attrs,
-        content: overview,
-        showPlaceholder: false
-      }
 
-      updateNode({
-        node: section,
-        data: newContent
+      addOverview({
+        endPos,
+        data: {
+          content: response.data
+        }
       })
+      // const newContent = {
+      //   ...currentNode?.attrs,
+      //   content: overview,
+      //   showPlaceholder: false
+      // }
     } else if (section === NodeName.PREREQUISITES) {
       addPrerequisites({ endPos })
     } else if (section === NodeName.PROJECT_STRUCTURE) {
@@ -493,7 +544,7 @@ export function useReadme() {
       })
       addProjectStructure({ endPos, tree })
     } else if (section === NodeName.PROJECT_SUMMARY) {
-      if (!dataRepository) {
+      if (!repositoryData) {
         const data = DEFAULT_DATA_CACHED[section]
         addProjectSummary({
           endPos,
@@ -501,15 +552,8 @@ export function useReadme() {
         })
         return
       }
-      addProjectSummary({
-        endPos,
-        data: {
-          showPlaceholder: true
-        }
-      })
-      const endPosFinal =
-        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
+
+      // const nodeToUpdate = readmeEditor?.state.doc.nodeAt(endPos)
 
       const prompt = await getProjectSummaryData({
         owner,
@@ -518,14 +562,19 @@ export function useReadme() {
         language
       })
       if (prompt === '') {
-        const newContent = {
-          ...nodoActual?.attrs,
-          content: []
-        }
-        updateNode({
-          node: section,
-          data: newContent
+        addProjectSummary({
+          endPos,
+          data: {
+            content: []
+          }
         })
+        // const newContent = {
+        //   ...nodeToUpdate?.attrs,
+        //   // endPos,
+        //   content: [],
+        //   showPlaceholder: false
+        // }
+
         return
       }
 
@@ -533,28 +582,33 @@ export function useReadme() {
         format: 'json',
         prompt
       })
-      const newContent = {
-        ...nodoActual?.attrs,
-        content: response.data.data,
-        showPlaceholder: false
-      }
-      updateNode({
-        node: section,
-        data: newContent
+
+      addProjectSummary({
+        endPos,
+        data: {
+          content: response.data.data
+        }
       })
+      // const newContent = {
+      //   ...nodeToUpdate?.attrs,
+      //   // endPos,
+      //   content: response.data.data,
+      //   showPlaceholder: false
+      // }
     } else if (section === NodeName.ROADMAP) {
       addRoadmap({
         endPos
       })
     } else if (section === NodeName.RUN_LOCALLY) {
+      console.log(endPos)
       let mainLanguage = DEFAULT_DATA_CACHED[section].mainLanguage
 
-      if (dataRepository) {
+      if (repositoryData) {
         mainLanguage = language
       }
 
       addRunLocally({
-        endPos,
+        endPos: endPos,
         data: {
           mainLanguage,
           repoName,
@@ -562,69 +616,65 @@ export function useReadme() {
         }
       })
     } else if (section === NodeName.SETTING_UP) {
-      if (!dataRepository) {
+      console.log(endPos)
+      if (!repositoryData) {
         const data = DEFAULT_DATA_CACHED[section]
         addSettingUpGuide({
-          endPos,
+          endPos: endPos,
           data
         })
         return
       }
 
-      addSettingUpGuide({
-        endPos,
-        data: {
-          showPlaceholder: true
-        }
-      })
-      const endPosFinal =
-        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
-
+      // const endPosFinal =
+      //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPos)
+      // console.log(currentNode)
       const prompt = await getEnvironmentVariablesGuideData({
         owner,
         repoName
       })
       if (prompt === '') {
-        const newContent = {
-          ...nodoActual?.attrs,
-          content: [],
-          showPlaceholder: false
-        }
-        updateNode({
-          node: section,
-          data: newContent
+        addSettingUpGuide({
+          endPos: endPos,
+          data: {
+            content: []
+          }
         })
+        // const newContent = {
+        //   ...currentNode?.attrs,
+        //   content: [],
+        //   showPlaceholder: false
+        // }
+
         return
       }
       const response = await getGenerationAI({
         format: 'json',
         prompt
       })
-      const newContent = {
-        ...nodoActual?.attrs,
-        content: response.data.data,
-        showPlaceholder: false
-      }
-      updateNode({
-        node: section,
-        data: newContent
+      // const newContent = {
+      //   ...currentNode?.attrs,
+      //   content: response.data.data,
+      //   showPlaceholder: false
+      // }
+
+      addSettingUpGuide({
+        endPos: endPos,
+        data: {
+          content: response.data.data
+        }
       })
     } else if (section === NodeName.TECH_STACK) {
-      if (!dataRepository) {
+      console.log(endPos)
+      if (!repositoryData) {
         const data = DEFAULT_DATA_CACHED[section]
         addTechStack({
-          endPos,
+          endPos: endPos,
           data
         })
         return
       }
-      addTechStack({
-        endPos,
-        data: {
-          showPlaceholder: true
-        }
-      })
 
       const prompt = await getTechStackData({
         branch,
@@ -633,44 +683,51 @@ export function useReadme() {
         repoName
       })
 
-      const endPosFinal =
-        readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      const nodoActual = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
+      // const endPosFinal =
+      //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
+      // const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPos)
 
       if (prompt === '') {
-        const newContent = {
-          ...nodoActual?.attrs,
-          content: [],
-          showPlaceholder: false
-        }
-        updateNode({
-          node: section,
-          data: newContent
+        // const newContent = {
+        //   ...currentNode?.attrs,
+        //   content: [],
+        //   showPlaceholder: false
+        // }
+        addTechStack({
+          endPos: endPos,
+          data: {
+            content: []
+          }
         })
         return
       }
+
       const response = await getGenerationAI({
         format: 'json',
         prompt
       })
-      const newContent = {
-        ...nodoActual?.attrs,
-        content: response.data.dependencies,
-        showPlaceholder: false
-      }
-      updateNode({
-        node: section,
-        data: newContent
+
+      addTechStack({
+        endPos: endPos,
+        data: {
+          content: response.data.dependencies
+        }
       })
+      // const newContent = {
+      //   ...currentNode?.attrs,
+      //   content: response.data.dependencies,
+      //   showPlaceholder: false
+      // }
     } else if (section === NodeName.TABLE_CONTENTS) {
       addTableOfContent({
-        endPos,
+        endPos: endPos,
         content: []
       })
     }
   }
 
   return {
-    buildReadme
+    buildCustomReadme,
+    buildTemplate
   }
 }

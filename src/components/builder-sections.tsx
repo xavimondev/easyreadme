@@ -5,7 +5,6 @@ import { useMemo, useState } from 'react'
 import { NodeName } from '@/types/builder'
 
 import { useBuilder } from '@/store'
-import { useReadme } from '@/hooks/use-readme'
 import { BadgesOptions } from '@/components/badges-options'
 import { ContributorsOptions } from '@/components/contributors-options'
 import { CustomEditor } from '@/components/editor/custom-editor'
@@ -13,15 +12,14 @@ import { Sidebar } from '@/components/sidebar'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
-  const { listSections, readmeEditor } = useBuilder((store) => store)
-  const { buildReadme } = useReadme()
+  const { listSections } = useBuilder((store) => store)
 
   const customSections: Partial<Record<NodeName, JSX.Element>> = useMemo(() => {
     return {
-      [NodeName.BADGE]: <BadgesOptions buildReadme={buildReadme} />,
-      [NodeName.CONTRIBUTORS]: <ContributorsOptions buildReadme={buildReadme} />
+      [NodeName.BADGE]: <BadgesOptions />,
+      [NodeName.CONTRIBUTORS]: <ContributorsOptions />
     }
-  }, [readmeEditor])
+  }, [])
 
   const listSectionsFiltered = useMemo(() => {
     return filterSection !== '' && filterSection.length > 0
@@ -37,7 +35,6 @@ export function BuilderSections() {
         setFilterSection={setFilterSection}
         customSections={customSections}
         listSectionsFiltered={listSectionsFiltered}
-        buildReadme={buildReadme}
       />
       <CustomEditor />
     </main>
