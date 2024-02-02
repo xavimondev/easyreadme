@@ -14,7 +14,6 @@ export function FormApiKey() {
   useEffect(() => {
     const getCookie = async () => {
       const cookie = await getApiKey()
-      console.log(cookie)
       inputRef.current!.value = cookie ?? ''
     }
     getCookie()

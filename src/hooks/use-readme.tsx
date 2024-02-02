@@ -238,7 +238,6 @@ export function useReadme() {
   }
 
   const checkGitRepositoryData = async ({ urlRepository }: { urlRepository?: string }) => {
-    // console.log('Looking for', urlRepository)
     if (urlRepository && gitUrlRepository !== urlRepository) setGitUrlRepository(urlRepository)
 
     const isNewData = gitRepositoryData?.urlRepository !== urlRepository
@@ -362,7 +361,6 @@ export function useReadme() {
       const { pos } = lastNodePos
       endPos = pos
     }
-    console.log(endPos)
 
     if (section === NodeName.ACKNOWLEDGEMENTS) {
       addAcknowledgment({ endPos })
@@ -398,7 +396,6 @@ export function useReadme() {
         data: badge
       })
     } else if (section === NodeName.BANNER) {
-      console.log(endPos)
       addBanner({ endPos: endPos })
     } else if (section === NodeName.CHANGELOG) {
       addChangelog({ endPos })
@@ -481,7 +478,6 @@ export function useReadme() {
     } else if (section === NodeName.FAQ) {
       addFaq({ endPos })
     } else if (section === NodeName.LICENSE) {
-      console.log(endPos)
       let license = DEFAULT_DATA_CACHED[section]
       if (repositoryData) {
         license = await getLicense({
@@ -610,7 +606,6 @@ export function useReadme() {
         endPos
       })
     } else if (section === NodeName.RUN_LOCALLY) {
-      console.log(endPos)
       let mainLanguage = DEFAULT_DATA_CACHED[section].mainLanguage
 
       if (repositoryData) {
@@ -626,7 +621,6 @@ export function useReadme() {
         }
       })
     } else if (section === NodeName.SETTING_UP) {
-      console.log(endPos)
       if (!repositoryData) {
         const data = DEFAULT_DATA_CACHED[section]
         addSettingUpGuide({
@@ -638,8 +632,7 @@ export function useReadme() {
 
       // const endPosFinal =
       //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPos)
-      // console.log(currentNode)
+      // const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPos)
       const prompt = await getEnvironmentVariablesGuideData({
         owner,
         repoName
@@ -681,7 +674,6 @@ export function useReadme() {
         }
       })
     } else if (section === NodeName.TECH_STACK) {
-      console.log(endPos)
       if (!repositoryData) {
         const data = DEFAULT_DATA_CACHED[section]
         addTechStack({
