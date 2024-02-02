@@ -523,6 +523,11 @@ export function useReadme() {
         prompt
       })
 
+      if (response.name === 'Error') {
+        toast.error(response.message)
+        return
+      }
+
       addOverview({
         endPos,
         data: {
@@ -582,6 +587,11 @@ export function useReadme() {
         format: 'json',
         prompt
       })
+
+      if (response.name === 'Error') {
+        toast.error(response.message)
+        return
+      }
 
       addProjectSummary({
         endPos,
@@ -653,6 +663,11 @@ export function useReadme() {
         format: 'json',
         prompt
       })
+
+      if (response.name === 'Error') {
+        toast.error(response.message)
+        return
+      }
       // const newContent = {
       //   ...currentNode?.attrs,
       //   content: response.data.data,
@@ -706,6 +721,11 @@ export function useReadme() {
         format: 'json',
         prompt
       })
+
+      if (response.name === 'Error') {
+        toast.error(response.message)
+        return
+      }
 
       addTechStack({
         endPos: endPos,
