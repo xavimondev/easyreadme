@@ -1,13 +1,9 @@
 'use client'
 
-import { KeyRound } from 'lucide-react'
-
 import { RATE_LIMIT } from '@/constants'
 import { useRemaining } from '@/hooks/use-remaining'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-
-import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
+import { FormApiKey } from '@/components/form-api-key'
 
 export function CounterRemaining() {
   const { data, isLoading } = useRemaining()
@@ -38,33 +34,7 @@ export function CounterRemaining() {
                 left. Use your API Key to keep generating AI sections.
               </p>
             </div>
-            <form className='flex flex-col gap-2 w-full'>
-              <div className='flex flex-col gap-2.5 text-center sm:text-left'>
-                <h2 className='text-lg font-semibold leading-none tracking-tight'>API Key</h2>
-                <p className='text-sm text-muted-foreground'>
-                  Set your OpenAI API key. You can grab it{' '}
-                  <a
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='text-cyan-500 underline underline-offset-4 hover:text-cyan-300'
-                    href='https://platform.openai.com/account/api-keys'
-                  >
-                    here
-                  </a>
-                  .
-                </p>
-              </div>
-              <div className='flex'>
-                <Label
-                  className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sr-only text-right'
-                  htmlFor='key'
-                ></Label>
-              </div>
-              <div className='relative'>
-                <KeyRound className='absolute left-3 top-2.5 h-4 w-4 text-muted-foreground' />
-                <Input placeholder='XX-XXXXXXXXXXXXXXXX' id='key' name='key' className='pl-9' />
-              </div>
-            </form>
+            <FormApiKey />
           </div>
         </HoverCardContent>
       </HoverCard>

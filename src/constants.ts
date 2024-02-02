@@ -377,3 +377,5 @@ export const SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS = [
   NodeName.BADGE,
   NodeName.BANNER
 ]
+
+export const COOKIE_NAME = 'apikey-ai'

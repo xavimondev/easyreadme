@@ -1,5 +1,8 @@
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
+
+import { COOKIE_NAME } from '@/constants'
 
 export const runtime = 'edge'
 
@@ -8,6 +11,12 @@ const openai = new OpenAI({
 })
 
 export async function POST(req: Request) {
+  const userEnteredApiKey = cookies().get(COOKIE_NAME)?.value
+  if (userEnteredApiKey && userEnteredApiKey.trim().length > 0) {
+    // Set user's api key
+    openai.apiKey = userEnteredApiKey
+  }
+
   try {
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === '') {
       return new Response('Missing OPENAI_API_KEY – make sure to add it to your .env file.', {
@@ -40,8 +49,10 @@ export async function POST(req: Request) {
   } catch (error) {
     // Check if the error is an APIError
     if (error instanceof OpenAI.APIError) {
-      console.error(error.message)
-      const errorMessage = 'An error has ocurred with API Completions. Please try again.'
+      let errorMessage = 'An error has ocurred with API Completions. Please try again.'
+      if (error.status === 401) {
+        errorMessage = 'Incorrect API Key provided. Please enter a new one.'
+      }
       const { name, status, headers } = error
       return NextResponse.json({ name, status, headers, message: errorMessage }, { status })
     } else {
