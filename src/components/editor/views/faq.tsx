@@ -1,28 +1,35 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
-import { ViewProps } from '@/types/view'
 
 import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
+import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
-export function Faq({ deleteNode, node }: ViewProps) {
+export function Faq(props: any) {
+  const { node, deleteNode } = props
   const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
 
+  useNode(props)
+
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>
       <div className='relative group'>
-        <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
+        <div
+          className='!outline-none content'
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+        >
           <h2>{section?.name}</h2>
-          <h4 spellCheck='false'>1. What is this project about?</h4>
+          <h4 spellCheck='false'>1.What is this project about?</h4>
           <p>
             This project aims to{' '}
             <strong>briefly describe your project&apos;s purpose and goals</strong>.
           </p>
-          <h4 spellCheck='false'>2. What is this project about?</h4>
+          <h4 spellCheck='false'>2.What is this project about?</h4>
           <p>
             Yes, we welcome contributions! Please refer to our{' '}
             <a

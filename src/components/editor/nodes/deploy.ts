@@ -17,6 +17,13 @@ export default Node.create({
       }
     ]
   },
+  addAttributes() {
+    return {
+      html: {
+        default: ''
+      }
+    }
+  },
   renderHTML({ HTMLAttributes }) {
     return ['Deploy', mergeAttributes(HTMLAttributes)]
   },

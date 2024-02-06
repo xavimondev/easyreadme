@@ -1,15 +1,16 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
-import { ViewProps } from '@/types/view'
 
 import { LANGUAGES_SETUP } from '@/constants'
 import { getSetupCommands } from '@/utils/commands'
 import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
+import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
-export function RunLocally({ deleteNode, node }: ViewProps) {
+export function RunLocally(props: any) {
+  const { node, deleteNode } = props
   const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
   const { mainLanguage, repoName, urlRepository } = attrs.data
@@ -24,10 +25,16 @@ export function RunLocally({ deleteNode, node }: ViewProps) {
     ? getSetupCommands({ commands: setup.commands['run'] })
     : `Insert RUN commands`
 
+  useNode(props)
+
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
-        <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
+        <div
+          className='!outline-none content'
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+        >
           <h2>{section?.name}</h2>
           <ul
             className='list-decimal list-outside leading-4 dark:marker:text-white marker:text-black'

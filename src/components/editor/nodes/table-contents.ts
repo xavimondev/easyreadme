@@ -32,6 +32,9 @@ export default Node.create({
       },
       content: {
         default: []
+      },
+      html: {
+        default: ''
       }
     }
   },

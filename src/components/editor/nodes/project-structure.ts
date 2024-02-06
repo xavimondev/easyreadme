@@ -32,6 +32,9 @@ export default Node.create({
       },
       tree: {
         default: ''
+      },
+      html: {
+        default: ''
       }
     }
   },

@@ -1,10 +1,9 @@
 export const getSetupCommands = ({ commands }: { commands: string[] }) => {
-  let setup = `\`\`\`bash\n`
+  let setup = ''
 
-  commands.forEach((command, index) => {
-    const breakLine = index === commands.length - 1 ? `\n` : `\n\n`
-    setup += `\n${command}`.trim() + `${breakLine}`
+  commands.forEach((command) => {
+    setup += `\n\n${command}`.trim() + `\n\n`
   })
-  setup += `\`\`\``
+
   return setup
 }

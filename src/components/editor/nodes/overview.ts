@@ -39,6 +39,9 @@ export default Node.create({
       ...NODE_DEFAULT_VALUES,
       content: {
         default: ''
+      },
+      html: {
+        default: ''
       }
     }
   },

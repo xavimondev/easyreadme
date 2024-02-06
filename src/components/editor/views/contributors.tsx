@@ -1,4 +1,3 @@
-import { type Node } from '@tiptap/pm/model'
 import { NodeViewWrapper } from '@tiptap/react'
 
 import { ContributorOption, NodeName } from '@/types/builder'
@@ -6,6 +5,7 @@ import { ContributorOption, NodeName } from '@/types/builder'
 import { groupItems } from '@/utils/groupItems'
 import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
+import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 function Gallery({ data }: { data: any }) {
@@ -71,22 +71,25 @@ function Table({ data }: { data: any }) {
   )
 }
 
-type ContributorsProps = {
-  deleteNode: () => void
-  node: Node
-}
+export function Contributors(props: any) {
+  const { node, deleteNode } = props
 
-export function Contributors({ deleteNode, node }: ContributorsProps) {
   const { attrs } = node
   const { type, data } = attrs
   const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
 
+  useNode(props)
+
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
-        <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
+        <div
+          className='!outline-none content'
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+        >
           <h2>{section?.name}</h2>
           {type === '' ? null : type === ContributorOption.GALLERY ? (
             <Gallery data={data} />

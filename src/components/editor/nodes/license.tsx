@@ -32,6 +32,9 @@ export default Node.create({
       },
       license: {
         default: {}
+      },
+      html: {
+        default: ''
       }
     }
   },

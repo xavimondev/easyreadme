@@ -1,13 +1,14 @@
 import { NodeViewWrapper } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
-import { ViewProps } from '@/types/view'
 
 import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
+import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
-export function License({ deleteNode, node }: ViewProps) {
+export function License(props: any) {
+  const { node, deleteNode } = props
   const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const {
     attrs: { license },
@@ -17,10 +18,16 @@ export function License({ deleteNode, node }: ViewProps) {
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
+  useNode(props)
+
   return (
     <NodeViewWrapper as='div'>
       <div className='relative group'>
-        <div className='!outline-none' contentEditable={true} suppressContentEditableWarning={true}>
+        <div
+          className='!outline-none content'
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+        >
           <h2>{section?.name}</h2>
           {name !== 'undefined' && url !== 'undefined' ? (
             <p>

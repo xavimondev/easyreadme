@@ -10,6 +10,13 @@ export default Node.create({
   group: 'block',
   atom: true,
   draggable: true,
+  addAttributes() {
+    return {
+      html: {
+        default: ''
+      }
+    }
+  },
   parseHTML() {
     return [
       {
