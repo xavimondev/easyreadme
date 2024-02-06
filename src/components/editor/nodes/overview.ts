@@ -3,7 +3,6 @@ import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
-import { NODE_DEFAULT_VALUES } from '@/constants'
 import { Overview } from '@/components/editor/views/overview'
 
 declare module '@tiptap/core' {
@@ -36,7 +35,9 @@ export default Node.create({
   },
   addAttributes() {
     return {
-      ...NODE_DEFAULT_VALUES,
+      endPos: {
+        default: 0
+      },
       content: {
         default: ''
       },
@@ -48,21 +49,13 @@ export default Node.create({
   addCommands(): any {
     return {
       insertOverview:
-        ({
-          endPos,
-          content,
-          showPlaceholder
-        }: {
-          endPos: number
-          content: string
-          showPlaceholder: boolean
-        }) =>
+        ({ endPos, content }: { endPos: number; content: string }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
               type: NodeName.OVERVIEW,
-              attrs: { content, showPlaceholder }
+              attrs: { content }
             })
             .focus('end')
             .run()

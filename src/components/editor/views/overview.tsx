@@ -6,13 +6,12 @@ import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
-import { PlaceholderParagraph } from '@/components/placeholder'
 
 export function Overview(props: any) {
   const { node, deleteNode } = props
   const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
-  const { content, showPlaceholder } = attrs
+  const { content } = attrs
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -27,7 +26,7 @@ export function Overview(props: any) {
           suppressContentEditableWarning={true}
         >
           <h2>{section?.name}</h2>
-          {showPlaceholder ? <PlaceholderParagraph /> : <p>{content}</p>}
+          {content === '' ? <p>Insert a brief overview of your project</p> : <p>{content}</p>}
         </div>
         <ActionsBar
           removeSection={() => {

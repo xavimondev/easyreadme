@@ -490,53 +490,33 @@ export function useReadme() {
       }
       addLicense({ endPos: endPos, license })
     } else if (section === NodeName.OVERVIEW) {
+      let content = ''
+
       if (!repositoryData) {
-        const data = DEFAULT_DATA_CACHED[section]
-        addOverview({
-          endPos,
-          data
-        })
-        return
-      }
-
-      // addOverview({
-      //   endPos,
-      //   data: {
-      //     showPlaceholder: true
-      //   }
-      // })
-
-      // const endPosFinal =
-      //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      // const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
-
-      const prompt = await getOverviewData({
-        branch,
-        description,
-        language,
-        owner,
-        repoName
-      })
-      const response = await getGenerationAI({
-        format: 'string',
-        prompt
-      })
-
-      if (response.name === 'Error') {
-        toast.error(response.message)
-        return
+        content = DEFAULT_DATA_CACHED[section].content
       }
 
       addOverview({
         endPos,
         data: {
-          content: response.data
+          content
         }
       })
-      // const newContent = {
-      //   ...currentNode?.attrs,
-      //   content: overview,
-      //   showPlaceholder: false
+      // const prompt = await getOverviewData({
+      //   branch,
+      //   description,
+      //   language,
+      //   owner,
+      //   repoName
+      // })
+      // const response = await getGenerationAI({
+      //   format: 'string',
+      //   prompt
+      // })
+
+      // if (response.name === 'Error') {
+      //   toast.error(response.message)
+      //   return
       // }
     } else if (section === NodeName.PREREQUISITES) {
       addPrerequisites({ endPos })
@@ -557,8 +537,6 @@ export function useReadme() {
         return
       }
 
-      // const nodeToUpdate = readmeEditor?.state.doc.nodeAt(endPos)
-
       const prompt = await getProjectSummaryData({
         owner,
         repoName,
@@ -572,13 +550,6 @@ export function useReadme() {
             content: []
           }
         })
-        // const newContent = {
-        //   ...nodeToUpdate?.attrs,
-        //   // endPos,
-        //   content: [],
-        //   showPlaceholder: false
-        // }
-
         return
       }
 
@@ -598,12 +569,6 @@ export function useReadme() {
           content: response.data.data
         }
       })
-      // const newContent = {
-      //   ...nodeToUpdate?.attrs,
-      //   // endPos,
-      //   content: response.data.data,
-      //   showPlaceholder: false
-      // }
     } else if (section === NodeName.ROADMAP) {
       addRoadmap({
         endPos
@@ -633,9 +598,6 @@ export function useReadme() {
         return
       }
 
-      // const endPosFinal =
-      //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      // const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPos)
       const prompt = await getEnvironmentVariablesGuideData({
         owner,
         repoName
@@ -647,14 +609,9 @@ export function useReadme() {
             content: []
           }
         })
-        // const newContent = {
-        //   ...currentNode?.attrs,
-        //   content: [],
-        //   showPlaceholder: false
-        // }
-
         return
       }
+
       const response = await getGenerationAI({
         format: 'json',
         prompt
@@ -664,11 +621,6 @@ export function useReadme() {
         toast.error(response.message)
         return
       }
-      // const newContent = {
-      //   ...currentNode?.attrs,
-      //   content: response.data.data,
-      //   showPlaceholder: false
-      // }
 
       addSettingUpGuide({
         endPos: endPos,
@@ -693,16 +645,7 @@ export function useReadme() {
         repoName
       })
 
-      // const endPosFinal =
-      //   readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-      // const currentNode = readmeEditor?.state.tr.doc.nodeAt(endPos)
-
       if (prompt === '') {
-        // const newContent = {
-        //   ...currentNode?.attrs,
-        //   content: [],
-        //   showPlaceholder: false
-        // }
         addTechStack({
           endPos: endPos,
           data: {
@@ -728,11 +671,6 @@ export function useReadme() {
           content: response.data.dependencies
         }
       })
-      // const newContent = {
-      //   ...currentNode?.attrs,
-      //   content: response.data.dependencies,
-      //   showPlaceholder: false
-      // }
     } else if (section === NodeName.TABLE_CONTENTS) {
       addTableOfContent({
         endPos: endPos,
