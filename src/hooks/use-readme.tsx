@@ -169,7 +169,8 @@ export function useReadme() {
     gitUrlRepository,
     setGitUrlRepository,
     setGitRepositoryData,
-    templateSelected
+    templateSelected,
+    setTableOfContents
   } = useBuilder((store) => store)
   const {
     addAcknowledgment,
@@ -268,21 +269,21 @@ export function useReadme() {
     const sections = getTemplateSections({ template })
     if (!sections) return
 
-    // FIXME: duplicate sections - useRef could ne ideal
+    const filteredSections = sections.filter(
+      (section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)
+    )
+
+    // Check if sections include TABLE_CONTENTS, if so, update the state
     const hasTableOfContentsSection = sections.find((sec) => sec === NodeName.TABLE_CONTENTS)
     if (hasTableOfContentsSection) {
-      // Updating table of contents with new sections
-      const newTableOfContents = sections
-        .filter((section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section))
-        .map((sectionId) => {
-          const sectionName = listSections.find((sec) => sec.id === sectionId)!
-          return {
-            id: sectionName.id,
-            name: sectionName.name
-          }
-        })
-
-      addSectionToTableOfContents(newTableOfContents)
+      const mappedSections = filteredSections.map((section) => {
+        const sectionData = listSections.find(({ id }) => id === section)!
+        return {
+          id: sectionData.id,
+          name: sectionData.name
+        }
+      })
+      setTableOfContents(mappedSections)
     }
 
     let sectionsToUpdate = sections
@@ -298,8 +299,8 @@ export function useReadme() {
 
     clearEditorContent()
     updateSection(sectionsToUpdate)
-    for (let i = 0; i < sectionsToUpdate.length; i++) {
-      const sectionId = sectionsToUpdate.at(i)
+    for (let i = 0; i < sections.length; i++) {
+      const sectionId = sections.at(i)
       await addSection({
         section: sectionId!,
         gitData
@@ -314,14 +315,16 @@ export function useReadme() {
     section: NodeName
     options?: { data: any }
   }) => {
-    const sectionItem = listSections.find((sec) => sec.id === section)!
+    const sectionItem = listSections.find((sec) => sec.id === section)
+
+    if (!sectionItem) return
 
     if (!SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)) {
       updateSection(section)
     }
 
+    // adding new section to table of contents as long as it's not added already and not included in sections_excluded
     if (!sectionItem.added && !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)) {
-      // adding new section to table of contents
       addSectionToTableOfContents({
         id: sectionItem.id,
         name: sectionItem.name

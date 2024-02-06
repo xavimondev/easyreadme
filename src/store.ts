@@ -24,9 +24,8 @@ type BuilderState = {
   listSections: SectionState[]
   updateSection: (section: NodeName | NodeName[]) => void
   tableOfContents: TableOfContentsSection[]
-  addSectionToTableOfContents: (
-    tableOfContents: TableOfContentsSection[] | TableOfContentsSection
-  ) => void
+  setTableOfContents: (tableOfContents: TableOfContentsSection[]) => void
+  addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) => void
   removeSectionFromTableOfContents: (section: NodeName) => void
   gitRepositoryData: GitRepository | undefined
   setGitRepositoryData: (data: GitRepository) => void
@@ -63,9 +62,8 @@ export const useBuilder = create<BuilderState>()((set) => ({
       })
     }))
   },
-  addSectionToTableOfContents: (
-    tableOfContents: TableOfContentsSection[] | TableOfContentsSection
-  ) =>
+  setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
+  addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
     set((prevValues) => ({
       tableOfContents: prevValues.tableOfContents.concat(tableOfContents)
     })),
