@@ -8,12 +8,19 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 type SectionItemProps = {
+  id: NodeName
   name: string
   description: string
   added: boolean
 }
 
-function SectionItem({ name, description, added, children }: PropsWithChildren<SectionItemProps>) {
+function SectionItem({
+  id,
+  name,
+  description,
+  added,
+  children
+}: PropsWithChildren<SectionItemProps>) {
   const { buildCustomReadme } = useReadme()
 
   return (
@@ -24,7 +31,7 @@ function SectionItem({ name, description, added, children }: PropsWithChildren<S
           <p className='text-sm text-muted-foreground'>{description}</p>
         </div>
         {children == null ? (
-          <Button size='icon' onClick={() => buildCustomReadme({ section: name as NodeName })}>
+          <Button size='icon' onClick={() => buildCustomReadme({ section: id })}>
             {added ? <Trash className='w-4 h-4' /> : <Plus className='w-4 h-4' />}
           </Button>
         ) : null}
@@ -45,10 +52,10 @@ export function ListSections({ listSections, customSections }: ListSectionsProps
       <div className='flex flex-col gap-2 w-full overflow-hidden px-3.5'>
         {listSections
           .toSorted((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-          .map(({ id, name, description, added }) => {
-            const children = customSections[id]
+          .map((section) => {
+            const children = customSections[section.id]
             return (
-              <SectionItem key={id} name={name} added={added} description={description}>
+              <SectionItem key={section.id} {...section}>
                 {children}
               </SectionItem>
             )
