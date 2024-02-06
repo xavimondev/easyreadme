@@ -163,6 +163,7 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.SETTING_UP,
       NodeName.RUN_LOCALLY,
       NodeName.CONTRIBUTORS,
+      NodeName.FAQ,
       NodeName.LICENSE
     ]
   },
