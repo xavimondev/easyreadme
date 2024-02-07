@@ -6,7 +6,6 @@ import { NodeName } from '@/types/builder'
 
 import { useBuilder } from '@/store'
 import { BadgesOptions } from '@/components/badges-options'
-import { ContributorsOptions } from '@/components/contributors-options'
 import { CustomEditor } from '@/components/editor/custom-editor'
 import { Sidebar } from '@/components/sidebar'
 
@@ -16,8 +15,7 @@ export function BuilderSections() {
 
   const customSections: Partial<Record<NodeName, JSX.Element>> = useMemo(() => {
     return {
-      [NodeName.BADGE]: <BadgesOptions />,
-      [NodeName.CONTRIBUTORS]: <ContributorsOptions />
+      [NodeName.BADGE]: <BadgesOptions />
     }
   }, [])
 

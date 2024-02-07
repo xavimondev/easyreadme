@@ -16,7 +16,7 @@ import {
   getProjectSummaryData,
   getTechStackData
 } from '@/utils/readme'
-import { getContributors, getGenerationAI, getLicense, getRepositoryData } from '@/services/github'
+import { getGenerationAI, getLicense, getRepositoryData } from '@/services/github'
 import { useBuilder } from '@/store'
 import { useSections } from '@/hooks/use-sections'
 
@@ -238,6 +238,8 @@ export function useReadme() {
   }
 
   const checkGitRepositoryData = async () => {
+    if (!gitUrlRepository) return
+
     const data = await getRepositoryData({ urlRepository: gitUrlRepository })
     if (data) {
       setGitRepositoryData(data)
@@ -361,10 +363,12 @@ export function useReadme() {
       addAcknowledgment({ endPos })
     } else if (section === NodeName.BADGE) {
       let badgesData = DEFAULT_BADGES
+
       if (options) {
         const { data } = options
         badgesData = data
       }
+
       if (Array.isArray(badgesData)) {
         for (let i = 0; i < badgesData.length; i++) {
           const id = badgesData.at(i)
@@ -380,7 +384,10 @@ export function useReadme() {
         }
         return
       }
-      const { id } = badgesData
+
+      if (!gitRepositoryData) return
+
+      const { id } = options?.data
       const badge = getBadgeByName({
         owner,
         repoName,
@@ -397,76 +404,13 @@ export function useReadme() {
     } else if (section === NodeName.COMMANDS) {
       addCommands({ endPos })
     } else if (section === NodeName.CONTRIBUTORS) {
-      // TODO: make sure to skip when user selects table from customize tab
-      if (!options) {
-        addContributor({
-          endPos: endPos,
-          data: {
-            repository: repoName,
-            owner
-          },
-          type: ContributorOption.GALLERY
-        })
-        return
-      }
-
-      const { data } = options
-      let nodeFound = null
-      const node = findNodeByName(section)
-
-      if (!node) {
-        addContributor({
-          endPos: endPos
-        })
-      } else {
-        nodeFound = node
-      }
-
-      let attrsData: any = {
-        owner
-      }
-
-      if (data === ContributorOption.TABLE) {
-        const contributors = await getContributors({
-          repoName,
-          owner
-        })
-
-        const listContributors = contributors
-          .map(({ login, avatar_url, html_url, contributions }: any) => ({
-            username: login,
-            avatar: avatar_url,
-            profileUrl: html_url,
-            contributions: contributions
-          }))
-          .filter(
-            (contributor: any) =>
-              contributor.username !== 'dependabot[bot]' && contributor.username !== owner
-          )
-
-        attrsData = {
-          listContributors
-        }
-      }
-
-      if (!node) {
-        const endPosFinal =
-          readmeEditor?.state.doc.resolve(readmeEditor?.state.doc.childCount).end() ?? -1 ?? 0
-        nodeFound = readmeEditor?.state.tr.doc.nodeAt(endPosFinal)
-      }
-
-      const newContent = {
-        ...nodeFound?.attrs,
-        type: data,
+      addContributor({
+        endPos: endPos,
         data: {
-          ...attrsData,
-          repository: repoName
-        }
-      }
-
-      updateNode({
-        node: section,
-        data: newContent
+          repository: repoName,
+          owner
+        },
+        type: ContributorOption.GALLERY
       })
     } else if (section === NodeName.DEPLOY) {
       addDeploy({ endPos })
