@@ -273,18 +273,15 @@ export function useReadme() {
       (section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)
     )
 
-    // Check if sections include TABLE_CONTENTS, if so, update the state
-    const hasTableOfContentsSection = sections.find((sec) => sec === NodeName.TABLE_CONTENTS)
-    if (hasTableOfContentsSection) {
-      const mappedSections = filteredSections.map((section) => {
-        const sectionData = listSections.find(({ id }) => id === section)!
-        return {
-          id: sectionData.id,
-          name: sectionData.name
-        }
-      })
-      setTableOfContents(mappedSections)
-    }
+    // Updating table of contents
+    const mappedSections = filteredSections.map((section) => {
+      const sectionData = listSections.find(({ id }) => id === section)!
+      return {
+        id: sectionData.id,
+        name: sectionData.name
+      }
+    })
+    setTableOfContents(mappedSections)
 
     let sectionsToUpdate = sections
     const addedSections = listSections
@@ -673,8 +670,7 @@ export function useReadme() {
       })
     } else if (section === NodeName.TABLE_CONTENTS) {
       addTableOfContent({
-        endPos: endPos,
-        content: []
+        endPos
       })
     }
   }

@@ -8,7 +8,7 @@ import { TableContents } from '@/components/editor/views/table-contents'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.TABLE_CONTENTS]: {
-      insertTableContents: ({ endPos, content }: { endPos: number; content: any }) => ReturnType
+      insertTableContents: ({ endPos }: { endPos: number }) => ReturnType
     }
   }
 }
@@ -30,9 +30,6 @@ export default Node.create({
       endPos: {
         default: 0
       },
-      content: {
-        default: []
-      },
       html: {
         default: ''
       }
@@ -41,13 +38,12 @@ export default Node.create({
   addCommands(): any {
     return {
       insertTableContents:
-        ({ endPos, content }: { endPos: number; content: any }) =>
+        ({ endPos }: { endPos: number }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
-              type: NodeName.TABLE_CONTENTS,
-              attrs: { content }
+              type: NodeName.TABLE_CONTENTS
             })
             .focus('end')
             .run()

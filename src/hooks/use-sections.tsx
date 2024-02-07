@@ -88,8 +88,8 @@ export function useSections() {
   )
 
   const addTableOfContent = useCallback(
-    ({ endPos, content }: { endPos: number; content: any }) => {
-      readmeEditor?.chain().insertTableContents({ endPos, content })
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertTableContents({ endPos })
     },
     [readmeEditor]
   )
