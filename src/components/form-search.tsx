@@ -37,7 +37,7 @@ export function FormSearch({ onSubmit }: FormSearchProps) {
   return (
     <div className='flex flex-col relative z-10 group'>
       <form className='flex gap-2' onSubmit={handleSubmit}>
-        <div className='relative flex w-[500px] items-center border group-focus-within:border-neutral-600 rounded-md group-focus-within:rounded-b-none bg-neutral-800/60 focus-within:bg-transparent transition-colors duration-200'>
+        <div className='relative flex w-[500px] items-center border group-focus-within:border-neutral-600 rounded-md bg-neutral-800/60 focus-within:bg-transparent transition-colors duration-200'>
           <div className='flex items-center pointer-events-none absolute inset-y-0 group-focus-within:left-0 left-[90px] pl-0 group-focus-within:pl-3 text-black/50 dark:text-white/40'>
             <GitIc className='w-4 h-4' />
           </div>
