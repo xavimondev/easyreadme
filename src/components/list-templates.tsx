@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge'
 
 type TemplateItemProps = {
   template: Template
-  buildTemplate: ({ template, url }: { template: string; url?: string }) => Promise<void>
+  buildTemplate: ({ template }: { template: string }) => Promise<void>
 }
 
 export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {

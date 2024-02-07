@@ -255,7 +255,7 @@ export function useReadme() {
     return LIST_TEMPLATES.find(({ nameTemplate }) => nameTemplate === query)!.sections
   }
 
-  const buildTemplate = async ({ template, url }: { template?: string; url?: string }) => {
+  const buildTemplate = async ({ template }: { template?: string }) => {
     const gitData = await checkGitRepositoryData()
 
     const sections = getTemplateSections({ template })
