@@ -1,7 +1,11 @@
+'use client'
+
 import { Dispatch, SetStateAction } from 'react'
 
 import { NodeName, SectionState } from '@/types/builder'
+import { ModuleType } from '@/types/sidebar'
 
+import { useBuilder } from '@/store'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CounterRemaining } from '@/components/counter-remaining'
@@ -16,9 +20,14 @@ type SidebarProps = {
 }
 
 export function Sidebar({ setFilterSection, customSections, listSectionsFiltered }: SidebarProps) {
+  const setModuleSelected = useBuilder((store) => store.setModuleSelected)
+
   return (
     <aside className='w-full h-full py-2 border border-r-0 rounded-l-md border-black dark:border-white/20'>
-      <Tabs defaultValue='templates'>
+      <Tabs
+        defaultValue='templates'
+        onValueChange={(value: string) => setModuleSelected(value as ModuleType)}
+      >
         <div className='flex items-center gap-3 px-3.5'>
           <TabsList className='ml-auto'>
             <TabsTrigger value='templates'>Templates</TabsTrigger>

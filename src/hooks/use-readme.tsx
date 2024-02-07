@@ -13,7 +13,6 @@ import {
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
-  getOverviewData,
   getProjectSummaryData,
   getTechStackData
 } from '@/utils/readme'
@@ -238,19 +237,12 @@ export function useReadme() {
     return foundNode
   }
 
-  const checkGitRepositoryData = async ({ urlRepository }: { urlRepository?: string }) => {
-    if (urlRepository && gitUrlRepository !== urlRepository) setGitUrlRepository(urlRepository)
-
-    const isNewData = gitRepositoryData?.urlRepository !== urlRepository
-
-    if (isNewData && urlRepository) {
-      const data = await getRepositoryData({ urlRepository })
-      if (data) {
-        setGitRepositoryData(data)
-      }
-      return data
+  const checkGitRepositoryData = async () => {
+    const data = await getRepositoryData({ urlRepository: gitUrlRepository })
+    if (data) {
+      setGitRepositoryData(data)
     }
-    return gitRepositoryData
+    return data
   }
 
   const getTemplateSections = ({ template }: { template?: string }) => {
@@ -264,7 +256,7 @@ export function useReadme() {
   }
 
   const buildTemplate = async ({ template, url }: { template?: string; url?: string }) => {
-    const gitData = await checkGitRepositoryData({ urlRepository: url })
+    const gitData = await checkGitRepositoryData()
 
     const sections = getTemplateSections({ template })
     if (!sections) return
@@ -312,6 +304,8 @@ export function useReadme() {
     section: NodeName
     options?: { data: any }
   }) => {
+    const gitData = await checkGitRepositoryData()
+
     const sectionItem = listSections.find((sec) => sec.id === section)
 
     if (!sectionItem) return
@@ -336,7 +330,8 @@ export function useReadme() {
 
     await addSection({
       section: section,
-      options
+      options,
+      gitData
     })
   }
 

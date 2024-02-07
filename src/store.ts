@@ -4,6 +4,7 @@ import { create } from 'zustand'
 import { NodeName, SectionState } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 import { NameTemplate } from '@/types/readme'
+import { ModuleType } from '@/types/sidebar'
 
 import { DEFAULT_CONTENT, INITIAL_STATE_SECTIONS } from '@/constants'
 
@@ -33,6 +34,8 @@ type BuilderState = {
   setGitUrlRepository: (url: string) => void
   readmeEditor: Editor | undefined
   setReadmeEditor: (editor: Editor) => void
+  moduleSelected: ModuleType
+  setModuleSelected: (moduleSelected: ModuleType) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -44,6 +47,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   gitRepositoryData: undefined,
   gitUrlRepository: '',
   readmeEditor: undefined,
+  moduleSelected: 'templates',
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   addContentToTemplate: (content: string) =>
     set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
@@ -73,5 +77,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
     })),
   setGitRepositoryData: (data) => set({ gitRepositoryData: data }),
   setGitUrlRepository: (url) => set({ gitUrlRepository: url }),
-  setReadmeEditor: (editor) => set({ readmeEditor: editor })
+  setReadmeEditor: (editor) => set({ readmeEditor: editor }),
+  setModuleSelected: (moduleSelected) => set({ moduleSelected })
 }))
