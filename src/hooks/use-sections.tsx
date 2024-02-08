@@ -150,6 +150,15 @@ export function useSections() {
     [readmeEditor]
   )
 
+  const addApiReference = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertApiReference({
+        endPos
+      })
+    },
+    [readmeEditor]
+  )
+
   return {
     addAcknowledgment,
     addBadge,
@@ -169,6 +178,7 @@ export function useSections() {
     addTableOfContent,
     addTechStack,
     addSettingUpGuide,
-    addAlert
+    addAlert,
+    addApiReference
   }
 }

@@ -359,6 +359,12 @@ export const README_SECTIONS_DATA: Section[] = [
     name: 'Alerts',
     emoji: '⚠️',
     description: 'Use to emphasize critical information.'
+  },
+  {
+    id: NodeName.API_REFERENCE,
+    name: 'Api Reference',
+    emoji: '🚀',
+    description: 'All the information required to work with the API.'
   }
 ]
 

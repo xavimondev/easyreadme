@@ -189,7 +189,8 @@ export function useReadme() {
     addSettingUpGuide,
     addTableOfContent,
     addTechStack,
-    addAlert
+    addAlert,
+    addApiReference
   } = useSections()
 
   const updateNode = useCallback(
@@ -613,6 +614,8 @@ export function useReadme() {
       })
     } else if (section === NodeName.ALERT) {
       addAlert({ endPos, id: 'info' })
+    } else if (section === NodeName.API_REFERENCE) {
+      addApiReference({ endPos })
     }
   }
 

@@ -1,5 +1,6 @@
 import Acknowledgments from '@/components/editor/nodes/acknowledgments'
 import Alert from '@/components/editor/nodes/alert'
+import ApiReference from '@/components/editor/nodes/api-reference'
 import Badge from '@/components/editor/nodes/badge'
 import Banner from '@/components/editor/nodes/banner'
 import Changelog from '@/components/editor/nodes/changelog'
@@ -37,5 +38,6 @@ export const CUSTOM_NODES = [
   EnvVariablesGuide,
   TableContents,
   ContributorsNode,
-  Alert
+  Alert,
+  ApiReference
 ]
