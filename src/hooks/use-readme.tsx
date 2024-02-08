@@ -188,7 +188,8 @@ export function useReadme() {
     addRunLocally,
     addSettingUpGuide,
     addTableOfContent,
-    addTechStack
+    addTechStack,
+    addAlert
   } = useSections()
 
   const updateNode = useCallback(
@@ -610,6 +611,8 @@ export function useReadme() {
       addTableOfContent({
         endPos
       })
+    } else if (section === NodeName.ALERT) {
+      addAlert({ endPos, id: 'info' })
     }
   }
 

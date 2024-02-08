@@ -353,6 +353,12 @@ export const README_SECTIONS_DATA: Section[] = [
     name: 'Badges',
     emoji: '🛡️',
     description: 'Show metrics for your project.'
+  },
+  {
+    id: NodeName.ALERT,
+    name: 'Alerts',
+    emoji: '⚠️',
+    description: 'Use to emphasize critical information.'
   }
 ]
 
@@ -376,7 +382,8 @@ export const SECTIONS_EXCLUDED_FROM_UPDATES = [NodeName.BADGE]
 export const SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS = [
   NodeName.TABLE_CONTENTS,
   NodeName.BADGE,
-  NodeName.BANNER
+  NodeName.BANNER,
+  NodeName.ALERT
 ]
 
 export const COOKIE_NAME = 'apikey-ai'

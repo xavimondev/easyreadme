@@ -16,7 +16,8 @@ export enum NodeName {
   COMMANDS = 'custom-commands',
   TABLE_CONTENTS = 'custom-tableContents',
   OVERVIEW = 'custom-overview',
-  BADGE = 'custom-badges'
+  BADGE = 'custom-badges',
+  ALERT = 'custom-alert'
 }
 
 export type Section = {

@@ -5,6 +5,7 @@ import { EditorContent, useEditor } from '@tiptap/react'
 import { useBuilder } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 import Acknowledgments from '@/components/editor/nodes/acknowledgments'
+import Alert from '@/components/editor/nodes/alert'
 import Badge from '@/components/editor/nodes/badge'
 import Banner from '@/components/editor/nodes/banner'
 import Changelog from '@/components/editor/nodes/changelog'
@@ -54,7 +55,8 @@ export function CustomEditor() {
       ProjectSummary,
       EnvVariablesGuide,
       TableContents,
-      ContributorsNode
+      ContributorsNode,
+      Alert
     ],
     onCreate: ({ editor }) => {
       setReadmeEditor(editor)

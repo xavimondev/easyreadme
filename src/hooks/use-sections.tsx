@@ -1,7 +1,5 @@
 import { useCallback } from 'react'
 
-import { ContributorOption } from '@/types/builder'
-
 import { useBuilder } from '@/store'
 
 export function useSections() {
@@ -10,6 +8,16 @@ export function useSections() {
   const addAcknowledgment = useCallback(
     ({ endPos }: { endPos: number }) => {
       readmeEditor?.chain().insertContentAt(endPos, '<Acknowledgments />').focus('end').run()
+    },
+    [readmeEditor]
+  )
+
+  const addAlert = useCallback(
+    ({ endPos, id }: { endPos: number; id: string }) => {
+      readmeEditor?.chain().insertAlert({
+        endPos,
+        id
+      })
     },
     [readmeEditor]
   )
@@ -160,6 +168,7 @@ export function useSections() {
     addRunLocally,
     addTableOfContent,
     addTechStack,
-    addSettingUpGuide
+    addSettingUpGuide,
+    addAlert
   }
 }
