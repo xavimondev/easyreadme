@@ -105,11 +105,10 @@ export function useSections() {
   )
 
   const addContributor = useCallback(
-    ({ endPos, type, data }: { endPos: number; type?: ContributorOption; data?: any }) => {
+    ({ endPos, data }: { endPos: number; data?: any }) => {
       readmeEditor?.chain().insertContributors({
         endPos,
-        data,
-        type
+        data
       })
     },
     [readmeEditor]
