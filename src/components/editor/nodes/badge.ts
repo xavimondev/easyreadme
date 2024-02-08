@@ -41,9 +41,10 @@ export default Node.create({
       insertBadge:
         ({ endPos, data }: { endPos: number; data: any }) =>
         ({ editor }: { editor: Editor }) => {
+          const pos = endPos < 0 ? this.editor.state.selection.head : endPos
           return editor
             .chain()
-            .insertContentAt(endPos, {
+            .insertContentAt(pos, {
               type: NodeName.BADGE,
               attrs: {
                 data

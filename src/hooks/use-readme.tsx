@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { findChildren } from '@tiptap/react'
 import { toast } from 'sonner'
 
-import { BadgeName, ContributorOption, NodeName } from '@/types/builder'
+import { BadgeName, NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import {
@@ -166,7 +166,6 @@ export function useReadme() {
     gitRepositoryData,
     readmeEditor,
     gitUrlRepository,
-    setGitUrlRepository,
     setGitRepositoryData,
     templateSelected,
     setTableOfContents
@@ -393,8 +392,9 @@ export function useReadme() {
         repoName,
         badge: id
       })
+
       addBadge({
-        endPos: endPos,
+        endPos: -1,
         data: badge
       })
     } else if (section === NodeName.BANNER) {
@@ -409,8 +409,7 @@ export function useReadme() {
         data: {
           repository: repoName,
           owner
-        },
-        type: ContributorOption.GALLERY
+        }
       })
     } else if (section === NodeName.DEPLOY) {
       addDeploy({ endPos })
