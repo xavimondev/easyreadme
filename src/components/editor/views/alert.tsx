@@ -136,24 +136,26 @@ export function Alert(props: any) {
   const { label, description, icon, borderColor, textColor } = alert ?? {}
   const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
 
-  // useNode(props)
+  useNode(props)
 
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>
       <div className='relative group'>
-        <div className='content' suppressContentEditableWarning={true}>
-          <div className={`mb-4 px-4 py-2 border-l-[5px] ${borderColor}`}>
-            <p
-              className={`${textColor} flex items-center leading-[1] font-medium !mt-1`}
-              contentEditable={false}
-            >
-              {icon}
-              {label}
-            </p>
-            <p className='!mb-0 !outline-none' contentEditable={true}>
-              {description}
-            </p>
-          </div>
+        <div className={`mb-4 px-4 py-2 border-l-[5px] ${borderColor} content`}>
+          <blockquote
+            className={`${textColor} flex items-center leading-[1] font-medium !mt-1 not-italic border-none !p-0 !ml-0`}
+            contentEditable={false}
+          >
+            {icon}
+            {label}
+          </blockquote>
+          <blockquote
+            className='!mb-0 !outline-none not-italic border-none !p-0 !ml-0'
+            contentEditable={true}
+            suppressContentEditableWarning={true}
+          >
+            {description}
+          </blockquote>
         </div>
         <ActionsBar
           removeSection={() => {
