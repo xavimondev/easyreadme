@@ -191,7 +191,8 @@ export function useReadme() {
     addTechStack,
     addAlert,
     addApiReference,
-    addFeedback
+    addFeedback,
+    addCodeSample
   } = useSections()
 
   const updateNode = useCallback(
@@ -619,6 +620,8 @@ export function useReadme() {
       addApiReference({ endPos })
     } else if (section === NodeName.FEEDBACK) {
       addFeedback({ endPos })
+    } else if (section === NodeName.CODE_SAMPLE) {
+      addCodeSample({ endPos })
     }
   }
 

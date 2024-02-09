@@ -371,6 +371,12 @@ export const README_SECTIONS_DATA: Section[] = [
     name: 'Feedback',
     emoji: '🫶',
     description: 'Share your thoughts, suggestions, and concerns.'
+  },
+  {
+    id: NodeName.CODE_SAMPLE,
+    name: 'Code Sample',
+    emoji: '💯',
+    description: 'Share examples of your code.'
   }
 ]
 

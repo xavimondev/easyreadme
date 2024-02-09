@@ -19,7 +19,8 @@ export enum NodeName {
   BADGE = 'custom-badges',
   ALERT = 'custom-alert',
   API_REFERENCE = 'api-reference',
-  FEEDBACK = 'custom-feedback'
+  FEEDBACK = 'custom-feedback',
+  CODE_SAMPLE = 'custom-code-sample'
 }
 
 export type Section = {

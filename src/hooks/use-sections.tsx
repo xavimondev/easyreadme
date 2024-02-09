@@ -168,6 +168,15 @@ export function useSections() {
     [readmeEditor]
   )
 
+  const addCodeSample = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertCodeSample({
+        endPos
+      })
+    },
+    [readmeEditor]
+  )
+
   return {
     addAcknowledgment,
     addBadge,
@@ -189,6 +198,7 @@ export function useSections() {
     addSettingUpGuide,
     addAlert,
     addApiReference,
-    addFeedback
+    addFeedback,
+    addCodeSample
   }
 }
