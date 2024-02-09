@@ -159,6 +159,15 @@ export function useSections() {
     [readmeEditor]
   )
 
+  const addFeedback = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertFeedback({
+        endPos
+      })
+    },
+    [readmeEditor]
+  )
+
   return {
     addAcknowledgment,
     addBadge,
@@ -179,6 +188,7 @@ export function useSections() {
     addTechStack,
     addSettingUpGuide,
     addAlert,
-    addApiReference
+    addApiReference,
+    addFeedback
   }
 }

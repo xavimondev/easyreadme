@@ -365,6 +365,12 @@ export const README_SECTIONS_DATA: Section[] = [
     name: 'Api Reference',
     emoji: '🚀',
     description: 'All the information required to work with the API.'
+  },
+  {
+    id: NodeName.FEEDBACK,
+    name: 'Feedback',
+    emoji: '🫶',
+    description: 'Share your thoughts, suggestions, and concerns.'
   }
 ]
 
