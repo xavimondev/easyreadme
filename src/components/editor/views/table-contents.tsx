@@ -34,7 +34,7 @@ export function TableContents(props: any) {
                       target='_blank'
                       rel='noopener noreferrer nofollow'
                       className='text-blue-500 hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-400 no-underline hover:underline hover:underline-offset-2 transition-colors cursor-pointer'
-                      href={`#${section.name.replaceAll(' ', '-')}`}
+                      href={`#${section.name.toLowerCase().replaceAll(' ', '-')}`}
                     >
                       {section.name}
                     </a>
