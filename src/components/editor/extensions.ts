@@ -104,26 +104,11 @@ export const DEFAULT_EXTENSIONS = [
     breaks: false
   }),
   CustomTable.configure({
-    resizable: false,
-    HTMLAttributes: {
-      class: '-mb-1'
-    }
+    resizable: false
   }),
-  TableRow.configure({
-    HTMLAttributes: {
-      class: '-my-2'
-    }
-  }),
-  TableHeader.configure({
-    HTMLAttributes: {
-      class: 'text-base'
-    }
-  }),
-  CustomTableCell.configure({
-    HTMLAttributes: {
-      class: '-my-1'
-    }
-  }),
+  TableRow,
+  TableHeader,
+  CustomTableCell,
   CodeBlock,
   CustomImage.configure({
     inline: true,
