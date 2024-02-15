@@ -32,13 +32,6 @@ export function ApiReference(props: any) {
             </pre>
             <Table />
           </div>
-          {/* <div>
-            <h4>Get product</h4>
-            <pre>
-              <code className='language-http'> GET /api/product/${'{id}'}</code>
-            </pre>
-            <Table />
-          </div> */}
         </div>
         <ActionsBar
           removeSection={() => {
