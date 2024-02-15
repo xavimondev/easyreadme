@@ -45,6 +45,7 @@
     "autoprefixer": "10.4.17",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.0",
+    "cmdk": "0.2.1",
     "eslint-config-next": "13.4.19",
     "highlight.js": "11.8.0",
     "lowlight": "3.0.0",
