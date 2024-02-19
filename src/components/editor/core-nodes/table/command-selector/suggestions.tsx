@@ -15,7 +15,6 @@ export const suggestions: Suggestion[] = [
     icon: <MoveUp size={14} />,
     type: 'row',
     command: ({ editor }) => {
-      console.log(editor)
       editor.chain().focus().addRowBefore().run()
     }
   },
@@ -24,7 +23,7 @@ export const suggestions: Suggestion[] = [
     icon: <MoveDown size={14} />,
     type: 'row',
     command: ({ editor }) => {
-      editor.chain().focus().addRowBefore().run()
+      editor.chain().focus().addRowAfter().run()
     }
   },
   {
