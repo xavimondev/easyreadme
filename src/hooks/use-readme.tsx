@@ -1,15 +1,12 @@
 import { useCallback } from 'react'
+import { LIST_TEMPLATES } from '@/templates'
 import { findChildren } from '@tiptap/react'
 import { toast } from 'sonner'
 
 import { BadgeName, NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
-import {
-  LIST_TEMPLATES,
-  SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS,
-  SECTIONS_EXCLUDED_FROM_UPDATES
-} from '@/constants'
+import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS, SECTIONS_EXCLUDED_FROM_UPDATES } from '@/constants'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,

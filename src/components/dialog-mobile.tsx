@@ -2,10 +2,10 @@
 
 import { useCallback, useRef, useState } from 'react'
 import Image from 'next/image'
+import { LIST_TEMPLATES } from '@/templates'
 
 import { NameTemplate } from '@/types/readme'
 
-import { LIST_TEMPLATES } from '@/constants'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 import { DrawerMobile } from '@/components/ui/drawer-mobile'

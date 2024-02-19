@@ -1,8 +1,9 @@
 'use client'
 
+import { LIST_TEMPLATES } from '@/templates'
+
 import { Template } from '@/types/readme'
 
-import { LIST_TEMPLATES } from '@/constants'
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 import { useReadme } from '@/hooks/use-readme'

@@ -1,6 +1,6 @@
-import { NodeName } from '@/types/builder'
+import { README_SECTIONS_DATA } from '@/sections'
 
-import { README_SECTIONS_DATA } from '@/constants'
+import { NodeName } from '@/types/builder'
 
 export const findSection = ({ section }: { section: NodeName }) => {
   return README_SECTIONS_DATA.find((sec) => sec.id === section)

@@ -6,7 +6,9 @@ import { GitRepository } from '@/types/git'
 import { NameTemplate } from '@/types/readme'
 import { ModuleType } from '@/types/sidebar'
 
-import { DEFAULT_CONTENT, INITIAL_STATE_SECTIONS } from '@/constants'
+import { DEFAULT_CONTENT } from '@/constants'
+
+import { INITIAL_STATE_SECTIONS } from './sections'
 
 type TableOfContentsSection = {
   id: NodeName
