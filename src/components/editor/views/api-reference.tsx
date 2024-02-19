@@ -1,11 +1,10 @@
-import { NodeViewWrapper } from '@tiptap/react'
+import { NodeViewContent, NodeViewWrapper } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
 import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { useNode } from '@/hooks/use-node'
-import { Table } from '@/components/editor/core-nodes/table'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 export function ApiReference(props: any) {
@@ -30,7 +29,8 @@ export function ApiReference(props: any) {
             <pre>
               <code className='language-http'> GET /api/products</code>
             </pre>
-            <Table />
+            {/* Here a table will be rendered */}
+            <NodeViewContent />
           </div>
         </div>
         <ActionsBar

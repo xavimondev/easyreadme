@@ -13,10 +13,14 @@ declare module '@tiptap/core' {
   }
 }
 
+const table = `<table><tbody><tr><th>Name</th><th>Type</th><th>Optional</th><th>Description</th></tr><tr><td>term</td><td>string</td><td>required</td><td>Search term.</td></tr><tr><td>limit</td><td>number</td><td>optional</td><td>Number of results to return.</td></tr></tbody></table>
+`
+
 export default Node.create({
   name: NodeName.API_REFERENCE,
   group: 'block',
   atom: true,
+  content: '(heading|table?)+',
   draggable: true,
   addAttributes() {
     return {
@@ -39,9 +43,7 @@ export default Node.create({
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
-            .insertContentAt(endPos, {
-              type: NodeName.API_REFERENCE
-            })
+            .insertContentAt(endPos, `<ApiReference>${table}</ApiReference>`)
             .focus('end')
             .run()
         }
