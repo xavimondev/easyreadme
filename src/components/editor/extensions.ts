@@ -3,13 +3,14 @@ import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
-import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import TextAlign from '@tiptap/extension-text-align'
 import StarterKit from '@tiptap/starter-kit'
 import { Markdown } from 'tiptap-markdown'
+
+import CustomTable from './core-nodes/table'
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -27,17 +28,6 @@ const CustomImage = Image.extend({
       sizes: {
         default: null
       },
-      style: {
-        default: null
-      }
-    }
-  }
-})
-
-const CustomTable = Table.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
       style: {
         default: null
       }
@@ -103,12 +93,22 @@ export const DEFAULT_EXTENSIONS = [
     transformCopiedText: true,
     breaks: false
   }),
-  CustomTable.configure({
-    resizable: false
+  CustomTable,
+  TableRow.configure({
+    HTMLAttributes: {
+      class: 'w-full text-gray-500 dark:text-gray-300 [&_p]:m-1'
+    }
   }),
-  TableRow,
-  TableHeader,
-  CustomTableCell,
+  TableHeader.configure({
+    HTMLAttributes: {
+      class: 'font-bold border-2 dark:border-neutral-700 !px-4 !py-2'
+    }
+  }),
+  CustomTableCell.configure({
+    HTMLAttributes: {
+      class: 'border-2 dark:border-neutral-700 !px-4 !py-2'
+    }
+  }),
   CodeBlock,
   CustomImage.configure({
     inline: true,
