@@ -3,8 +3,6 @@ import { Template } from '@/types/readme'
 
 export const LIST_TEMPLATES: Template[] = [
   {
-    srcImage: '/templates/minimal.webp',
-    altImage: 'Screenshot template Minimal',
     nameTemplate: 'Minimal',
     description:
       'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
@@ -17,11 +15,9 @@ export const LIST_TEMPLATES: Template[] = [
     ]
   },
   {
-    srcImage: '/templates/collaborate.webp',
-    altImage: 'Screenshot template Collaborate',
     nameTemplate: 'Collaborate',
     description:
-      'Enhance project collaboration with comprehensive project docs. Streamline setup, development, and collaboration processes for smoother project execution.',
+      'Streamline setup, development, and collaboration processes for smoother project execution.',
     sections: [
       NodeName.BANNER,
       NodeName.BADGE,
@@ -36,8 +32,6 @@ export const LIST_TEMPLATES: Template[] = [
     ]
   },
   {
-    srcImage: '/templates/inspire.webp',
-    altImage: 'Screenshot template Inspire',
     nameTemplate: 'Inspire',
     description:
       'From project structure to deployment, Inspire streamlines every aspect for seamless development and collaboration.',
@@ -54,23 +48,49 @@ export const LIST_TEMPLATES: Template[] = [
     ]
   },
   {
-    srcImage: '/templates/empower.webp',
-    altImage: 'Screenshot template Empower',
-    nameTemplate: 'Empower',
-    description:
-      'Empower your project with structured documentation. Facilitate setup, development, and future planning for a more impactful project.',
+    nameTemplate: 'NPM Package',
+    description: 'Empower developers to easily integrate and contribute to your project.',
     sections: [
-      NodeName.BANNER,
       NodeName.BADGE,
-      NodeName.TABLE_CONTENTS,
       NodeName.OVERVIEW,
-      NodeName.PREREQUISITES,
-      NodeName.TECH_STACK,
-      NodeName.CONTRIBUTORS,
-      NodeName.ACKNOWLEDGEMENTS,
+      NodeName.RUN_LOCALLY,
+      NodeName.CODE_SAMPLE,
+      NodeName.LIB_PROPS,
       NodeName.CHANGELOG,
       NodeName.ROADMAP,
-      NodeName.DEPLOY
+      NodeName.FAQ,
+      NodeName.CONTRIBUTORS,
+      NodeName.LICENSE
+    ]
+  },
+  {
+    nameTemplate: 'API',
+    description:
+      'Accelerate development by providing clear and concise information on endpoints and usage.',
+    sections: [
+      NodeName.BADGE,
+      NodeName.OVERVIEW,
+      NodeName.PREREQUISITES,
+      NodeName.RUN_LOCALLY,
+      NodeName.API_REFERENCE,
+      NodeName.ACKNOWLEDGEMENTS,
+      NodeName.CONTRIBUTORS,
+      NodeName.LICENSE
+    ]
+  },
+  {
+    nameTemplate: 'VS Code Extension',
+    description:
+      'Guide users through installation, showcase features, and provide detailed usage instructions.',
+    sections: [
+      NodeName.BANNER,
+      NodeName.OVERVIEW,
+      NodeName.RUN_LOCALLY,
+      NodeName.COMMANDS,
+      NodeName.CHANGELOG,
+      NodeName.FAQ,
+      NodeName.CONTRIBUTORS,
+      NodeName.LICENSE
     ]
   }
 ]
