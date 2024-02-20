@@ -9,7 +9,7 @@ import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 export function ProjectStructure(props: any) {
   const { node, deleteNode } = props
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
   const tree = attrs.tree
   const nodeName = type.name as NodeName
@@ -34,7 +34,6 @@ export function ProjectStructure(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(nodeName)
             deleteNode()
             removeSectionFromTableOfContents(nodeName)
           }}

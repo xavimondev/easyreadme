@@ -37,7 +37,7 @@ function TechList({ data }: TechListProps) {
 }
 export function TechStack(props: any) {
   const { node, deleteNode } = props
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
   const { content, showPlaceholder } = attrs
   const nodeName = type.name as NodeName
@@ -64,7 +64,6 @@ export function TechStack(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(nodeName)
             deleteNode()
             removeSectionFromTableOfContents(nodeName)
           }}

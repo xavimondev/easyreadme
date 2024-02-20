@@ -1,14 +1,14 @@
 import { type Editor } from '@tiptap/core'
 import { create } from 'zustand'
 
-import { NodeName, SectionState } from '@/types/builder'
+import { NodeName, Section } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 import { NameTemplate } from '@/types/readme'
 import { ModuleType } from '@/types/sidebar'
 
 import { DEFAULT_CONTENT } from '@/constants'
 
-import { INITIAL_STATE_SECTIONS } from './sections'
+import { README_SECTIONS_DATA } from './sections'
 
 type TableOfContentsSection = {
   id: NodeName
@@ -24,8 +24,7 @@ type BuilderState = {
   clearContentTemplate: () => void
   isGenerating: boolean
   setIsGenerating: (isGenerating: boolean) => void
-  listSections: SectionState[]
-  updateSection: (section: NodeName | NodeName[]) => void
+  listSections: Section[]
   tableOfContents: TableOfContentsSection[]
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => void
   addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) => void
@@ -44,7 +43,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   templateSelected: undefined,
   contentTemplate: DEFAULT_CONTENT,
   isGenerating: false,
-  listSections: INITIAL_STATE_SECTIONS,
+  listSections: README_SECTIONS_DATA,
   tableOfContents: [],
   gitRepositoryData: undefined,
   gitUrlRepository: '',
@@ -56,18 +55,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
   setContentTemplate: (content: string) => set({ contentTemplate: content }),
   clearContentTemplate: () => set({ contentTemplate: '' }),
   setIsGenerating: (isGenerating) => set({ isGenerating }),
-  updateSection: (data: NodeName | NodeName[]) => {
-    set((prevValues) => ({
-      listSections: prevValues.listSections.map((s) => {
-        if (Array.isArray(data)) {
-          const isSectionIncluded = data.includes(s.id)
-
-          return isSectionIncluded ? { ...s, added: !s.added } : s
-        }
-        return s.id === data ? { ...s, added: !s.added } : s
-      })
-    }))
-  },
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
   addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
     set((prevValues) => ({

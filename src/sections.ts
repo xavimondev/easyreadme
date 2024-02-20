@@ -1,4 +1,4 @@
-import { NodeName, Section, SectionState } from '@/types/builder'
+import { NodeName, Section } from '@/types/builder'
 
 export const README_SECTIONS_DATA: Section[] = [
   {
@@ -140,10 +140,3 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'Table that contains your NPM package props.'
   }
 ]
-
-export const INITIAL_STATE_SECTIONS: SectionState[] = README_SECTIONS_DATA.map((section) => {
-  return {
-    ...section,
-    added: false
-  }
-})

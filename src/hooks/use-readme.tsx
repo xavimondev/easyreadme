@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 import { BadgeName, NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
-import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS, SECTIONS_EXCLUDED_FROM_UPDATES } from '@/constants'
+import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
@@ -156,16 +156,15 @@ const DEFAULT_BADGES: BadgeName[] = [
 
 export function useReadme() {
   const {
-    updateSection,
     listSections,
     addSectionToTableOfContents,
-    removeSectionFromTableOfContents,
     gitRepositoryData,
     readmeEditor,
     gitUrlRepository,
     setGitRepositoryData,
     templateSelected,
-    setTableOfContents
+    setTableOfContents,
+    tableOfContents
   } = useBuilder((store) => store)
   const {
     addAcknowledgment,
@@ -276,21 +275,10 @@ export function useReadme() {
         name: sectionData.name
       }
     })
+
     setTableOfContents(mappedSections)
-
-    let sectionsToUpdate = sections
-    const addedSections = listSections
-      .filter((section) => section.added)
-      .map((section) => section.id)
-
-    if (addedSections.length > 0) {
-      const deletedSections = addedSections.filter((section) => !sections.includes(section))
-      const newAddedSections = sections.filter((section) => !addedSections.includes(section))
-      sectionsToUpdate = deletedSections.concat(newAddedSections)
-    }
-
     clearEditorContent()
-    updateSection(sectionsToUpdate)
+
     for (let i = 0; i < sections.length; i++) {
       const sectionId = sections.at(i)
       await addSection({
@@ -310,25 +298,15 @@ export function useReadme() {
     const gitData = await checkGitRepositoryData()
 
     const sectionItem = listSections.find((sec) => sec.id === section)
+    const itemExistsInTableOfContent = tableOfContents.find((sec) => sec.id === section)
 
     if (!sectionItem) return
 
-    if (!SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)) {
-      updateSection(section)
-    }
-
-    // adding new section to table of contents as long as it's not added already and not included in sections_excluded
-    if (!sectionItem.added && !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)) {
+    if (!SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section) && !itemExistsInTableOfContent) {
       addSectionToTableOfContents({
         id: sectionItem.id,
         name: sectionItem.name
       })
-    }
-
-    if (sectionItem.added && !SECTIONS_EXCLUDED_FROM_UPDATES.includes(section)) {
-      removeNode(section) // removing node from editor
-      removeSectionFromTableOfContents(section) // removing section from table of contents
-      return
     }
 
     await addSection({

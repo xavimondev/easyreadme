@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
-import { NodeName, SectionState } from '@/types/builder'
+import { NodeName, Section } from '@/types/builder'
 import { ModuleType } from '@/types/sidebar'
 
 import { useBuilder } from '@/store'
@@ -15,7 +15,7 @@ import { Searcher } from '@/components/searcher'
 type SidebarProps = {
   setFilterSection: Dispatch<SetStateAction<string>>
   customSections: Partial<Record<NodeName, JSX.Element>>
-  listSectionsFiltered: SectionState[]
+  listSectionsFiltered: Section[]
 }
 
 export function Sidebar({ setFilterSection, customSections, listSectionsFiltered }: SidebarProps) {

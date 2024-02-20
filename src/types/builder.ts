@@ -31,8 +31,6 @@ export type Section = {
   description: string
 }
 
-export type SectionState = Section & { added: boolean }
-
 export type BadgeName =
   | 'forks'
   | 'codesize'

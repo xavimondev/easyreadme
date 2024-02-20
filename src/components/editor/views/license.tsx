@@ -9,7 +9,7 @@ import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 export function License(props: any) {
   const { node, deleteNode } = props
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const {
     attrs: { license },
     type
@@ -50,7 +50,6 @@ export function License(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(nodeName)
             deleteNode()
             removeSectionFromTableOfContents(nodeName)
           }}

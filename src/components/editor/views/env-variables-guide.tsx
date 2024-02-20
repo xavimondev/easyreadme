@@ -39,7 +39,7 @@ export function EnvVariablesGuide(props: any) {
   const { node, deleteNode } = props
   const { attrs, type } = node
   const { content, showPlaceholder } = attrs
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -64,7 +64,6 @@ export function EnvVariablesGuide(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(nodeName)
             deleteNode()
             removeSectionFromTableOfContents(nodeName)
           }}

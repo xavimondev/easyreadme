@@ -134,7 +134,7 @@ export function Alert(props: any) {
   const { id } = attrs
   const alert = ALERTS_DATA.find((item) => item.id === id)
   const { label, description, icon, borderColor, textColor } = alert ?? {}
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
 
   useNode(props)
 
@@ -159,7 +159,6 @@ export function Alert(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(NodeName.ALERT)
             deleteNode()
             removeSectionFromTableOfContents(NodeName.ALERT)
           }}

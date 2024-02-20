@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
-import { Plus, Trash } from 'lucide-react'
+import { Plus } from 'lucide-react'
 
-import { NodeName, SectionState } from '@/types/builder'
+import { NodeName, Section } from '@/types/builder'
 
 import { useReadme } from '@/hooks/use-readme'
 import { Button } from '@/components/ui/button'
@@ -11,16 +11,9 @@ type SectionItemProps = {
   id: NodeName
   name: string
   description: string
-  added: boolean
 }
 
-function SectionItem({
-  id,
-  name,
-  description,
-  added,
-  children
-}: PropsWithChildren<SectionItemProps>) {
+function SectionItem({ id, name, description, children }: PropsWithChildren<SectionItemProps>) {
   const { buildCustomReadme } = useReadme()
 
   return (
@@ -36,7 +29,7 @@ function SectionItem({
             className='xl:min-w-9'
             onClick={() => buildCustomReadme({ section: id })}
           >
-            {added ? <Trash className='w-4 h-4' /> : <Plus className='w-4 h-4' />}
+            <Plus className='w-4 h-4' />
           </Button>
         ) : null}
       </div>
@@ -46,7 +39,7 @@ function SectionItem({
 }
 
 type ListSectionsProps = {
-  listSections: SectionState[]
+  listSections: Section[]
   customSections: Partial<Record<NodeName, JSX.Element>>
 }
 

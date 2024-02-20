@@ -9,7 +9,7 @@ import { ActionsBar } from '@/components/editor/views/actions-bar'
 
 export function Commands(props: any) {
   const { node, deleteNode } = props
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -40,7 +40,6 @@ export function Commands(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(nodeName)
             deleteNode()
             removeSectionFromTableOfContents(nodeName)
           }}

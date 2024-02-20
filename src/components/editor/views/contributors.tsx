@@ -74,7 +74,7 @@ export function Contributors(props: any) {
   const { node, deleteNode } = props
   const { attrs } = node
   const { data } = attrs
-  const { updateSection, removeSectionFromTableOfContents } = useBuilder((store) => store)
+  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -93,7 +93,6 @@ export function Contributors(props: any) {
         </div>
         <ActionsBar
           removeSection={() => {
-            updateSection(nodeName)
             deleteNode()
             removeSectionFromTableOfContents(nodeName)
           }}
