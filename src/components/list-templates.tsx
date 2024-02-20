@@ -1,7 +1,6 @@
 'use client'
 
 import { LIST_TEMPLATES } from '@/templates'
-import { getRandomElement } from '@/utils'
 
 import { Template } from '@/types/readme'
 
@@ -9,7 +8,6 @@ import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 import { useReadme } from '@/hooks/use-readme'
 import { Badge } from '@/components/ui/badge'
-import { ScrollArea } from '@/components/ui/scroll-area'
 
 type TemplateItemProps = {
   template: Template
@@ -41,10 +39,8 @@ export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
       <div className='line-clamp-2 text-sm text-muted-foreground'>{description}</div>
       <div className='flex items-center gap-2 text-xs'>
         {tags.map((tag) => {
-          const randomVariant = getRandomElement(['secondary', 'outline', 'default'])!
           return (
-            // @ts-ignore
-            <Badge key={tag} variant={randomVariant}>
+            <Badge key={tag} variant='secondary'>
               {tag}
             </Badge>
           )
@@ -54,19 +50,28 @@ export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
   )
 }
 
-export function ListTemplates() {
+type ListTemplatesProps = {
+  mobileCloseFunction?: VoidFunction
+}
+
+export function ListTemplates({ mobileCloseFunction }: ListTemplatesProps) {
   const { buildTemplate } = useReadme()
+
+  const buildTemplateHandle = async ({ template }: { template: string }) => {
+    await buildTemplate({ template })
+
+    mobileCloseFunction && mobileCloseFunction()
+  }
+
   return (
-    <ScrollArea className='md:h-[calc(100vh-128px)]'>
-      <div className='flex flex-col gap-3 px-3.5'>
-        {LIST_TEMPLATES.map((template: Template) => (
-          <TemplateItem
-            key={template.nameTemplate}
-            template={template}
-            buildTemplate={buildTemplate}
-          />
-        ))}
-      </div>
-    </ScrollArea>
+    <div className='flex flex-col gap-3 px-3.5'>
+      {LIST_TEMPLATES.map((template: Template) => (
+        <TemplateItem
+          key={template.nameTemplate}
+          template={template}
+          buildTemplate={buildTemplateHandle}
+        />
+      ))}
+    </div>
   )
 }

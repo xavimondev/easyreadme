@@ -7,8 +7,8 @@ export default function Builder() {
   return (
     <div className='p-2 min-h-screen'>
       <Header>
-        <div className='flex pb-2 items-center justify-between'>
-          MiLog
+        <div className='flex flex-col sm:flex-row pb-2 sm:items-center sm:justify-between gap-2 sm:gap-0 w-full'>
+          <span className='hidden sm:block'>LOG</span>
           <CommandCenter />
           <ViewCodeButton />
         </div>
