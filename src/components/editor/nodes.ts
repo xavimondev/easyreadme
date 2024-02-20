@@ -11,6 +11,7 @@ import Deploy from '@/components/editor/nodes/deploy'
 import EnvVariablesGuide from '@/components/editor/nodes/env-variables-guide'
 import Faq from '@/components/editor/nodes/faq'
 import Feedback from '@/components/editor/nodes/feedback'
+import LibProps from '@/components/editor/nodes/lib-props'
 import License from '@/components/editor/nodes/license'
 import Overview from '@/components/editor/nodes/overview'
 import Prerequisites from '@/components/editor/nodes/prerequisites'
@@ -43,5 +44,6 @@ export const CUSTOM_NODES = [
   Alert,
   ApiReference,
   Feedback,
-  CodeSample
+  CodeSample,
+  LibProps
 ]

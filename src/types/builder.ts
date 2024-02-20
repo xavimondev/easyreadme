@@ -20,7 +20,8 @@ export enum NodeName {
   ALERT = 'custom-alert',
   API_REFERENCE = 'custom-api-reference',
   FEEDBACK = 'custom-feedback',
-  CODE_SAMPLE = 'custom-code-sample'
+  CODE_SAMPLE = 'custom-code-sample',
+  LIB_PROPS = 'custom-lib-props'
 }
 
 export type Section = {

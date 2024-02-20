@@ -177,6 +177,15 @@ export function useSections() {
     [readmeEditor]
   )
 
+  const addLibraryProps = useCallback(
+    ({ endPos }: { endPos: number }) => {
+      readmeEditor?.chain().insertLibProps({
+        endPos
+      })
+    },
+    [readmeEditor]
+  )
+
   return {
     addAcknowledgment,
     addBadge,
@@ -199,6 +208,7 @@ export function useSections() {
     addAlert,
     addApiReference,
     addFeedback,
-    addCodeSample
+    addCodeSample,
+    addLibraryProps
   }
 }

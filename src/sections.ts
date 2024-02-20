@@ -132,6 +132,12 @@ export const README_SECTIONS_DATA: Section[] = [
     name: 'Code Sample',
     emoji: '💯',
     description: 'Share examples of your code.'
+  },
+  {
+    id: NodeName.LIB_PROPS,
+    name: 'Table Props',
+    emoji: '🧾',
+    description: 'Table that contains your NPM package props.'
   }
 ]
 
