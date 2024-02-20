@@ -50,3 +50,8 @@ export const addNewlinesBetweenBadges = ({ markdownContent }: { markdownContent:
   const result = markdownContent.replace(regex, ')\n')
   return result
 }
+
+export const getRandomElement = <T>(arr: T[]) => {
+  const randomIndex = Math.floor(Math.random() * arr.length)
+  return arr.at(randomIndex)
+}
