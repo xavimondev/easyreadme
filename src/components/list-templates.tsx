@@ -1,7 +1,7 @@
 'use client'
 
 import { LIST_TEMPLATES } from '@/templates'
-import { getRandomElements } from '@/utils'
+import { getRandomElement } from '@/utils'
 
 import { Template } from '@/types/readme'
 
@@ -41,7 +41,7 @@ export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
       <div className='line-clamp-2 text-sm text-muted-foreground'>{description}</div>
       <div className='flex items-center gap-2 text-xs'>
         {tags.map((tag) => {
-          const randomVariant = getRandomElements(['secondary', 'outline', 'default'])!
+          const randomVariant = getRandomElement(['secondary', 'outline', 'default'])!
           return (
             // @ts-ignore
             <Badge key={tag} variant={randomVariant}>
