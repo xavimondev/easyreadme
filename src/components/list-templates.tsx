@@ -1,6 +1,7 @@
 'use client'
 
 import { LIST_TEMPLATES } from '@/templates'
+import { getRandomElements } from '@/utils'
 
 import { Template } from '@/types/readme'
 
@@ -16,7 +17,7 @@ type TemplateItemProps = {
 }
 
 export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
-  const { nameTemplate, description } = template
+  const { nameTemplate, description, tags } = template
   const templateSelected = useBuilder((state) => state.templateSelected)
   const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
   const isSelected = templateSelected === nameTemplate
@@ -39,9 +40,15 @@ export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
       </div>
       <div className='line-clamp-2 text-sm text-muted-foreground'>{description}</div>
       <div className='flex items-center gap-2 text-xs'>
-        <Badge variant='default'>API</Badge>
-        <Badge variant='secondary'>Backend</Badge>
-        <Badge variant='outline'>Backend</Badge>
+        {tags.map((tag) => {
+          const randomVariant = getRandomElements(['secondary', 'outline', 'default'])!
+          return (
+            // @ts-ignore
+            <Badge key={tag} variant={randomVariant}>
+              {tag}
+            </Badge>
+          )
+        })}
       </div>
     </div>
   )

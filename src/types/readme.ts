@@ -12,4 +12,5 @@ export type Template = {
   nameTemplate: NameTemplate
   description?: string
   sections?: NodeName[]
+  tags: string[]
 }

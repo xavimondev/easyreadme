@@ -12,7 +12,8 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.RUN_LOCALLY,
       NodeName.DEPLOY,
       NodeName.LICENSE
-    ]
+    ],
+    tags: ['Simple', 'User-friendly', 'Documentation']
   },
   {
     nameTemplate: 'Collaborate',
@@ -29,7 +30,8 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.CONTRIBUTORS,
       NodeName.FAQ,
       NodeName.LICENSE
-    ]
+    ],
+    tags: ['Collaboration', 'Development', 'Efficiency']
   },
   {
     nameTemplate: 'Inspire',
@@ -45,7 +47,8 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.RUN_LOCALLY,
       NodeName.DEPLOY,
       NodeName.LICENSE
-    ]
+    ],
+    tags: ['Inspiration', 'Seamless', 'Structure']
   },
   {
     nameTemplate: 'NPM Package',
@@ -61,7 +64,8 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.FAQ,
       NodeName.CONTRIBUTORS,
       NodeName.LICENSE
-    ]
+    ],
+    tags: ['Library', 'Integration', 'Contribution']
   },
   {
     nameTemplate: 'API',
@@ -76,7 +80,8 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.ACKNOWLEDGEMENTS,
       NodeName.CONTRIBUTORS,
       NodeName.LICENSE
-    ]
+    ],
+    tags: ['Backend', 'Endpoints', 'API']
   },
   {
     nameTemplate: 'VS Code Extension',
@@ -91,6 +96,7 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.FAQ,
       NodeName.CONTRIBUTORS,
       NodeName.LICENSE
-    ]
+    ],
+    tags: ['VS Code', 'Installation', 'Features']
   }
 ]
