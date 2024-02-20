@@ -25,7 +25,7 @@ export function CustomEditor() {
   })
 
   return (
-    <div className='border rounded-md lg:rounded-none lg:rounded-r-md border-black dark:border-white/20 w-full p-4 bg-white/95 dark:bg-neutral-800/20 relative h-[calc(100vh-242px)] sm:h-[calc(100vh-180px)] lg:h-[calc(100vh-60px)]'>
+    <div className='border rounded-md lg:rounded-none lg:rounded-r-md border-black dark:border-white/20 w-full p-5 bg-white/95 dark:bg-neutral-800/20 relative h-[calc(100vh-242px)] sm:h-[calc(100vh-180px)] lg:h-[calc(100vh-60px)]'>
       <EditorContent editor={editor} />
     </div>
   )
