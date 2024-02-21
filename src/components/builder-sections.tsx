@@ -6,7 +6,7 @@ import { NodeName } from '@/types/builder'
 
 import { useBuilder } from '@/store'
 import { BadgesOptions } from '@/components/badges-options'
-import { CustomEditor } from '@/components/editor/custom-editor'
+import { ReadmeEditor } from '@/components/editor/readme-editor'
 import { Sidebar } from '@/components/sidebar'
 import { TemplatesMobile } from '@/components/templates-mobile'
 
@@ -36,7 +36,7 @@ export function BuilderSections() {
         customSections={customSections}
         listSectionsFiltered={listSectionsFiltered}
       />
-      <CustomEditor />
+      <ReadmeEditor />
     </main>
   )
 }

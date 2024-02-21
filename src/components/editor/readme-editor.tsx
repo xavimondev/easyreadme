@@ -6,7 +6,7 @@ import { useBuilder } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 import { CUSTOM_NODES } from '@/components/editor/nodes'
 
-export function CustomEditor() {
+export function ReadmeEditor() {
   const setReadmeEditor = useBuilder((store) => store.setReadmeEditor)
   const editor = useEditor({
     editable: true,
