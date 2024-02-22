@@ -10,6 +10,7 @@ import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
 import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
+  getOverviewData,
   getProjectSummaryData,
   getTechStackData
 } from '@/utils/readme'
@@ -166,34 +167,11 @@ export function useReadme() {
     setTableOfContents,
     tableOfContents
   } = useBuilder((store) => store)
-  const {
-    addAcknowledgment,
-    addBanner,
-    addChangelog,
-    addCommands,
-    addContributor,
-    addBadge,
-    addDeploy,
-    addFaq,
-    addLicense,
-    addOverview,
-    addPrerequisites,
-    addProjectStructure,
-    addProjectSummary,
-    addRoadmap,
-    addRunLocally,
-    addSettingUpGuide,
-    addTableOfContent,
-    addTechStack,
-    addAlert,
-    addApiReference,
-    addFeedback,
-    addCodeSample,
-    addLibraryProps
-  } = useSections()
+
+  const { addBadge } = useSections()
 
   const updateNode = useCallback(
-    ({ node, data }: { node: NodeName; data?: any }) => {
+    ({ node, data }: { node: any; data?: any }) => {
       readmeEditor?.chain().updateAttributes(node, data).run()
     },
     [readmeEditor]
@@ -326,7 +304,7 @@ export function useReadme() {
     options?: { data: any }
   }) => {
     const repositoryData = gitData ?? gitRepositoryData
-    const { repoName, owner, branch, description, language, urlRepository } =
+    const { repoName, owner, branch, language, urlRepository, description } =
       repositoryData ?? DEFAULT_REPOSITORY_DATA
     let endPos = 0
     const lastNode = readmeEditor?.state.doc.lastChild
@@ -338,9 +316,12 @@ export function useReadme() {
       endPos = pos
     }
 
-    if (section === NodeName.ACKNOWLEDGEMENTS) {
-      addAcknowledgment({ endPos })
-    } else if (section === NodeName.BADGE) {
+    const sectionItem = listSections.find((sec) => sec.id === section)
+    if (!sectionItem) return
+
+    let data = undefined
+
+    if (section === NodeName.BADGE) {
       let badgesData = DEFAULT_BADGES
 
       if (options) {
@@ -377,117 +358,84 @@ export function useReadme() {
         endPos: -1,
         data: badge
       })
-    } else if (section === NodeName.BANNER) {
-      addBanner({ endPos: endPos })
-    } else if (section === NodeName.CHANGELOG) {
-      addChangelog({ endPos })
-    } else if (section === NodeName.COMMANDS) {
-      addCommands({ endPos })
     } else if (section === NodeName.CONTRIBUTORS) {
-      addContributor({
-        endPos: endPos,
-        data: {
-          repository: repoName,
-          owner
-        }
-      })
-    } else if (section === NodeName.DEPLOY) {
-      addDeploy({ endPos })
-    } else if (section === NodeName.FAQ) {
-      addFaq({ endPos })
+      data = {
+        repository: repoName,
+        owner
+      }
     } else if (section === NodeName.LICENSE) {
-      let license = DEFAULT_DATA_CACHED[section]
+      data = DEFAULT_DATA_CACHED[section]
       if (repositoryData) {
-        license = await getLicense({
+        data = await getLicense({
           repoName,
           owner
         })
       }
-      addLicense({ endPos: endPos, license })
     } else if (section === NodeName.OVERVIEW) {
-      let content = ''
-
       if (!repositoryData) {
-        content = DEFAULT_DATA_CACHED[section].content
-      }
-
-      addOverview({
-        endPos,
-        data: {
-          content
+        data = {
+          content: DEFAULT_DATA_CACHED[section].content
         }
-      })
-      // const prompt = await getOverviewData({
-      //   branch,
-      //   description,
-      //   language,
-      //   owner,
-      //   repoName
-      // })
-      // const response = await getGenerationAI({
-      //   format: 'string',
-      //   prompt
-      // })
+      } else {
+        const prompt = await getOverviewData({
+          branch,
+          description,
+          language,
+          owner,
+          repoName
+        })
 
-      // if (response.name === 'Error') {
-      //   toast.error(response.message)
-      //   return
-      // }
-    } else if (section === NodeName.PREREQUISITES) {
-      addPrerequisites({ endPos })
+        const response = await getGenerationAI({
+          format: 'string',
+          prompt
+        })
+
+        if (response.name === 'Error') {
+          toast.error(response.message)
+          return
+        }
+
+        data = {
+          content: response.data
+        }
+      }
     } else if (section === NodeName.PROJECT_STRUCTURE) {
-      const tree = await getRepositoryTreeDirectory({
+      data = await getRepositoryTreeDirectory({
         repoName,
         owner: owner,
         branch
       })
-      addProjectStructure({ endPos, tree })
     } else if (section === NodeName.PROJECT_SUMMARY) {
       if (!repositoryData) {
-        const data = DEFAULT_DATA_CACHED[section]
-        addProjectSummary({
-          endPos,
-          data
+        data = DEFAULT_DATA_CACHED[section]
+      } else {
+        const prompt = await getProjectSummaryData({
+          owner,
+          repoName,
+          branch,
+          language
         })
-        return
-      }
 
-      const prompt = await getProjectSummaryData({
-        owner,
-        repoName,
-        branch,
-        language
-      })
-      if (prompt === '') {
-        addProjectSummary({
-          endPos,
-          data: {
+        if (prompt === '') {
+          data = {
             content: []
           }
-        })
-        return
-      }
+        } else {
+          const response = await getGenerationAI({
+            format: 'json',
+            prompt
+          })
+          console.log(response)
+          if (response.name === 'Error') {
+            toast.error(response.message)
+            return
+          }
 
-      const response = await getGenerationAI({
-        format: 'json',
-        prompt
-      })
-
-      if (response.name === 'Error') {
-        toast.error(response.message)
-        return
-      }
-
-      addProjectSummary({
-        endPos,
-        data: {
-          content: response.data.data
+          data = {
+            content: response.data.data
+          }
         }
-      })
-    } else if (section === NodeName.ROADMAP) {
-      addRoadmap({
-        endPos
-      })
+      }
     } else if (section === NodeName.RUN_LOCALLY) {
       let mainLanguage = DEFAULT_DATA_CACHED[section].mainLanguage
 
@@ -495,112 +443,80 @@ export function useReadme() {
         mainLanguage = language
       }
 
-      addRunLocally({
-        endPos: endPos,
-        data: {
-          mainLanguage,
-          repoName,
-          urlRepository
-        }
-      })
+      data = {
+        mainLanguage,
+        repoName,
+        urlRepository
+      }
     } else if (section === NodeName.SETTING_UP) {
       if (!repositoryData) {
-        const data = DEFAULT_DATA_CACHED[section]
-        addSettingUpGuide({
-          endPos: endPos,
-          data
+        data = DEFAULT_DATA_CACHED[section]
+      } else {
+        const prompt = await getEnvironmentVariablesGuideData({
+          owner,
+          repoName
         })
-        return
-      }
-
-      const prompt = await getEnvironmentVariablesGuideData({
-        owner,
-        repoName
-      })
-      if (prompt === '') {
-        addSettingUpGuide({
-          endPos: endPos,
-          data: {
+        if (prompt === '') {
+          data = {
             content: []
           }
-        })
-        return
-      }
+        } else {
+          const response = await getGenerationAI({
+            format: 'json',
+            prompt
+          })
 
-      const response = await getGenerationAI({
-        format: 'json',
-        prompt
-      })
+          if (response.name === 'Error') {
+            toast.error(response.message)
+            return
+          }
 
-      if (response.name === 'Error') {
-        toast.error(response.message)
-        return
-      }
-
-      addSettingUpGuide({
-        endPos: endPos,
-        data: {
-          content: response.data.data
+          data = {
+            content: response.data.data
+          }
         }
-      })
+      }
     } else if (section === NodeName.TECH_STACK) {
       if (!repositoryData) {
-        const data = DEFAULT_DATA_CACHED[section]
-        addTechStack({
-          endPos: endPos,
-          data
+        data = DEFAULT_DATA_CACHED[section]
+      } else {
+        const prompt = await getTechStackData({
+          branch,
+          language,
+          owner,
+          repoName
         })
-        return
-      }
 
-      const prompt = await getTechStackData({
-        branch,
-        language,
-        owner,
-        repoName
-      })
-
-      if (prompt === '') {
-        addTechStack({
-          endPos: endPos,
-          data: {
+        if (prompt === '') {
+          data = {
             content: []
           }
-        })
-        return
-      }
+        } else {
+          const response = await getGenerationAI({
+            format: 'json',
+            prompt
+          })
 
-      const response = await getGenerationAI({
-        format: 'json',
-        prompt
-      })
+          if (response.name === 'Error') {
+            toast.error(response.message)
+            return
+          }
 
-      if (response.name === 'Error') {
-        toast.error(response.message)
-        return
-      }
-
-      addTechStack({
-        endPos: endPos,
-        data: {
-          content: response.data.dependencies
+          data = {
+            content: response.data.dependencies
+          }
         }
-      })
-    } else if (section === NodeName.TABLE_CONTENTS) {
-      addTableOfContent({
-        endPos
-      })
+      }
     } else if (section === NodeName.ALERT) {
-      addAlert({ endPos, id: 'info' })
-    } else if (section === NodeName.API_REFERENCE) {
-      addApiReference({ endPos })
-    } else if (section === NodeName.FEEDBACK) {
-      addFeedback({ endPos })
-    } else if (section === NodeName.CODE_SAMPLE) {
-      addCodeSample({ endPos })
-    } else if (section === NodeName.LIB_PROPS) {
-      addLibraryProps({ endPos })
+      data = 'info'
     }
+
+    const { add } = sectionItem
+    add({
+      editor: readmeEditor!,
+      endPos,
+      data
+    })
   }
 
   return {

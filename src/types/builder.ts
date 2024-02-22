@@ -1,3 +1,5 @@
+import { type Editor } from '@tiptap/core'
+
 export enum NodeName {
   BANNER = 'custom-banner',
   TECH_STACK = 'custom-techStack',
@@ -29,6 +31,7 @@ export type Section = {
   name: string
   emoji: string | undefined
   description: string
+  add: ({ editor, endPos, data }: { editor: Editor; endPos: number; data?: any }) => void
 }
 
 export type BadgeName =
