@@ -173,9 +173,6 @@ export const LIST_BADGES: { id: BadgeName; name: string }[] = [
 export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
   endPos: {
     default: 0
-  },
-  showPlaceholder: {
-    default: false
   }
 }
 

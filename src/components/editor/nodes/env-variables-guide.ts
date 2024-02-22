@@ -11,12 +11,10 @@ declare module '@tiptap/core' {
     [NodeName.SETTING_UP]: {
       insertEnvVariablesGuide: ({
         endPos,
-        content,
-        showPlaceholder
+        content
       }: {
         endPos: number
         content?: string
-        showPlaceholder: boolean
       }) => ReturnType
     }
   }
@@ -48,21 +46,13 @@ export default Node.create({
   addCommands(): any {
     return {
       insertEnvVariablesGuide:
-        ({
-          endPos,
-          content,
-          showPlaceholder
-        }: {
-          endPos: number
-          content: string
-          showPlaceholder: boolean
-        }) =>
+        ({ endPos, content }: { endPos: number; content: string }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
               type: NodeName.SETTING_UP,
-              attrs: { content, showPlaceholder }
+              attrs: { content }
             })
             .focus('end')
             .run()

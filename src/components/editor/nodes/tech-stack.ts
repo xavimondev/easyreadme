@@ -9,15 +9,7 @@ import { TechStack } from '@/components/editor/views/tech-stack'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.TECH_STACK]: {
-      insertTechStack: ({
-        endPos,
-        content,
-        showPlaceholder
-      }: {
-        endPos: number
-        content?: string
-        showPlaceholder: boolean
-      }) => ReturnType
+      insertTechStack: ({ endPos, content }: { endPos: number; content?: string }) => ReturnType
     }
   }
 }
@@ -48,21 +40,13 @@ export default Node.create({
   addCommands(): any {
     return {
       insertTechStack:
-        ({
-          endPos,
-          content,
-          showPlaceholder
-        }: {
-          endPos: number
-          content: string
-          showPlaceholder: boolean
-        }) =>
+        ({ endPos, content }: { endPos: number; content: string }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
               type: NodeName.TECH_STACK,
-              attrs: { content, showPlaceholder }
+              attrs: { content }
             })
             .focus('end')
             .run()

@@ -6,7 +6,6 @@ import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
-import { PlaceholderList } from '@/components/placeholder'
 
 type TechListProps = {
   data: any
@@ -39,7 +38,7 @@ export function TechStack(props: any) {
   const { node, deleteNode } = props
   const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const { attrs, type } = node
-  const { content, showPlaceholder } = attrs
+  const { content } = attrs
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -54,9 +53,7 @@ export function TechStack(props: any) {
           suppressContentEditableWarning={true}
         >
           <h2>{section?.name}</h2>
-          {showPlaceholder ? (
-            <PlaceholderList />
-          ) : content.length === 0 ? (
+          {content.length === 0 ? (
             <p>Include a concise explanation about the Tech Stack employed.</p>
           ) : (
             <TechList data={content} />

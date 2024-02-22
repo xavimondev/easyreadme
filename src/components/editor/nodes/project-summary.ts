@@ -11,12 +11,10 @@ declare module '@tiptap/core' {
     [NodeName.PROJECT_SUMMARY]: {
       insertProjectSummary: ({
         endPos,
-        content,
-        showPlaceholder
+        content
       }: {
         endPos: number
         content?: Array<{ name: string; link: string; description: string }>
-        showPlaceholder: boolean
       }) => ReturnType
     }
   }
@@ -50,19 +48,17 @@ export default Node.create({
       insertProjectSummary:
         ({
           endPos,
-          content,
-          showPlaceholder
+          content
         }: {
           endPos: number
           content: Array<{ name: string; link: string; description: string }>
-          showPlaceholder: boolean
         }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
             .insertContentAt(endPos, {
               type: NodeName.PROJECT_SUMMARY,
-              attrs: { content, showPlaceholder }
+              attrs: { content }
             })
             .focus('end')
             .run()

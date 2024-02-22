@@ -8,15 +8,7 @@ import { Overview } from '@/components/editor/views/overview'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.OVERVIEW]: {
-      insertOverview: ({
-        endPos,
-        content,
-        showPlaceholder
-      }: {
-        endPos: number
-        content?: string
-        showPlaceholder: boolean
-      }) => ReturnType
+      insertOverview: ({ endPos, content }: { endPos: number; content?: string }) => ReturnType
     }
   }
 }

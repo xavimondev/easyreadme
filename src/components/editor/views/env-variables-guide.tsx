@@ -6,7 +6,6 @@ import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
 import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/views/actions-bar'
-import { PlaceholderGuide } from '@/components/placeholder'
 
 type GuideListProps = {
   data: any
@@ -38,7 +37,7 @@ function GuideList({ data }: GuideListProps) {
 export function EnvVariablesGuide(props: any) {
   const { node, deleteNode } = props
   const { attrs, type } = node
-  const { content, showPlaceholder } = attrs
+  const { content } = attrs
   const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
@@ -54,9 +53,7 @@ export function EnvVariablesGuide(props: any) {
           suppressContentEditableWarning={true}
         >
           <h2>{section?.name}</h2>
-          {showPlaceholder ? (
-            <PlaceholderGuide />
-          ) : content.length === 0 ? (
+          {content.length === 0 ? (
             <p>Insert your environment variables.</p>
           ) : (
             <GuideList data={content} />
