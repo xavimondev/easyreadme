@@ -65,7 +65,7 @@ Follow this format:
   description: Brief explanation (up to 100 characters) about the dependency's role.
 }
 
-Only respond with an object JSON called dependencies.`
+Only respond with an object JSON called dependencies. Don't add backticks.`
 }
 
 export const generateGuideEnvironmentVariables = ({
@@ -100,7 +100,7 @@ Follow this format:
   steps: [Up to 5 bullet point instructions, each not exceeding 100 characters]
 }
 
-Only respond with an object JSON called data.`
+Only respond with an object JSON called data. Don't add backticks.`
 }
 
 export const generateProjectSummary = ({
@@ -136,5 +136,5 @@ Follow this format:
   description: Brief summary of primary functionalities/components (up to 80 characters).
 }
 
-Only respond with an object JSON called data.`
+Only respond with an object JSON called data. Don't add backticks.`
 }
