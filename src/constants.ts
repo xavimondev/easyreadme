@@ -137,23 +137,6 @@ export const APP_URL =
 
 export const RATE_LIMIT = 3
 
-export const DEFAULT_CONTENT = `<p style="text-align:center;">
-<img src='illustrations/process.svg' height="30%" width="30%" alt="Illustration" />
-</p>
-
-<p></p>
-<p></p>
-
-# ✨ Welcome to easyreadme
-
-Ready to create a stunning README for your project? 👀
-
-
-1. **Enter your GitHub Repository URL 🔗**.
-2. **Choose a template that suits your project 🤔**.
-3. **Click the Generate ⚡️ Button**.
-`
-
 export const LIST_BADGES: { id: BadgeName; name: string }[] = [
   { id: 'forks', name: 'Forks' },
   { id: 'codesize', name: 'Codesize' },

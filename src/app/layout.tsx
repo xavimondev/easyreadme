@@ -3,10 +3,11 @@ import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 
 import { APP_URL } from '@/constants'
-import { CustomToaster } from '@/components/custom-toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import '../styles/globals.css'
+
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ['latin'], weight: ['500', '600', '700'] })
 
@@ -43,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </ThemeProvider>
         <Analytics />
-        <CustomToaster />
+        <Toaster theme='system' />
       </body>
     </html>
   )

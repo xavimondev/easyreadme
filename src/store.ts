@@ -6,8 +6,6 @@ import { GitRepository } from '@/types/git'
 import { NameTemplate } from '@/types/readme'
 import { ModuleType } from '@/types/sidebar'
 
-import { DEFAULT_CONTENT } from '@/constants'
-
 import { README_SECTIONS_DATA } from './sections'
 
 type TableOfContentsSection = {
@@ -18,12 +16,6 @@ type TableOfContentsSection = {
 type BuilderState = {
   templateSelected: NameTemplate | undefined
   setTemplateSelected: (templateName: NameTemplate) => void
-  contentTemplate: string
-  addContentToTemplate: (content: string) => void
-  setContentTemplate: (content: string) => void
-  clearContentTemplate: () => void
-  isGenerating: boolean
-  setIsGenerating: (isGenerating: boolean) => void
   listSections: Section[]
   tableOfContents: TableOfContentsSection[]
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => void
@@ -43,8 +35,6 @@ type BuilderState = {
 
 export const useBuilder = create<BuilderState>()((set) => ({
   templateSelected: undefined,
-  contentTemplate: DEFAULT_CONTENT,
-  isGenerating: false,
   listSections: README_SECTIONS_DATA,
   tableOfContents: [],
   gitRepositoryData: undefined,
@@ -53,11 +43,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
   moduleSelected: 'templates',
   range: undefined,
   setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
-  addContentToTemplate: (content: string) =>
-    set((prevContent) => ({ contentTemplate: prevContent.contentTemplate.concat(content) })),
-  setContentTemplate: (content: string) => set({ contentTemplate: content }),
-  clearContentTemplate: () => set({ contentTemplate: '' }),
-  setIsGenerating: (isGenerating) => set({ isGenerating }),
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
   addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
     set((prevValues) => ({
