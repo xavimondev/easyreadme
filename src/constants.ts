@@ -162,8 +162,7 @@ export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
 export const SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS = [
   NodeName.TABLE_CONTENTS,
   NodeName.BADGE,
-  NodeName.BANNER,
-  NodeName.ALERT
+  NodeName.BANNER
 ]
 
 export const COOKIE_NAME = 'apikey-ai'

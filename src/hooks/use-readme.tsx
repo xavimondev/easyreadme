@@ -382,8 +382,6 @@ export function useReadme() {
           }
         }
       }
-    } else if (section === NodeName.ALERT) {
-      data = 'info'
     }
 
     const { add } = sectionItem
