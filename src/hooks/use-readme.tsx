@@ -121,6 +121,7 @@ export function useReadme() {
     setTableOfContents(mappedSections)
     clearEditorContent()
 
+    const toastId = toast.loading(`Generating Readme...`)
     for (let i = 0; i < sections.length; i++) {
       const sectionId = sections.at(i)
       await addSection({
@@ -128,6 +129,8 @@ export function useReadme() {
         gitData
       })
     }
+    toast.dismiss(toastId)
+    toast.success(`Readme generated.`)
   }
 
   const buildCustomReadme = async ({
@@ -151,10 +154,18 @@ export function useReadme() {
       })
     }
 
-    await addSection({
+    const promise = addSection({
       section: section,
       options,
       gitData
+    })
+
+    toast.promise(promise, {
+      loading: 'Adding section...',
+      success: () => {
+        return `Section added.`
+      },
+      error: 'Error'
     })
   }
 
