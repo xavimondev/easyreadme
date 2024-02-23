@@ -170,18 +170,6 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   },
   {
-    id: NodeName.ALERT,
-    name: 'Alerts',
-    emoji: '⚠️',
-    description: 'Use to emphasize critical information.',
-    add: async ({ editor, endPos, data }) => {
-      editor.chain().insertAlert({
-        endPos,
-        id: data
-      })
-    }
-  },
-  {
     id: NodeName.API_REFERENCE,
     name: 'Api Reference',
     emoji: '🚀',
