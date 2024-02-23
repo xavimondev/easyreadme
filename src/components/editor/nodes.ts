@@ -1,3 +1,5 @@
+import CustomPlaceholder from '@/components/editor/core-nodes/paragraph'
+import SlashCommand from '@/components/editor/core-nodes/slash-command/'
 import Acknowledgments from '@/components/editor/nodes/acknowledgments'
 import Alert from '@/components/editor/nodes/alert'
 import ApiReference from '@/components/editor/nodes/api-reference'
@@ -45,5 +47,7 @@ export const CUSTOM_NODES = [
   ApiReference,
   Feedback,
   CodeSample,
-  LibProps
+  LibProps,
+  CustomPlaceholder,
+  SlashCommand
 ]

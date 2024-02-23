@@ -16,6 +16,17 @@ export function ReadmeEditor() {
       attributes: {
         class:
           'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-[325px] sm:max-w-none font-default focus:outline-none h-[calc(100vh-270px)] md:h-[calc(100vh-220px)] lg:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
+      },
+      handleDOMEvents: {
+        keydown: (_view, event) => {
+          // prevent default event listeners from firing when slash command is active
+          if (['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+            const slashCommand = document.querySelector('#readme-command')
+            if (slashCommand) {
+              return true
+            }
+          }
+        }
       }
     },
     extensions: [...DEFAULT_EXTENSIONS, ...CUSTOM_NODES],

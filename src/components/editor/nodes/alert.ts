@@ -1,4 +1,4 @@
-import { mergeAttributes, Node } from '@tiptap/core'
+import { mergeAttributes, Node, type Range } from '@tiptap/core'
 import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
@@ -8,7 +8,7 @@ import { Alert } from '@/components/editor/views/alert'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.ALERT]: {
-      insertAlert: ({ endPos, id }: { endPos: number; id: string }) => ReturnType
+      insertAlert: ({ endPos, id }: { endPos: number | Range; id: string }) => ReturnType
     }
   }
 }
@@ -38,7 +38,7 @@ export default Node.create({
   addCommands(): any {
     return {
       insertAlert:
-        ({ endPos, id }: { endPos: number; id: string }) =>
+        ({ endPos, id }: { endPos: number | Range; id: string }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
