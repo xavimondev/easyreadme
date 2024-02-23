@@ -52,6 +52,7 @@ export function CommandSelector({
   const { x, y } = coordsCommandSelector ?? {}
   return (
     <EditorCommand
+      shouldFilter={false}
       className='z-50 h-auto max-h-[200px] w-56 overflow-y-auto rounded-md border border-muted bg-background p-2 shadow-md transition-all absolute animate-[fade-in_.1s_ease-in-out]'
       style={{
         top: y,
