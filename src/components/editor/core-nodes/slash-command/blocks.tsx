@@ -154,7 +154,7 @@ export const groupAlertItems: BlockItem[] = [
         .focus()
         .deleteRange(range)
         .insertAlert({
-          endPos: range,
+          range,
           id: 'info'
         })
         .run()
@@ -170,7 +170,7 @@ export const groupAlertItems: BlockItem[] = [
         .focus()
         .deleteRange(range)
         .insertAlert({
-          endPos: range,
+          range,
           id: 'tip'
         })
         .run()
@@ -186,7 +186,7 @@ export const groupAlertItems: BlockItem[] = [
         .focus()
         .deleteRange(range)
         .insertAlert({
-          endPos: range,
+          range,
           id: 'important'
         })
         .run()
@@ -202,7 +202,7 @@ export const groupAlertItems: BlockItem[] = [
         .focus()
         .deleteRange(range)
         .insertAlert({
-          endPos: range,
+          range,
           id: 'warning'
         })
         .run()
@@ -218,7 +218,7 @@ export const groupAlertItems: BlockItem[] = [
         .focus()
         .deleteRange(range)
         .insertAlert({
-          endPos: range,
+          range,
           id: 'caution'
         })
         .run()

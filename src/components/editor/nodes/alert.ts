@@ -8,7 +8,7 @@ import { Alert } from '@/components/editor/views/alert'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.ALERT]: {
-      insertAlert: ({ endPos, id }: { endPos: number | Range; id: string }) => ReturnType
+      insertAlert: ({ range, id }: { range: Range; id: string }) => ReturnType
     }
   }
 }
@@ -38,11 +38,11 @@ export default Node.create({
   addCommands(): any {
     return {
       insertAlert:
-        ({ endPos, id }: { endPos: number | Range; id: string }) =>
+        ({ range, id }: { range: Range; id: string }) =>
         ({ editor }: { editor: Editor }) => {
           return editor
             .chain()
-            .insertContentAt(endPos, {
+            .insertContentAt(range, {
               type: NodeName.ALERT,
               attrs: { id }
             })
