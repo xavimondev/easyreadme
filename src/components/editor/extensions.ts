@@ -86,12 +86,8 @@ export const DEFAULT_EXTENSIONS = [
   }),
   Markdown.configure({
     html: true,
-    tightLists: false, // No <p> inside <li> in markdown output
-    tightListClass: 'tight', // Add class to <ul> allowing you to remove <p> margins when tight
-    bulletListMarker: '-', // <li> prefix in markdown output
     transformPastedText: true,
-    transformCopiedText: true,
-    breaks: false
+    transformCopiedText: true
   }),
   CustomTable,
   TableRow.configure({
