@@ -1,5 +1,5 @@
-import { mergeAttributes, Node, type Range } from '@tiptap/core'
-import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
+import { mergeAttributes, Node, type Editor, type Range } from '@tiptap/core'
+import { ReactNodeViewRenderer } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
 
@@ -21,9 +21,6 @@ export default Node.create({
   addAttributes() {
     return {
       id: {
-        default: ''
-      },
-      html: {
         default: ''
       }
     }
