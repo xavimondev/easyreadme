@@ -10,6 +10,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import StarterKit from '@tiptap/starter-kit'
 import { Markdown } from 'tiptap-markdown'
 
+import CodeBlockLowSyntax from './core-nodes/code-block-syntax'
 import CustomTable from './core-nodes/table'
 
 const CustomImage = Image.extend({
@@ -62,11 +63,6 @@ export const DEFAULT_EXTENSIONS = [
     codeBlock: false,
     heading: false,
     paragraph: false,
-    code: {
-      HTMLAttributes: {
-        spellcheck: 'false'
-      }
-    },
     orderedList: {
       HTMLAttributes: {
         class: 'list-decimal list-outside leading-4'
@@ -106,6 +102,7 @@ export const DEFAULT_EXTENSIONS = [
     }
   }),
   CodeBlock,
+  CodeBlockLowSyntax,
   CustomImage.configure({
     inline: true,
     HTMLAttributes: {

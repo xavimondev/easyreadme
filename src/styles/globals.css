@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -9,63 +9,63 @@
 
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
- 
+
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
- 
+
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
- 
+
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
- 
+
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
- 
+
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
- 
+
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
- 
+
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
- 
+
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
- 
+
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
- 
+
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
- 
+
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -122,9 +122,117 @@ p:has(span.node-custom-badges) {
   [cmdk-group-heading] {
     user-select: none;
     font-size: 12px;
-    color: #6F6F6F;
+    color: #6f6f6f;
     padding: 0px 10px;
     display: flex;
     align-items: center;
   }
+}
+
+/* Syntax highlighter */
+
+pre {
+  background-color: #0d1117 !important;
+  border: 1px solid rgba(128, 128, 128,.1)
+}
+
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+.hljs {
+  color: #c9d1d9;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: #ff7b72;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-variable {
+  color: #79c0ff;
+}
+
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
+  color: #a5d6ff;
+}
+
+.hljs-built_in,
+.hljs-symbol {
+  color: #ffa657;
+}
+
+.hljs-code,
+.hljs-comment,
+.hljs-formula {
+  color: #8b949e;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
+  color: #7ee787;
+}
+
+.hljs-subst {
+  color: #c9d1d9;
+}
+
+.hljs-section {
+  color: #1f6feb;
+  font-weight: 700;
+}
+
+.hljs-bullet {
+  color: #f2cc60;
+}
+
+.hljs-emphasis {
+  color: #c9d1d9;
+  font-style: italic;
+}
+
+.hljs-strong {
+  color: #c9d1d9;
+  font-weight: 700;
+}
+
+.hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
 }
