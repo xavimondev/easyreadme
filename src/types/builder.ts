@@ -19,10 +19,8 @@ export enum NodeName {
   TABLE_CONTENTS = 'custom-tableContents',
   OVERVIEW = 'custom-overview',
   BADGE = 'custom-badges',
-  ALERT = 'custom-alert',
   API_REFERENCE = 'custom-api-reference',
   FEEDBACK = 'custom-feedback',
-  CODE_SAMPLE = 'custom-code-sample',
   LIB_PROPS = 'custom-lib-props'
 }
 

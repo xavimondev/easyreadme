@@ -192,17 +192,6 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   },
   {
-    id: NodeName.CODE_SAMPLE,
-    name: 'Code Sample',
-    emoji: '💯',
-    description: 'Share examples of your code.',
-    add: async ({ editor, endPos }) => {
-      editor.chain().insertCodeSample({
-        endPos
-      })
-    }
-  },
-  {
     id: NodeName.LIB_PROPS,
     name: 'Table Props',
     emoji: '🧾',

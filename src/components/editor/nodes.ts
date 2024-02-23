@@ -6,7 +6,6 @@ import ApiReference from '@/components/editor/nodes/api-reference'
 import Badge from '@/components/editor/nodes/badge'
 import Banner from '@/components/editor/nodes/banner'
 import Changelog from '@/components/editor/nodes/changelog'
-import CodeSample from '@/components/editor/nodes/code-sample'
 import Commands from '@/components/editor/nodes/commands'
 import ContributorsNode from '@/components/editor/nodes/contributors'
 import Deploy from '@/components/editor/nodes/deploy'
@@ -46,7 +45,6 @@ export const CUSTOM_NODES = [
   Alert,
   ApiReference,
   Feedback,
-  CodeSample,
   LibProps,
   CustomPlaceholder,
   SlashCommand
