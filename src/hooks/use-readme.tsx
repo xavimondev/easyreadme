@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
 import { LIST_TEMPLATES } from '@/templates'
-import { findChildren } from '@tiptap/react'
 import { toast } from 'sonner'
 
 import { NodeName } from '@/types/builder'
@@ -31,50 +30,9 @@ export function useReadme() {
     tableOfContents
   } = useBuilder((store) => store)
 
-  const updateNode = useCallback(
-    ({ node, data }: { node: any; data?: any }) => {
-      readmeEditor?.chain().updateAttributes(node, data).run()
-    },
-    [readmeEditor]
-  )
-
-  const removeNode = useCallback(
-    (section: NodeName) => {
-      const nodes = Object.values(readmeEditor?.schema.nodes ?? {}).filter((node) =>
-        node.name.includes('custom-')
-      )
-
-      readmeEditor?.commands.forEach(nodes, (_, { tr, commands }) => {
-        const item = findChildren(tr.doc, (node) => {
-          return node.type.name === section
-        })?.[0]
-        if (!item) {
-          return true
-        }
-        return commands.deleteRange({
-          from: item.pos,
-          to: item.pos + item.node.nodeSize
-        })
-      })
-    },
-    [readmeEditor]
-  )
-
   const clearEditorContent = useCallback(() => {
     readmeEditor?.commands.clearContent()
   }, [readmeEditor])
-
-  const findNodeByName = (nodeName: NodeName) => {
-    let foundNode = null
-
-    readmeEditor?.state.doc.descendants((node) => {
-      if (node.type.name === nodeName) {
-        foundNode = node
-      }
-    })
-
-    return foundNode
-  }
 
   const checkGitRepositoryData = async () => {
     if (!gitUrlRepository) return
@@ -168,8 +126,7 @@ export function useReadme() {
 
   const addSection = async ({
     section,
-    gitData,
-    options
+    gitData
   }: {
     section: NodeName
     gitData?: GitRepository
