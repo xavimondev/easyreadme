@@ -32,22 +32,19 @@ export type Section = {
   add: ({ editor, endPos, data }: { editor: Editor; endPos: number; data?: any }) => void
 }
 
-export type BadgeName =
-  | 'forks'
-  | 'codesize'
-  | 'stars'
-  | 'watchers'
-  | 'contributors'
-  | 'last_commit'
-  | 'license'
-  | 'top_language'
-  | 'commit_activity_month'
-  | 'discussions'
-  | 'issues'
-  | 'pull_requests'
-  | 'deployment'
-
 export enum ContributorOption {
   GALLERY = 'gallery',
   TABLE = 'table'
+}
+
+export type BadgeItem = {
+  id: string
+  name: string
+  url: string
+}
+
+export type BadgeOption = {
+  id: string
+  label: string
+  data: BadgeItem[]
 }

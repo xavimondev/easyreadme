@@ -1,4 +1,4 @@
-import { BadgeName, NodeName } from '@/types/builder'
+import { NodeName } from '@/types/builder'
 
 import {
   parseBuildGradle,
@@ -117,41 +117,10 @@ export const LANGUAGES_FILES_PARSERS: Record<string, any> = {
   'cargo.toml': parseCargo
 }
 
-const BADGES_URL = 'https://img.shields.io/github'
-export const FORKS_URL = `${BADGES_URL}/forks`
-export const CODESIZE_URL = `${BADGES_URL}/languages/code-size`
-export const STARS_URL = `${BADGES_URL}/stars`
-export const WATCHERS_URL = `${BADGES_URL}/watchers`
-export const CONTRIBUTORS_URL = `${BADGES_URL}/contributors`
-export const LAST_COMMIT_URL = `${BADGES_URL}/last-commit`
-export const LICENSE_URL = `${BADGES_URL}/license`
-export const TOP_LANGUAGE_URL = `${BADGES_URL}/languages/top`
-export const COMMIT_ACTIVITY_MONTH_URL = `${BADGES_URL}/commit-activity/m`
-export const DISCUSSIONS_URL = `${BADGES_URL}/discussions`
-export const ISSUES_URL = `${BADGES_URL}/issues`
-export const PULL_REQUESTS_URL = `${BADGES_URL}/issues-pr`
-export const DEPLOYMENTS_URL = `${BADGES_URL}/deployments`
-
 export const APP_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://easyreadme.vercel.app'
 
 export const RATE_LIMIT = 3
-
-export const LIST_BADGES: { id: BadgeName; name: string }[] = [
-  { id: 'forks', name: 'Forks' },
-  { id: 'codesize', name: 'Codesize' },
-  { id: 'stars', name: 'Stars' },
-  { id: 'watchers', name: 'Watchers' },
-  { id: 'contributors', name: 'Contributors' },
-  { id: 'last_commit', name: 'Last Commit' },
-  { id: 'license', name: 'License' },
-  { id: 'top_language', name: 'Language' },
-  { id: 'discussions', name: 'Discussions' },
-  { id: 'issues', name: 'Issues' },
-  { id: 'pull_requests', name: 'Pull Request' },
-  { id: 'deployment', name: 'Deployment' },
-  { id: 'commit_activity_month', name: 'Commits' }
-]
 
 export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
   endPos: {

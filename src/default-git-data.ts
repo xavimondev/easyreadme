@@ -1,4 +1,4 @@
-import { BadgeName, NodeName } from '@/types/builder'
+import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 export const DEFAULT_REPOSITORY_DATA: GitRepository = {
@@ -128,12 +128,3 @@ export const DEFAULT_DATA_CACHED = {
     mainLanguage: DEFAULT_REPOSITORY_DATA.language
   }
 }
-
-export const DEFAULT_BADGES: BadgeName[] = [
-  'stars',
-  'contributors',
-  'top_language',
-  'issues',
-  'deployment',
-  'license'
-]

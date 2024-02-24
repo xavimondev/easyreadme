@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { DEFAULT_BADGES, DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
+import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
 import { LIST_TEMPLATES } from '@/templates'
 import { findChildren } from '@tiptap/react'
 import { toast } from 'sonner'
@@ -8,7 +8,7 @@ import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
-import { getBadgeByName, getRepositoryTreeDirectory } from '@/utils/github'
+import { getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
   getOverviewData,
@@ -17,7 +17,6 @@ import {
 } from '@/utils/readme'
 import { getGenerationAI, getLicense, getRepositoryData } from '@/services/github'
 import { useBuilder } from '@/store'
-import { useSections } from '@/hooks/use-sections'
 
 export function useReadme() {
   const {
@@ -31,8 +30,6 @@ export function useReadme() {
     setTableOfContents,
     tableOfContents
   } = useBuilder((store) => store)
-
-  const { addBadge } = useSections()
 
   const updateNode = useCallback(
     ({ node, data }: { node: any; data?: any }) => {
@@ -196,44 +193,7 @@ export function useReadme() {
 
     let data = undefined
 
-    if (section === NodeName.BADGE) {
-      let badgesData = DEFAULT_BADGES
-
-      if (options) {
-        const { data } = options
-        badgesData = data
-      }
-
-      if (Array.isArray(badgesData)) {
-        for (let i = 0; i < badgesData.length; i++) {
-          const id = badgesData.at(i)
-          const badge = getBadgeByName({
-            owner,
-            repoName,
-            badge: id!
-          })
-          addBadge({
-            endPos: endPos + i,
-            data: badge
-          })
-        }
-        return
-      }
-
-      if (!gitRepositoryData) return
-
-      const { id } = options?.data
-      const badge = getBadgeByName({
-        owner,
-        repoName,
-        badge: id
-      })
-
-      addBadge({
-        endPos: -1,
-        data: badge
-      })
-    } else if (section === NodeName.CONTRIBUTORS) {
+    if (section === NodeName.CONTRIBUTORS) {
       data = {
         repository: repoName,
         owner
