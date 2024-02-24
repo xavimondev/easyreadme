@@ -67,7 +67,7 @@ export const groupBasicItems: BlockItem[] = [
   },
   {
     title: 'Heading 4',
-    description: 'Very small section heading.',
+    description: 'Smaller section heading.',
     searchTerms: ['subtitle', 'small'],
     icon: <Heading4 size={18} />,
     command: ({ editor, range }: { editor: Editor; range: Range }) => {
@@ -76,7 +76,7 @@ export const groupBasicItems: BlockItem[] = [
   },
   {
     title: 'Heading 5',
-    description: 'Very very small section heading.',
+    description: 'Even smaller section heading.',
     searchTerms: ['subtitle', 'small'],
     icon: <Heading5 size={18} />,
     command: ({ editor, range }: { editor: Editor; range: Range }) => {
@@ -85,7 +85,7 @@ export const groupBasicItems: BlockItem[] = [
   },
   {
     title: 'Heading 6',
-    description: 'Very very very small section heading.',
+    description: 'Tiny section heading.',
     searchTerms: ['subtitle', 'small'],
     icon: <Heading6 size={18} />,
     command: ({ editor, range }: { editor: Editor; range: Range }) => {
