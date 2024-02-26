@@ -1,4 +1,3 @@
-import CodeBlock from '@tiptap/extension-code-block'
 import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
@@ -100,7 +99,6 @@ export const DEFAULT_EXTENSIONS = [
       class: 'border-2 dark:border-neutral-700 !px-4 !py-2'
     }
   }),
-  CodeBlock,
   CustomCodeBlockLowSyntax,
   CustomImage.configure({
     inline: true,
