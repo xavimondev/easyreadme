@@ -3,7 +3,6 @@ import { create } from 'zustand'
 
 import { NodeName, Section } from '@/types/builder'
 import { GitRepository } from '@/types/git'
-import { NameTemplate } from '@/types/readme'
 import { ModuleType } from '@/types/sidebar'
 
 import { README_SECTIONS_DATA } from './sections'
@@ -14,8 +13,6 @@ type TableOfContentsSection = {
 }
 
 type BuilderState = {
-  templateSelected: NameTemplate | undefined
-  setTemplateSelected: (templateName: NameTemplate) => void
   listSections: Section[]
   tableOfContents: TableOfContentsSection[]
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => void
@@ -34,7 +31,6 @@ type BuilderState = {
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
-  templateSelected: undefined,
   listSections: README_SECTIONS_DATA,
   tableOfContents: [],
   gitRepositoryData: undefined,
@@ -42,7 +38,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
   readmeEditor: undefined,
   moduleSelected: 'templates',
   range: undefined,
-  setTemplateSelected: (templateName: NameTemplate) => set({ templateSelected: templateName }),
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
   addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
     set((prevValues) => ({

@@ -1,25 +1,29 @@
 'use client'
 
+import { Dispatch, SetStateAction, useState } from 'react'
 import { LIST_TEMPLATES } from '@/templates'
 
 import { NodeName } from '@/types/builder'
-import { Template } from '@/types/readme'
+import { NameTemplate, Template } from '@/types/readme'
 
 import { cn } from '@/lib/utils'
-import { useBuilder } from '@/store'
 import { useReadme } from '@/hooks/use-readme'
 import { Badge } from '@/components/ui/badge'
 
 type TemplateItemProps = {
   template: Template
   buildTemplate: ({ sections }: { sections?: NodeName[] }) => Promise<void>
+  isSelected: boolean
+  setTemplateSelected: Dispatch<SetStateAction<NameTemplate>>
 }
 
-export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
+export function TemplateItem({
+  template,
+  buildTemplate,
+  isSelected,
+  setTemplateSelected
+}: TemplateItemProps) {
   const { nameTemplate, description, tags } = template
-  const templateSelected = useBuilder((state) => state.templateSelected)
-  const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
-  const isSelected = templateSelected === nameTemplate
   const sections = LIST_TEMPLATES.find(
     ({ nameTemplate }) => nameTemplate === template.nameTemplate
   )!.sections
@@ -59,6 +63,7 @@ type ListTemplatesProps = {
 }
 
 export function ListTemplates({ mobileCloseFunction }: ListTemplatesProps) {
+  const [templateSelected, setTemplateSelected] = useState<NameTemplate>('Minimal')
   const { buildTemplate } = useReadme()
 
   const buildTemplateHandle = async ({ sections }: { sections?: NodeName[] }) => {
@@ -74,6 +79,8 @@ export function ListTemplates({ mobileCloseFunction }: ListTemplatesProps) {
           key={template.nameTemplate}
           template={template}
           buildTemplate={buildTemplateHandle}
+          isSelected={templateSelected === template.nameTemplate}
+          setTemplateSelected={setTemplateSelected}
         />
       ))}
     </div>
