@@ -81,6 +81,9 @@ const NETLIFY_URL = `${BADGES_TEC_URL}/Netlify-00C7B7?logo=netlify&logoColor=whi
 const HEROKU_URL = `${BADGES_TEC_URL}/Heroku-430098?logo=heroku&logoColor=white`
 const TYPESCRIPT_URL = `${BADGES_TEC_URL}/TypeScript-3178C6?logo=typescript&logoColor=white`
 const DART_URL = `${BADGES_TEC_URL}/Dart-0175C2?logo=dart&logoColor=white`
+const NEXTJS_URL = `${BADGES_TEC_URL}/Next.js-000000?logo=next.js&logoColor=white`
+const NUXT_URL = `${BADGES_TEC_URL}/Nuxt.js-0B1025?logo=nuxt.js&logoColor=64D98A`
+const C_URL = `${BADGES_TEC_URL}/C-00599C?logo=c&logoColor=white`
 
 const LIST_CLOUD_BADGES: BadgeItem[] = [
   { id: 'supabase', name: 'Supabase', url: SUPABASE_URL },
@@ -108,7 +111,8 @@ const LIST_PROGRAMMING_LANG_BADGES: BadgeItem[] = [
   { id: 'c-sharp', name: 'C#', url: C_SHARP_URL },
   { id: 'php', name: 'PHP', url: PHP_URL },
   { id: 'python', name: 'Python', url: PYTHON_URL },
-  { id: 'dart', name: 'Dart', url: DART_URL }
+  { id: 'dart', name: 'Dart', url: DART_URL },
+  { id: 'c', name: 'C', url: C_URL }
 ]
 
 const LIST_FRONTEND_FRAMEWORKS_BADGES: BadgeItem[] = [
@@ -119,7 +123,9 @@ const LIST_FRONTEND_FRAMEWORKS_BADGES: BadgeItem[] = [
   { id: 'angular', name: 'Angular', url: ANGULAR_URL },
   { id: 'tailwind-css', name: 'Tailwind CSS', url: TAILWIND_CSS_URL },
   { id: 'astro', name: 'Astro', url: ASTRO_URL },
-  { id: 'svelte', name: 'Svelte', url: SVELTE_URL }
+  { id: 'svelte', name: 'Svelte', url: SVELTE_URL },
+  { id: 'nextjs', name: 'Nextjs', url: NEXTJS_URL },
+  { id: 'nuxt', name: 'Nuxt', url: NUXT_URL }
 ]
 
 const LIST_BACKEND_FRAMEWORKDS_BADGES: BadgeItem[] = [
