@@ -1,27 +1,29 @@
 import CustomPlaceholder from '@/components/editor/core-nodes/paragraph'
-import SlashCommand from '@/components/editor/core-nodes/slash-command/'
-import Acknowledgments from '@/components/editor/nodes/acknowledgments'
-import Alert from '@/components/editor/nodes/alert'
-import ApiReference from '@/components/editor/nodes/api-reference'
-import Badge from '@/components/editor/nodes/badge'
-import Banner from '@/components/editor/nodes/banner'
-import Changelog from '@/components/editor/nodes/changelog'
-import Commands from '@/components/editor/nodes/commands'
-import ContributorsNode from '@/components/editor/nodes/contributors'
-import Deploy from '@/components/editor/nodes/deploy'
-import EnvVariablesGuide from '@/components/editor/nodes/env-variables-guide'
-import Faq from '@/components/editor/nodes/faq'
-import Feedback from '@/components/editor/nodes/feedback'
-import LibProps from '@/components/editor/nodes/lib-props'
-import License from '@/components/editor/nodes/license'
-import Overview from '@/components/editor/nodes/overview'
-import Prerequisites from '@/components/editor/nodes/prerequisites'
-import ProjectStructure from '@/components/editor/nodes/project-structure'
-import ProjectSummary from '@/components/editor/nodes/project-summary'
-import Roadmap from '@/components/editor/nodes/roadmap'
-import RunLocally from '@/components/editor/nodes/run-locally'
-import TableContents from '@/components/editor/nodes/table-contents'
-import TechStack from '@/components/editor/nodes/tech-stack'
+import SlashCommand from '@/components/editor/core-nodes/slash-command'
+import {
+  Acknowledgments,
+  Alert,
+  ApiReference,
+  Badge,
+  Banner,
+  Changelog,
+  Commands,
+  ContributorsNode,
+  Deploy,
+  EnvVariablesGuide,
+  Faq,
+  Feedback,
+  LibProps,
+  License,
+  Overview,
+  Prerequisites,
+  ProjectStructure,
+  ProjectSummary,
+  Roadmap,
+  RunLocally,
+  TableContents,
+  TechStack
+} from '@/components/editor/custom-nodes'
 
 export const CUSTOM_NODES = [
   Roadmap,
