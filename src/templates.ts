@@ -57,7 +57,6 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.BADGE,
       NodeName.OVERVIEW,
       NodeName.RUN_LOCALLY,
-      NodeName.CODE_SAMPLE,
       NodeName.LIB_PROPS,
       NodeName.CHANGELOG,
       NodeName.ROADMAP,
