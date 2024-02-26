@@ -236,3 +236,12 @@ code.hljs {
   color: #ffdcd7;
   background-color: #67060c;
 }
+
+/* CSS for tiptap placeholder */
+.tiptap p.is-empty::before {
+  color: #56595c;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
