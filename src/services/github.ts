@@ -109,3 +109,13 @@ export const getGenerationAI = async ({
     return null
   }
 }
+
+export const getLanguages = async ({ repoName, owner }: { repoName: string; owner: string }) => {
+  try {
+    const response = await fetch(`api/github/languages?owner=${owner}&repo=${repoName}`)
+    const languages = await response.json()
+    return languages.data
+  } catch (error) {
+    return
+  }
+}
