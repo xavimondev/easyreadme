@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
-import { LIST_TEMPLATES } from '@/templates'
 import { toast } from 'sonner'
 
 import { NodeName } from '@/types/builder'
@@ -26,7 +25,6 @@ export function useReadme() {
     readmeEditor,
     gitUrlRepository,
     setGitRepositoryData,
-    templateSelected,
     setTableOfContents,
     tableOfContents
   } = useBuilder((store) => store)
@@ -45,20 +43,9 @@ export function useReadme() {
     return data
   }
 
-  const getTemplateSections = ({ template }: { template?: string }) => {
-    const query = template ?? (templateSelected as string)
-    if (!query) {
-      toast.info(`You haven't selected a template.`)
-      return
-    }
-
-    return LIST_TEMPLATES.find(({ nameTemplate }) => nameTemplate === query)!.sections
-  }
-
-  const buildTemplate = async ({ template }: { template?: string }) => {
+  const buildTemplate = async ({ sections }: { sections?: NodeName[] }) => {
     const gitData = await checkGitRepositoryData()
 
-    const sections = getTemplateSections({ template })
     if (!sections) return
 
     const filteredSections = sections.filter(

@@ -2,6 +2,7 @@
 
 import { LIST_TEMPLATES } from '@/templates'
 
+import { NodeName } from '@/types/builder'
 import { Template } from '@/types/readme'
 
 import { cn } from '@/lib/utils'
@@ -11,7 +12,7 @@ import { Badge } from '@/components/ui/badge'
 
 type TemplateItemProps = {
   template: Template
-  buildTemplate: ({ template }: { template: string }) => Promise<void>
+  buildTemplate: ({ sections }: { sections?: NodeName[] }) => Promise<void>
 }
 
 export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
@@ -19,6 +20,9 @@ export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
   const templateSelected = useBuilder((state) => state.templateSelected)
   const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
   const isSelected = templateSelected === nameTemplate
+  const sections = LIST_TEMPLATES.find(
+    ({ nameTemplate }) => nameTemplate === template.nameTemplate
+  )!.sections
 
   return (
     <div
@@ -28,7 +32,7 @@ export function TemplateItem({ template, buildTemplate }: TemplateItemProps) {
       )}
       onClick={async () => {
         setTemplateSelected(nameTemplate)
-        await buildTemplate({ template: nameTemplate })
+        await buildTemplate({ sections })
       }}
     >
       <div className='flex items-center'>
@@ -57,8 +61,8 @@ type ListTemplatesProps = {
 export function ListTemplates({ mobileCloseFunction }: ListTemplatesProps) {
   const { buildTemplate } = useReadme()
 
-  const buildTemplateHandle = async ({ template }: { template: string }) => {
-    await buildTemplate({ template })
+  const buildTemplateHandle = async ({ sections }: { sections?: NodeName[] }) => {
+    await buildTemplate({ sections })
 
     mobileCloseFunction && mobileCloseFunction()
   }
