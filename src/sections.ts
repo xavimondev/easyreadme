@@ -166,7 +166,21 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '🛡️',
     description: 'Show metrics for your project.',
     add({ editor, endPos, data }) {
-      console.log('missing')
+      const { badges, owner, repoName } = data
+      for (let i = 0; i < badges.length; i++) {
+        const badge = badges.at(i)
+        if (!badge) return
+        const pos = endPos + i
+        const { name, url, isGithub } = badge ?? {}
+        const badgeUrl = isGithub ? `${url}/${owner}/${repoName}` : url
+        editor.chain().insertBadge({
+          endPos: pos,
+          data: {
+            label: name,
+            url: badgeUrl
+          }
+        })
+      }
     }
   },
   {

@@ -118,10 +118,10 @@ const LIST_PROGRAMMING_LANG_BADGES: BadgeItem[] = [
 const LIST_FRONTEND_FRAMEWORKS_BADGES: BadgeItem[] = [
   { id: 'react', name: 'React', url: REACT_URL },
   { id: 'vuejs', name: 'Vue.js', url: VUEJS_URL },
-  { id: 'html5', name: 'HTML5', url: HTML5_URL },
-  { id: 'css3', name: 'CSS3', url: CSS3_URL },
+  { id: 'html', name: 'HTML5', url: HTML5_URL },
+  { id: 'css', name: 'CSS3', url: CSS3_URL },
   { id: 'angular', name: 'Angular', url: ANGULAR_URL },
-  { id: 'tailwind-css', name: 'Tailwind CSS', url: TAILWIND_CSS_URL },
+  { id: 'tailwindcss', name: 'Tailwind CSS', url: TAILWIND_CSS_URL },
   { id: 'astro', name: 'Astro', url: ASTRO_URL },
   { id: 'svelte', name: 'Svelte', url: SVELTE_URL },
   { id: 'nextjs', name: 'Nextjs', url: NEXTJS_URL },
@@ -194,3 +194,26 @@ export const LIST_BADGES: BadgeOption[] = [
     data: LIST_DEPLOYMENT_BADGES
   }
 ]
+
+export const DEFAULT_BADGES = [
+  { name: 'Language', isGithub: true, url: TOP_LANGUAGE_URL },
+  { name: 'Stars', isGithub: true, url: STARS_URL },
+  { name: 'Pull Requests', isGithub: true, url: PULL_REQUESTS_URL },
+  { name: 'Issues', isGithub: true, url: ISSUES_URL },
+  { name: 'Contributors', isGithub: true, url: CONTRIBUTORS_URL }
+]
+
+export const INITIAL_BADGES = [
+  ...DEFAULT_BADGES,
+  { name: 'Nextjs', isGithub: false, url: NEXTJS_URL },
+  { name: 'TailwindCSS', isGithub: false, url: TAILWIND_CSS_URL }
+]
+
+export const ALL_BADGES: BadgeItem[] = LIST_CLOUD_BADGES.concat(
+  LIST_PROGRAMMING_LANG_BADGES,
+  LIST_DB_BADGES,
+  LIST_FRONTEND_FRAMEWORKS_BADGES,
+  LIST_BACKEND_FRAMEWORKDS_BADGES,
+  LIST_MOBILE_DESKTOP_BADGES,
+  LIST_DEPLOYMENT_BADGES
+)

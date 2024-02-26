@@ -1,6 +1,8 @@
 import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
+import { INITIAL_BADGES } from './badges'
+
 export const DEFAULT_REPOSITORY_DATA: GitRepository = {
   urlRepository: 'https://github.com/xavimondev/easyreadme',
   repoName: 'easyreadme',
@@ -126,5 +128,6 @@ export const DEFAULT_DATA_CACHED = {
   },
   [NodeName.RUN_LOCALLY]: {
     mainLanguage: DEFAULT_REPOSITORY_DATA.language
-  }
+  },
+  [NodeName.BADGE]: INITIAL_BADGES
 }

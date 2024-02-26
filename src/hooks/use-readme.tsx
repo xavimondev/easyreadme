@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
 import { LIST_TEMPLATES } from '@/templates'
 import { toast } from 'sonner'
@@ -14,7 +15,7 @@ import {
   getProjectSummaryData,
   getTechStackData
 } from '@/utils/readme'
-import { getGenerationAI, getLicense, getRepositoryData } from '@/services/github'
+import { getGenerationAI, getLanguages, getLicense, getRepositoryData } from '@/services/github'
 import { useBuilder } from '@/store'
 
 export function useReadme() {
@@ -148,7 +149,7 @@ export function useReadme() {
     const sectionItem = listSections.find((sec) => sec.id === section)
     if (!sectionItem) return
 
-    let data = undefined
+    let data: any = undefined
 
     if (section === NodeName.CONTRIBUTORS) {
       data = {
@@ -298,6 +299,28 @@ export function useReadme() {
             content: response.data.dependencies
           }
         }
+      }
+    } else if (section === NodeName.BADGE) {
+      data = {
+        owner,
+        repoName
+      }
+
+      if (!repositoryData) {
+        data.badges = DEFAULT_DATA_CACHED[section]
+      } else {
+        const languages = await getLanguages({
+          owner,
+          repoName
+        })
+        const languagesWithoutMainLanguage = Object.keys(languages)
+          .filter((lang) => lang.toLocaleLowerCase() !== language.toLocaleLowerCase())
+          .map((lang) => lang.toLowerCase())
+
+        const programmingBadges = ALL_BADGES.filter((badge) =>
+          languagesWithoutMainLanguage.includes(badge.id.toLowerCase())
+        ).map(({ name, url }) => ({ name, url, isGithub: false }))
+        data.badges = DEFAULT_BADGES.concat(programmingBadges)
       }
     }
 
