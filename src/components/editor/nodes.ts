@@ -1,5 +1,4 @@
-import CustomPlaceholder from '@/components/editor/core-nodes/paragraph'
-import SlashCommand from '@/components/editor/core-nodes/slash-command'
+import { CustomPlaceholder, CustomSlashCommand } from '@/components/editor/custom-extensions'
 import {
   Acknowledgments,
   Alert,
@@ -49,5 +48,5 @@ export const CUSTOM_NODES = [
   Feedback,
   LibProps,
   CustomPlaceholder,
-  SlashCommand
+  CustomSlashCommand
 ]

@@ -1,6 +1,6 @@
 import { CommandGroup } from 'cmdk'
 
-import { groupBasicItems } from '@/components/editor/core-nodes/slash-command/blocks'
+import { groupBasicItems } from '@/components/editor/custom-extensions/slash-command/blocks'
 
 import { EditorCommandItemMagic } from './editor-command-item'
 

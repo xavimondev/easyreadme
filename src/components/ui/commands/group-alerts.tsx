@@ -1,6 +1,6 @@
 import { CommandGroup } from 'cmdk'
 
-import { groupAlertItems } from '@/components/editor/core-nodes/slash-command/blocks'
+import { groupAlertItems } from '@/components/editor/custom-extensions/slash-command/blocks'
 
 import { EditorCommandItemMagic } from './editor-command-item'
 

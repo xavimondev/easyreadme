@@ -1,11 +1,11 @@
 import { groupAlertItems, groupBasicItems } from './blocks'
-import { Command, renderItems } from './extension'
+import { Command, renderItems } from './command'
 
-const SlashCommand = Command.configure({
+const CustomSlashCommand = Command.configure({
   suggestion: {
     items: () => groupAlertItems.concat(groupBasicItems),
     render: renderItems
   }
 })
 
-export default SlashCommand
+export default CustomSlashCommand

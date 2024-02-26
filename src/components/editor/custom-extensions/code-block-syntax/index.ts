@@ -3,8 +3,8 @@ import { common, createLowlight } from 'lowlight'
 
 const lowlight = createLowlight(common)
 
-const CodeBlockLowSyntax = CodeBlockLowlight.configure({
+const CustomCodeBlockLowSyntax = CodeBlockLowlight.configure({
   lowlight
 })
 
-export default CodeBlockLowSyntax
+export default CustomCodeBlockLowSyntax
