@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useRef, type ComponentPropsWithoutRef } from 'react'
-import { Command } from 'cmdk'
+
+import { Command, CommandList } from '@/components/ui/command'
 
 export const EditorCommand = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof Command>>(
   function EditorCommand({ children, className, ...rest }, ref) {
@@ -8,7 +9,7 @@ export const EditorCommand = forwardRef<HTMLDivElement, ComponentPropsWithoutRef
       const onKeyDown = (e: KeyboardEvent) => {
         if (navigationKeys.includes(e.key)) {
           e.preventDefault()
-          const commandRef = document.querySelector('#slash-command')
+          const commandRef = document.querySelector('#table-selector')
 
           if (commandRef)
             commandRef.dispatchEvent(
@@ -32,11 +33,11 @@ export const EditorCommand = forwardRef<HTMLDivElement, ComponentPropsWithoutRef
         onKeyDown={(e) => {
           e.stopPropagation()
         }}
-        id='slash-command'
+        id='table-selector'
         className={className}
         {...rest}
       >
-        <Command.List ref={commandListRef}>{children}</Command.List>
+        <CommandList ref={commandListRef}>{children}</CommandList>
       </Command>
     )
   }

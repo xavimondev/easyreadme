@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
 
-import { EditorCommand } from '@/components/ui/commands/editor-command'
-import { EditorCommandItem } from '@/components/ui/commands/editor-command-item'
-
+import { EditorCommand } from './editor-command'
+import { EditorCommandItem } from './editor-command-item'
 import { suggestions } from './suggestions'
 
 type CommandSelectorProps = {
@@ -26,7 +25,7 @@ export function CommandSelector({
 }: CommandSelectorProps) {
   useEffect(() => {
     const listener = (event: MouseEvent) => {
-      const commandRef = document.querySelector('#slash-command')
+      const commandRef = document.querySelector('#table-selector')
       if (commandRef && commandRef.contains(event.target as Node)) return
       setCoordsCommandSelector(undefined)
     }
@@ -44,12 +43,13 @@ export function CommandSelector({
         setCoordsCommandSelector(undefined)
       }
     }
-    // const commandRef = document.querySelector('#slash-command')
+    // const commandRef = document.querySelector('#table-selector')
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
 
   const { x, y } = coordsCommandSelector ?? {}
+
   return (
     <EditorCommand
       shouldFilter={false}
