@@ -118,7 +118,7 @@ p:has(span.node-custom-badges) {
   stroke-width: 1.5px;
 }
 
-.readme-command {
+.slash-command {
   [cmdk-group-heading] {
     user-select: none;
     font-size: 12px;

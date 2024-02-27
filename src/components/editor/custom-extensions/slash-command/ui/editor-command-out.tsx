@@ -31,7 +31,7 @@ export const EditorCommandOut = ({
     const onKeyDown = (e: KeyboardEvent) => {
       if (navigationKeys.includes(e.key)) {
         e.preventDefault()
-        const commandRef = document.querySelector('#readme-command')
+        const commandRef = document.querySelector('#slash-command')
 
         if (commandRef)
           commandRef.dispatchEvent(
@@ -56,8 +56,8 @@ export const EditorCommandOut = ({
       onKeyDown={(e) => {
         e.stopPropagation()
       }}
-      id='readme-command'
-      className='readme-command z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-muted bg-background px-1 py-0 shadow-md animate-[fade-in_.2s_ease-in]'
+      id='slash-command'
+      className='slash-command z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-muted bg-background px-1 py-0 shadow-md animate-[fade-in_.2s_ease-in]'
     >
       <CommandInput value={search} onValueChange={setSearch} className='hidden' />
       <CommandList>
