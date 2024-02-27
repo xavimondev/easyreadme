@@ -1,4 +1,5 @@
-import { groupAlertItems, groupBasicItems } from './blocks'
+import { groupAlertItems, groupBasicItems } from '@/components/slash-command/blocks'
+
 import { Command, renderItems } from './command'
 
 const CustomSlashCommand = Command.configure({

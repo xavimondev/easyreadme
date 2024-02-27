@@ -127,6 +127,10 @@ p:has(span.node-custom-badges) {
     display: flex;
     align-items: center;
   }
+
+  [cmdk-input-wrapper] {
+    display: none;
+  }
 }
 
 /* Syntax highlighter */
