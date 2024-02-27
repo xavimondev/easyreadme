@@ -1,4 +1,5 @@
-import { mergeAttributes, Node, type Editor, type Range } from '@tiptap/core'
+import { mergeAttributes, Node, type ChainedCommands } from '@tiptap/core'
+import { Transaction } from '@tiptap/pm/state'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
@@ -8,7 +9,7 @@ import { Alert } from './view'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     [NodeName.ALERT]: {
-      insertAlert: ({ range, id }: { range: Range; id: string }) => ReturnType
+      insertAlert: ({ id }: { id: string }) => ReturnType
     }
   }
 }
@@ -35,15 +36,18 @@ export default Node.create({
   addCommands(): any {
     return {
       insertAlert:
-        ({ range, id }: { range: Range; id: string }) =>
-        ({ editor }: { editor: Editor }) => {
-          return editor
-            .chain()
-            .insertContentAt(range, {
+        ({ id }: { id: string }) =>
+        ({ chain, tr }: { chain: () => ChainedCommands; tr: Transaction }) => {
+          const { $from } = tr.selection
+          // here we use tr.mapping.map to map the position between transaction steps
+          const pos = tr.mapping.map($from.pos)
+
+          return chain()
+            .insertContentAt(pos, {
               type: NodeName.ALERT,
               attrs: { id }
             })
-            .focus('end')
+            .focus()
             .run()
         }
     }
