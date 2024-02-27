@@ -102,7 +102,7 @@ export const getDependencies = async ({
   defaultBranch: string
 }): Promise<string | null> => {
   try {
-    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === language)
+    const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
     if (!languageSetup || languageSetup.fileDependencies.length === 0) {
       return null
     }

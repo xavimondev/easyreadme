@@ -12,9 +12,21 @@ import {
   parseRequirementsTxt
 } from '@/utils/parse'
 
+// export const filesDependencies = [
+//   'package.json',
+//   'Pipfile',
+//   'pyproject.toml',
+//   'requirements.txt',
+//   'build.gradle',
+//   'pom.xml',
+//   'composer.json',
+//   'go.mod',
+//   'Cargo.toml'
+// ]
+
 export const LANGUAGES_SETUP = [
   {
-    language: 'JavaScript',
+    languages: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Svelte', 'Astro', 'Vue', 'Angular'],
     fileDependencies: ['package.json'],
     commands: {
       install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
@@ -23,43 +35,7 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'TypeScript',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Svelte',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Astro',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Vue',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Python',
+    languages: ['Python'],
     fileDependencies: ['Pipfile', 'pyproject.toml', 'requirements.txt'],
     commands: {
       install: ['pip install -r requirements.txt'],
@@ -68,7 +44,7 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'Java',
+    languages: ['Java'],
     fileDependencies: ['build.gradle', 'pom.xml'],
     commands: {
       install: ['mvn install'],
@@ -77,7 +53,7 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'PHP',
+    languages: ['PHP'],
     fileDependencies: ['composer.json'],
     commands: {
       install: ['composer install'],
@@ -86,7 +62,7 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'Go',
+    languages: ['Go'],
     fileDependencies: ['go.mod'],
     commands: {
       install: ['go build -o myapp'],
@@ -95,7 +71,7 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'Rust',
+    languages: ['Rust'],
     fileDependencies: ['Cargo.toml'],
     commands: {
       install: ['cargo build'],

@@ -17,7 +17,7 @@ export function RunLocally(props: any) {
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
 
-  const setup = LANGUAGES_SETUP.find(({ language }) => language === mainLanguage)
+  const setup = LANGUAGES_SETUP.find((item) => item.languages.includes(mainLanguage))
   const secondStep = setup
     ? getSetupCommands({ commands: setup.commands['install'] })
     : `Insert INSTALL commands`
@@ -43,19 +43,19 @@ export function RunLocally(props: any) {
             <li>
               <p>Clone {repoName} repository:</p>
               <pre>
-                <code className='language-markdown !outline-none'>{`git clone ${urlRepository}`}</code>
+                <code className='language-bash !outline-none'>{`git clone ${urlRepository}`}</code>
               </pre>
             </li>
             <li>
               <p>Install the dependencies with one of the package managers listed below:</p>
               <pre>
-                <code className='language-markdown !outline-none'>{secondStep}</code>
+                <code className='language-bash !outline-none'>{secondStep}</code>
               </pre>
             </li>
             <li>
               <p>Start the development mode:</p>
               <pre>
-                <code className='language-markdown !outline-none'>{thirdStep}</code>
+                <code className='language-bash !outline-none'>{thirdStep}</code>
               </pre>
             </li>
           </ul>
