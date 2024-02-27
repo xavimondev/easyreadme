@@ -1,5 +1,5 @@
 import { mergeAttributes, Node, type ChainedCommands } from '@tiptap/core'
-import { Transaction } from '@tiptap/pm/state'
+import { type Transaction } from '@tiptap/pm/state'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 
 import { NodeName } from '@/types/builder'
