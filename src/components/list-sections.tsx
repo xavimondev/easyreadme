@@ -11,11 +11,26 @@ type SectionItemProps = {
   id: NodeName
   name: string
   description: string
+  buildCustomReadme: ({
+    section,
+    options
+  }: {
+    section: NodeName
+    options?:
+      | {
+          data: any
+        }
+      | undefined
+  }) => Promise<void>
 }
 
-function SectionItem({ id, name, description, children }: PropsWithChildren<SectionItemProps>) {
-  const { buildCustomReadme } = useReadme()
-
+function SectionItem({
+  id,
+  name,
+  description,
+  buildCustomReadme,
+  children
+}: PropsWithChildren<SectionItemProps>) {
   return (
     <div className='flex flex-col gap-2 rounded-lg border p-4'>
       <div className='w-full flex flex-row items-center justify-between gap-0.5'>
@@ -44,6 +59,8 @@ type ListSectionsProps = {
 }
 
 export function ListSections({ listSections, customSections }: ListSectionsProps) {
+  const { buildCustomReadme } = useReadme()
+
   return (
     <ScrollArea className='md:h-[calc(100vh-180px)]'>
       <div className='flex flex-col gap-2 w-full overflow-hidden px-3.5'>
@@ -52,7 +69,7 @@ export function ListSections({ listSections, customSections }: ListSectionsProps
           .map((section) => {
             const children = customSections[section.id]
             return (
-              <SectionItem key={section.id} {...section}>
+              <SectionItem key={section.id} {...section} buildCustomReadme={buildCustomReadme}>
                 {children}
               </SectionItem>
             )
