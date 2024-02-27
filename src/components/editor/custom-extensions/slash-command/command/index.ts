@@ -3,7 +3,7 @@ import { ReactRenderer } from '@tiptap/react'
 import Suggestion from '@tiptap/suggestion'
 import tippy from 'tippy.js'
 
-import { EditorCommandOut } from '@/components/slash-command/editor-command-out'
+import { EditorCommandOut } from '../ui/editor-command-out'
 
 export const Command = Extension.create({
   name: 'slash-command',
