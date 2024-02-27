@@ -7,26 +7,22 @@ import { NodeName } from '@/types/builder'
 import { NameTemplate, Template } from '@/types/readme'
 
 import { cn } from '@/lib/utils'
-import { useReadme } from '@/hooks/use-readme'
+import { useBuilder } from '@/store'
 import { Badge } from '@/components/ui/badge'
 
 type TemplateItemProps = {
   template: Template
-  buildTemplate: ({ sections }: { sections?: NodeName[] }) => Promise<void>
+  buildTemplate: () => Promise<void>
   isSelected: boolean
   setTemplateSelected: Dispatch<SetStateAction<NameTemplate>>
 }
 
-export function TemplateItem({
-  template,
-  buildTemplate,
-  isSelected,
-  setTemplateSelected
-}: TemplateItemProps) {
+export function TemplateItem({ template, isSelected, setTemplateSelected }: TemplateItemProps) {
+  const { setSectionsFromTemplates } = useBuilder()
   const { nameTemplate, description, tags } = template
   const sections = LIST_TEMPLATES.find(
     ({ nameTemplate }) => nameTemplate === template.nameTemplate
-  )!.sections
+  )!.sections as NodeName[]
 
   return (
     <div
@@ -36,7 +32,7 @@ export function TemplateItem({
       )}
       onClick={async () => {
         setTemplateSelected(nameTemplate)
-        await buildTemplate({ sections })
+        setSectionsFromTemplates(sections)
       }}
     >
       <div className='flex items-center'>
@@ -64,11 +60,8 @@ type ListTemplatesProps = {
 
 export function ListTemplates({ mobileCloseFunction }: ListTemplatesProps) {
   const [templateSelected, setTemplateSelected] = useState<NameTemplate>('Minimal')
-  const { buildTemplate } = useReadme()
 
-  const buildTemplateHandle = async ({ sections }: { sections?: NodeName[] }) => {
-    await buildTemplate({ sections })
-
+  const buildTemplateHandle = async () => {
     mobileCloseFunction && mobileCloseFunction()
   }
 

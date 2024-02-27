@@ -15,7 +15,7 @@ export function CommandCenter() {
   useEffect(() => {
     if (gitUrlRepository === '' || moduleSelected === 'custom') return
 
-    buildTemplate({})
+    buildTemplate()
   }, [gitUrlRepository])
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

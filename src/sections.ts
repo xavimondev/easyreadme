@@ -1,5 +1,7 @@
 import { NodeName, Section } from '@/types/builder'
 
+import { LIST_TEMPLATES } from './templates'
+
 export const README_SECTIONS_DATA: Section[] = [
   {
     id: NodeName.BANNER,
@@ -217,3 +219,7 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   }
 ]
+
+export const DEFAULT_INITIAL_SECTIONS = LIST_TEMPLATES.find(
+  (template) => template.nameTemplate === 'Minimal'
+)!.sections as NodeName[]

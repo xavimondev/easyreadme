@@ -5,7 +5,7 @@ import { NodeName, Section } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 import { ModuleType } from '@/types/sidebar'
 
-import { README_SECTIONS_DATA } from './sections'
+import { DEFAULT_INITIAL_SECTIONS, README_SECTIONS_DATA } from './sections'
 
 type TableOfContentsSection = {
   id: NodeName
@@ -28,6 +28,8 @@ type BuilderState = {
   setModuleSelected: (moduleSelected: ModuleType) => void
   range: Range | undefined
   setRange: (range: Range) => void
+  sectionsFromTemplates: NodeName[]
+  setSectionsFromTemplates: (sectionsTemplate: NodeName[]) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -38,6 +40,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   readmeEditor: undefined,
   moduleSelected: 'templates',
   range: undefined,
+  sectionsFromTemplates: DEFAULT_INITIAL_SECTIONS,
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
   addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
     set((prevValues) => ({
@@ -51,5 +54,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
   setGitUrlRepository: (url) => set({ gitUrlRepository: url }),
   setReadmeEditor: (editor) => set({ readmeEditor: editor }),
   setModuleSelected: (moduleSelected) => set({ moduleSelected }),
-  setRange: (range) => set({ range })
+  setRange: (range) => set({ range }),
+  setSectionsFromTemplates: (sections) => set({ sectionsFromTemplates: sections })
 }))

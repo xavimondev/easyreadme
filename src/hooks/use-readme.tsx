@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
 import { toast } from 'sonner'
@@ -26,8 +26,21 @@ export function useReadme() {
     gitUrlRepository,
     setGitRepositoryData,
     setTableOfContents,
-    tableOfContents
+    tableOfContents,
+    sectionsFromTemplates,
+    moduleSelected
   } = useBuilder((store) => store)
+  const isFirstTimeLoaded = useRef(true)
+
+  // TODO: I think there will be better ways to do this.
+  useEffect(() => {
+    if (!readmeEditor || moduleSelected === 'custom') return
+
+    const generateReadme = async () => {
+      await buildTemplate()
+    }
+    generateReadme()
+  }, [sectionsFromTemplates, readmeEditor])
 
   const clearEditorContent = useCallback(() => {
     readmeEditor?.commands.clearContent()
@@ -43,12 +56,12 @@ export function useReadme() {
     return data
   }
 
-  const buildTemplate = async ({ sections }: { sections?: NodeName[] }) => {
+  const buildTemplate = async () => {
     const gitData = await checkGitRepositoryData()
 
-    if (!sections) return
+    if (!sectionsFromTemplates) return
 
-    const filteredSections = sections.filter(
+    const filteredSections = sectionsFromTemplates.filter(
       (section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)
     )
 
@@ -64,16 +77,23 @@ export function useReadme() {
     setTableOfContents(mappedSections)
     clearEditorContent()
 
-    const toastId = toast.loading(`Generating Readme...`)
-    for (let i = 0; i < sections.length; i++) {
-      const sectionId = sections.at(i)
+    let toastId = undefined
+    if (!isFirstTimeLoaded.current) toastId = toast.loading(`Generating Readme...`)
+
+    for (let i = 0; i < sectionsFromTemplates.length; i++) {
+      const sectionId = sectionsFromTemplates.at(i)
       await addSection({
         section: sectionId!,
         gitData
       })
     }
-    toast.dismiss(toastId)
-    toast.success(`Readme generated.`)
+
+    if (!isFirstTimeLoaded.current) {
+      toast.dismiss(toastId)
+      toast.success(`Readme generated.`)
+    }
+
+    isFirstTimeLoaded.current = false
   }
 
   const buildCustomReadme = async ({
