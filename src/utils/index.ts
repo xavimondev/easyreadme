@@ -15,3 +15,20 @@ export const getPathFromUrl = ({ path }: { path: string }) => {
 export const removeLeadingSpaces = ({ text }: { text: string }): string => {
   return text.replace(/^\s+/gm, '')
 }
+
+export const validateImage = ({ imageUrl }: { imageUrl: string }) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.src = imageUrl
+
+    img.onload = () => {
+      resolve('ok')
+    }
+
+    img.onerror = () => {
+      img.onload = null
+      img.onerror = null
+      reject('The URL is not valid. Check the URL provided.')
+    }
+  })
+}
