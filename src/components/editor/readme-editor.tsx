@@ -6,6 +6,8 @@ import { useBuilder } from '@/store'
 import { DEFAULT_EXTENSIONS } from '@/components/editor/extensions'
 import { CUSTOM_NODES } from '@/components/editor/nodes'
 
+import { BubbleMenu } from './bubble-menu'
+
 export function ReadmeEditor() {
   const setReadmeEditor = useBuilder((store) => store.setReadmeEditor)
   const editor = useEditor({
@@ -38,6 +40,7 @@ export function ReadmeEditor() {
   return (
     <div className='border rounded-md lg:rounded-none lg:rounded-r-md border-black dark:border-white/20 w-full p-5 bg-white/95 dark:bg-neutral-800/20 relative h-[calc(100vh-242px)] sm:h-[calc(100vh-180px)] lg:h-[calc(100vh-60px)]'>
       <EditorContent editor={editor} />
+      {editor && <BubbleMenu />}
     </div>
   )
 }
