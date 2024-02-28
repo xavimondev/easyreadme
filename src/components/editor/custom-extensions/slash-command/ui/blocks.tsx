@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { type Editor, type Range } from '@tiptap/core'
 import {
   AlertTriangle,
+  CheckSquare,
   Code,
   Heading1,
   Heading2,
@@ -108,6 +109,15 @@ export const groupBasicItems: BlockItem[] = [
     icon: <ListOrdered size={18} />,
     command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor.chain().focus().deleteRange(range).toggleOrderedList().run()
+    }
+  },
+  {
+    title: 'To-do List',
+    description: 'Track tasks with a to-do list.',
+    searchTerms: ['todo', 'task', 'list'],
+    icon: <CheckSquare size={18} />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).toggleTaskList().run()
     }
   },
   {
