@@ -54,7 +54,7 @@ export function FormImageUrl({ imageUrl, setImageUrl }: FormImageUrlProps) {
           <Link className='w-4 h-4' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[400px] left-7'>
+      <PopoverContent className='w-[400px]' align='end' alignOffset={10}>
         <div className='grid gap-4'>
           <div className='space-y-2'>
             <h4 className='font-medium leading-none'>Add an image from URL</h4>
