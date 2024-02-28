@@ -249,3 +249,7 @@ code.hljs {
   height: 0;
   pointer-events: none;
 }
+
+[data-radix-popper-content-wrapper] {
+  left: -36px !important;
+}
