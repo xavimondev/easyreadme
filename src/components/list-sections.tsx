@@ -11,17 +11,7 @@ type SectionItemProps = {
   id: NodeName
   name: string
   description: string
-  buildCustomReadme: ({
-    section,
-    options
-  }: {
-    section: NodeName
-    options?:
-      | {
-          data: any
-        }
-      | undefined
-  }) => Promise<void>
+  buildCustomReadme: ({ section }: { section: NodeName }) => Promise<void>
 }
 
 function SectionItem({

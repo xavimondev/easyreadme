@@ -96,13 +96,7 @@ export function useReadme() {
     isFirstTimeLoaded.current = false
   }
 
-  const buildCustomReadme = async ({
-    section,
-    options
-  }: {
-    section: NodeName
-    options?: { data: any }
-  }) => {
+  const buildCustomReadme = async ({ section }: { section: NodeName }) => {
     const gitData = await checkGitRepositoryData()
 
     const sectionItem = listSections.find((sec) => sec.id === section)
@@ -119,7 +113,6 @@ export function useReadme() {
 
     const promise = addSection({
       section: section,
-      options,
       gitData
     })
 
@@ -138,7 +131,6 @@ export function useReadme() {
   }: {
     section: NodeName
     gitData?: GitRepository
-    options?: { data: any }
   }) => {
     const repositoryData = gitData ?? gitRepositoryData
     const { repoName, owner, branch, language, urlRepository, description } =
