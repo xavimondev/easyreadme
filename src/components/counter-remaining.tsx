@@ -2,7 +2,8 @@
 
 import { RATE_LIMIT } from '@/constants'
 import { useRemaining } from '@/hooks/use-remaining'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
+import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { FormApiKey } from '@/components/form-api-key'
 
 export function CounterRemaining() {
@@ -10,25 +11,23 @@ export function CounterRemaining() {
 
   return (
     <>
-      <HoverCard openDelay={200} closeDelay={0}>
-        <HoverCardTrigger asChild>
-          <div className='relative h-auto w-full'>
-            <div className='absolute top-0 flex w-full justify-center'>
-              <div className='left-0 h-[1px] animate-border-width rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-purple-300 to-[rgba(17,17,17,0)] transition-all duration-1000' />
-            </div>
-            <div className='flex h-full items-center justify-center rounded-md border border-purple-300/20 bg-neutral-950/70 px-3 py-2'>
-              <p className='text-sm text-transparent bg-clip-text bg-gradient-to-t from-purple-400 to-purple-200'>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button className='w-full relative overflow-hidden rounded-md p-[1px] focus:outline-none'>
+            <span className='absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]' />
+            <span className='inline-flex h-full w-full items-center justify-center rounded-md bg-background hover:bg-[#0d0d0d] transition-colors duration-200 px-8 py-1 font-medium text-gray-200 backdrop-blur-3xl'>
+              <span className='text-sm text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 to-purple-100'>
                 {isLoading ? 0 : data.remaining} / {RATE_LIMIT} generations
-              </p>
-            </div>
-          </div>
-        </HoverCardTrigger>
-        <HoverCardContent className='w-96'>
+              </span>
+            </span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className='w-[400px]'>
           <div className='grid gap-4'>
             <div className='space-y-2'>
               <p className='text-sm text-muted-foreground'>
                 You have{' '}
-                <span className='text-transparent bg-clip-text bg-gradient-to-t from-purple-400 to-purple-200'>
+                <span className='text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 to-purple-100'>
                   {data?.remaining} / {RATE_LIMIT} generations
                 </span>{' '}
                 left. Use your API Key to keep generating AI sections.
@@ -36,8 +35,8 @@ export function CounterRemaining() {
             </div>
             <FormApiKey />
           </div>
-        </HoverCardContent>
-      </HoverCard>
+        </PopoverContent>
+      </Popover>
     </>
   )
 }

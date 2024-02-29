@@ -28,7 +28,7 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
         onValueChange={(value: string) => setModuleSelected(value as ModuleType)}
       >
         <div className='flex items-center gap-3 px-3.5'>
-          <TabsList className='ml-auto'>
+          <TabsList>
             <TabsTrigger value='templates'>Templates</TabsTrigger>
             <TabsTrigger value='custom' className='hidden xl:block'>
               <div className='flex items-center gap-1'>Customize</div>
