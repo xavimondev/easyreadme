@@ -1,5 +1,5 @@
-import { forwardRef, useEffect, useMemo, useRef, type ReactNode } from 'react'
-import { BubbleMenu, type BubbleMenuProps } from '@tiptap/react'
+import { useEffect, useMemo, useRef, type ReactNode } from 'react'
+import { BubbleMenu, isTextSelection, type BubbleMenuProps } from '@tiptap/react'
 import type { Instance, Props } from 'tippy.js'
 
 import { useBuilder } from '@/store'
@@ -8,10 +8,7 @@ export interface EditorBubbleProps extends Omit<BubbleMenuProps, 'editor'> {
   children: ReactNode
 }
 
-export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(function EditorBubble(
-  { children, tippyOptions, ...rest },
-  ref
-) {
+export function EditorBubble({ children, tippyOptions, ...rest }: EditorBubbleProps) {
   const { readmeEditor } = useBuilder()
   const instanceRef = useRef<Instance<Props> | null>(null)
 
@@ -23,15 +20,25 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(functi
   }, [tippyOptions?.placement])
 
   const bubbleMenuProps: Omit<BubbleMenuProps, 'children'> = useMemo(() => {
-    const shouldShow: BubbleMenuProps['shouldShow'] = ({ editor, state }) => {
+    const shouldShow: BubbleMenuProps['shouldShow'] = ({ editor, state, view, from, to }) => {
       const { selection } = state
       const { empty } = selection
+      const hasFocus = view.hasFocus()
+      const isEmptyTextBlock =
+        !state.doc.textBetween(from, to).length && isTextSelection(state.selection)
+      // console.log('isFeedback', isNodeActive(state, 'custom-feedback'))
 
       // don't show bubble menu if:
       // - the selected node is an image
       // - the selection is empty
-      // - the selection is a node selection (for drag handles)
-      if (editor.isActive('image') || empty) {
+      // - the selections node is a block code
+      if (
+        !hasFocus ||
+        empty ||
+        isEmptyTextBlock ||
+        editor.isActive('image') ||
+        editor.isActive('codeBlock')
+      ) {
         return false
       }
       return true
@@ -53,10 +60,8 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(functi
   if (!readmeEditor) return null
 
   return (
-    <div ref={ref}>
-      <BubbleMenu editor={readmeEditor} {...bubbleMenuProps}>
-        {children}
-      </BubbleMenu>
-    </div>
+    <BubbleMenu editor={readmeEditor} {...bubbleMenuProps}>
+      {children}
+    </BubbleMenu>
   )
-})
+}
