@@ -106,7 +106,7 @@ export const DEFAULT_EXTENSIONS = [
   CustomImage.configure({
     inline: true,
     HTMLAttributes: {
-      class: 'inline !m-0'
+      class: 'inline !mx-1.5'
     }
   }),
   Link.configure({
