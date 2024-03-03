@@ -72,7 +72,7 @@ export const README_SECTIONS_DATA: Section[] = [
 
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -82,7 +82,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertTechStack({ endPos, ...data })
     }
   },
   {
@@ -138,7 +137,7 @@ export const README_SECTIONS_DATA: Section[] = [
 
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -148,7 +147,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertProjectSummary({ endPos, ...data })
     }
   },
   {
@@ -210,8 +208,7 @@ export const README_SECTIONS_DATA: Section[] = [
         defaultContent.push(content)
       }
 
-      editor.chain().insertContent(defaultContent).focus().run()
-      // editor.chain().insertEnvVariablesGuide({ endPos, ...data })
+      editor.chain().insertContentAt(endPos, defaultContent).focus().run()
     }
   },
   {
@@ -232,7 +229,7 @@ export const README_SECTIONS_DATA: Section[] = [
 
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -297,7 +294,6 @@ export const README_SECTIONS_DATA: Section[] = [
             ]
           }
         ])
-        .focus()
         .run()
       // editor.chain().insertRunLocally({ endPos, data })
     }
@@ -348,7 +344,7 @@ export const README_SECTIONS_DATA: Section[] = [
 
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -361,20 +357,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor
-      //   .chain()
-      //   .insertContent(
-      //     `<h2>License</h2>
-      //       <p>
-      //         <strong>Add your License</strong>
-      //       </p>`
-      //   )
-      //   .focus()
-      //   .run()
-      // editor.chain().insertLicense({
-      //   endPos,
-      //   license: data
-      // })
     }
   },
   {
@@ -385,7 +367,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos, data }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -399,10 +381,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertProjectStructure({
-      //   endPos,
-      //   tree: data
-      // })
     }
   },
   {
@@ -413,7 +391,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -431,7 +409,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Deploy />').focus('end').run()
     }
   },
   {
@@ -442,7 +419,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -519,7 +496,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Roadmap />').focus('end').run()
     }
   },
   {
@@ -530,7 +506,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -616,7 +592,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Acknowledgments />').focus('end').run()
     }
   },
   {
@@ -627,7 +602,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -667,7 +642,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Changelog />').focus('end').run()
     }
   },
   {
@@ -678,7 +652,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -711,7 +685,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Prerequisites />').focus('end').run()
     }
   },
   {
@@ -722,7 +695,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -781,7 +754,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Faq />').focus('end').run()
     }
   },
   {
@@ -792,7 +764,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -856,7 +828,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertContentAt(endPos, '<Commands />').focus('end').run()
     }
   },
   {
@@ -877,7 +848,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos, data }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -895,7 +866,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertOverview({ endPos, ...data })
     }
   },
   {
@@ -909,7 +879,6 @@ export const README_SECTIONS_DATA: Section[] = [
       for (let i = 0; i < badges.length; i++) {
         const badge = badges.at(i)
         if (!badge) return
-        // const pos = endPos + i
         const { name, url, isGithub } = badge ?? {}
         const badgeUrl = isGithub ? `${url}/${owner}/${repoName}` : url
 
@@ -927,7 +896,7 @@ export const README_SECTIONS_DATA: Section[] = [
 
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'paragraph',
             attrs: { align: 'center' },
@@ -936,14 +905,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-
-      // editor.chain().insertBadge({
-      //   endPos: pos,
-      //   data: {
-      //     label: name,
-      //     url: badgeUrl
-      //   }
-      // })
     }
   },
   {
@@ -954,7 +915,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -1100,9 +1061,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertApiReference({
-      //   endPos
-      // })
     }
   },
   {
@@ -1113,7 +1071,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -1148,9 +1106,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertFeedback({
-      //   endPos
-      // })
     }
   },
   {
@@ -1161,7 +1116,7 @@ export const README_SECTIONS_DATA: Section[] = [
     add: async ({ editor, endPos }) => {
       editor
         .chain()
-        .insertContent([
+        .insertContentAt(endPos, [
           {
             type: 'heading',
             attrs: { level: 2 },
@@ -1358,9 +1313,6 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-      // editor.chain().insertLibProps({
-      //   endPos
-      // })
     }
   }
 ]
