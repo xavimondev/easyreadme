@@ -20,6 +20,7 @@ import Roadmap from './roadmap'
 import RunLocally from './run-locally'
 import TableContents from './table-contents'
 import TechStack from './tech-stack'
+import Toc from './toc'
 
 export {
   Deploy,
@@ -43,5 +44,6 @@ export {
   Banner,
   Changelog,
   Commands,
-  ContributorsNode
+  ContributorsNode,
+  Toc
 }

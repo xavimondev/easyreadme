@@ -20,8 +20,8 @@ import {
   ProjectSummary,
   Roadmap,
   RunLocally,
-  TableContents,
-  TechStack
+  TechStack,
+  Toc
 } from '@/components/editor/custom-nodes'
 
 export const CUSTOM_NODES = [
@@ -41,7 +41,7 @@ export const CUSTOM_NODES = [
   TechStack,
   ProjectSummary,
   EnvVariablesGuide,
-  TableContents,
+  Toc,
   ContributorsNode,
   Alert,
   ApiReference,

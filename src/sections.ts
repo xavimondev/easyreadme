@@ -831,13 +831,12 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   },
   {
-    // TODO: Add new approach
     id: NodeName.TABLE_CONTENTS,
     name: 'Table of Contents',
     emoji: '🔍',
     description: 'An organized list of contents for easy navigation.',
     add: async ({ editor, endPos }) => {
-      editor.chain().insertTableContents({ endPos })
+      editor.chain().insertContentAt(endPos, '<toc></toc>').focus('end').run()
     }
   },
   {
