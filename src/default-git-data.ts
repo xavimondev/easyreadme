@@ -89,11 +89,11 @@ export const DEFAULT_DATA_CACHED = {
       },
       {
         name: 'KV_REST_API_URL',
-        steps: ['Insert a guide']
+        steps: ['Insert a guide.']
       },
       {
         name: 'KV_REST_API_TOKEN',
-        steps: ['Insert a guide']
+        steps: ['Insert a guide.']
       }
     ]
   },
