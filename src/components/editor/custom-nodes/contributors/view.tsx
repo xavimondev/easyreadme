@@ -4,14 +4,13 @@ import { NodeName } from '@/types/builder'
 
 import { findSection } from '@/utils/section'
 import { useBuilder } from '@/store'
-import { useNode } from '@/hooks/use-node'
 import { ActionsBar } from '@/components/editor/actions-bar'
 
 function Gallery({ data }: { data: any }) {
   const { repository, owner } = data
   return (
     <a href={`https://github.com/${owner}/${repository}/graphs/contributors`}>
-      <img src={`https://contrib.rocks/image?repo=${owner}/${repository}`} />
+      <img src={`https://contrib.rocks/image?repo=${owner}/${repository}`} alt='Contributors' />
     </a>
   )
 }
@@ -77,8 +76,6 @@ export function Contributors(props: any) {
   const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
-
-  useNode(props)
 
   return (
     <NodeViewWrapper as='div'>

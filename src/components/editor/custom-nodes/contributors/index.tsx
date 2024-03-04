@@ -1,5 +1,6 @@
-import { mergeAttributes, Node } from '@tiptap/core'
+import { Node } from '@tiptap/core'
 import { ReactNodeViewRenderer, type Editor } from '@tiptap/react'
+import ReactDomServer from 'react-dom/server'
 
 import { NodeName } from '@/types/builder'
 
@@ -21,7 +22,7 @@ export default Node.create({
   parseHTML() {
     return [
       {
-        tag: 'ContributorsNode'
+        tag: `div[data-type='${NodeName.CONTRIBUTORS}']`
       }
     ]
   },
@@ -32,9 +33,6 @@ export default Node.create({
       },
       data: {
         default: {}
-      },
-      html: {
-        default: ''
       }
     }
   },
@@ -55,7 +53,26 @@ export default Node.create({
     }
   },
   renderHTML({ HTMLAttributes }) {
-    return ['ContributorsNode', mergeAttributes(HTMLAttributes)]
+    const dom = document.createElement('div')
+    dom.innerHTML = ReactDomServer.renderToStaticMarkup(
+      // @ts-ignore
+      <Contributors
+        deleteNode={() => undefined}
+        node={{
+          attrs: { ...HTMLAttributes },
+          type: {
+            name: NodeName.CONTRIBUTORS
+          }
+        }}
+      />
+    )
+    dom.setAttribute('data-type', this.name)
+    const content = document.createElement('div')
+
+    return {
+      dom,
+      content
+    }
   },
   addNodeView() {
     return ReactNodeViewRenderer(Contributors)
