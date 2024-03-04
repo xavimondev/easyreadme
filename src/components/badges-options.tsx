@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { LIST_BADGES } from '@/badges'
 import { DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
+import { type Editor } from '@tiptap/core'
 import { Plus } from 'lucide-react'
 
-import { getPos } from '@/utils/tiptap'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -15,23 +15,29 @@ type BadgeItemProps = {
   isGithub: boolean
 }
 
+const addSingleBadge = ({ editor, data }: { editor: Editor; data: any }) => {
+  const { name, badgeUrl } = data
+  const endPos = editor.state.selection.head
+  editor.commands.insertContentAt(endPos, {
+    type: 'image',
+    attrs: {
+      src: badgeUrl,
+      alt: name
+    }
+  })
+}
+
 function BadgeItem({ name, url, isGithub }: BadgeItemProps) {
   const { readmeEditor, gitRepositoryData } = useBuilder()
   const { owner, repoName } = gitRepositoryData ?? DEFAULT_REPOSITORY_DATA
   const badgeUrl = isGithub ? `${url}/${owner}/${repoName}` : url
 
   const addBadge = () => {
-    const pos = getPos({
-      editor: readmeEditor!
-    })
-    const endPos = pos - 1 < 0 ? 0 : pos - 2
-
-    // TODO: endPos is being calculated by using a hacky subtraction...fix please
-    readmeEditor?.chain().insertBadge({
-      endPos,
+    addSingleBadge({
+      editor: readmeEditor!,
       data: {
-        label: name,
-        url: badgeUrl
+        name,
+        badgeUrl
       }
     })
   }
