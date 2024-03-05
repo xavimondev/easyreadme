@@ -2,13 +2,19 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { type Node } from '@tiptap/pm/model'
 import { NodeViewWrapper } from '@tiptap/react'
 
+import { NodeName } from '@/types/builder'
+
+import { findSection } from '@/utils/section'
 import { ActionsBar } from '@/components/editor/actions-bar'
 
 // Componente built based on https://tiptap.dev/docs/editor/guide/node-views/examples#table-of-contents
 
 type Heading = { id: string; text: string }
 export function Toc(props: any) {
-  const { editor, deleteNode } = props
+  const { node, editor, deleteNode } = props
+  const { type } = node
+  const nodeName = type.name as NodeName
+  const section = findSection({ section: nodeName })
 
   const [items, setItems] = useState<Heading[]>([])
 
@@ -65,7 +71,7 @@ export function Toc(props: any) {
     <NodeViewWrapper>
       <div className='relative group'>
         <div>
-          <h2>Table of Contents</h2>
+          <h2>{section?.name}</h2>
           <ul className='list-disc list-outside leading-4 tight' data-tight='true'>
             {items.map(({ id, text }) => {
               return (
