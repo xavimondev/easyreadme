@@ -32,3 +32,29 @@ export const validateImage = ({ imageUrl }: { imageUrl: string }) => {
     }
   })
 }
+
+export const addBreaklineBetweenBadges = ({ markdownContent }: { markdownContent: string }) => {
+  const regex = /\)\s*(?=\!\[)/g
+  const result = markdownContent.replace(regex, ')\n')
+  return result
+}
+
+export const replaceBadgesMarkdownToHtml = ({ markdownContent }: { markdownContent: string }) => {
+  // Regex to to get all string that have this pattern:![ALT](IMAGE)
+  const regex = /!\[Badge(.*?)\]\((.*?)\)/g
+  // List all strings that meet the given pattern
+  const imageBlockMatches = markdownContent.match(regex)
+  const imageBlock = imageBlockMatches ? imageBlockMatches.join('\n') : null
+  if (!imageBlock) return markdownContent
+  // Replace each string with tag img
+  const replacedImages = imageBlock.replace(regex, '<img src="$2" alt="$1" />')
+  // Wrapped all images into a <p> tag
+  const wrappedInParagraph = `<p align="center">\n${replacedImages
+    .split('\n')
+    .filter((line) => line.trim() !== '')
+    .map((line) => `  ${line}`)
+    .join('\n')}\n</p>\n\n`.trim()
+  // Update markdown content
+  const resultBadges = markdownContent.replace(imageBlock, wrappedInParagraph)
+  return resultBadges
+}
