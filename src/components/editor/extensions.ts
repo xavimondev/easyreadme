@@ -54,6 +54,9 @@ const CustomParagraph = Paragraph.extend({
       ...this.parent?.(),
       align: {
         default: null
+      },
+      id: {
+        default: null
       }
     }
   }
@@ -106,7 +109,7 @@ export const DEFAULT_EXTENSIONS = [
   CustomImage.configure({
     inline: true,
     HTMLAttributes: {
-      class: 'inline !mx-1.5'
+      class: 'inline !mx-1.5 !my-0'
     }
   }),
   Link.configure({
