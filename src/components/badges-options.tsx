@@ -18,11 +18,18 @@ type BadgeItemProps = {
 const addSingleBadge = ({ editor, data }: { editor: Editor; data: any }) => {
   const { name, badgeUrl } = data
   const endPos = editor.state.selection.head
+  // get the current active node
+  const parentNode = editor.state.selection.$head.parent
+
+  const {
+    attrs: { id }
+  } = parentNode
+
   editor.commands.insertContentAt(endPos, {
     type: 'image',
     attrs: {
       src: badgeUrl,
-      alt: name
+      alt: id === 'badges' ? `Badge ${name}` : name
     }
   })
 }
