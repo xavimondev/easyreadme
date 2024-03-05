@@ -8,13 +8,12 @@ import { getSetupCommands } from './utils/commands'
 
 export const README_SECTIONS_DATA: Section[] = [
   {
-    // TODO: Add new approach
     id: NodeName.BANNER,
     name: 'Banner',
     emoji: '🏞️',
     description: 'Picture of your project.',
     add: async ({ editor, endPos }) => {
-      editor.chain().insertContentAt(endPos, '<Banner />').focus('end').run()
+      editor.chain().insertBanner({ endPos })
     }
   },
   {
@@ -299,7 +298,6 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   },
   {
-    // TODO: Add new approach
     id: NodeName.CONTRIBUTORS,
     name: 'Contributors',
     emoji: '🙌',
@@ -412,6 +410,7 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   },
   {
+    // FIXME: DOES NOT GENERATE WITH BRACKETS [ ]
     id: NodeName.ROADMAP,
     name: 'Roadmap',
     emoji: '🗺️',
@@ -757,7 +756,7 @@ export const README_SECTIONS_DATA: Section[] = [
     }
   },
   {
-    id: NodeName.COMMANDS,
+    id: NodeName.COMMANDS, // ✅
     name: 'Commands',
     emoji: '⚡',
     description: 'Commonly used commands or actions in the project.',
@@ -836,7 +835,7 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '🔍',
     description: 'An organized list of contents for easy navigation.',
     add: async ({ editor, endPos }) => {
-      editor.chain().insertContentAt(endPos, '<toc></toc>').focus('end').run()
+      editor.chain().insertTableContents({ endPos })
     }
   },
   {
@@ -885,7 +884,7 @@ export const README_SECTIONS_DATA: Section[] = [
           type: 'image',
           attrs: {
             src: badgeUrl,
-            alt: name,
+            alt: `Badge ${name}`,
             title: name,
             width: null,
             height: null
@@ -898,7 +897,7 @@ export const README_SECTIONS_DATA: Section[] = [
         .insertContentAt(endPos, [
           {
             type: 'paragraph',
-            attrs: { align: 'center' },
+            attrs: { align: 'center', id: 'badges' },
             content: list
           }
         ])
