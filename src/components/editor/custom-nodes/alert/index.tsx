@@ -1,6 +1,7 @@
-import { mergeAttributes, Node, type ChainedCommands } from '@tiptap/core'
+import { Node, type ChainedCommands } from '@tiptap/core'
 import { type Transaction } from '@tiptap/pm/state'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import ReactDomServer from 'react-dom/server'
 
 import { NodeName } from '@/types/builder'
 
@@ -23,13 +24,16 @@ export default Node.create({
     return {
       id: {
         default: ''
+      },
+      isHTML: {
+        default: false
       }
     }
   },
   parseHTML() {
     return [
       {
-        tag: 'Alert'
+        tag: `div[data-type='${NodeName.ALERT}']`
       }
     ]
   },
@@ -45,7 +49,7 @@ export default Node.create({
           return chain()
             .insertContentAt(pos, {
               type: NodeName.ALERT,
-              attrs: { id }
+              attrs: { id, isHTML: false }
             })
             .focus()
             .run()
@@ -53,7 +57,22 @@ export default Node.create({
     }
   },
   renderHTML({ HTMLAttributes }) {
-    return ['Alert', mergeAttributes(HTMLAttributes)]
+    const dom = document.createElement('div')
+    dom.innerHTML = ReactDomServer.renderToStaticMarkup(
+      <Alert
+        deleteNode={() => undefined}
+        node={{
+          attrs: { ...HTMLAttributes, isHTML: true }
+        }}
+      />
+    )
+    dom.setAttribute('data-type', this.name)
+    const content = document.createElement('div')
+
+    return {
+      dom,
+      content
+    }
   },
   addNodeView() {
     return ReactNodeViewRenderer(Alert)

@@ -55,27 +55,33 @@ const ALERTS_DATA = [
 export function Alert(props: any) {
   const { node, deleteNode } = props
   const { attrs } = node
-  const { id } = attrs
+  const { id, isHTML } = attrs
   const alert = ALERTS_DATA.find((item) => item.id === id)
   const { label, description, icon, borderColor, textColor } = alert ?? {}
 
   return (
     <NodeViewWrapper className='!m-0 !p-0' as='div'>
       <div className='relative group'>
-        <div className={`mb-4 px-4 py-2 border-l-[5px] ${borderColor} content`}>
-          <blockquote
-            className={`${textColor} flex items-center leading-[1] font-medium !mt-1 not-italic border-none !p-0 !ml-0`}
-            contentEditable={false}
-          >
-            {icon}
-            {label}
-          </blockquote>
-          <blockquote
-            className='!mb-0 !outline-none not-italic border-none !p-0 !ml-0'
-            contentEditable={true}
-            suppressContentEditableWarning={true}
-          >
-            {description}
+        <div className={`${borderColor} mb-4 px-4 py-2 border-l-[5px] content`}>
+          <blockquote className='!mt-0.5 !ml-0 !mb-1 !p-0 not-italic border-none'>
+            {!isHTML ? (
+              <p
+                contentEditable={false}
+                className={`${textColor} flex items-center leading-[1] font-medium before:content-[''] !mt-1`}
+              >
+                {icon}
+                {label}
+              </p>
+            ) : (
+              <p>[!{label?.toUpperCase()}]</p>
+            )}
+            <p
+              className='!mb-0 after:content-[""] !outline-none'
+              contentEditable={true}
+              suppressContentEditableWarning={true}
+            >
+              {description}
+            </p>
           </blockquote>
         </div>
         <ActionsBar

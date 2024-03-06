@@ -1,5 +1,5 @@
 import Acknowledgments from './acknowledgments'
-import Alert from './alert'
+import Alert from './alert/index'
 import ApiReference from './api-reference'
 import Badge from './badge'
 import Banner from './banner/index'
