@@ -17,7 +17,10 @@ export function ViewCodeButton() {
         const html = readmeEditor?.getHTML() as string
         const md = NodeHtmlMarkdown.translate(html, {
           bulletMarker: '-',
-          textReplace: [[/\\_/g, '_']],
+          textReplace: [
+            [/\\_/g, '_'],
+            [/\\/g, '']
+          ],
           useInlineLinks: false
         })
         const markdown = addBreaklineBetweenBadges({ markdownContent: md })
