@@ -7,7 +7,7 @@ import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
-import { getRepositoryTreeDirectory } from '@/utils/github'
+import { getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
   getOverviewData,
@@ -321,6 +321,15 @@ export function useReadme() {
         ).map(({ name, url }) => ({ name, url, isGithub: false }))
         data.badges = DEFAULT_BADGES.concat(programmingBadges)
       }
+    } else if (section === NodeName.PREREQUISITES) {
+      data = !repositoryData
+        ? DEFAULT_DATA_CACHED[section]
+        : await getPrerequisites({
+            defaultBranch: branch,
+            language,
+            owner,
+            repoName
+          })
     }
 
     const { add } = sectionItem

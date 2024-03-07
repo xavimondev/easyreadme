@@ -2,6 +2,9 @@ import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import { INITIAL_BADGES } from './badges'
+import { LANGUAGES_SETUP } from './constants'
+
+const projectPrerequisites = LANGUAGES_SETUP.find((lang) => lang.languages.includes('TypeScript'))
 
 export const DEFAULT_REPOSITORY_DATA: GitRepository = {
   urlRepository: 'https://github.com/xavimondev/easyreadme',
@@ -129,5 +132,10 @@ export const DEFAULT_DATA_CACHED = {
   [NodeName.RUN_LOCALLY]: {
     mainLanguage: DEFAULT_REPOSITORY_DATA.language
   },
-  [NodeName.BADGE]: INITIAL_BADGES
+  [NodeName.BADGE]: INITIAL_BADGES,
+  [NodeName.PREREQUISITES]: {
+    rules: projectPrerequisites?.lockFiles?.find((lf) => lf.lockfile === 'bun.lockb'),
+    runtime: projectPrerequisites?.runtimes?.find((runt) => runt.id === 'Node'),
+    typescriptResource: projectPrerequisites?.typescriptResource
+  }
 }

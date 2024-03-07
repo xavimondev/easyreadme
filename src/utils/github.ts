@@ -148,3 +148,69 @@ export const getDependencies = async ({
     return null
   }
 }
+
+export const getPrerequisites = async ({
+  language,
+  repoName,
+  owner,
+  defaultBranch
+}: {
+  language: string
+  repoName: string
+  owner: string
+  defaultBranch: string
+}) => {
+  const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
+
+  if (!languageSetup) return
+
+  // it means, it's a JavaScript project
+  if (languageSetup.lockFiles) {
+    const tree = await getRepositoryStructure({
+      repoName,
+      owner,
+      branch: defaultBranch
+    })
+
+    if (!tree) return
+
+    // Get only paths such as ['src/components/hello.tsx','package.json','pnpm-lock.yaml'...]
+    const paths = tree.filter((file) => file.type === TypeFile.Blob).map((file) => file.path)
+    // Checking the existence of package.json
+    const fileDependencies = languageSetup.fileDependencies.at(0) as string
+    const hasPackageJson = paths.some((path) => path.includes(fileDependencies))
+
+    if (!hasPackageJson) return
+
+    const searchRuntime = ({ param }: { param: string }) => {
+      return languageSetup.runtimes?.find((runtime) => runtime.id === param)
+    }
+
+    const lockFiles = languageSetup.lockFiles
+    const mappedLocks = lockFiles.map((filelock) => filelock.lockfile)
+
+    const lockFile = mappedLocks.find((lockFileName) =>
+      paths.some((path) => path.includes(lockFileName))
+    )
+
+    // If none of the lock files match any of the files in the directory, it'll return node by default
+    const rules = lockFiles.find((file) => {
+      const condition = !lockFile ? file.id === 'npm' : file.lockfile === lockFile
+      return condition
+    })
+
+    const runtime =
+      lockFile === 'deno.lock' ? searchRuntime({ param: 'Deno' }) : searchRuntime({ param: 'Node' })
+
+    return {
+      rules,
+      runtime,
+      typescriptResource: language === 'TypeScript' ? languageSetup.typescriptResource : undefined
+    }
+  }
+
+  // other programming languages
+  return {
+    rules: languageSetup.installation
+  }
+}

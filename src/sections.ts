@@ -2,7 +2,7 @@ import { JSONContent } from '@tiptap/core'
 
 import { NodeName, Section } from '@/types/builder'
 
-import { LANGUAGES_SETUP } from './constants'
+import { DEFAULT_PREREQUISITES, LANGUAGES_SETUP } from './constants'
 import { LIST_TEMPLATES } from './templates'
 import { getSetupCommands } from './utils/commands'
 
@@ -313,7 +313,7 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'Details about the licensing of the project.',
     add: async ({ editor, endPos, data }) => {
       let content: JSONContent = [
-        { type: 'text', marks: [{ type: 'bold' }], text: 'Add your License' }
+        { type: 'text', marks: [{ type: 'bold' }], text: 'Add your License.' }
       ]
 
       if (data) {
@@ -648,7 +648,175 @@ export const README_SECTIONS_DATA: Section[] = [
     name: 'Prerequisites',
     emoji: '✅',
     description: 'List of dependencies needed to use the project.',
-    add: async ({ editor, endPos }) => {
+    add: async ({ editor, endPos, data }) => {
+      const prerequisites: JSONContent[] = []
+
+      const { rules, runtime, typescriptResource } = data ?? {}
+      // It's a JavaScript project
+      if (runtime) {
+        const { id, url, text } = runtime
+        const runtimeChoose: JSONContent = {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  marks: [
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: url,
+                        target: '_blank'
+                      }
+                    }
+                  ],
+                  text: id
+                },
+                {
+                  type: 'text',
+                  text: `: ${text}`
+                }
+              ]
+            }
+          ]
+        }
+        prerequisites.push(runtimeChoose)
+      }
+
+      if (Array.isArray(rules)) {
+        rules.forEach((rule: any) => {
+          const { id, url, text } = rule
+          const item = {
+            type: 'listItem',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    marks: [
+                      {
+                        type: 'link',
+                        attrs: {
+                          href: url,
+                          target: '_blank'
+                        }
+                      }
+                    ],
+                    text: id
+                  },
+                  {
+                    type: 'text',
+                    text: `: ${text}`
+                  }
+                ]
+              }
+            ]
+          }
+
+          prerequisites.push(item)
+        })
+      } else {
+        const { id, url, text } = rules
+        const packageManager: JSONContent = {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  marks: [
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: url,
+                        target: '_blank'
+                      }
+                    }
+                  ],
+                  text: id
+                },
+                {
+                  type: 'text',
+                  text: `: ${text}`
+                }
+              ]
+            }
+          ]
+        }
+
+        prerequisites.push(packageManager)
+      }
+
+      // The project uses TypeScript
+      if (typescriptResource) {
+        const { id, url, text } = typescriptResource
+        const runtimeChoose: JSONContent = {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  marks: [
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: url,
+                        target: '_blank'
+                      }
+                    }
+                  ],
+                  text: id
+                },
+                {
+                  type: 'text',
+                  text: `: ${text}`
+                }
+              ]
+            }
+          ]
+        }
+        prerequisites.push(runtimeChoose)
+      }
+
+      DEFAULT_PREREQUISITES.forEach((rule) => {
+        const { id, url, text } = rule
+        const item: JSONContent = {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  marks: [
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: url,
+                        target: '_blank'
+                      }
+                    }
+                  ],
+                  text: id
+                },
+                {
+                  type: 'text',
+                  text: `: ${text}`
+                }
+              ]
+            }
+          ]
+        }
+
+        prerequisites.push(item)
+      })
+
       editor
         .chain()
         .insertContentAt(endPos, [
@@ -660,26 +828,7 @@ export const README_SECTIONS_DATA: Section[] = [
           {
             type: 'bulletList',
             attrs: { class: 'list-disc list-outside leading-4 tight' },
-            content: [
-              {
-                type: 'listItem',
-                content: [
-                  {
-                    type: 'paragraph',
-                    content: [{ type: 'text', text: 'Prerequisite 1.' }]
-                  }
-                ]
-              },
-              {
-                type: 'listItem',
-                content: [
-                  {
-                    type: 'paragraph',
-                    content: [{ type: 'text', text: 'Prerequisite 2.' }]
-                  }
-                ]
-              }
-            ]
+            content: prerequisites
           }
         ])
         .focus()

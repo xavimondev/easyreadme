@@ -8,6 +8,7 @@ export const LIST_TEMPLATES: Template[] = [
       'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
     sections: [
       NodeName.OVERVIEW,
+      NodeName.PREREQUISITES,
       NodeName.SETTING_UP,
       NodeName.RUN_LOCALLY,
       NodeName.DEPLOY,
