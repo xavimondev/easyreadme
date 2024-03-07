@@ -312,9 +312,7 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '📄',
     description: 'Details about the licensing of the project.',
     add: async ({ editor, endPos, data }) => {
-      let content: JSONContent = [
-        { type: 'text', marks: [{ type: 'bold' }], text: 'Add your License.' }
-      ]
+      let content: JSONContent = [{ type: 'text', text: 'Add your License.' }]
 
       if (data) {
         const { name, url } = data
