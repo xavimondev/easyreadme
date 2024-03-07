@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-
 import { Input } from '@/components/ui/input'
-import { CommandK } from '@/components/command-k'
 import { GitIc } from '@/components/icons'
 
 type FormSearchProps = {
@@ -11,25 +8,6 @@ type FormSearchProps = {
 }
 
 export function FormSearch({ onSubmit }: FormSearchProps) {
-  const inputRef = useRef<HTMLInputElement | null>(null)
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        inputRef.current?.focus()
-      }
-
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        inputRef.current?.blur()
-      }
-    }
-
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
-  }, [])
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     onSubmit(e)
   }
@@ -47,12 +25,10 @@ export function FormSearch({ onSubmit }: FormSearchProps) {
             autoCorrect='off'
             autoCapitalize='off'
             required
-            ref={inputRef}
             name='urlRepository'
             className='w-full h-8 pl-9 border-none focus-visible:outline-none focus-visible:ring-0 sm:placeholder:text-center sm:text-center group-focus-within:placeholder:text-left group-focus-within:text-left group-focus-within:placeholder:text-white/60 placeholder:text-white/40'
             placeholder='https://github.com/xavimondev/easyreadme'
           />
-          <CommandK />
         </div>
       </form>
     </div>
