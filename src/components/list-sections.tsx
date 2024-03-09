@@ -1,16 +1,18 @@
 import { PropsWithChildren } from 'react'
-import { Plus } from 'lucide-react'
+import { Bot, Plus } from 'lucide-react'
 
 import { NodeName, Section } from '@/types/builder'
 
 import { useReadme } from '@/hooks/use-readme'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { TooltipTemplate } from '@/components/tooltip-template'
 
 type SectionItemProps = {
   id: NodeName
   name: string
   description: string
+  useAi: boolean
   buildCustomReadme: ({ section }: { section: NodeName }) => Promise<void>
 }
 
@@ -18,6 +20,7 @@ function SectionItem({
   id,
   name,
   description,
+  useAi,
   buildCustomReadme,
   children
 }: PropsWithChildren<SectionItemProps>) {
@@ -25,7 +28,15 @@ function SectionItem({
     <div className='flex flex-col gap-2 rounded-lg border p-4'>
       <div className='w-full flex flex-row items-center justify-between gap-0.5'>
         <div className='space-y-1'>
-          <h2 className='font-bold'>{name}</h2>
+          <div className='flex gap-2 items-center'>
+            <h2 className='font-bold'>{name}</h2>
+            {useAi && (
+              <TooltipTemplate
+                trigger={<Bot size={18} className='text-purple-400' />}
+                content={<p>This section uses AI.</p>}
+              />
+            )}
+          </div>
           <p className='text-sm text-muted-foreground'>{description}</p>
         </div>
         {children == null ? (
