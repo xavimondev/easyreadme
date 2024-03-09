@@ -42,3 +42,7 @@ export const removeNode = ({ editor, nodex }: { editor: Editor; nodex: NodeName 
     })
   })
 }
+
+export const clearEditor = ({ editor }: { editor: Editor }) => {
+  editor.commands.clearContent()
+}

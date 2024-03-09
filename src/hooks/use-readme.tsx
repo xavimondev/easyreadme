@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
 import { README_SECTIONS_DATA } from '@/sections'
@@ -15,6 +15,7 @@ import {
   getProjectSummaryData,
   getTechStackData
 } from '@/utils/readme'
+import { clearEditor } from '@/utils/tiptap'
 import { getGenerationAI, getLanguages, getLicense, getRepositoryData } from '@/services/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
@@ -46,10 +47,6 @@ export function useReadme() {
     generateReadme()
   }, [sectionsFromTemplates, readmeEditor])
 
-  const clearEditorContent = useCallback(() => {
-    readmeEditor?.commands.clearContent()
-  }, [readmeEditor])
-
   const checkGitRepositoryData = async () => {
     if (!gitUrlRepository) return
 
@@ -79,7 +76,7 @@ export function useReadme() {
     })
 
     setTableOfContents(mappedSections)
-    clearEditorContent()
+    clearEditor({ editor: readmeEditor! })
 
     let toastId = undefined
     if (!isFirstTimeLoaded.current) toastId = toast.loading(`Generating Readme...`)
