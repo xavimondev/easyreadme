@@ -31,6 +31,7 @@ export type Section = {
   emoji: string | undefined
   description: string
   add: ({ editor, endPos, data }: { editor: Editor; endPos: number; data?: any }) => void
+  useAi: boolean
 }
 
 export enum ContributorOption {

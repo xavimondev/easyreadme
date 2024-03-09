@@ -14,7 +14,8 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'Picture of your project.',
     add: async ({ editor, endPos }) => {
       editor.chain().insertBanner({ endPos })
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.TECH_STACK,
@@ -29,7 +30,7 @@ export const README_SECTIONS_DATA: Section[] = [
         ]
       }
 
-      if (data.content.length > 0) {
+      if (data?.content.length > 0) {
         const listItems: any = []
         data.content.forEach((item: any) => {
           const { name, link, description } = item
@@ -81,7 +82,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: true
   },
   {
     id: NodeName.PROJECT_SUMMARY,
@@ -94,7 +96,7 @@ export const README_SECTIONS_DATA: Section[] = [
         content: [{ type: 'text', text: `Insert your project's summary.` }]
       }
 
-      if (data.content.length > 0) {
+      if (data?.content.length > 0) {
         const listItems: any = []
         data.content.forEach((item: any) => {
           const { name, link, description } = item
@@ -146,7 +148,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: true
   },
   {
     id: NodeName.SETTING_UP,
@@ -162,7 +165,7 @@ export const README_SECTIONS_DATA: Section[] = [
         }
       ]
 
-      if (data.content.length > 0) {
+      if (data?.content.length > 0) {
         data.content.forEach((item: any) => {
           const listSteps: any = []
           const { name, steps } = item
@@ -208,7 +211,8 @@ export const README_SECTIONS_DATA: Section[] = [
       }
 
       editor.chain().insertContentAt(endPos, defaultContent).focus().run()
-    }
+    },
+    useAi: true
   },
   {
     id: NodeName.RUN_LOCALLY,
@@ -295,7 +299,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .run()
       // editor.chain().insertRunLocally({ endPos, data })
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.CONTRIBUTORS,
@@ -304,7 +309,8 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'Recognition about project contributors.',
     add: async ({ editor, endPos, data }) => {
       editor.chain().insertContributors({ endPos, data })
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.LICENSE,
@@ -353,7 +359,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.PROJECT_STRUCTURE,
@@ -377,7 +384,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.DEPLOY,
@@ -405,7 +413,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     // FIXME: DOES NOT GENERATE WITH BRACKETS [ ]
@@ -493,7 +502,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.ACKNOWLEDGEMENTS,
@@ -589,7 +599,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.CHANGELOG,
@@ -639,7 +650,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.PREREQUISITES,
@@ -831,7 +843,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.FAQ,
@@ -900,7 +913,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.COMMANDS, // ✅
@@ -974,7 +988,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.TABLE_CONTENTS,
@@ -983,7 +998,8 @@ export const README_SECTIONS_DATA: Section[] = [
     description: 'An organized list of contents for easy navigation.',
     add: async ({ editor, endPos }) => {
       editor.chain().insertTableContents({ endPos })
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.OVERVIEW,
@@ -1004,14 +1020,15 @@ export const README_SECTIONS_DATA: Section[] = [
             content: [
               {
                 type: 'text',
-                text: data === '' ? 'Insert a brief overview of your project' : data.content
+                text: !data ? 'Insert a brief overview of your project' : data.content
               }
             ]
           }
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: true
   },
   {
     id: NodeName.BADGE,
@@ -1050,7 +1067,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.API_REFERENCE,
@@ -1206,7 +1224,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.FEEDBACK,
@@ -1251,7 +1270,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   },
   {
     id: NodeName.LIB_PROPS,
@@ -1458,7 +1478,8 @@ export const README_SECTIONS_DATA: Section[] = [
         ])
         .focus()
         .run()
-    }
+    },
+    useAi: false
   }
 ]
 
