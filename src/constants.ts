@@ -183,7 +183,7 @@ export const LANGUAGES_FILES_PARSERS: Record<string, any> = {
 export const APP_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://easyreadme.vercel.app'
 
-export const RATE_LIMIT = 3
+export const RATE_LIMIT = 6
 
 export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
   endPos: {
