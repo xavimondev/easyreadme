@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
+import { README_SECTIONS_DATA } from '@/sections'
 import { toast } from 'sonner'
 
 import { NodeName } from '@/types/builder'
@@ -15,7 +16,9 @@ import {
   getTechStackData
 } from '@/utils/readme'
 import { getGenerationAI, getLanguages, getLicense, getRepositoryData } from '@/services/github'
+import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
+import { useRemaining } from '@/hooks/use-remaining'
 
 export function useReadme() {
   const {
@@ -31,6 +34,7 @@ export function useReadme() {
     moduleSelected
   } = useBuilder((store) => store)
   const isFirstTimeLoaded = useRef(true)
+  const { mutate } = useRemaining()
 
   // TODO: I think there will be better ways to do this.
   useEffect(() => {
@@ -80,7 +84,21 @@ export function useReadme() {
     let toastId = undefined
     if (!isFirstTimeLoaded.current) toastId = toast.loading(`Generating Readme...`)
 
-    for (let i = 0; i < sectionsFromTemplates.length; i++) {
+    let sectionsToGenerate = sectionsFromTemplates
+
+    // At this point let's check rate limit, in case there are not credits, readme will only have non-AI sections.
+    // Otherwise run mutate
+    if (gitData) {
+      const msg = await checkRateLimit()
+      if (msg) {
+        sectionsToGenerate = sectionsFromTemplates.filter((section) => {
+          const sectionsData = README_SECTIONS_DATA.find((rs) => rs.id === section)
+          return !sectionsData?.useAi
+        })
+      }
+    }
+
+    for (let i = 0; i < sectionsToGenerate.length; i++) {
       const sectionId = sectionsFromTemplates.at(i)
       await addSection({
         section: sectionId!,
@@ -93,6 +111,9 @@ export function useReadme() {
       toast.success(`Readme generated.`)
     }
 
+    if (gitData) {
+      mutate()
+    }
     isFirstTimeLoaded.current = false
   }
 
@@ -111,6 +132,15 @@ export function useReadme() {
       })
     }
 
+    if (gitData && sectionItem.useAi) {
+      const msg = await checkRateLimit()
+
+      if (msg) {
+        toast.error(msg)
+        return
+      }
+    }
+
     const promise = addSection({
       section: section,
       gitData
@@ -119,6 +149,9 @@ export function useReadme() {
     toast.promise(promise, {
       loading: 'Adding section...',
       success: () => {
+        if (gitData && sectionItem.useAi) {
+          mutate()
+        }
         return `Section added.`
       },
       error: 'Error'
