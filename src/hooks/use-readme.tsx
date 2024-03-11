@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
 import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
 import { README_SECTIONS_DATA } from '@/sections'
@@ -34,7 +34,6 @@ export function useReadme() {
     sectionsFromTemplates,
     moduleSelected
   } = useBuilder((store) => store)
-  const isFirstTimeLoaded = useRef(true)
   const { mutate } = useRemaining()
 
   // TODO: I think there will be better ways to do this.
@@ -79,7 +78,9 @@ export function useReadme() {
     clearEditor({ editor: readmeEditor! })
 
     let toastId = undefined
-    if (!isFirstTimeLoaded.current) toastId = toast.loading(`Generating Readme...`)
+    if (gitData) {
+      toastId = toast.loading(`Generating Readme...`)
+    }
 
     let sectionsToGenerate = sectionsFromTemplates
 
@@ -103,15 +104,11 @@ export function useReadme() {
       })
     }
 
-    if (!isFirstTimeLoaded.current) {
+    if (gitData) {
       toast.dismiss(toastId)
       toast.success(`Readme generated.`)
-    }
-
-    if (gitData) {
       mutate()
     }
-    isFirstTimeLoaded.current = false
   }
 
   const buildCustomReadme = async ({ section }: { section: NodeName }) => {
