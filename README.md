@@ -93,7 +93,21 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 git clone https://github.com/xavimondev/easyreadme
 ```
 
-2.Install dependencies:
+2.Rename the `.env.example` to `.env`:
+
+```bash
+mv .example.env .env
+```
+
+3.Download [Ollama](https://ollama.com/download) and have it running.
+
+4.If your instance of Ollama is not running on the default ip-address and port, change the variable in the .env file to fit your usecase:
+
+```bash
+OLLAMA_URL=http://localhost:11434
+```
+
+5.Install dependencies:
 
 ```bash
 pnpm install
@@ -106,7 +120,7 @@ yarn install
 
 ```
 
-3.Start the development mode:
+6.Start the development mode:
 
 ```bash
 pnpm dev
@@ -117,6 +131,7 @@ npm run dev
 
 yarn dev
 ```
+
 
 ## 🗺️ Roadmap
 
