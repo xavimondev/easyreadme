@@ -1480,6 +1480,140 @@ export const README_SECTIONS_DATA: Section[] = [
         .run()
     },
     useAi: false
+  },
+  {
+    id: NodeName.MONOREPO_SUMMARY,
+    name: 'Monorepo Summary',
+    emoji: '📦',
+    description: 'A summary of your monorepo.',
+    add: async ({ editor, endPos, data }) => {
+      const defaultContent: JSONContent = [
+        {
+          type: 'heading',
+          attrs: { level: 2 },
+          content: [{ type: 'text', text: 'Monorepo Summary' }]
+        }
+      ]
+
+      if (data.content.length > 0) {
+        data.content.forEach((item: any) => {
+          const { workspace, description, paths } = item
+          const heading = {
+            type: 'heading',
+            attrs: { level: 3 },
+            content: [{ type: 'text', marks: [{ type: 'underline' }], text: workspace }]
+          }
+          const paragraph = {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: description
+              }
+            ]
+          }
+
+          defaultContent.push(heading)
+          defaultContent.push(paragraph)
+
+          const rows: JSONContent[] = []
+
+          paths.forEach((path: any) => {
+            const { name, description } = path
+            const tableRow: JSONContent = {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          marks: [
+                            {
+                              type: 'link',
+                              attrs: {
+                                href: `${workspace}/${name}`,
+                                target: '_blank'
+                              }
+                            }
+                          ],
+                          text: name
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: description
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+
+            rows.push(tableRow)
+          })
+
+          // Building table headers
+          const table = {
+            type: 'table',
+            content: [
+              {
+                type: 'tableRow',
+                content: [
+                  {
+                    type: 'tableHeader',
+                    content: [
+                      {
+                        type: 'paragraph',
+                        content: [
+                          {
+                            type: 'text',
+                            text: 'Package'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    type: 'tableHeader',
+                    content: [
+                      {
+                        type: 'paragraph',
+                        content: [
+                          {
+                            type: 'text',
+                            text: 'Description'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              ...rows
+            ]
+          }
+
+          defaultContent.push(table)
+        })
+      }
+
+      editor.chain().insertContentAt(endPos, defaultContent).focus().run()
+    },
+    useAi: true
   }
 ]
 

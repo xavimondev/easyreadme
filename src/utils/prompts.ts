@@ -90,3 +90,30 @@ Follow this format:
 
 Format the response as JSON array object with one key: "data". Don't add backticks.`
 }
+
+export const generateMonorepoSummaryPrompt = ({
+  repositoryName,
+  monorepoStructure
+}: {
+  repositoryName: string
+  monorepoStructure: string
+}) => {
+  return `The project named ${repositoryName} has a monorepo configuration represented by the following JSON structure:
+
+  ${monorepoStructure}
+
+  Each object in the above JSON represents a folder in the monorepo, where "name" denotes the folder's name, and "nested" contains its nested folders.
+  Your task is to craft a summary with the following format:
+  {
+    workspace: path's name. Don't add "/" at the end.
+    description: create a concise overview that outlines the primary purpose of this workspace. Utilize the nested folders to provide insight into the nature of this path (up to 70 words).
+    paths: [
+      {
+        name: nested folder,
+        description: create a brief summary emphasizing the main purpose and essential features of the nested folder (up to 70 words).
+      }
+    ]
+  }
+
+  Format the response as JSON array object with one key: "data". Don't add backticks.`
+}

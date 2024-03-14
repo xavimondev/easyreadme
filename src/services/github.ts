@@ -119,3 +119,23 @@ export const getLanguages = async ({ repoName, owner }: { repoName: string; owne
     return
   }
 }
+
+export const getNestedPathsByDirectory = async ({
+  path,
+  owner,
+  repoName
+}: {
+  path: string
+  owner: string
+  repoName: string
+}) => {
+  try {
+    const response = await fetch(
+      `api/github/nested-paths?owner=${owner}&repo=${repoName}&path=${path}`
+    )
+    const contents = await response.json()
+    return contents.data
+  } catch (error) {
+    return
+  }
+}

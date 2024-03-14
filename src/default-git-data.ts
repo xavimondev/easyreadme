@@ -137,5 +137,19 @@ export const DEFAULT_DATA_CACHED = {
     rules: projectPrerequisites?.lockFiles?.find((lf) => lf.lockfile === 'bun.lockb'),
     runtime: projectPrerequisites?.runtimes?.find((runt) => runt.id === 'Node'),
     typescriptResource: projectPrerequisites?.typescriptResource
+  },
+  [NodeName.MONOREPO_SUMMARY]: {
+    content: [
+      {
+        workspace: 'web',
+        description: `Insert a brief description of your workspace.`,
+        paths: [
+          {
+            name: 'ui',
+            description: 'Insert a summary of your this package.'
+          }
+        ]
+      }
+    ]
   }
 }

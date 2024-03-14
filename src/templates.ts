@@ -98,5 +98,23 @@ export const LIST_TEMPLATES: Template[] = [
       NodeName.LICENSE
     ],
     tags: ['VS Code', 'Installation', 'Features']
+  },
+  {
+    nameTemplate: 'Monorepos',
+    description:
+      'An overview of monorepo facilitating modular development and code sharing across projects.',
+    sections: [
+      NodeName.BANNER,
+      NodeName.BADGE,
+      NodeName.TABLE_CONTENTS,
+      NodeName.OVERVIEW,
+      NodeName.PREREQUISITES,
+      NodeName.MONOREPO_SUMMARY,
+      NodeName.TECH_STACK,
+      NodeName.FAQ,
+      NodeName.CONTRIBUTORS,
+      NodeName.LICENSE
+    ],
+    tags: ['Monorepos', 'Workspaces', 'JavaScript']
   }
 ]

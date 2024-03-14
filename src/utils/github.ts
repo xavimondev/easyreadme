@@ -1,7 +1,13 @@
 import { Tree, TreeFormatted, TypeFile } from '@/types/git'
 
 import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP } from '@/constants'
-import { getFileContents, getRepositoryStructure } from '@/services/github'
+import {
+  getFileContents,
+  getNestedPathsByDirectory,
+  getRepositoryStructure
+} from '@/services/github'
+
+import { getWorkspacePackageJson, getWorkspacePnpmLock } from './parse'
 
 export const getRepoNameAndOwnerFromUrl = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')
@@ -213,4 +219,74 @@ export const getPrerequisites = async ({
   return {
     rules: languageSetup.installation
   }
+}
+
+export const getMonorepoData = async ({
+  language,
+  repoName,
+  owner,
+  defaultBranch
+}: {
+  language: string
+  repoName: string
+  owner: string
+  defaultBranch: string
+}) => {
+  const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
+
+  if (!languageSetup) return
+
+  const tree = await getRepositoryStructure({
+    repoName,
+    owner,
+    branch: defaultBranch
+  })
+
+  if (!tree) return
+
+  const paths = tree.filter((file) => file.type === TypeFile.Blob).map((file) => file.path)
+
+  const lockFiles = languageSetup.lockFiles!
+
+  const lockFile = lockFiles.find((lockFile) =>
+    paths.some((path) => path.includes(lockFile.lockfile))
+  )
+
+  const workspaceFile = lockFile?.id === 'pnpm' ? 'pnpm-workspace.yaml' : 'package.json'
+  const pathUrl = paths.find((path) => path === workspaceFile)
+
+  if (!pathUrl) return
+
+  // once I have the path, fetch dependency file's contents
+  const fileDependenciesContent = await getFileContents({
+    path: pathUrl,
+    owner: owner,
+    repoName: repoName
+  })
+
+  if (!fileDependenciesContent) return
+
+  const workspaces =
+    lockFile?.id === 'pnpm'
+      ? getWorkspacePnpmLock({ content: fileDependenciesContent })
+      : getWorkspacePackageJson({ content: fileDependenciesContent })
+
+  if (!workspaces || workspaces.length === 0) return
+
+  const workspacesContent = await Promise.all(
+    workspaces.map(async (workspace) => {
+      const paths = await getNestedPathsByDirectory({
+        path: workspace,
+        owner: owner,
+        repoName: repoName
+      })
+
+      return {
+        name: workspace,
+        nested: paths
+      }
+    })
+  )
+
+  return workspacesContent
 }

@@ -7,6 +7,7 @@ export type NameTemplate =
   | 'NPM Package'
   | 'VS Code Extension'
   | 'API'
+  | 'Monorepos'
 
 export type Template = {
   nameTemplate: NameTemplate

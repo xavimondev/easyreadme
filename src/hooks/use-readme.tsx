@@ -8,7 +8,8 @@ import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
-import { getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
+import { getMonorepoData, getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
+import { generateMonorepoSummaryPrompt } from '@/utils/prompts'
 import {
   getEnvironmentVariablesGuideData,
   getOverviewData,
@@ -357,6 +358,40 @@ export function useReadme() {
             owner,
             repoName
           })
+    } else if (section === NodeName.MONOREPO_SUMMARY) {
+      if (!repositoryData) {
+        data = DEFAULT_DATA_CACHED[section]
+      } else {
+        const monorepoData = await getMonorepoData({
+          owner,
+          language,
+          repoName,
+          defaultBranch: branch
+        })
+
+        if (!monorepoData) {
+          data = DEFAULT_DATA_CACHED[section]
+        } else {
+          const prompt = generateMonorepoSummaryPrompt({
+            repositoryName: repoName,
+            monorepoStructure: JSON.stringify(monorepoData)
+          })
+
+          const response = await getGenerationAI({
+            format: 'json',
+            prompt
+          })
+
+          if (!response || response.message || response.name === 'Error') {
+            toast.error(response.message)
+            return
+          }
+
+          data = {
+            content: response.data.data
+          }
+        }
+      }
     }
 
     const { add } = sectionItem

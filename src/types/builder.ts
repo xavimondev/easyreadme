@@ -22,7 +22,8 @@ export enum NodeName {
   API_REFERENCE = 'custom-api-reference',
   FEEDBACK = 'custom-feedback',
   LIB_PROPS = 'custom-lib-props',
-  ALERT = 'custom-alert'
+  ALERT = 'custom-alert',
+  MONOREPO_SUMMARY = 'custom-monorepo-summary'
 }
 
 export type Section = {
