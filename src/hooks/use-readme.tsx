@@ -210,7 +210,7 @@ export function useReadme() {
           prompt
         })
 
-        if (response.name === 'Error') {
+        if (!response || response.message || response.name === 'Error') {
           toast.error(response.message)
           return
         }
@@ -246,7 +246,7 @@ export function useReadme() {
             prompt
           })
 
-          if (response.name === 'Error') {
+          if (!response || response.message || response.name === 'Error') {
             toast.error(response.message)
             return
           }
@@ -286,7 +286,7 @@ export function useReadme() {
             prompt
           })
 
-          if (response.name === 'Error') {
+          if (!response || response.message || response.name === 'Error') {
             toast.error(response.message)
             return
           }
@@ -317,7 +317,7 @@ export function useReadme() {
             prompt
           })
 
-          if (response.name === 'Error') {
+          if (!response || response.message || response.name === 'Error') {
             toast.error(response.message)
             return
           }
