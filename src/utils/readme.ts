@@ -1,10 +1,10 @@
 import { getDependencies } from '@/utils/github'
 import {
-  generateGuideEnvironmentVariablesJson,
-  generateProjectSummaryJson,
-  generateTechStackJson,
-  getPromptOverviewWithDependencies,
-  getPromptRandomOverview
+  generateOverviewPrompt,
+  generateOverviewWithDependenciesPrompt,
+  generateProjectSummaryPrompt,
+  generateSettingUpPrompt,
+  generateTechStackPrompt
 } from '@/utils/prompts'
 import { getFileContents, getRepositoryStructure } from '@/services/github'
 
@@ -21,7 +21,7 @@ export const getOverviewData = async ({
   language: string
   branch: string
 }) => {
-  let promptOverview = getPromptRandomOverview({
+  let promptOverview = generateOverviewPrompt({
     repositoryName: repoName,
     projectDescription: description
   })
@@ -35,7 +35,7 @@ export const getOverviewData = async ({
 
   if (!dependencies) return promptOverview
 
-  promptOverview = getPromptOverviewWithDependencies({
+  promptOverview = generateOverviewWithDependenciesPrompt({
     repositoryName: repoName,
     dependencies,
     projectDescription: description
@@ -62,7 +62,7 @@ export const getProjectSummaryData = async ({
   if (!structure) return ''
 
   const directories = structure.filter((files) => files.type === 'tree').map((files) => files.path)
-  const promptProjectSummary = generateProjectSummaryJson({
+  const promptProjectSummary = generateProjectSummaryPrompt({
     directories,
     mainLanguage: language
   })
@@ -84,7 +84,7 @@ export const getEnvironmentVariablesGuideData = async ({
 
   if (!fileEnviromentContent) return ''
 
-  const promptGuideEnvironmentVariables = generateGuideEnvironmentVariablesJson({
+  const promptGuideEnvironmentVariables = generateSettingUpPrompt({
     environmentVars: fileEnviromentContent
   })
 
@@ -111,6 +111,6 @@ export const getTechStackData = async ({
 
   if (!dependencies) return ''
 
-  const promptTechStack = generateTechStackJson({ dependencies, language: language })
+  const promptTechStack = generateTechStackPrompt({ dependencies, language: language })
   return promptTechStack
 }

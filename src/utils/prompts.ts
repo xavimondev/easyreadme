@@ -1,4 +1,4 @@
-export const getPromptRandomOverview = ({
+export const generateOverviewPrompt = ({
   repositoryName,
   projectDescription
 }: {
@@ -10,7 +10,7 @@ ${projectDescription !== '' ? `This project is described as ${projectDescription
 Ensure to keep your response under 150 characters.`
 }
 
-export const getPromptOverviewWithDependencies = ({
+export const generateOverviewWithDependenciesPrompt = ({
   repositoryName,
   dependencies,
   projectDescription
@@ -26,7 +26,7 @@ ${dependencies}
 Ensure to keep your response under 100 characters.`
 }
 
-export const generateTechStackJson = ({
+export const generateTechStackPrompt = ({
   dependencies,
   language
 }: {
@@ -50,11 +50,7 @@ Follow this format:
 Format the response as JSON array object with one key: "dependencies". Don't add backticks.`
 }
 
-export const generateGuideEnvironmentVariablesJson = ({
-  environmentVars
-}: {
-  environmentVars: string
-}) => {
+export const generateSettingUpPrompt = ({ environmentVars }: { environmentVars: string }) => {
   return `${environmentVars}
 
 For each environment variable mentioned above, provide a brief guide to generate its value. 
@@ -70,7 +66,7 @@ Follow this format:
 Format the response as JSON array object with one key: "data". Don't add backticks.`
 }
 
-export const generateProjectSummaryJson = ({
+export const generateProjectSummaryPrompt = ({
   directories,
   mainLanguage
 }: {
