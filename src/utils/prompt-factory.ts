@@ -9,7 +9,7 @@ import {
 } from '@/utils/prompts'
 import { getFileContents, getRepositoryStructure } from '@/services/github'
 
-export const getOverviewData = async ({
+export const getOverviewPrompt = async ({
   repoName,
   description,
   owner,
@@ -44,7 +44,7 @@ export const getOverviewData = async ({
   return promptOverview
 }
 
-export const getProjectSummaryData = async ({
+export const getProjectSummaryPrompt = async ({
   repoName,
   owner,
   language,
@@ -70,7 +70,7 @@ export const getProjectSummaryData = async ({
   return promptProjectSummary
 }
 
-export const getEnvironmentVariablesGuideData = async ({
+export const getSettingUpPrompt = async ({
   owner,
   repoName
 }: {
@@ -92,7 +92,7 @@ export const getEnvironmentVariablesGuideData = async ({
   return promptGuideEnvironmentVariables
 }
 
-export const getTechStackData = async ({
+export const getTechStackPrompt = async ({
   repoName,
   owner,
   language,
@@ -116,7 +116,7 @@ export const getTechStackData = async ({
   return promptTechStack
 }
 
-export const getMonorepoSummary = async ({
+export const getMonorepoSummaryPrompt = async ({
   repoName,
   owner,
   language,

@@ -10,12 +10,12 @@ import { GitRepository } from '@/types/git'
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
 import { getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
 import {
-  getEnvironmentVariablesGuideData,
-  getMonorepoSummary,
-  getOverviewData,
-  getProjectSummaryData,
-  getTechStackData
-} from '@/utils/readme'
+  getMonorepoSummaryPrompt,
+  getOverviewPrompt,
+  getProjectSummaryPrompt,
+  getSettingUpPrompt,
+  getTechStackPrompt
+} from '@/utils/prompt-factory'
 import { clearEditor } from '@/utils/tiptap'
 import { getGenerationAI, getLanguages, getLicense, getRepositoryData } from '@/services/github'
 import { checkRateLimit } from '@/services/rate-limit'
@@ -197,7 +197,7 @@ export function useReadme() {
           content: DEFAULT_DATA_CACHED[section].content
         }
       } else {
-        const prompt = await getOverviewData({
+        const prompt = await getOverviewPrompt({
           branch,
           description,
           language,
@@ -229,7 +229,7 @@ export function useReadme() {
       if (!repositoryData) {
         data = DEFAULT_DATA_CACHED[section]
       } else {
-        const prompt = await getProjectSummaryData({
+        const prompt = await getProjectSummaryPrompt({
           owner,
           repoName,
           branch,
@@ -272,7 +272,7 @@ export function useReadme() {
       if (!repositoryData) {
         data = DEFAULT_DATA_CACHED[section]
       } else {
-        const prompt = await getEnvironmentVariablesGuideData({
+        const prompt = await getSettingUpPrompt({
           owner,
           repoName
         })
@@ -300,7 +300,7 @@ export function useReadme() {
       if (!repositoryData) {
         data = DEFAULT_DATA_CACHED[section]
       } else {
-        const prompt = await getTechStackData({
+        const prompt = await getTechStackPrompt({
           branch,
           language,
           owner,
@@ -362,7 +362,7 @@ export function useReadme() {
       if (!repositoryData) {
         data = DEFAULT_DATA_CACHED[section]
       } else {
-        const prompt = await getMonorepoSummary({
+        const prompt = await getMonorepoSummaryPrompt({
           repoName,
           owner,
           language,
