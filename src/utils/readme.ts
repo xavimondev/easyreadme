@@ -1,5 +1,6 @@
-import { getDependencies } from '@/utils/github'
+import { getDependencies, getMonorepoData } from '@/utils/github'
 import {
+  generateMonorepoSummaryPrompt,
   generateOverviewPrompt,
   generateOverviewWithDependenciesPrompt,
   generateProjectSummaryPrompt,
@@ -113,4 +114,32 @@ export const getTechStackData = async ({
 
   const promptTechStack = generateTechStackPrompt({ dependencies, language: language })
   return promptTechStack
+}
+
+export const getMonorepoSummary = async ({
+  repoName,
+  owner,
+  language,
+  branch
+}: {
+  repoName: string
+  owner: string
+  language: string
+  branch: string
+}) => {
+  const monorepoData = await getMonorepoData({
+    owner,
+    language,
+    repoName,
+    defaultBranch: branch
+  })
+
+  if (!monorepoData) return ''
+
+  const prompt = generateMonorepoSummaryPrompt({
+    repositoryName: repoName,
+    monorepoStructure: JSON.stringify(monorepoData)
+  })
+
+  return prompt
 }

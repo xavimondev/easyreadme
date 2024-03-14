@@ -8,10 +8,10 @@ import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
-import { getMonorepoData, getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
-import { generateMonorepoSummaryPrompt } from '@/utils/prompts'
+import { getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getEnvironmentVariablesGuideData,
+  getMonorepoSummary,
   getOverviewData,
   getProjectSummaryData,
   getTechStackData
@@ -362,21 +362,16 @@ export function useReadme() {
       if (!repositoryData) {
         data = DEFAULT_DATA_CACHED[section]
       } else {
-        const monorepoData = await getMonorepoData({
+        const prompt = await getMonorepoSummary({
+          repoName,
           owner,
           language,
-          repoName,
-          defaultBranch: branch
+          branch
         })
 
-        if (!monorepoData) {
+        if (prompt === '') {
           data = DEFAULT_DATA_CACHED[section]
         } else {
-          const prompt = generateMonorepoSummaryPrompt({
-            repositoryName: repoName,
-            monorepoStructure: JSON.stringify(monorepoData)
-          })
-
           const response = await getGenerationAI({
             format: 'json',
             prompt
