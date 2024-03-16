@@ -30,9 +30,9 @@ export const README_SECTIONS_DATA: Section[] = [
         ]
       }
 
-      if (data?.content.length > 0) {
+      if (data?.length > 0) {
         const listItems: any = []
-        data.content.forEach((item: any) => {
+        data.forEach((item: any) => {
           const { name, link, description } = item
           listItems.push({
             type: 'listItem',
@@ -96,9 +96,9 @@ export const README_SECTIONS_DATA: Section[] = [
         content: [{ type: 'text', text: `Insert your project's summary.` }]
       }
 
-      if (data?.content.length > 0) {
+      if (data?.length > 0) {
         const listItems: any = []
-        data.content.forEach((item: any) => {
+        data.forEach((item: any) => {
           const { name, link, description } = item
           listItems.push({
             type: 'listItem',
@@ -165,8 +165,8 @@ export const README_SECTIONS_DATA: Section[] = [
         }
       ]
 
-      if (data?.content.length > 0) {
-        data.content.forEach((item: any) => {
+      if (data?.length > 0) {
+        data.forEach((item: any) => {
           const listSteps: any = []
           const { name, steps } = item
           const heading = {
@@ -1020,7 +1020,7 @@ export const README_SECTIONS_DATA: Section[] = [
             content: [
               {
                 type: 'text',
-                text: !data ? 'Insert a brief overview of your project' : data.content
+                text: !data ? 'Insert a brief overview of your project' : data
               }
             ]
           }
@@ -1495,8 +1495,8 @@ export const README_SECTIONS_DATA: Section[] = [
         }
       ]
 
-      if (data.content.length > 0) {
-        data.content.forEach((item: any) => {
+      if (data?.length > 0) {
+        data.forEach((item: any) => {
           const { workspace, description, paths } = item
           const heading = {
             type: 'heading',

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { ALL_BADGES, DEFAULT_BADGES } from '@/badges'
-import { DEFAULT_DATA_CACHED, DEFAULT_REPOSITORY_DATA } from '@/default-git-data'
+import { DEFAULT_DATA_CACHED } from '@/default-git-data'
 import { README_SECTIONS_DATA } from '@/sections'
 import { toast } from 'sonner'
 
@@ -8,16 +7,9 @@ import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
-import { getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
-import {
-  getMonorepoSummaryPrompt,
-  getOverviewPrompt,
-  getProjectSummaryPrompt,
-  getSettingUpPrompt,
-  getTechStackPrompt
-} from '@/utils/prompt-factory'
+import { readmeFactory } from '@/utils/readme'
 import { clearEditor } from '@/utils/tiptap'
-import { getGenerationAI, getLanguages, getLicense, getRepositoryData } from '@/services/github'
+import { getRepositoryData } from '@/services/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
 import { useRemaining } from '@/hooks/use-remaining'
@@ -161,8 +153,7 @@ export function useReadme() {
     gitData?: GitRepository
   }) => {
     const repositoryData = gitData ?? gitRepositoryData
-    const { repoName, owner, branch, language, urlRepository, description } =
-      repositoryData ?? DEFAULT_REPOSITORY_DATA
+
     let endPos = 0
     const lastNode = readmeEditor?.state.doc.lastChild
     if (lastNode) {
@@ -178,215 +169,11 @@ export function useReadme() {
 
     let data: any = undefined
 
-    if (section === NodeName.CONTRIBUTORS) {
-      data = {
-        repository: repoName,
-        owner
-      }
-    } else if (section === NodeName.LICENSE) {
+    if (!repositoryData) {
+      // @ts-ignore
       data = DEFAULT_DATA_CACHED[section]
-      if (repositoryData) {
-        data = await getLicense({
-          repoName,
-          owner
-        })
-      }
-    } else if (section === NodeName.OVERVIEW) {
-      if (!repositoryData) {
-        data = {
-          content: DEFAULT_DATA_CACHED[section].content
-        }
-      } else {
-        const prompt = await getOverviewPrompt({
-          branch,
-          description,
-          language,
-          owner,
-          repoName
-        })
-
-        const response = await getGenerationAI({
-          format: 'string',
-          prompt
-        })
-
-        if (!response || response.message || response.name === 'Error') {
-          toast.error(response.message)
-          return
-        }
-
-        data = {
-          content: response.data
-        }
-      }
-    } else if (section === NodeName.PROJECT_STRUCTURE) {
-      data = await getRepositoryTreeDirectory({
-        repoName,
-        owner: owner,
-        branch
-      })
-    } else if (section === NodeName.PROJECT_SUMMARY) {
-      if (!repositoryData) {
-        data = DEFAULT_DATA_CACHED[section]
-      } else {
-        const prompt = await getProjectSummaryPrompt({
-          owner,
-          repoName,
-          branch,
-          language
-        })
-
-        if (prompt === '') {
-          data = {
-            content: []
-          }
-        } else {
-          const response = await getGenerationAI({
-            format: 'json',
-            prompt
-          })
-
-          if (!response || response.message || response.name === 'Error') {
-            toast.error(response.message)
-            return
-          }
-
-          data = {
-            content: response.data.data
-          }
-        }
-      }
-    } else if (section === NodeName.RUN_LOCALLY) {
-      let mainLanguage = DEFAULT_DATA_CACHED[section].mainLanguage
-
-      if (repositoryData) {
-        mainLanguage = language
-      }
-
-      data = {
-        mainLanguage,
-        repoName,
-        urlRepository
-      }
-    } else if (section === NodeName.SETTING_UP) {
-      if (!repositoryData) {
-        data = DEFAULT_DATA_CACHED[section]
-      } else {
-        const prompt = await getSettingUpPrompt({
-          owner,
-          repoName
-        })
-        if (prompt === '') {
-          data = {
-            content: []
-          }
-        } else {
-          const response = await getGenerationAI({
-            format: 'json',
-            prompt
-          })
-
-          if (!response || response.message || response.name === 'Error') {
-            toast.error(response.message)
-            return
-          }
-
-          data = {
-            content: response.data.data
-          }
-        }
-      }
-    } else if (section === NodeName.TECH_STACK) {
-      if (!repositoryData) {
-        data = DEFAULT_DATA_CACHED[section]
-      } else {
-        const prompt = await getTechStackPrompt({
-          branch,
-          language,
-          owner,
-          repoName
-        })
-
-        if (prompt === '') {
-          data = {
-            content: []
-          }
-        } else {
-          const response = await getGenerationAI({
-            format: 'json',
-            prompt
-          })
-
-          if (!response || response.message || response.name === 'Error') {
-            toast.error(response.message)
-            return
-          }
-
-          data = {
-            content: response.data.dependencies
-          }
-        }
-      }
-    } else if (section === NodeName.BADGE) {
-      data = {
-        owner,
-        repoName
-      }
-
-      if (!repositoryData) {
-        data.badges = DEFAULT_DATA_CACHED[section]
-      } else {
-        const languages = await getLanguages({
-          owner,
-          repoName
-        })
-        const languagesWithoutMainLanguage = Object.keys(languages)
-          .filter((lang) => lang.toLocaleLowerCase() !== language.toLocaleLowerCase())
-          .map((lang) => lang.toLowerCase())
-
-        const programmingBadges = ALL_BADGES.filter((badge) =>
-          languagesWithoutMainLanguage.includes(badge.id.toLowerCase())
-        ).map(({ name, url }) => ({ name, url, isGithub: false }))
-        data.badges = DEFAULT_BADGES.concat(programmingBadges)
-      }
-    } else if (section === NodeName.PREREQUISITES) {
-      data = !repositoryData
-        ? DEFAULT_DATA_CACHED[section]
-        : await getPrerequisites({
-            defaultBranch: branch,
-            language,
-            owner,
-            repoName
-          })
-    } else if (section === NodeName.MONOREPO_SUMMARY) {
-      if (!repositoryData) {
-        data = DEFAULT_DATA_CACHED[section]
-      } else {
-        const prompt = await getMonorepoSummaryPrompt({
-          repoName,
-          owner,
-          language,
-          branch
-        })
-
-        if (prompt === '') {
-          data = DEFAULT_DATA_CACHED[section]
-        } else {
-          const response = await getGenerationAI({
-            format: 'json',
-            prompt
-          })
-
-          if (!response || response.message || response.name === 'Error') {
-            toast.error(response.message)
-            return
-          }
-
-          data = {
-            content: response.data.data
-          }
-        }
-      }
+    } else {
+      data = await readmeFactory({ repositoryData, section })
     }
 
     const { add } = sectionItem
