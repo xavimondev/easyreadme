@@ -10,15 +10,15 @@ export const getRepositoryStructure = async ({
   owner: string
   repoName: string
   branch: string
-}): Promise<Tree[] | undefined> => {
+}): Promise<{ data?: Tree[]; error: string | undefined }> => {
   try {
     const response = await fetch(
       `api/github/structure?repo=${repoName}&owner=${owner}&branch=${branch}`
     )
     const repository = await response.json()
-    return repository.data
+    return repository
   } catch (error) {
-    return
+    return { error: 'An error has ocurred' }
   }
 }
 
@@ -36,9 +36,9 @@ export const getFileContents = async ({
       `api/github/file-contents?owner=${owner}&repo=${repoName}&path=${path}`
     )
     const contents = await response.json()
-    return contents.data
+    return contents
   } catch (error) {
-    return
+    return { error: 'An error has ocurred' }
   }
 }
 
@@ -66,9 +66,9 @@ export const getLicense = async ({ repoName, owner }: { repoName: string; owner:
   try {
     const response = await fetch(`api/github/license?owner=${owner}&repo=${repoName}`)
     const license = await response.json()
-    return license.data
+    return license
   } catch (error) {
-    return
+    return { error: 'An error has ocurred', data: undefined }
   }
 }
 
@@ -106,7 +106,7 @@ export const getGenerationAI = async ({
     const response = await request.json()
     return response
   } catch (error) {
-    return
+    return { error: 'An error has ocurred', data: undefined }
   }
 }
 
@@ -114,9 +114,9 @@ export const getLanguages = async ({ repoName, owner }: { repoName: string; owne
   try {
     const response = await fetch(`api/github/languages?owner=${owner}&repo=${repoName}`)
     const languages = await response.json()
-    return languages.data
+    return languages
   } catch (error) {
-    return
+    return { error: 'An error has ocurred', data: undefined }
   }
 }
 
