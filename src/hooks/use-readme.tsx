@@ -8,7 +8,7 @@ import { GitRepository } from '@/types/git'
 
 import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
 import { readmeFactory } from '@/utils/readme'
-import { clearEditor } from '@/utils/tiptap'
+import { clearEditor, getPos } from '@/utils/tiptap'
 import { getRepositoryData } from '@/services/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
@@ -154,15 +154,7 @@ export function useReadme() {
   }) => {
     const repositoryData = gitData ?? gitRepositoryData
 
-    let endPos = 0
-    const lastNode = readmeEditor?.state.doc.lastChild
-    if (lastNode) {
-      const lastNodePos = readmeEditor?.state.doc.resolve(
-        readmeEditor?.state.doc.content.size - lastNode.nodeSize
-      )
-      const { pos } = lastNodePos
-      endPos = pos
-    }
+    const endPos = getPos({ editor: readmeEditor! })
 
     const sectionItem = listSections.find((sec) => sec.id === section)
     if (!sectionItem) return
