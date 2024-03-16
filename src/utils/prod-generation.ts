@@ -54,13 +54,13 @@ export const handleGenerationErrors = ({ error }: { error: unknown }) => {
     }
     const { name, status, headers } = error
     return {
-      errorData: { name, status, headers, message: errorMessage },
+      errorData: { name, status, headers, error: errorMessage, data: undefined },
       status: { status }
     }
   }
 
   return {
-    errorData: { message: errorMessage },
+    errorData: { data: undefined, error: errorMessage },
     status: { status: 500 }
   }
 }

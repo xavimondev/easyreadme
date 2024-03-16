@@ -19,8 +19,8 @@ export async function POST(req: Request) {
       if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === '') {
         return NextResponse.json(
           {
-            name: 'Error',
-            message: 'Missing OPENAI_API_KEY – make sure to add it to your .env file.'
+            data: undefined,
+            error: 'Missing OPENAI_API_KEY – make sure to add it to your .env file.'
           },
           { status: 400 }
         )
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         format
       })
     }
-    return NextResponse.json({ data })
+    return NextResponse.json({ data, error: undefined })
   } catch (error) {
     const res = handleGenerationErrors({ error })
     const { errorData, status } = res

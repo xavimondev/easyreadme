@@ -17,18 +17,20 @@ export async function GET(req: Request) {
         'X-GitHub-Api-Version': '2022-11-28'
       }
     })
-    if (!response.ok) return NextResponse.json({ error: 'License not found' }, { status: 404 })
+    if (!response.ok)
+      return NextResponse.json({ data: undefined, error: 'License not found' }, { status: 404 })
 
     const res = await response.json()
     const license = {
       name: res.license.name,
       url: res.html_url
     }
-    return NextResponse.json({ data: license })
+    return NextResponse.json({ data: license, error: undefined })
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
+        data: undefined,
         error: 'An error has ocurred'
       },
       {

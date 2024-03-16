@@ -19,11 +19,12 @@ export async function GET(req: Request) {
     })
 
     const res = await response.json()
-    return NextResponse.json({ data: res })
+    return NextResponse.json({ data: res, error: undefined })
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
+        data: undefined,
         error: 'An error has ocurred'
       },
       {

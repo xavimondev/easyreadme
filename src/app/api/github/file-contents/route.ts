@@ -22,16 +22,18 @@ export async function GET(req: Request) {
       }
     )
     if (!response.ok)
-      return NextResponse.json({ error: 'Environment file not found' }, { status: 404 })
+      // error: 'Environment file not found'
+      return NextResponse.json({ data: '', error: undefined }, { status: 404 })
 
     const data = await response.json()
     const content = atob(data.content)
 
-    return NextResponse.json({ data: content })
+    return NextResponse.json({ data: content, error: undefined })
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
+        data: undefined,
         error: 'An error has ocurred'
       },
       {
