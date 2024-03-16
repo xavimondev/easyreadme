@@ -106,7 +106,7 @@ export const getGenerationAI = async ({
     const response = await request.json()
     return response
   } catch (error) {
-    return null
+    return
   }
 }
 
