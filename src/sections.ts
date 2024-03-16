@@ -23,6 +23,7 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '💻',
     description: 'Information about the technology stack used in the project.',
     add: async ({ editor, endPos, data }) => {
+      const { dependencies } = data ?? {}
       let content: JSONContent = {
         type: 'paragraph',
         content: [
@@ -30,9 +31,9 @@ export const README_SECTIONS_DATA: Section[] = [
         ]
       }
 
-      if (data?.length > 0) {
+      if (dependencies?.length > 0) {
         const listItems: any = []
-        data.forEach((item: any) => {
+        dependencies.forEach((item: any) => {
           const { name, link, description } = item
           listItems.push({
             type: 'listItem',
@@ -91,14 +92,15 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '📝',
     description: 'A brief summary of the project.',
     add: async ({ editor, endPos, data }) => {
+      const { data: summary } = data
       let content: JSONContent = {
         type: 'paragraph',
         content: [{ type: 'text', text: `Insert your project's summary.` }]
       }
 
-      if (data?.length > 0) {
+      if (summary.length > 0) {
         const listItems: any = []
-        data.forEach((item: any) => {
+        summary.forEach((item: any) => {
           const { name, link, description } = item
           listItems.push({
             type: 'listItem',
@@ -157,6 +159,7 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '⚙️',
     description: 'Instructions on setting up the project.',
     add: async ({ editor, endPos, data }) => {
+      const { data: steps } = data ?? {}
       const defaultContent = [
         {
           type: 'heading',
@@ -165,8 +168,8 @@ export const README_SECTIONS_DATA: Section[] = [
         }
       ]
 
-      if (data?.length > 0) {
-        data.forEach((item: any) => {
+      if (steps?.length > 0) {
+        steps.forEach((item: any) => {
           const listSteps: any = []
           const { name, steps } = item
           const heading = {
@@ -298,7 +301,6 @@ export const README_SECTIONS_DATA: Section[] = [
           }
         ])
         .run()
-      // editor.chain().insertRunLocally({ endPos, data })
     },
     useAi: false
   },
@@ -1020,7 +1022,7 @@ export const README_SECTIONS_DATA: Section[] = [
             content: [
               {
                 type: 'text',
-                text: !data ? 'Insert a brief overview of your project' : data
+                text: data ? data : 'Insert a brief overview of your project'
               }
             ]
           }
@@ -1487,6 +1489,7 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '📦',
     description: 'A summary of your monorepo.',
     add: async ({ editor, endPos, data }) => {
+      const { data: summary } = data
       const defaultContent: JSONContent = [
         {
           type: 'heading',
@@ -1495,8 +1498,8 @@ export const README_SECTIONS_DATA: Section[] = [
         }
       ]
 
-      if (data?.length > 0) {
-        data.forEach((item: any) => {
+      if (summary?.length > 0) {
+        summary.forEach((item: any) => {
           const { workspace, description, paths } = item
           const heading = {
             type: 'heading',

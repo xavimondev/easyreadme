@@ -153,26 +153,31 @@ export function useReadme() {
     gitData?: GitRepository
   }) => {
     const repositoryData = gitData ?? gitRepositoryData
-
     const endPos = getPos({ editor: readmeEditor! })
 
     const sectionItem = listSections.find((sec) => sec.id === section)
     if (!sectionItem) return
 
-    let data: any = undefined
+    let result: any = undefined
 
     if (!repositoryData) {
       // @ts-ignore
-      data = DEFAULT_DATA_CACHED[section]
+      result = DEFAULT_DATA_CACHED[section]
     } else {
-      data = await readmeFactory({ repositoryData, section })
+      const { error, data } = await readmeFactory({ repositoryData, section })
+
+      if (error) {
+        toast.error(error)
+        return
+      }
+      result = data
     }
 
     const { add } = sectionItem
     add({
       editor: readmeEditor!,
       endPos,
-      data
+      data: result
     })
   }
 

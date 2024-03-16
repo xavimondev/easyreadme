@@ -33,11 +33,12 @@ export const readmeFactory = async ({
   } else if (section === NodeName.PROJECT_SUMMARY) {
     return getProjectSummarySection({ repoName, owner, branch, language })
   } else if (section === NodeName.RUN_LOCALLY) {
-    return {
+    const data = {
       mainLanguage: language,
       repoName,
       urlRepository
     }
+    return { data }
   } else if (section === NodeName.SETTING_UP) {
     return getSettingUpSection({ repoName, owner })
   } else if (section === NodeName.TECH_STACK) {
@@ -47,10 +48,11 @@ export const readmeFactory = async ({
   } else if (section === NodeName.PREREQUISITES) {
     return getPrerequisitesSection({ repoName, owner, language, branch })
   } else if (section === NodeName.CONTRIBUTORS) {
-    return {
+    const data = {
       repository: repoName,
       owner
     }
+    return { data }
   } else if (section === NodeName.MONOREPO_SUMMARY) {
     return getMonorepoSummarySection({ repoName, owner, language, branch })
   }
@@ -63,12 +65,11 @@ export const getLicenseSection = async ({
   repoName: string
   owner: string
 }) => {
-  const data = await getLicense({
+  const response = await getLicense({
     repoName,
     owner
   })
-
-  return data
+  return response
 }
 
 export const getOverviewSection = async ({
@@ -84,7 +85,7 @@ export const getOverviewSection = async ({
   owner: string
   repoName: string
 }) => {
-  const prompt = await getOverviewPrompt({
+  const { data: prompt, error } = await getOverviewPrompt({
     branch,
     description,
     language,
@@ -92,16 +93,14 @@ export const getOverviewSection = async ({
     repoName
   })
 
+  if (error || !prompt) return { error }
+
   const response = await getGenerationAI({
     format: 'string',
-    prompt
+    prompt: prompt
   })
 
-  if (!response || response.message || response.name === 'Error') {
-    throw new Error(response.message)
-  }
-
-  return response.data
+  return response
 }
 
 export const getProjectStructureSection = async ({
@@ -133,27 +132,21 @@ export const getProjectSummarySection = async ({
   branch: string
   language: string
 }) => {
-  const prompt = await getProjectSummaryPrompt({
+  const { data: prompt, error } = await getProjectSummaryPrompt({
     owner,
     repoName,
     branch,
     language
   })
 
-  if (prompt === '') {
-    return []
-  } else {
-    const response = await getGenerationAI({
-      format: 'json',
-      prompt
-    })
+  if (error || !prompt) return { error }
 
-    if (!response || response.message || response.name === 'Error') {
-      throw new Error(response.message)
-    }
+  const response = await getGenerationAI({
+    format: 'json',
+    prompt
+  })
 
-    return response.data.data
-  }
+  return response
 }
 
 export const getSettingUpSection = async ({
@@ -163,23 +156,21 @@ export const getSettingUpSection = async ({
   owner: string
   repoName: string
 }) => {
-  const prompt = await getSettingUpPrompt({
+  const { data: prompt, error } = await getSettingUpPrompt({
     owner,
     repoName
   })
+
+  if (error || prompt == null) return { error }
+
   if (prompt === '') {
-    return []
+    return { data: [] }
   } else {
     const response = await getGenerationAI({
       format: 'json',
       prompt
     })
-
-    if (!response || response.message || response.name === 'Error') {
-      throw new Error(response.message)
-    }
-
-    return response.data.data
+    return response
   }
 }
 
@@ -194,26 +185,23 @@ export const getTechStackSection = async ({
   branch: string
   language: string
 }) => {
-  const prompt = await getTechStackPrompt({
+  const { data: prompt, error } = await getTechStackPrompt({
     branch,
     language,
     owner,
     repoName
   })
 
+  if (error || prompt == null) return { error }
+
   if (prompt === '') {
-    return []
+    return { data: [] }
   } else {
     const response = await getGenerationAI({
       format: 'json',
       prompt
     })
-
-    if (!response || response.message || response.name === 'Error') {
-      throw new Error(response.message)
-    }
-
-    return response.data.dependencies
+    return response
   }
 }
 
@@ -226,10 +214,13 @@ export const getBadgesSection = async ({
   repoName: string
   language: string
 }) => {
-  const languages = await getLanguages({
+  const { data: languages, error } = await getLanguages({
     owner,
     repoName
   })
+
+  if (error) return { error }
+
   const languagesWithoutMainLanguage = Object.keys(languages)
     .filter((lang) => lang.toLocaleLowerCase() !== language.toLocaleLowerCase())
     .map((lang) => lang.toLowerCase())
@@ -238,11 +229,13 @@ export const getBadgesSection = async ({
     languagesWithoutMainLanguage.includes(badge.id.toLowerCase())
   ).map(({ name, url }) => ({ name, url, isGithub: false }))
 
-  return {
+  const res = {
     repoName,
     owner,
     badges: DEFAULT_BADGES.concat(programmingBadges)
   }
+
+  return { data: res }
 }
 
 export const getPrerequisitesSection = async ({
@@ -256,14 +249,14 @@ export const getPrerequisitesSection = async ({
   branch: string
   language: string
 }) => {
-  const data = await getPrerequisites({
+  const response = await getPrerequisites({
     defaultBranch: branch,
     language,
     owner,
     repoName
   })
 
-  return data
+  return response
 }
 
 export const getMonorepoSummarySection = async ({
@@ -277,25 +270,23 @@ export const getMonorepoSummarySection = async ({
   branch: string
   language: string
 }) => {
-  const prompt = await getMonorepoSummaryPrompt({
+  const { data: prompt, error } = await getMonorepoSummaryPrompt({
     repoName,
     owner,
     language,
     branch
   })
 
+  if (error || prompt == null) return { error }
+
   if (prompt === '') {
-    return DEFAULT_DATA_CACHED[NodeName.MONOREPO_SUMMARY]
+    return { data: DEFAULT_DATA_CACHED[NodeName.MONOREPO_SUMMARY] }
   } else {
     const response = await getGenerationAI({
       format: 'json',
       prompt
     })
 
-    if (!response || response.message || response.name === 'Error') {
-      throw new Error(response.message)
-    }
-
-    return response.data.data
+    return response
   }
 }
