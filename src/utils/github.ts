@@ -81,14 +81,15 @@ export const getRepositoryTreeDirectory = async ({
   repoName: string
   branch: string
 }) => {
-  const tree = await getRepositoryStructure({
+  const { data: tree, error } = await getRepositoryStructure({
     owner,
     repoName,
     branch
   })
-  if (!tree) return ''
-  const treeString = generateDirectoryTree({ tree })
-  return treeString
+  if (error) return { error }
+
+  const treeString = generateDirectoryTree({ tree: tree! })
+  return { data: treeString }
 }
 
 export const isValidGitHubRepositoryURL = ({ url }: { url: string }) => {
@@ -106,52 +107,54 @@ export const getDependencies = async ({
   repoName: string
   owner: string
   defaultBranch: string
-}): Promise<string | null> => {
+}): Promise<{ data?: string | undefined; error?: string | undefined }> => {
   try {
     const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
-    if (!languageSetup || languageSetup.fileDependencies.length === 0) {
-      return null
-    }
+    if (!languageSetup || languageSetup.fileDependencies.length === 0) return { data: undefined }
 
     // return the tree
-    const tree = await getRepositoryStructure({
+    const { data: tree, error } = await getRepositoryStructure({
       repoName: repoName,
       owner: owner,
       branch: defaultBranch
     })
-    if (!tree) return null
+
+    if (error) return { error }
+
+    if (!tree) return { data: undefined }
 
     const fileDependencies = languageSetup.fileDependencies
     // Get only the first path found
     const fileFound = tree
       .filter((file) => file.type === TypeFile.Blob)
       .find((item) => fileDependencies.find((file) => item.path.includes(file)))
-    if (!fileFound) return null
+    if (!fileFound) return { data: undefined }
 
     const filePath = fileFound.path
     // once I have the path, fetch dependency file's contents
-    const fileDependenciesContent = await getFileContents({
+    const { data: fileDependenciesContent, error: errorContents } = await getFileContents({
       path: filePath,
       owner: owner,
       repoName: repoName
     })
-    if (!fileDependenciesContent) return null
+    if (errorContents) return { error: errorContents }
+    if (!fileDependenciesContent) return { data: undefined }
 
     const segments = filePath.split('/')
     const lastSegment = segments.at(-1) as string
     const parser = LANGUAGES_FILES_PARSERS[lastSegment.toLowerCase()]
     if (!parser) {
-      return null
+      return { data: undefined }
     }
 
     const dependencies = parser({ content: fileDependenciesContent })
 
     if (!dependencies) {
-      return null
+      return { data: undefined }
     }
-    return dependencies
+    return { data: dependencies }
   } catch (error) {
-    return null
+    return { error: 'An error has ocurred' }
   }
 }
 
@@ -168,17 +171,18 @@ export const getPrerequisites = async ({
 }) => {
   const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
 
-  if (!languageSetup) return
+  if (!languageSetup) return { data: undefined }
 
   // it means, it's a JavaScript project
   if (languageSetup.lockFiles) {
-    const tree = await getRepositoryStructure({
+    const { data: tree, error } = await getRepositoryStructure({
       repoName,
       owner,
       branch: defaultBranch
     })
 
-    if (!tree) return
+    if (error) return { error }
+    if (!tree) return { data: undefined }
 
     // Get only paths such as ['src/components/hello.tsx','package.json','pnpm-lock.yaml'...]
     const paths = tree.filter((file) => file.type === TypeFile.Blob).map((file) => file.path)
@@ -186,9 +190,10 @@ export const getPrerequisites = async ({
     const fileDependencies = languageSetup.fileDependencies.at(0) as string
     const hasPackageJson = paths.some((path) => path.includes(fileDependencies))
 
-    if (!hasPackageJson) return
+    if (!hasPackageJson) return { data: undefined }
 
-    const searchRuntime = ({ param }: { param: string }) => {
+    const searchRuntime = ({ lockFile }: { lockFile: string }) => {
+      const param = lockFile === 'deno.lock' ? 'Deno' : 'Node'
       return languageSetup.runtimes?.find((runtime) => runtime.id === param)
     }
 
@@ -205,19 +210,22 @@ export const getPrerequisites = async ({
       return condition
     })
 
-    const runtime =
-      lockFile === 'deno.lock' ? searchRuntime({ param: 'Deno' }) : searchRuntime({ param: 'Node' })
+    const runtime = searchRuntime({ lockFile: 'deno.lock' })
 
-    return {
+    const res = {
       rules,
       runtime,
       typescriptResource: language === 'TypeScript' ? languageSetup.typescriptResource : undefined
     }
+
+    return { data: res }
   }
 
   // other programming languages
   return {
-    rules: languageSetup.installation
+    data: {
+      rules: languageSetup.installation
+    }
   }
 }
 
@@ -234,15 +242,16 @@ export const getMonorepoData = async ({
 }) => {
   const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
 
-  if (!languageSetup) return
+  if (!languageSetup) return { data: undefined }
 
-  const tree = await getRepositoryStructure({
+  const { data: tree, error } = await getRepositoryStructure({
     repoName,
     owner,
     branch: defaultBranch
   })
 
-  if (!tree) return
+  if (error) return { error }
+  if (!tree) return { data: undefined }
 
   const paths = tree.filter((file) => file.type === TypeFile.Blob).map((file) => file.path)
 
@@ -255,23 +264,24 @@ export const getMonorepoData = async ({
   const workspaceFile = lockFile?.id === 'pnpm' ? 'pnpm-workspace.yaml' : 'package.json'
   const pathUrl = paths.find((path) => path === workspaceFile)
 
-  if (!pathUrl) return
+  if (!pathUrl) return { data: undefined }
 
   // once I have the path, fetch dependency file's contents
-  const fileDependenciesContent = await getFileContents({
+  const { data: fileDependenciesContent, error: errorContents } = await getFileContents({
     path: pathUrl,
     owner: owner,
     repoName: repoName
   })
 
-  if (!fileDependenciesContent) return
+  if (errorContents) return { error: errorContents }
+  if (!fileDependenciesContent) return { data: undefined }
 
   const workspaces =
     lockFile?.id === 'pnpm'
       ? getWorkspacePnpmLock({ content: fileDependenciesContent })
       : getWorkspacePackageJson({ content: fileDependenciesContent })
 
-  if (!workspaces || workspaces.length === 0) return
+  if (!workspaces || workspaces.length === 0) return { data: undefined }
 
   const workspacesContent = await Promise.all(
     workspaces.map(async (workspace) => {
@@ -288,5 +298,5 @@ export const getMonorepoData = async ({
     })
   )
 
-  return workspacesContent
+  return { data: workspacesContent }
 }

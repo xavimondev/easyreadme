@@ -27,21 +27,23 @@ export const getOverviewPrompt = async ({
     projectDescription: description
   })
 
-  const dependencies = await getDependencies({
+  const { data: dependencies, error } = await getDependencies({
     repoName: repoName,
     owner: owner,
     language: language,
     defaultBranch: branch
   })
 
-  if (!dependencies) return promptOverview
+  if (error) return { error }
+
+  if (!dependencies) return { data: promptOverview }
 
   promptOverview = generateOverviewWithDependenciesPrompt({
     repositoryName: repoName,
     dependencies,
     projectDescription: description
   })
-  return promptOverview
+  return { data: promptOverview }
 }
 
 export const getProjectSummaryPrompt = async ({
@@ -55,19 +57,21 @@ export const getProjectSummaryPrompt = async ({
   language: string
   branch: string
 }) => {
-  const structure = await getRepositoryStructure({
+  const { data, error } = await getRepositoryStructure({
     repoName: repoName,
     owner,
     branch
   })
-  if (!structure) return ''
 
-  const directories = structure.filter((files) => files.type === 'tree').map((files) => files.path)
+  if (error || !data) return { error }
+
+  const directories = data.filter((files) => files.type === 'tree').map((files) => files.path)
   const promptProjectSummary = generateProjectSummaryPrompt({
     directories,
     mainLanguage: language
   })
-  return promptProjectSummary
+
+  return { data: promptProjectSummary }
 }
 
 export const getSettingUpPrompt = async ({
@@ -77,19 +81,21 @@ export const getSettingUpPrompt = async ({
   owner: string
   repoName: string
 }) => {
-  const fileEnviromentContent = await getFileContents({
+  const { data: fileEnviromentContent, error } = await getFileContents({
     path: '.env.example',
     owner,
     repoName
   })
 
-  if (!fileEnviromentContent) return ''
+  if (error) return { error }
+
+  if (!fileEnviromentContent) return { data: '' }
 
   const promptGuideEnvironmentVariables = generateSettingUpPrompt({
     environmentVars: fileEnviromentContent
   })
 
-  return promptGuideEnvironmentVariables
+  return { data: promptGuideEnvironmentVariables }
 }
 
 export const getTechStackPrompt = async ({
@@ -103,17 +109,18 @@ export const getTechStackPrompt = async ({
   language: string
   branch: string
 }) => {
-  const dependencies = await getDependencies({
+  const { data: dependencies, error } = await getDependencies({
     repoName: repoName,
     owner,
     language: language,
     defaultBranch: branch
   })
 
-  if (!dependencies) return ''
+  if (error) return { error }
+  if (!dependencies) return { data: '' }
 
   const promptTechStack = generateTechStackPrompt({ dependencies, language: language })
-  return promptTechStack
+  return { data: promptTechStack }
 }
 
 export const getMonorepoSummaryPrompt = async ({
@@ -127,19 +134,21 @@ export const getMonorepoSummaryPrompt = async ({
   language: string
   branch: string
 }) => {
-  const monorepoData = await getMonorepoData({
+  const { data: monorepoData, error } = await getMonorepoData({
     owner,
     language,
     repoName,
     defaultBranch: branch
   })
 
-  if (!monorepoData) return ''
+  if (error) return { error }
+
+  if (!monorepoData) return { data: '' }
 
   const prompt = generateMonorepoSummaryPrompt({
     repositoryName: repoName,
     monorepoStructure: JSON.stringify(monorepoData)
   })
 
-  return prompt
+  return { data: prompt }
 }
