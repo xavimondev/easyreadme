@@ -1,5 +1,3 @@
-import { NodeName } from '@/types/builder'
-
 import {
   parseBuildGradle,
   parseCargo,
@@ -190,12 +188,6 @@ export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
     default: 0
   }
 }
-
-export const SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS = [
-  NodeName.TABLE_CONTENTS,
-  NodeName.BADGE,
-  NodeName.BANNER
-]
 
 export const COOKIE_NAME = 'apikey-ai'
 

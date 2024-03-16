@@ -6,7 +6,6 @@ import { toast } from 'sonner'
 import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
-import { SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS } from '@/constants'
 import { readmeFactory } from '@/utils/readme'
 import { clearEditor, getPos } from '@/utils/tiptap'
 import { getRepositoryData } from '@/services/github'
@@ -17,13 +16,13 @@ import { useRemaining } from '@/hooks/use-remaining'
 export function useReadme() {
   const {
     listSections,
-    addSectionToTableOfContents,
+    // addSectionToTableOfContents,
     gitRepositoryData,
     readmeEditor,
     gitUrlRepository,
     setGitRepositoryData,
-    setTableOfContents,
-    tableOfContents,
+    // setTableOfContents,
+    // tableOfContents,
     sectionsFromTemplates,
     moduleSelected
   } = useBuilder((store) => store)
@@ -54,20 +53,6 @@ export function useReadme() {
 
     if (!sectionsFromTemplates) return
 
-    const filteredSections = sectionsFromTemplates.filter(
-      (section) => !SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section)
-    )
-
-    // Updating table of contents
-    const mappedSections = filteredSections.map((section) => {
-      const sectionData = listSections.find(({ id }) => id === section)!
-      return {
-        id: sectionData.id,
-        name: sectionData.name
-      }
-    })
-
-    setTableOfContents(mappedSections)
     clearEditor({ editor: readmeEditor! })
 
     let toastId = undefined
@@ -108,16 +93,8 @@ export function useReadme() {
     const gitData = await checkGitRepositoryData()
 
     const sectionItem = listSections.find((sec) => sec.id === section)
-    const itemExistsInTableOfContent = tableOfContents.find((sec) => sec.id === section)
 
     if (!sectionItem) return
-
-    if (!SECTIONS_EXCLUDED_FROM_TABLE_CONTENTS.includes(section) && !itemExistsInTableOfContent) {
-      addSectionToTableOfContents({
-        id: sectionItem.id,
-        name: sectionItem.name
-      })
-    }
 
     if (gitData && sectionItem.useAi) {
       const msg = await checkRateLimit()
