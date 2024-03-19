@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 
 import { APP_URL } from '@/constants'
@@ -8,8 +7,6 @@ import { ThemeProvider } from '@/components/theme-provider'
 import '../styles/globals.css'
 
 import { Toaster } from 'sonner'
-
-const inter = Inter({ subsets: ['latin'], weight: ['500', '600', '700'] })
 
 const title = 'Easyreadme - IA Powered README Builder'
 const description = `Easyreadme helps you simplify README creation and generate visually stunning ones with the help of IA and elegant pre-designed templates.`
@@ -39,7 +36,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <ThemeProvider attribute='class' defaultTheme='dark' disableTransitionOnChange>
           {children}
         </ThemeProvider>
