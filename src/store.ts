@@ -2,6 +2,7 @@ import { type Editor, type Range } from '@tiptap/core'
 import { create } from 'zustand'
 
 import { NodeName, Section } from '@/types/builder'
+import { Feature } from '@/types/feature'
 import { GitRepository } from '@/types/git'
 import { ModuleType } from '@/types/sidebar'
 
@@ -30,6 +31,8 @@ type BuilderState = {
   setRange: (range: Range) => void
   sectionsFromTemplates: NodeName[]
   setSectionsFromTemplates: (sectionsTemplate: NodeName[]) => void
+  featureSelected: Feature | undefined
+  setFeatureSelected: (feature: Feature) => void
 }
 
 export const useBuilder = create<BuilderState>()((set) => ({
@@ -41,6 +44,7 @@ export const useBuilder = create<BuilderState>()((set) => ({
   moduleSelected: 'templates',
   range: undefined,
   sectionsFromTemplates: DEFAULT_INITIAL_SECTIONS,
+  featureSelected: undefined,
   setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
   addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
     set((prevValues) => ({
@@ -55,5 +59,6 @@ export const useBuilder = create<BuilderState>()((set) => ({
   setReadmeEditor: (editor) => set({ readmeEditor: editor }),
   setModuleSelected: (moduleSelected) => set({ moduleSelected }),
   setRange: (range) => set({ range }),
-  setSectionsFromTemplates: (sections) => set({ sectionsFromTemplates: sections })
+  setSectionsFromTemplates: (sections) => set({ sectionsFromTemplates: sections }),
+  setFeatureSelected: (feature) => set({ featureSelected: feature })
 }))
