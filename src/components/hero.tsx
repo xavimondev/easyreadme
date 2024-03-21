@@ -1,11 +1,11 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { MoveRight } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
+import { StickerHero } from '@/components/sticker-hero'
 
 export function Hero() {
   const featureSelected = useBuilder((store) => store.featureSelected)
@@ -13,21 +13,13 @@ export function Hero() {
 
   return (
     <div className='w-full flex flex-col justify-center animate-fade-in animate-delay-100 gap-8 relative'>
-      {urlSticker && (
-        <Image
-          src={urlSticker}
-          alt='This a image'
-          className={cn(
-            'hidden lg:block size-36 xl:size-56 absolute top-2 xl:-top-2 right-8 xl:right-5 rotate-6 hover:scale-105 object-cover transition-all hover:drop-shadow-[0_0_15px_rgba(194,187,61,1)]',
-            shadowColor
-          )}
-          width={150}
-          height={150}
-        />
-      )}
+      <StickerHero
+        urlSticker={urlSticker}
+        className={cn(shadowColor, 'top-2 xl:-top-2 right-8 xl:right-14')}
+      />
       <h1
         className={cn(
-          ' text-5xl sm:text-6xl 2xl:text-[5rem] leading-tight font-semibold text-balance capitalize text-transparent bg-clip-text bg-gradient-to-r',
+          ' text-5xl sm:text-6xl 2xl:text-[5rem] leading-tight font-bold text-balance capitalize text-transparent bg-clip-text bg-gradient-to-r',
           textColorTitle
             ? textColorTitle
             : 'from-blue-600 to-violet-700 dark:from-orange-200 dark:to-violet-800'
