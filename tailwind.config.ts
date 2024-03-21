@@ -101,6 +101,10 @@ const config: Config = {
             width: '100px',
             opacity: '1'
           }
+        },
+        'blurred-fade-in': {
+          '0%': { filter: 'blur(10px)', opacity: '0' },
+          '100%': { filter: 'blur(0)', opacity: '1' }
         }
       },
       animation: {
@@ -108,7 +112,8 @@ const config: Config = {
         'enter-in-view': 'enter-in-view .3s forwards',
         'fade-in': 'fade-in 1s both',
         'slide-in-right': 'slide-in-right .6s linear',
-        'border-width': 'border-width 3s infinite alternate'
+        'border-width': 'border-width 3s infinite alternate',
+        'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

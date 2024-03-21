@@ -5,6 +5,7 @@ import { MoveRight } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
+import { HeadingHero } from '@/components/heading-hero'
 import { StickerHero } from '@/components/sticker-hero'
 
 export function Hero() {
@@ -12,22 +13,16 @@ export function Hero() {
   const { title, description, textColorTitle, urlSticker, shadowColor } = featureSelected ?? {}
 
   return (
-    <div className='w-full flex flex-col justify-center animate-fade-in animate-delay-100 gap-8 relative'>
+    <div className='w-full flex flex-col justify-center gap-8 relative'>
       <StickerHero
         urlSticker={urlSticker}
         className={cn(shadowColor, 'top-2 xl:-top-2 right-8 xl:right-14')}
       />
-      <h1
-        className={cn(
-          ' text-5xl sm:text-6xl 2xl:text-[5rem] leading-tight font-bold text-balance capitalize text-transparent bg-clip-text bg-gradient-to-r',
-          textColorTitle
-            ? textColorTitle
-            : 'from-blue-600 to-violet-700 dark:from-orange-200 dark:to-violet-800'
-        )}
+      <HeadingHero title={title} textColorTitle={textColorTitle} />
+      <p
+        className='text-gray-500 dark:text-gray-300/90 text-base sm:text-lg 2xl:text-xl text-pretty mt-12 animate-fade-in'
+        style={{ animationDelay: '300ms' }}
       >
-        {featureSelected ? title : 'Craft Stunning READMEs Effortlessly'}
-      </h1>
-      <p className='text-gray-500 dark:text-gray-300/90 text-base sm:text-lg 2xl:text-xl text-pretty mt-12'>
         {featureSelected
           ? description
           : 'Generate visually stunning READMEs with AI and elegant pre-designed templates. Generate visually stunning READMEs with AI and elegant pre-designed templates. AI and elegant pre-designed templates.'}
