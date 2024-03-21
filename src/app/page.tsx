@@ -26,8 +26,8 @@ export default function Home() {
             </div>
             <div className='flex gap-2 items-center'>
               <Link
+                aria-label='View app repository on GitHub'
                 href='https://github.com/xavimondev/readme-creator'
-                aria-label='Go to Repository'
                 target='_blank'
                 rel='noreferrer'
                 className='rounded-md p-2.5 hover:bg-accent transition-colors ease-out'
