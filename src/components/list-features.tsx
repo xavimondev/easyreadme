@@ -8,11 +8,11 @@ import { useBuilder } from '@/store'
 const LIST_FEATURES: Feature[] = [
   {
     id: 'ai',
-    title: 'let AI handle the complexity',
+    title: 'AI Simplifies Complexity',
     description:
       'Simplify README creation with AI-powered tools. Reduce complexity and enhance productivity effortlessly.',
     background:
-      'from-[#f7e397] to-[#c2bb3d] hover:to-[#f0e84e] hover:-rotate-1 translate-y-6 -translate-x-10 -rotate-[6deg]',
+      'from-[#f7e397] to-[#c2bb3d] hover:to-[#f0e84e] hover:-rotate-1 md:-translate-y-[1.5rem] md:-translate-x-[13rem] md:-rotate-[4deg] lg:-translate-y-[3.5rem] 2xl:translate-y-[3.5rem] 2xl:-translate-x-[17.5rem] 2xl:-rotate-[6deg]',
     textColorCard: 'text-yellow-800',
     textColorTitle: 'from-yellow-100 to-yellow-700',
     urlSticker: '/emojis/ai.webp',
@@ -24,7 +24,7 @@ const LIST_FEATURES: Feature[] = [
     description:
       'Copy and paste with ease. Save time and effort while creating stunning READMEs for your projects.',
     background:
-      'from-[#f2c8ec] to-[#e180f4] hover:to-[#e061f9] hover:rotate-1 translate-y-10 -translate-x-10 rotate-2',
+      'from-[#f2c8ec] to-[#e180f4] hover:to-[#e061f9] hover:rotate-1 md:-translate-y-[1.5rem] md:-translate-x-[2rem] lg:-translate-y-[5rem] 2xl:-translate-y-1 2xl:translate-x-[4rem] rotate-[2deg]',
     textColorCard: 'text-pink-800',
     textColorTitle: 'from-pink-200 to-pink-700',
     urlSticker: '/emojis/clipboard.webp',
@@ -36,7 +36,7 @@ const LIST_FEATURES: Feature[] = [
     description:
       'Choose from a variety of sleek and elegant templates. Enhance readability and organization for your READMEs.',
     background:
-      'from-sky-200 to-[#58a6c7] hover:to-[#39819f] hover:-rotate-1 translate-y-10 translate-x-2 -rotate-[1deg]',
+      'from-sky-200 to-[#58a6c7] hover:to-[#39819f] hover:-rotate-1 md:-translate-y-[12rem] md:translate-x-[13rem] lg:-translate-y-[15rem] 2xl:-translate-y-[11rem] 2xl:translate-x-[20rem] rotate-[4deg]',
     textColorCard: 'text-sky-800',
     textColorTitle: 'from-sky-200 to-blue-600',
     urlSticker: '/emojis/template.webp',
@@ -44,11 +44,11 @@ const LIST_FEATURES: Feature[] = [
   },
   {
     id: 'streamlined',
-    title: 'simplified README creation',
+    title: 'simplified creation',
     description:
       'Streamline your README creation process with simplified steps. Focus on content while we handle the rest. Increase productivity effortlessly.',
     background:
-      'from-[#b8f2d5] to-green-400 hover:to-[#298e4e] hover:rotate-1 translate-y-12 -translate-x-6 -rotate-[1deg]',
+      'from-[#b8f2d5] to-green-400 hover:to-[#298e4e] hover:rotate-1 md:-translate-y-[7rem] md:-translate-x-[12rem] lg:-translate-y-[10rem] 2xl:-translate-y-[5rem] 2xl:-translate-x-[11rem] -rotate-[2deg]',
     textColorCard: 'text-green-800',
     textColorTitle: 'from-green-200 to-teal-700',
     urlSticker: '/emojis/rocket.webp',
@@ -60,7 +60,7 @@ const LIST_FEATURES: Feature[] = [
     description:
       'Customize your README effortlessly. Add or remove sections seamlessly to tailor templates to your project needs.',
     background:
-      'from-[#27224d] to-[#151229] hover:to-[#0a071e] hover:-rotate-1 translate-y-20 -translate-x-72 -rotate-[4deg]',
+      'from-[#27224d] to-[#151229] hover:to-[#0a071e] hover:-rotate-1 md:-translate-y-[12rem] md:translate-x-[10rem] lg:-translate-y-[15rem] lg:translate-x-[12rem] 2xl:-translate-y-[9rem] 2xl:translate-x-[19rem] rotate-[4deg]',
     textColorCard:
       'text-transparent bg-clip-text bg-gradient-to-r from-indigo-100 via-red-300 to-yellow-100',
     textColorTitle: 'from-indigo-300 via-orange-200 to-red-800',
@@ -73,7 +73,7 @@ const LIST_FEATURES: Feature[] = [
     description:
       'Enter your own API key for flexibility. Seamlessly integrate OpenAI functionalities and customize your experience.',
     background:
-      'from-[#ffeda0] to-[#cb6c4a] hover:to-[#ea5a26] hover:-rotate-1 -translate-y-5 translate-x-1.5 rotate-3',
+      'from-[#ffeda0] to-[#cb6c4a] hover:to-[#ea5a26] hover:-rotate-1 md:-translate-y-[11rem] md:-translate-x-[13rem] lg:-translate-y-[15rem] 2xl:-translate-y-[9rem] 2xl:-translate-x-[15rem] -rotate-[2deg]',
     textColorCard: 'text-orange-700',
     textColorTitle: 'from-orange-200 to-amber-700',
     urlSticker: '/emojis/key.webp',
@@ -85,7 +85,7 @@ const LIST_FEATURES: Feature[] = [
     description:
       'Execute locally with ollama. Enjoy offline capabilities and manage your READMEs without an API key. Simplify your workflow and enhance productivity effortlessly.',
     background:
-      'from-[#525a64] to-[#121212] hover:to-[#0b0a0a] hover:rotate-1 translate-y-2 translate-x-1.5 rotate-0',
+      'from-[#525a64] to-[#121212] hover:to-[#0b0a0a] hover:rotate-1 md:-translate-y-[16rem] md:translate-x-[8rem] lg:-translate-y-[20rem] 2xl:-translate-y-[12rem] 2xl:translate-x-[12rem] -rotate-[1deg]',
     textColorCard: 'text-zinc-300',
     textColorTitle: 'from-slate-300 to-stone-600',
     urlSticker: '/emojis/antenna.webp',
@@ -139,15 +139,15 @@ function FeatureItem({
         <span>•</span>
         <span>{id}</span>
       </div>
-      <h3 className={cn('text-lg xl:text-xl font-medium text-balance', textColorCard)}>{title}</h3>
+      <h3 className={cn('text-lg 2xl:text-xl font-medium text-balance', textColorCard)}>{title}</h3>
     </div>
   )
 }
 
 export function ListFeatures() {
   return (
-    <div className='ml-0 lg:ml-2 w-[22rem] xl:w-[30rem] hidden lg:block'>
-      <div className='w-full h-full flex flex-col gap-2'>
+    <div className='w-64 2xl:w-80'>
+      <div className='w-full h-full grid flex-col gap-2'>
         {LIST_FEATURES.map((feature) => (
           <FeatureItem key={feature.id} {...feature} />
         ))}

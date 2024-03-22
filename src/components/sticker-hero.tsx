@@ -20,13 +20,14 @@ export function StickerHero({ urlSticker, className, ...props }: StickerHeroProp
           src={urlSticker}
           alt='Sticker feature'
           className={cn(
-            'hidden lg:block absolute object-cover transition-all size-36 xl:size-48',
+            'hidden md:block absolute object-cover transition-all size-24 md:size-32 xl:size-48',
             className
           )}
           width={200}
           height={200}
           initial={{
-            scale: 0
+            scale: 0,
+            rotate: 5
           }}
           animate={{
             scale: 1

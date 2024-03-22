@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <>
       <div className='absolute inset-0 -z-10 h-full w-full bg-transparent bg-[radial-gradient(#e5e7eb_-4px,transparent_1px)] [background-size:18px_18px]'></div>
-      <div className='h-screen flex flex-col max-w-4xl lg:max-w-7xl 2xl:max-w-[96rem] mx-auto'>
-        <header className='sticky top-0 px-8 xl:px-20'>
+      <div className='h-screen flex flex-col max-w-4xl lg:max-w-7xl xl:max-w-[96rem] mx-auto'>
+        <header className='sticky top-0 px-8 xl:px-20 py-2'>
           <div className='flex h-14 items-center justify-between'>
             <div className='flex items-center cursor-pointer text-white'>
               <Link className='flex ' href='/'>
@@ -38,13 +38,19 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <main className={cn(nunitoSans.className, 'flex items-center flex-grow px-8 xl:px-20')}>
-          <section className='w-full flex flex-col lg:flex-row gap-0 lg:gap-4'>
+        <main
+          className={cn(
+            nunitoSans.className,
+            'flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-8'
+          )}
+        >
+          <section className='w-full h-full sm:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
             <Hero />
+          </section>
+          <section className='w-full hidden md:flex justify-center h-full md:h-64 lg:h-80 2xl:h-[26rem] overflow-visible mt-0 2xl:mt-3'>
             <ListFeatures />
           </section>
         </main>
-
         <footer className='w-full flex items-center justify-center'>
           <div className='text-center py-4 sm:py-3.5 px-6'>
             <span className='text-gray-500 dark:text-white/80 text-base sm:text-lg'>
