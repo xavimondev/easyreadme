@@ -105,6 +105,11 @@ const config: Config = {
         'blurred-fade-in': {
           '0%': { filter: 'blur(10px)', opacity: '0' },
           '100%': { filter: 'blur(0)', opacity: '1' }
+        },
+        'drop-bounce': {
+          '0%': { transform: 'translateY(-100px) rotate(var(--initial))' },
+          '50%': { transform: 'translateY(var(--step)) scaleY(0.9)' },
+          '100%': { transform: 'translateY(var(--y)) scaleY(1) rotate(var(--rotation))' }
         }
       },
       animation: {
@@ -113,7 +118,8 @@ const config: Config = {
         'fade-in': 'fade-in 1s both',
         'slide-in-right': 'slide-in-right .6s linear',
         'border-width': 'border-width 3s infinite alternate',
-        'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both'
+        'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both',
+        'drop-bounce': 'drop-bounce 1.5s ease-in-out both var(--duration)'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -28,7 +28,8 @@ export function Hero() {
       </p>
       <div className='pt-8 lg:pt-10'>
         <Link
-          className='py-4 px-6 bg-[#27263b] dark:hover:bg-[#1a172a] text-zinc-300 hover:bg-primary/90 rounded-xl text-sm sm:text-base 2xl:text-xl font-medium transition-colors'
+          className='py-4 px-6 bg-[#27263b] dark:hover:bg-[#1a172a] text-zinc-300 hover:bg-primary/90 rounded-xl text-sm sm:text-base 2xl:text-xl font-medium transition-colors animate-fade-in'
+          style={{ animationDelay: '400ms' }}
           href='/builder'
         >
           Get Started
