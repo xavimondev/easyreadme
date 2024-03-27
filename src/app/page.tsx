@@ -41,20 +41,20 @@ export default function Home() {
         <main
           className={cn(
             nunitoSans.className,
-            'flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-8'
+            'flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'
           )}
         >
-          <section className='w-full h-full sm:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
+          <section className='w-full h-full 2xl:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
             <Hero />
           </section>
-          <section className='w-full hidden md:flex justify-center h-full md:h-64 lg:h-80 2xl:h-[26rem] overflow-visible mt-0 2xl:mt-3'>
+          <section className='w-full hidden md:flex justify-center h-full overflow-visible mt-0 2xl:mt-3 min-h-72'>
             <ListFeatures />
           </section>
         </main>
         <footer className='w-full flex items-center justify-center'>
           <div className='text-center py-4 sm:py-3.5 px-6'>
-            <span className='text-gray-500 dark:text-white/80 text-base sm:text-lg'>
-              Built by
+            <span className='text-gray-500 dark:text-purple-200 text-base sm:text-lg'>
+              Built with 💜 by
               <a
                 href='https://twitter.com/xavimonp'
                 rel='noopener'
