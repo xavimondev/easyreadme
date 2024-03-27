@@ -6,12 +6,13 @@ import { cn } from '@/lib/utils'
 const MotionImage = motion(Image)
 
 type StickerHero = {
-  urlSticker?: string
+  urlSticker: string
+  delay: number
 }
 
 interface StickerHeroProps extends React.HTMLAttributes<HTMLImageElement>, StickerHero {}
 
-export function StickerHero({ urlSticker, className, ...props }: StickerHeroProps) {
+export function StickerHero({ urlSticker, delay, className, ...props }: StickerHeroProps) {
   return (
     <AnimatePresence>
       {urlSticker && (
@@ -20,11 +21,11 @@ export function StickerHero({ urlSticker, className, ...props }: StickerHeroProp
           src={urlSticker}
           alt='Sticker feature'
           className={cn(
-            'hidden md:block absolute object-cover transition-all size-24 md:size-32 xl:size-48',
+            'hidden md:block absolute object-cover transition-all size-12 md:size-16 2xl:size-24',
             className
           )}
-          width={200}
-          height={200}
+          width={150}
+          height={150}
           initial={{
             scale: 0,
             rotate: 5
@@ -33,7 +34,7 @@ export function StickerHero({ urlSticker, className, ...props }: StickerHeroProp
             scale: 1
           }}
           transition={{
-            delay: 0,
+            delay,
             duration: 0.2
           }}
           whileHover={{
@@ -41,13 +42,6 @@ export function StickerHero({ urlSticker, className, ...props }: StickerHeroProp
             rotate: 6
           }}
           drag
-          // {...props}
-          // dragConstraints={{
-          //   top: -50,
-          //   left: -50,
-          //   right: 100,
-          //   bottom: 100
-          // }}
         />
       )}
     </AnimatePresence>
