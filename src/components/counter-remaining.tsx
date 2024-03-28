@@ -4,6 +4,7 @@ import { RATE_LIMIT } from '@/constants'
 import { useRemaining } from '@/hooks/use-remaining'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { AiLocally } from '@/components/ai-locally'
 import { FormApiKey } from '@/components/form-api-key'
 
 export function CounterRemaining() {
@@ -23,7 +24,7 @@ export function CounterRemaining() {
           </Button>
         </PopoverTrigger>
         <PopoverContent className='w-[400px]'>
-          <div className='grid gap-4'>
+          <div className='flex flex-col gap-5'>
             <div className='space-y-2'>
               <p className='text-sm text-muted-foreground'>
                 You have{' '}
@@ -34,6 +35,7 @@ export function CounterRemaining() {
               </p>
             </div>
             <FormApiKey />
+            <AiLocally />
           </div>
         </PopoverContent>
       </Popover>
