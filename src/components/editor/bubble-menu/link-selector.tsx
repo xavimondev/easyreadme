@@ -61,7 +61,7 @@ export const LinkSelector = () => {
             ref={inputRef}
             type='text'
             placeholder='Paste a link'
-            className='flex-1 bg-background text-sm outline-none w-full h-full p-1'
+            className='flex-1 bg-background text-sm outline-none size-full p-1'
             defaultValue={readmeEditor.getAttributes('link').href || ''}
           />
           {readmeEditor.getAttributes('link').href ? (

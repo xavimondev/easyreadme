@@ -43,7 +43,7 @@ export function FormApiKey() {
         ></Label>
       </div>
       <div className='relative'>
-        <KeyRound className='absolute left-3 top-2.5 h-4 w-4 text-muted-foreground' />
+        <KeyRound className='absolute left-3 top-2.5 size-4 text-muted-foreground' />
         <Input
           placeholder='XX-XXXXXXXXXXXXXXXX'
           id='key'

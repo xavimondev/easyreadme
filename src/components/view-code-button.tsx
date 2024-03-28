@@ -28,7 +28,7 @@ export function ViewCodeButton() {
         await copyToClipboard(sanitizeMd)
       }}
     >
-      <Code2 className='w-5 h-5 mr-1' />
+      <Code2 className='size-5 mr-1' />
       Code
     </Button>
   )

@@ -14,7 +14,7 @@ export function GroupBasicBlock() {
             className='flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent/70 aria-selected:bg-accent/70'
             key={title}
           >
-            <div className='flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-background'>
+            <div className='flex size-10 items-center justify-center rounded-md border border-muted bg-background'>
               {icon}
             </div>
             <div>

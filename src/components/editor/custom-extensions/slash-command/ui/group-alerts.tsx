@@ -14,7 +14,7 @@ export function GroupAlertsBlock() {
             className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent `}
             key={item.title}
           >
-            <div className='flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-background'>
+            <div className='flex size-10 items-center justify-center rounded-md border border-muted bg-background'>
               {item.icon}
             </div>
             <div>

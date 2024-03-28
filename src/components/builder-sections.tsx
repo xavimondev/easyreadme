@@ -29,7 +29,7 @@ export function BuilderSections() {
   }, [filterSection, listSections])
 
   return (
-    <main className='h-full w-full grid lg:grid-cols-[400px,_1fr] 2xl:grid-cols-[450px,_1fr]'>
+    <main className='size-full grid lg:grid-cols-[400px,_1fr] 2xl:grid-cols-[450px,_1fr]'>
       <TemplatesMobile />
       <Sidebar
         setFilterSection={setFilterSection}

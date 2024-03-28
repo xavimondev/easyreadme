@@ -120,7 +120,7 @@ function FeatureItem({
 
 export function ListFeatures() {
   return (
-    <div className='w-full h-full flex gap-2'>
+    <div className='size-full flex gap-2'>
       {LIST_FEATURES.map((feature) => (
         <FeatureItem key={feature.id} {...feature} />
       ))}

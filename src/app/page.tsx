@@ -12,7 +12,7 @@ import { nunitoSans } from './fonts'
 export default function Home() {
   return (
     <>
-      <div className='absolute inset-0 -z-10 h-full w-full bg-transparent bg-[radial-gradient(#e5e7eb_-4px,transparent_1px)] [background-size:18px_18px]'></div>
+      <div className='absolute inset-0 -z-10 size-full bg-transparent bg-[radial-gradient(#e5e7eb_-4px,transparent_1px)] [background-size:18px_18px]'></div>
       <div className='h-screen flex flex-col max-w-4xl lg:max-w-7xl xl:max-w-[96rem] mx-auto'>
         <header className='sticky top-0 px-8 xl:px-20 py-2'>
           <div className='flex h-14 items-center justify-between'>
@@ -44,10 +44,10 @@ export default function Home() {
             'flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'
           )}
         >
-          <section className='w-full h-full 2xl:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
+          <section className='size-full 2xl:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
             <Hero />
           </section>
-          <section className='w-full hidden md:flex justify-center h-full overflow-visible mt-0 2xl:mt-3 min-h-72'>
+          <section className='size-full hidden md:flex justify-center overflow-visible mt-0 2xl:mt-3 min-h-72'>
             <ListFeatures />
           </section>
         </main>

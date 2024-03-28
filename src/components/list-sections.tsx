@@ -45,7 +45,7 @@ function SectionItem({
             className='xl:min-w-9'
             onClick={() => buildCustomReadme({ section: id })}
           >
-            <Plus className='w-4 h-4' />
+            <Plus className='size-4' />
           </Button>
         ) : null}
       </div>

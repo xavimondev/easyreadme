@@ -14,7 +14,7 @@ export function DialogMobile() {
       open={open}
       setOpen={setOpen}
     >
-      <div className='w-full h-full flex-1'>
+      <div className='size-full flex-1'>
         <ListTemplates mobileCloseFunction={() => setOpen(false)} />
       </div>
     </DrawerMobile>

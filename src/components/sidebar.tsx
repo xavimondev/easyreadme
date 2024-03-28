@@ -22,7 +22,7 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
   const setModuleSelected = useBuilder((store) => store.setModuleSelected)
 
   return (
-    <aside className='w-full h-full py-2 border border-r-0 rounded-l-md border-black dark:border-white/20 hidden lg:block'>
+    <aside className='size-full py-2 border border-r-0 rounded-l-md border-black dark:border-white/20 hidden lg:block'>
       <Tabs
         defaultValue='templates'
         onValueChange={(value: string) => setModuleSelected(value as ModuleType)}
@@ -37,7 +37,7 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
           <CounterRemaining />
         </div>
         <TabsContent value='templates'>
-          <div className='w-full h-full hidden md:block'>
+          <div className='size-full hidden md:block'>
             <ContainerTemplates />
           </div>
         </TabsContent>

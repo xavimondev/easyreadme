@@ -60,7 +60,7 @@ function BadgeItem({ name, url, isGithub }: BadgeItemProps) {
         className='rounded-none h-full border-none p-0 m-0'
         onClick={addBadge}
       >
-        <Plus className='w-4 h-4' />
+        <Plus className='size-4' />
       </Button>
     </div>
   )

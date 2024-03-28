@@ -7,7 +7,7 @@ export function TemplatesMobile() {
   return (
     <div className='w-full block lg:hidden bg-neutral-900/35 border mb-3 rounded-md'>
       <div className='flex space-x-4 px-2.5 pt-2.5'>
-        <SlidersHorizontal className='h-5 w-5 mt-[3px]' />
+        <SlidersHorizontal className='size-5 mt-[3px]' />
         <div className='space-y-1'>
           <p className='font-medium'>Templates</p>
           <p className='text-sm text-muted-foreground'>

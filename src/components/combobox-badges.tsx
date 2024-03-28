@@ -37,7 +37,7 @@ export function ComboboxBadges({ setBadgeOptionData }: ComboboxBadgesProps) {
           {value
             ? LIST_BADGES.find((item) => item.label.toLowerCase() === value)?.label
             : 'Select badge category...'}
-          <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+          <ChevronsUpDown className='ml-2 size-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-full p-0'>
@@ -62,7 +62,7 @@ export function ComboboxBadges({ setBadgeOptionData }: ComboboxBadgesProps) {
                 {label}
                 <Check
                   className={cn(
-                    'ml-auto h-4 w-4',
+                    'ml-auto size-4',
                     value === label.toLowerCase() ? 'opacity-100' : 'opacity-0'
                   )}
                 />

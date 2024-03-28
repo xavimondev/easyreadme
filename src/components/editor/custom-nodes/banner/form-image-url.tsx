@@ -51,7 +51,7 @@ export function FormImageUrl({ imageUrl, setImageUrl }: FormImageUrlProps) {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant='secondary' size='icon'>
-          <Link className='w-4 h-4' />
+          <Link className='size-4' />
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-[400px]' align='end' alignOffset={10}>
