@@ -8,7 +8,7 @@ import { ModuleType } from '@/types/sidebar'
 import { useBuilder } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ContainerTemplates } from '@/components/container-templates'
-import { CounterRemaining } from '@/components/counter-remaining'
+import { GenerationInfo } from '@/components/generation-info'
 import { ListSections } from '@/components/list-sections'
 import { Searcher } from '@/components/searcher'
 
@@ -34,7 +34,7 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
               <div className='flex items-center gap-1'>Customize</div>
             </TabsTrigger>
           </TabsList>
-          <CounterRemaining />
+          <GenerationInfo />
         </div>
         <TabsContent value='templates'>
           <div className='size-full hidden md:block'>

@@ -5,9 +5,10 @@ import { useRemaining } from '@/hooks/use-remaining'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { AiLocally } from '@/components/ai-locally'
+import { CounterInfo } from '@/components/counter-info'
 import { FormApiKey } from '@/components/form-api-key'
 
-export function CounterRemaining() {
+export function GenerationInfo() {
   const { data, isLoading } = useRemaining()
 
   return (
@@ -25,15 +26,7 @@ export function CounterRemaining() {
         </PopoverTrigger>
         <PopoverContent className='w-[400px]'>
           <div className='flex flex-col gap-5'>
-            <div className='space-y-2'>
-              <p className='text-sm text-muted-foreground'>
-                You have{' '}
-                <span className='text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 to-purple-100'>
-                  {data?.remaining} / {RATE_LIMIT} generations
-                </span>{' '}
-                left. Use your API Key to keep generating AI sections.
-              </p>
-            </div>
+            {data && <CounterInfo remaining={data.remaining} />}
             <FormApiKey />
             <AiLocally />
           </div>
