@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { Hero } from '@/components/hero'
-import { GitHubOctopusIc } from '@/components/icons'
+import { GitIc } from '@/components/icons'
 import { ListFeatures } from '@/components/list-features'
 import { ModeToggle } from '@/components/mode-toggle'
 
@@ -32,7 +32,7 @@ export default function Home() {
                 rel='noreferrer'
                 className='rounded-md p-2.5 hover:bg-accent transition-colors ease-out'
               >
-                <GitHubOctopusIc className='size-5 text-black dark:text-white' />
+                <GitIc className='size-5 text-black dark:text-white' />
               </Link>
               <ModeToggle />
             </div>
