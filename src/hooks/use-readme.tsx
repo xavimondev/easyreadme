@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 
 import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
+import { JobSection } from '@/types/queue'
 
 import { readmeFactory } from '@/utils/readme'
 import { clearEditor, getPos } from '@/utils/tiptap'
@@ -12,6 +13,7 @@ import { getRepositoryData } from '@/services/github'
 import { checkRateLimit } from '@/services/rate-limit'
 import { useBuilder } from '@/store'
 import { useRemaining } from '@/hooks/use-remaining'
+import { SectionsLoader } from '@/components/sections-loader'
 
 export function useReadme() {
   const {
@@ -24,8 +26,13 @@ export function useReadme() {
     // setTableOfContents,
     // tableOfContents,
     sectionsFromTemplates,
-    moduleSelected
-  } = useBuilder((store) => store)
+    moduleSelected,
+    queue,
+    addJobToQueue,
+    clearQueue,
+    toastId,
+    setToastId
+  } = useBuilder((state) => state)
   const { mutate } = useRemaining()
 
   // TODO: I think there will be better ways to do this.
@@ -37,6 +44,22 @@ export function useReadme() {
     }
     generateReadme()
   }, [sectionsFromTemplates, readmeEditor])
+
+  useEffect(() => {
+    if (queue.jobs.length === 0) return
+    if (queue.isProcessing) return
+
+    const queueEmpty = queue.jobs.every((job) => job.status === 'completed')
+
+    if (queueEmpty) {
+      setTimeout(() => {
+        toast.dismiss(toastId)
+        setToastId(undefined)
+
+        clearQueue()
+      }, 2000)
+    }
+  }, [queue])
 
   const checkGitRepositoryData = async () => {
     if (!gitUrlRepository) return
@@ -55,16 +78,11 @@ export function useReadme() {
 
     clearEditor({ editor: readmeEditor! })
 
-    let toastId = undefined
-    if (gitData) {
-      toastId = toast.loading(`Generating Readme...`)
-    }
-
     let sectionsToGenerate = sectionsFromTemplates
 
-    // At this point let's check rate limit, in case there are not credits, readme will only have non-AI sections.
-    // Otherwise run mutate
     if (gitData) {
+      // At this point let's check rate limit, in case there are not credits, readme will only have non-AI sections.
+      // Otherwise run mutate
       const msg = await checkRateLimit()
       if (msg) {
         sectionsToGenerate = sectionsFromTemplates.filter((section) => {
@@ -72,54 +90,85 @@ export function useReadme() {
           return !sectionsData?.useAi
         })
       }
-    }
 
-    for (let i = 0; i < sectionsToGenerate.length; i++) {
-      const sectionId = sectionsFromTemplates.at(i)
-      await addSection({
-        section: sectionId!,
-        gitData
+      const listJobs = sectionsToGenerate.map((sectionId) => {
+        const sectionItem = listSections.find((sec) => sec.id === sectionId)
+
+        const { id, name } = sectionItem!
+        const job: JobSection = {
+          id,
+          name,
+          status: 'idle',
+          task: () =>
+            addSection({
+              section: sectionId!,
+              gitData
+            })
+        }
+        return job
       })
+
+      addJobToQueue(listJobs)
+
+      if (!toastId) {
+        const toastId = toast(<SectionsLoader />, {
+          duration: Infinity
+        })
+        setToastId(toastId as number)
+      }
+    } else {
+      for (let i = 0; i < sectionsToGenerate.length; i++) {
+        const sectionId = sectionsFromTemplates.at(i)
+        await addSection({
+          section: sectionId!,
+          gitData
+        })
+      }
     }
 
     if (gitData) {
-      toast.dismiss(toastId)
-      toast.success(`Readme generated.`)
       mutate()
     }
   }
 
   const buildCustomReadme = async ({ section }: { section: NodeName }) => {
     const gitData = await checkGitRepositoryData()
-
     const sectionItem = listSections.find((sec) => sec.id === section)
 
     if (!sectionItem) return
 
     if (gitData && sectionItem.useAi) {
       const msg = await checkRateLimit()
-
       if (msg) {
         toast.error(msg)
         return
       }
     }
 
-    const promise = addSection({
-      section: section,
-      gitData
+    const { id, name } = sectionItem
+
+    addJobToQueue({
+      id,
+      name,
+      status: 'idle',
+      task: () =>
+        addSection({
+          section,
+          gitData
+        })
     })
 
-    toast.promise(promise, {
-      loading: 'Adding section...',
-      success: () => {
-        if (gitData && sectionItem.useAi) {
-          mutate()
-        }
-        return `Section added.`
-      },
-      error: 'Error'
-    })
+    if (!toastId) {
+      const toastId = toast(<SectionsLoader />, {
+        duration: Infinity
+      })
+      setToastId(toastId as number)
+    }
+
+    // TODO: not sure whether I should use credits or generations, this code will be disabled at least for now.
+    // if (gitData && sectionItem.useAi) {
+    // mutate()
+    // }
   }
 
   const addSection = async ({
@@ -141,13 +190,17 @@ export function useReadme() {
       // @ts-ignore
       result = DEFAULT_DATA_CACHED[section]
     } else {
-      const { error, data } = await readmeFactory({ repositoryData, section })
-
-      if (error) {
-        toast.error(error)
-        return
+      const res = await readmeFactory({ repositoryData, section })
+      if (!res) {
+        result = undefined
+      } else {
+        const { error, data } = res
+        if (error) {
+          toast.error(error)
+          return
+        }
+        result = data
       }
-      result = data
     }
 
     const { add } = sectionItem
