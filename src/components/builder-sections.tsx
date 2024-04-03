@@ -12,7 +12,7 @@ import { TemplatesMobile } from '@/components/templates-mobile'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
-  const { listSections } = useBuilder((store) => store)
+  const listSections = useBuilder((store) => store.listSections)
 
   const customSections: Partial<Record<NodeName, JSX.Element>> = useMemo(() => {
     return {

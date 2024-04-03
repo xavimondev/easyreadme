@@ -9,7 +9,7 @@ export interface EditorBubbleProps extends Omit<BubbleMenuProps, 'editor'> {
 }
 
 export function EditorBubble({ children, tippyOptions, ...rest }: EditorBubbleProps) {
-  const { readmeEditor } = useBuilder()
+  const readmeEditor = useBuilder((state) => state.readmeEditor)
   const instanceRef = useRef<Instance<Props> | null>(null)
 
   useEffect(() => {
