@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { DEFAULT_DATA_CACHED } from '@/default-git-data'
 import { README_SECTIONS_DATA } from '@/sections'
 import { toast } from 'sonner'
+import { useShallow } from 'zustand/react/shallow'
 
 import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
@@ -16,7 +17,8 @@ import { useRemaining } from '@/hooks/use-remaining'
 import { SectionsLoader } from '@/components/sections-loader'
 
 export function useReadme() {
-  const {
+  // See: https://github.com/pmndrs/zustand/discussions/2203 and https://docs.pmnd.rs/zustand/guides/prevent-rerenders-with-use-shallow
+  const [
     listSections,
     // addSectionToTableOfContents,
     gitRepositoryData,
@@ -32,7 +34,22 @@ export function useReadme() {
     clearQueue,
     toastId,
     setToastId
-  } = useBuilder((state) => state)
+  ] = useBuilder(
+    useShallow((state) => [
+      state.listSections,
+      state.gitRepositoryData,
+      state.readmeEditor,
+      state.gitUrlRepository,
+      state.setGitRepositoryData,
+      state.sectionsFromTemplates,
+      state.moduleSelected,
+      state.queue,
+      state.addJobToQueue,
+      state.clearQueue,
+      state.toastId,
+      state.setToastId
+    ])
+  )
   const { mutate } = useRemaining()
 
   // TODO: I think there will be better ways to do this.
