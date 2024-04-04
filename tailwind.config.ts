@@ -110,6 +110,13 @@ const config: Config = {
           '0%': { transform: 'translateY(-100px) rotate(var(--initial))' },
           '50%': { transform: 'translateY(var(--step)) scaleY(0.9)' },
           '100%': { transform: 'translateY(var(--y)) scaleY(1) rotate(var(--rotation))' }
+        },
+        'tilt-shaking': {
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(5deg)' },
+          '50%': { transform: 'rotate(0eg)' },
+          '75%': { transform: 'rotate(-5deg)' },
+          '100%': { transform: 'rotate(0deg)' }
         }
       },
       animation: {
@@ -119,7 +126,8 @@ const config: Config = {
         'slide-in-right': 'slide-in-right .6s linear',
         'border-width': 'border-width 3s infinite alternate',
         'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both',
-        'drop-bounce': 'drop-bounce 1.5s ease-in-out both var(--duration)'
+        'drop-bounce': 'drop-bounce 1.5s ease-in-out both var(--duration)',
+        shaking: 'tilt-shaking 0.30s infinite'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -5,6 +5,7 @@ import { APP_URL } from '@/constants'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import '../styles/globals.css'
+import '../styles/confetti.css'
 
 import { Toaster } from 'sonner'
 
