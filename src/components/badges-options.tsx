@@ -35,7 +35,8 @@ const addSingleBadge = ({ editor, data }: { editor: Editor; data: any }) => {
 }
 
 function BadgeItem({ name, url, isGithub }: BadgeItemProps) {
-  const { readmeEditor, gitRepositoryData } = useBuilder()
+  const gitRepositoryData = useBuilder((state) => state.gitRepositoryData)
+  const readmeEditor = useBuilder((state) => state.readmeEditor)
   const { owner, repoName } = gitRepositoryData ?? DEFAULT_REPOSITORY_DATA
   const badgeUrl = isGithub ? `${url}/${owner}/${repoName}` : url
 

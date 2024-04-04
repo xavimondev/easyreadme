@@ -14,7 +14,7 @@ export const EditorBubbleItem = forwardRef<
   HTMLDivElement,
   EditorBubbleItemProps & Omit<ComponentPropsWithoutRef<'div'>, 'onSelect'>
 >(function EditorBubbleItem({ children, asChild, onSelect, ...rest }, ref) {
-  const { readmeEditor } = useBuilder()
+  const readmeEditor = useBuilder((state) => state.readmeEditor)
   const Comp = asChild ? Slot : 'div'
 
   if (!readmeEditor) return null

@@ -29,7 +29,7 @@ export function getUrlFromString({ str }: { str: string }) {
 
 export const LinkSelector = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { readmeEditor } = useBuilder()
+  const readmeEditor = useBuilder((state) => state.readmeEditor)
 
   if (!readmeEditor) return null
 

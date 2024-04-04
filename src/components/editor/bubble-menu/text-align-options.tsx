@@ -42,7 +42,7 @@ const items: SelectorItem[] = [
 ]
 
 export function TextAlignOptions() {
-  const { readmeEditor } = useBuilder()
+  const readmeEditor = useBuilder((state) => state.readmeEditor)
 
   if (!readmeEditor) return null
 

@@ -10,7 +10,9 @@ import { FormSearch } from '@/components/form-search'
 
 export function CommandCenter() {
   const { buildTemplate } = useReadme()
-  const { setGitUrlRepository, moduleSelected, gitUrlRepository } = useBuilder()
+  const setGitUrlRepository = useBuilder((state) => state.setGitUrlRepository)
+  const moduleSelected = useBuilder((state) => state.moduleSelected)
+  const gitUrlRepository = useBuilder((state) => state.gitUrlRepository)
 
   useEffect(() => {
     if (gitUrlRepository === '' || moduleSelected === 'custom') return

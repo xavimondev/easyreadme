@@ -12,7 +12,8 @@ export const CommandSlashItem = forwardRef<
   HTMLDivElement,
   EditorCommandSlashItemProps & ComponentPropsWithoutRef<typeof CommandItem>
 >(({ children, onCommand, ...rest }, ref) => {
-  const { readmeEditor, range } = useBuilder((store) => store)
+  const readmeEditor = useBuilder((store) => store.readmeEditor)
+  const range = useBuilder((store) => store.range)
 
   if (!readmeEditor || !range) return null
 

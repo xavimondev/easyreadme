@@ -18,7 +18,7 @@ type TemplateItemProps = {
 }
 
 export function TemplateItem({ template, isSelected, setTemplateSelected }: TemplateItemProps) {
-  const { setSectionsFromTemplates } = useBuilder()
+  const setSectionsFromTemplates = useBuilder((state) => state.setSectionsFromTemplates)
   const { nameTemplate, description, tags } = template
   const sections = LIST_TEMPLATES.find(
     ({ nameTemplate }) => nameTemplate === template.nameTemplate
