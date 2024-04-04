@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
 import { Button } from '@/components/ui/button'
 
-export function ViewCodeButton() {
+export function CopyCodeButton() {
   const readmeEditor = useBuilder((store) => store.readmeEditor)
   const [clicked, setClicked] = useState(false)
 

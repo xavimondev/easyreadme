@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 import { BuilderSections } from '@/components/builder-sections'
 import { CommandCenter } from '@/components/command-center'
+import { CopyCodeButton } from '@/components/copy-code-button'
 import { Header } from '@/components/header'
-import { ViewCodeButton } from '@/components/view-code-button'
 
 export default function Builder() {
   return (
@@ -16,9 +16,8 @@ export default function Builder() {
               easyreadme
             </h1>
           </div>
-
           <CommandCenter />
-          <ViewCodeButton />
+          <CopyCodeButton />
         </div>
       </Header>
       <BuilderSections />
