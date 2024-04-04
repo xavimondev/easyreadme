@@ -10,9 +10,14 @@ import TaskList from '@tiptap/extension-task-list'
 import TextAlign from '@tiptap/extension-text-align'
 import Underline from '@tiptap/extension-underline'
 import StarterKit from '@tiptap/starter-kit'
+import AutoJoiner from 'tiptap-extension-auto-joiner'
 import { Markdown } from 'tiptap-markdown'
 
-import { CustomCodeBlockLowSyntax, CustomTable } from '@/components/editor/custom-extensions'
+import {
+  CustomCodeBlockLowSyntax,
+  CustomTable,
+  GlobalDragHandle
+} from '@/components/editor/custom-extensions'
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -138,5 +143,9 @@ export const DEFAULT_EXTENSIONS = [
       class: 'flex items-start my-3'
     },
     nested: true
-  })
+  }),
+  GlobalDragHandle.configure({
+    dragHandleWidth: 25
+  }),
+  AutoJoiner
 ]
