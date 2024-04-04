@@ -60,7 +60,6 @@ export default Node.create({
     const dom = document.createElement('div')
     dom.innerHTML = ReactDomServer.renderToStaticMarkup(
       <Alert
-        deleteNode={() => undefined}
         node={{
           attrs: { ...HTMLAttributes, isHTML: true }
         }}

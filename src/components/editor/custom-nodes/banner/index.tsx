@@ -48,19 +48,9 @@ export default Node.create({
         }
     }
   },
-  renderHTML({ HTMLAttributes }) {
+  renderHTML() {
     const dom = document.createElement('div')
-    dom.innerHTML = ReactDomServer.renderToStaticMarkup(
-      <Banner
-        deleteNode={() => undefined}
-        node={{
-          attrs: { ...HTMLAttributes },
-          type: {
-            name: NodeName.CONTRIBUTORS
-          }
-        }}
-      />
-    )
+    dom.innerHTML = ReactDomServer.renderToStaticMarkup(<Banner />)
     dom.setAttribute('data-type', this.name)
     const content = document.createElement('div')
 

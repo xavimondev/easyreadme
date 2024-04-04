@@ -57,7 +57,6 @@ export default Node.create({
     dom.innerHTML = ReactDomServer.renderToStaticMarkup(
       // @ts-ignore
       <Contributors
-        deleteNode={() => undefined}
         node={{
           attrs: { ...HTMLAttributes },
           type: {
