@@ -91,7 +91,7 @@ function FeatureItem({
   return (
     <div
       className={cn(
-        'flex flex-col gap-1 rounded-lg p-3 border bg-gradient-to-r md:w-52 lg:w-64 h-auto transition-colors duration-300 cursor-pointer absolute left-[var(--left)] -top-[50px] animate-drop-bounce',
+        'w-full h-auto flex flex-col gap-1 rounded-lg p-3 border bg-gradient-to-r transition-colors duration-300 cursor-pointer',
         background
       )}
       onClick={() =>
@@ -109,9 +109,7 @@ function FeatureItem({
         <span>•</span>
         <span>{id}</span>
       </div>
-      <h3
-        className={cn('text-base lg:text-lg 2xl:text-xl font-medium text-balance', textColorCard)}
-      >
+      <h3 className={cn('text-base lg:text-xl 2xl:text-2xl text-balance', textColorCard)}>
         {title}
       </h3>
     </div>
@@ -120,7 +118,7 @@ function FeatureItem({
 
 export function ListFeatures() {
   return (
-    <div className='size-full flex gap-2'>
+    <div className='w-1/4 h-full hidden lg:flex flex-col gap-3 justify-center'>
       {LIST_FEATURES.map((feature) => (
         <FeatureItem key={feature.id} {...feature} />
       ))}

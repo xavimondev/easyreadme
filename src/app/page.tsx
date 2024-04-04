@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
 import { Hero } from '@/components/hero'
 import { GitIc } from '@/components/icons'
 import { ListFeatures } from '@/components/list-features'
@@ -34,11 +33,9 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <main className='flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'>
-          <section className='size-full 2xl:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
+        <main className='flex items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'>
+          <section className='size-full flex items-center'>
             <Hero />
-          </section>
-          <section className='size-full hidden md:flex justify-center overflow-visible mt-0 2xl:mt-3 min-h-72'>
             <ListFeatures />
           </section>
         </main>
