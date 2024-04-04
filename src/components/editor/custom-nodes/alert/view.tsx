@@ -7,8 +7,6 @@ import {
   MessageSquareWarning
 } from 'lucide-react'
 
-import { ActionsBar } from '@/components/editor/actions-bar'
-
 const ALERTS_DATA = [
   {
     id: 'info',
@@ -53,7 +51,7 @@ const ALERTS_DATA = [
 ]
 
 export function Alert(props: any) {
-  const { node, deleteNode } = props
+  const { node } = props
   const { attrs } = node
   const { id, isHTML } = attrs
   const alert = ALERTS_DATA.find((item) => item.id === id)
@@ -84,11 +82,6 @@ export function Alert(props: any) {
             </p>
           </blockquote>
         </div>
-        <ActionsBar
-          removeSection={() => {
-            deleteNode()
-          }}
-        />
       </div>
     </NodeViewWrapper>
   )

@@ -3,8 +3,6 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { NodeName } from '@/types/builder'
 
 import { findSection } from '@/utils/section'
-import { useBuilder } from '@/store'
-import { ActionsBar } from '@/components/editor/actions-bar'
 
 function Gallery({ data }: { data: any }) {
   const { repository, owner } = data
@@ -70,10 +68,9 @@ function Gallery({ data }: { data: any }) {
 // }
 
 export function Contributors(props: any) {
-  const { node, deleteNode } = props
+  const { node } = props
   const { attrs } = node
   const { data } = attrs
-  const { removeSectionFromTableOfContents } = useBuilder((store) => store)
   const nodeName = node.type.name as NodeName
   const section = findSection({ section: nodeName })
 
@@ -88,12 +85,6 @@ export function Contributors(props: any) {
           <h2>{section?.name}</h2>
           <Gallery data={data} />
         </div>
-        <ActionsBar
-          removeSection={() => {
-            deleteNode()
-            removeSectionFromTableOfContents(nodeName)
-          }}
-        />
       </div>
     </NodeViewWrapper>
   )

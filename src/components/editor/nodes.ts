@@ -1,52 +1,12 @@
 import { CustomPlaceholder, CustomSlashCommand } from '@/components/editor/custom-extensions'
-import {
-  Acknowledgments,
-  Alert,
-  ApiReference,
-  Badge,
-  Banner,
-  Changelog,
-  Commands,
-  ContributorsNode,
-  Deploy,
-  EnvVariablesGuide,
-  Faq,
-  Feedback,
-  LibProps,
-  License,
-  Overview,
-  Prerequisites,
-  ProjectStructure,
-  ProjectSummary,
-  Roadmap,
-  RunLocally,
-  TechStack,
-  Toc
-} from '@/components/editor/custom-nodes'
+import { Alert, Badge, Banner, ContributorsNode, Toc } from '@/components/editor/custom-nodes'
 
 export const CUSTOM_NODES = [
-  Roadmap,
   Banner,
-  Acknowledgments,
-  RunLocally,
-  License,
-  ProjectStructure,
   Badge,
-  Changelog,
-  Prerequisites,
-  Faq,
-  Commands,
-  Deploy,
-  Overview,
-  TechStack,
-  ProjectSummary,
-  EnvVariablesGuide,
   Toc,
   ContributorsNode,
   Alert,
-  ApiReference,
-  Feedback,
-  LibProps,
   CustomPlaceholder,
   CustomSlashCommand
 ]

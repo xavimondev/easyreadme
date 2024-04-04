@@ -5,13 +5,12 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { NodeName } from '@/types/builder'
 
 import { findSection } from '@/utils/section'
-import { ActionsBar } from '@/components/editor/actions-bar'
 
 // Componente built based on https://tiptap.dev/docs/editor/guide/node-views/examples#table-of-contents
-
 type Heading = { id: string; text: string }
+
 export function Toc(props: any) {
-  const { node, editor, deleteNode } = props
+  const { node, editor } = props
   const { type } = node
   const nodeName = type.name as NodeName
   const section = findSection({ section: nodeName })
@@ -91,11 +90,6 @@ export function Toc(props: any) {
             })}
           </ul>
         </div>
-        <ActionsBar
-          removeSection={() => {
-            deleteNode()
-          }}
-        />
       </div>
     </NodeViewWrapper>
   )
