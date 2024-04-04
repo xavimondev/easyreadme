@@ -5,9 +5,6 @@ import { cn } from '@/lib/utils'
 import { Hero } from '@/components/hero'
 import { GitIc } from '@/components/icons'
 import { ListFeatures } from '@/components/list-features'
-import { ModeToggle } from '@/components/mode-toggle'
-
-import { nunitoSans } from './fonts'
 
 export default function Home() {
   return (
@@ -34,16 +31,10 @@ export default function Home() {
               >
                 <GitIc className='size-5 text-black dark:text-white' />
               </Link>
-              <ModeToggle />
             </div>
           </div>
         </header>
-        <main
-          className={cn(
-            nunitoSans.className,
-            'flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'
-          )}
-        >
+        <main className='flex flex-col items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'>
           <section className='size-full 2xl:h-80 flex items-center sm:block mb-0 md:mb-6 xl:mb-10'>
             <Hero />
           </section>
