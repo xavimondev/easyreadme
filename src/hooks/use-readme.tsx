@@ -20,13 +20,10 @@ export function useReadme() {
   // See: https://github.com/pmndrs/zustand/discussions/2203 and https://docs.pmnd.rs/zustand/guides/prevent-rerenders-with-use-shallow
   const [
     listSections,
-    // addSectionToTableOfContents,
     gitRepositoryData,
     readmeEditor,
     gitUrlRepository,
     setGitRepositoryData,
-    // setTableOfContents,
-    // tableOfContents,
     sectionsFromTemplates,
     moduleSelected,
     queue,

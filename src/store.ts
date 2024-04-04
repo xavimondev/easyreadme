@@ -9,17 +9,8 @@ import { ModuleType } from '@/types/sidebar'
 
 import { DEFAULT_INITIAL_SECTIONS, README_SECTIONS_DATA } from './sections'
 
-type TableOfContentsSection = {
-  id: NodeName
-  name: string
-}
-
 type BuilderState = {
   listSections: Section[]
-  tableOfContents: TableOfContentsSection[]
-  setTableOfContents: (tableOfContents: TableOfContentsSection[]) => void
-  addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) => void
-  removeSectionFromTableOfContents: (section: NodeName) => void
   gitRepositoryData: GitRepository | undefined
   setGitRepositoryData: (data: GitRepository) => void
   gitUrlRepository: string
@@ -45,7 +36,6 @@ type BuilderState = {
 const INITIAL_QUEUE = { isProcessing: false, jobs: [] }
 export const useBuilder = create<BuilderState>()((set, get) => ({
   listSections: README_SECTIONS_DATA,
-  tableOfContents: [],
   gitRepositoryData: undefined,
   gitUrlRepository: '',
   readmeEditor: undefined,
@@ -55,15 +45,6 @@ export const useBuilder = create<BuilderState>()((set, get) => ({
   featureSelected: undefined,
   queue: INITIAL_QUEUE,
   toastId: undefined,
-  setTableOfContents: (tableOfContents: TableOfContentsSection[]) => set({ tableOfContents }),
-  addSectionToTableOfContents: (tableOfContents: TableOfContentsSection) =>
-    set((prevValues) => ({
-      tableOfContents: prevValues.tableOfContents.concat(tableOfContents)
-    })),
-  removeSectionFromTableOfContents: (section: NodeName) =>
-    set((prevValues) => ({
-      tableOfContents: prevValues.tableOfContents.filter((item) => item.id !== section)
-    })),
   setGitRepositoryData: (data) => set({ gitRepositoryData: data }),
   setGitUrlRepository: (url) => set({ gitUrlRepository: url }),
   setReadmeEditor: (editor) => set({ readmeEditor: editor }),
