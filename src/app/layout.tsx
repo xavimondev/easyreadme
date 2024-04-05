@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 
 import { APP_URL } from '@/constants'
-import { ThemeProvider } from '@/components/theme-provider'
 
 import '../styles/globals.css'
 import '../styles/confetti.css'
@@ -41,12 +40,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang='en'
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} dark`}
     >
       <body>
-        <ThemeProvider attribute='class' defaultTheme='dark' disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        {children}
         <Analytics />
         <Toaster theme='system' />
       </body>
