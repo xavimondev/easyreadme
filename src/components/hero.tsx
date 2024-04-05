@@ -10,7 +10,7 @@ export function Hero() {
   const { title, description, textColorTitle } = featureSelected ?? {}
 
   return (
-    <div className='w-full lg:w-3/4 flex flex-col justify-start'>
+    <div className='w-full lg:w-2/3 flex flex-col justify-start'>
       <HeadingHero title={title} textColorTitle={textColorTitle} />
       <p
         className='text-gray-500 dark:text-gray-300/90 text-base md:text-lg xl:text-xl text-pretty mt-2 sm:mt-12 animate-fade-in max-w-5xl'
