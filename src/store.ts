@@ -2,12 +2,13 @@ import { type Editor, type Range } from '@tiptap/core'
 import { create } from 'zustand'
 
 import { NodeName, Section } from '@/types/builder'
-import { Feature } from '@/types/feature'
 import { GitRepository } from '@/types/git'
 import { JobSection, Queue, Status } from '@/types/queue'
 import { ModuleType } from '@/types/sidebar'
 
 import { DEFAULT_INITIAL_SECTIONS, README_SECTIONS_DATA } from './sections'
+
+type FeatureSelected = { title: string; description: string; textColorTitle: string }
 
 type BuilderState = {
   listSections: Section[]
@@ -23,8 +24,8 @@ type BuilderState = {
   setRange: (range: Range) => void
   sectionsFromTemplates: NodeName[]
   setSectionsFromTemplates: (sectionsTemplate: NodeName[]) => void
-  featureSelected: Feature | undefined
-  setFeatureSelected: (feature: Feature) => void
+  featureSelected: FeatureSelected | undefined
+  setFeatureSelected: (feature: FeatureSelected) => void
   queue: Queue
   addJobToQueue: (job: JobSection | JobSection[]) => void
   updateStatusJobs: (sectionId: string, status: Status, isProcessing: boolean) => void

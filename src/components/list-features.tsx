@@ -98,15 +98,11 @@ function FeatureItem({
         'w-full h-auto flex items-center rounded-lg p-3 border bg-gradient-to-r transition-all duration-300 cursor-pointer hover:scale-105 hover:-translate-y-1',
         background
       )}
-      onClick={() =>
+      onMouseOver={() =>
         setFeatureSelected({
-          id,
           title,
           description,
-          background,
-          textColorCard,
-          textColorTitle,
-          emojiUrl
+          textColorTitle
         })
       }
     >
