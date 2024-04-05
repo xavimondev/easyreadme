@@ -5,7 +5,7 @@ type HeadingHeroProps = {
   textColorTitle?: string
 }
 
-const DEFAULT_HEADING = 'Craft Stunning READMEs Effortlessly'
+const DEFAULT_HEADING = 'Craft Stunning READMEs'
 
 export function HeadingHero({ title, textColorTitle }: HeadingHeroProps) {
   return (

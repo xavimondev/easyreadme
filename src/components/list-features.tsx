@@ -63,7 +63,7 @@ const LIST_FEATURES: Feature[] = [
     id: 'offline',
     title: 'local AI execution',
     description:
-      'Execute locally with ollama. Enjoy offline capabilities and manage your READMEs without an API key. Simplify your workflow and enhance productivity effortlessly.',
+      'Execute locally with ollama. Enjoy offline capabilities and manage your READMEs without an API key.',
     background: 'from-[#525a64] to-[#121212] hover:to-[#0b0a0a] lg:[--delay:1.4s]',
     textColorCard: 'text-zinc-300',
     textColorTitle: 'from-slate-300 to-stone-600',
@@ -95,7 +95,7 @@ function FeatureItem({
   return (
     <div
       className={cn(
-        'w-full h-auto flex items-center rounded-lg p-3 border bg-gradient-to-r transition-all duration-300 cursor-pointer hover:scale-105 hover:-translate-y-1 animate-beauty-fade-in',
+        'w-full h-auto flex items-center rounded-lg p-3 border bg-gradient-to-r transition-all duration-300 cursor-default hover:scale-105 hover:-translate-y-1 animate-beauty-fade-in',
         background
       )}
       onMouseOver={() =>
