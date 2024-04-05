@@ -12,7 +12,7 @@ export function HeadingHero({ title, textColorTitle }: HeadingHeroProps) {
     <h1
       key={title}
       className={cn(
-        'text-4xl sm:text-6xl lg:text-[5rem] 2xl:text-[7rem] leading-tight font-semibold text-balance capitalize text-transparent bg-clip-text bg-gradient-to-r animate-blurred-fade-in',
+        'text-4xl sm:text-[4rem] lg:text-[5rem] 2xl:text-[7rem] leading-tight font-medium text-balance capitalize text-transparent bg-clip-text bg-gradient-to-r animate-blurred-fade-in',
         textColorTitle
           ? textColorTitle
           : 'from-blue-600 to-violet-700 dark:from-orange-200 dark:to-violet-800'
