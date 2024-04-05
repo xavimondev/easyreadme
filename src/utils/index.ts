@@ -58,3 +58,18 @@ export const replaceBadgesMarkdownToHtml = ({ markdownContent }: { markdownConte
   const resultBadges = markdownContent.replace(imageBlock, wrappedInParagraph)
   return resultBadges
 }
+
+export const random = ({ min, max }: { min: number; max: number }) =>
+  Math.floor(Math.random() * (max - min)) + min
+
+export const range = ({ start, end, step }: { start: number; end?: number; step: number }) => {
+  const output = []
+  if (typeof end === 'undefined') {
+    end = start
+    start = 0
+  }
+  for (let i = start; i < end; i += step) {
+    output.push(i)
+  }
+  return output
+}

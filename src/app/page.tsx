@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Hero } from '@/components/hero'
 import { GitIc } from '@/components/icons'
 import { ListFeatures } from '@/components/list-features'
+import { Sparkles } from '@/components/sparkles'
 
 export default function Home() {
   return (
@@ -42,16 +43,17 @@ export default function Home() {
         <footer className='w-full flex items-center justify-center'>
           <div className='text-center py-4 sm:py-3.5 px-6'>
             <span className='text-gray-500 dark:text-purple-200 text-base sm:text-lg'>
-              Built with 💜 by
-              <a
-                href='https://twitter.com/xavimonp'
-                rel='noopener'
-                target='_blank'
-                className='underline underline-offset-4'
-              >
-                {' '}
-                xavimon
-              </a>
+              Built with 💜 by{' '}
+              <Sparkles color='#FFC700'>
+                <a
+                  href='https://twitter.com/xavimonp'
+                  rel='noopener'
+                  target='_blank'
+                  className='underline underline-offset-4'
+                >
+                  xavimon
+                </a>
+              </Sparkles>
             </span>
           </div>
         </footer>
