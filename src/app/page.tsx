@@ -34,7 +34,7 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <main className='flex items-center flex-grow px-8 xl:px-20 mt-0 md:mt-8 lg:mt-4 2xl:mt-16'>
+        <main className='flex items-center flex-grow px-8 xl:px-20 mt-4 sm:mt-0'>
           <section className='size-full flex gap-2 items-center'>
             <Hero />
             <ListFeatures />
