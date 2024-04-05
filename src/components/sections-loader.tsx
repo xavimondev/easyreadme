@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { LoaderIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -21,14 +20,7 @@ export function SectionsLoader() {
             <LoaderIcon size={18} className='animate-spin' />
           )
         return (
-          <motion.li
-            className='flex gap-3'
-            key={id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-          >
+          <li className='flex gap-3 animate-fade-slide' key={id}>
             {icon}
             <span
               className={cn('transition-opacity duration-200', {
@@ -39,7 +31,7 @@ export function SectionsLoader() {
             >
               {status === 'completed' ? 'Added' : 'Adding'} {name}...
             </span>
-          </motion.li>
+          </li>
         )
       })}
     </ul>

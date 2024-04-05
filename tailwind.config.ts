@@ -121,6 +121,10 @@ const config: Config = {
           '50%': { transform: 'rotate(0eg)' },
           '75%': { transform: 'rotate(-5deg)' },
           '100%': { transform: 'rotate(0deg)' }
+        },
+        'fade-slide': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1' }
         }
       },
       animation: {
@@ -132,7 +136,8 @@ const config: Config = {
         'border-width': 'border-width 3s infinite alternate',
         'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both',
         'drop-bounce': 'drop-bounce 1.5s ease-in-out both var(--duration)',
-        shaking: 'tilt-shaking 0.30s infinite'
+        shaking: 'tilt-shaking 0.30s infinite',
+        'fade-slide': 'fade-slide 0.3s forwards'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
