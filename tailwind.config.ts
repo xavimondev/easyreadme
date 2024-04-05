@@ -127,6 +127,7 @@ const config: Config = {
         'increase-text': 'increase-text 1s linear forwards',
         'enter-in-view': 'enter-in-view .3s forwards',
         'fade-in': 'fade-in 1s both',
+        'beauty-fade-in': 'fade-in 1.2s both var(--delay,0.4s)',
         'slide-in-right': 'slide-in-right .6s linear',
         'border-width': 'border-width 3s infinite alternate',
         'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both',
