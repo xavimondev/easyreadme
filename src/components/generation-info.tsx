@@ -1,5 +1,7 @@
 'use client'
 
+import { KeyRound } from 'lucide-react'
+
 import { RATE_LIMIT } from '@/constants'
 import { useRemaining } from '@/hooks/use-remaining'
 import { Button } from '@/components/ui/button'
@@ -15,12 +17,10 @@ export function GenerationInfo() {
     <>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className='w-full relative overflow-hidden rounded-md p-[1px] focus:outline-none hidden sm:block'>
-            <span className='absolute inset-[-1000%] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_40%,#E2CBFF_100%)]' />
-            <span className='inline-flex size-full items-center justify-center rounded-md bg-background hover:bg-[#0d0d0d] transition-colors duration-200 px-4 2xl:px-8 py-1 font-medium text-gray-200 backdrop-blur-3xl'>
-              <span className='text-sm text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 to-purple-100'>
-                {isLoading ? 0 : data.remaining} / {RATE_LIMIT} generations
-              </span>
+          <Button className='w-full rounded-md p-[1px] focus:outline-none hidden sm:flex gap-2 items-center bg-zinc-900 border hover:bg-zinc-800 transition-colors duration-300'>
+            <KeyRound size={18} className='text-purple-300' />
+            <span className='text-transparent bg-clip-text bg-gradient-to-tr from-purple-500 via-purple-300 to-purple-100'>
+              {isLoading ? 0 : data.remaining} / {RATE_LIMIT} generations
             </span>
           </Button>
         </PopoverTrigger>
