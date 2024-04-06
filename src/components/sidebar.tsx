@@ -7,10 +7,11 @@ import { ModuleType } from '@/types/sidebar'
 
 import { useBuilder } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { CommandCenter } from '@/components/command-center'
 import { ContainerTemplates } from '@/components/container-templates'
-import { GenerationInfo } from '@/components/generation-info'
 import { ListSections } from '@/components/list-sections'
 import { Searcher } from '@/components/searcher'
+import { TemplatesMobile } from '@/components/templates-mobile'
 
 type SidebarProps = {
   setFilterSection: Dispatch<SetStateAction<string>>
@@ -22,10 +23,13 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
   const setModuleSelected = useBuilder((store) => store.setModuleSelected)
 
   return (
-    <aside className='size-full py-2 border border-r-0 rounded-l-md border-black dark:border-white/20 hidden lg:block'>
+    <aside className='size-full py-2 border-0 lg:border lg:border-r-0 lg:rounded-l-md border-black dark:border-white/20 mb-1 lg:mb-0'>
+      <CommandCenter />
+      <TemplatesMobile />
       <Tabs
         defaultValue='templates'
         onValueChange={(value: string) => setModuleSelected(value as ModuleType)}
+        className='hidden lg:block'
       >
         <div className='flex items-center gap-3 px-3.5'>
           <TabsList>
@@ -34,7 +38,6 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
               <div className='flex items-center gap-1'>Customize</div>
             </TabsTrigger>
           </TabsList>
-          <GenerationInfo />
         </div>
         <TabsContent value='templates'>
           <div className='size-full hidden md:block'>

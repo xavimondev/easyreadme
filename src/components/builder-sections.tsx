@@ -8,7 +8,6 @@ import { useBuilder } from '@/store'
 import { BadgesOptions } from '@/components/badges-options'
 import { ReadmeEditor } from '@/components/editor/readme-editor'
 import { Sidebar } from '@/components/sidebar'
-import { TemplatesMobile } from '@/components/templates-mobile'
 
 export function BuilderSections() {
   const [filterSection, setFilterSection] = useState('')
@@ -30,7 +29,6 @@ export function BuilderSections() {
 
   return (
     <main className='size-full grid lg:grid-cols-[400px,_1fr] 2xl:grid-cols-[450px,_1fr]'>
-      <TemplatesMobile />
       <Sidebar
         setFilterSection={setFilterSection}
         customSections={customSections}

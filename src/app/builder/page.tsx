@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 import { BuilderSections } from '@/components/builder-sections'
-import { CommandCenter } from '@/components/command-center'
 import { CopyCodeButton } from '@/components/copy-code-button'
+import { GenerationInfo } from '@/components/generation-info'
 import { Header } from '@/components/header'
 
 export default function Builder() {
@@ -16,8 +16,10 @@ export default function Builder() {
               easyreadme
             </h1>
           </div>
-          <CommandCenter />
-          <CopyCodeButton />
+          <div className='flex gap-2 w-full sm:max-w-80'>
+            <GenerationInfo />
+            <CopyCodeButton />
+          </div>
         </div>
       </Header>
       <BuilderSections />

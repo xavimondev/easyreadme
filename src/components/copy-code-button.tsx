@@ -26,7 +26,7 @@ export function CopyCodeButton() {
 
   return (
     <Button
-      className={cn('p-2 copy-button group', clicked && 'animate')}
+      className={cn('w-full sm:w-44 p-2 copy-button group', clicked && 'animate')}
       onClick={async () => {
         setClicked(true)
         const html = readmeEditor?.getHTML() as string
