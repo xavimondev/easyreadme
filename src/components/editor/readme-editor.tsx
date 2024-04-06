@@ -17,7 +17,7 @@ export function ReadmeEditor() {
     editorProps: {
       attributes: {
         class:
-          'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-[325px] sm:max-w-none font-default focus:outline-none h-[calc(100vh-270px)] md:h-[calc(100vh-220px)] lg:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
+          'prose prose-sm sm:prose-base prose-neutral dark:prose-invert max-w-[325px] sm:max-w-none font-default focus:outline-none h-[calc(100vh-280px)] md:h-[calc(100vh-290px)] lg:h-[calc(100vh-106px)] overflow-y-auto scrollbar-hide'
       },
       handleDOMEvents: {
         keydown: (_view, event) => {
@@ -38,7 +38,7 @@ export function ReadmeEditor() {
   })
 
   return (
-    <div className='border rounded-md lg:rounded-none lg:rounded-r-md border-black dark:border-white/20 w-full p-4 sm:p-8 bg-white/95 dark:bg-neutral-800/20 relative h-[calc(100vh-242px)] sm:h-[calc(100vh-180px)] lg:h-[calc(100vh-60px)]'>
+    <div className='border rounded-md lg:rounded-none lg:rounded-r-md border-black dark:border-white/20 w-full p-4 sm:p-8 bg-white/95 dark:bg-neutral-800/20 relative h-[calc(100vh-242px)] sm:h-[calc(100vh-240px)] lg:h-[calc(100vh-60px)]'>
       <EditorContent editor={editor} />
       {editor && <BubbleMenu />}
     </div>
