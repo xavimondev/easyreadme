@@ -16,9 +16,14 @@ import {
   ListOrdered,
   MessageCircleWarning,
   MessageSquareWarning,
+  MoveDown,
+  MoveLeft,
+  MoveRight,
+  MoveUp,
   TableIcon,
   Text,
-  TextQuote
+  TextQuote,
+  Trash2
 } from 'lucide-react'
 
 type BlockItem = {
@@ -144,7 +149,7 @@ export const groupBasicItems: BlockItem[] = [
   },
   {
     title: 'Table',
-    description: 'Create a table magics.',
+    description: 'Create a table.',
     searchTerms: ['table'],
     icon: <TableIcon size={18} />,
     command: ({ editor, range }: { editor: Editor; range: Range }) =>
@@ -227,5 +232,63 @@ export const groupAlertItems: BlockItem[] = [
           id: 'caution'
         })
         .run()
+  }
+]
+
+export const groupTableItems: BlockItem[] = [
+  {
+    title: 'Add Row Above',
+    description: 'Add a row above the current row.',
+    icon: <MoveUp size={14} />,
+    searchTerms: ['row', 'add', 'above', 'before', 'insert'],
+    command: ({ editor }) => {
+      editor.chain().focus().addRowBefore().run()
+    }
+  },
+  {
+    title: 'Add Row Below',
+    description: 'Add a row below the current row.',
+    icon: <MoveDown size={14} />,
+    searchTerms: ['row', 'add', 'below', 'after', 'insert'],
+
+    command: ({ editor }) => {
+      editor.chain().focus().addRowAfter().run()
+    }
+  },
+  {
+    title: 'Delete Row',
+    description: 'Delete the current row.',
+    icon: <Trash2 size={14} />,
+    searchTerms: ['row', 'delete', 'remove'],
+    command: ({ editor }) => {
+      editor.chain().focus().deleteRow().run()
+    }
+  },
+  {
+    title: 'Add Column Left',
+    description: 'Add a column before the current column.',
+    icon: <MoveLeft size={14} />,
+    searchTerms: ['column', 'add', 'left', 'before', 'insert'],
+    command: ({ editor }) => {
+      editor.chain().focus().addColumnBefore().run()
+    }
+  },
+  {
+    title: 'Add Column Right',
+    description: 'Add a column after the current column.',
+    icon: <MoveRight size={14} />,
+    searchTerms: ['column', 'add', 'right', 'after', 'insert'],
+    command: ({ editor }) => {
+      editor.chain().focus().addColumnAfter().run()
+    }
+  },
+  {
+    title: 'Delete Column',
+    description: 'Delete the current column.',
+    icon: <Trash2 size={14} />,
+    searchTerms: ['column', 'delete', 'remove'],
+    command: ({ editor }) => {
+      editor.chain().focus().deleteColumn().run()
+    }
   }
 ]

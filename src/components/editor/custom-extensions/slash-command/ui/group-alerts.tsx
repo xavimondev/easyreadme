@@ -1,6 +1,6 @@
 import { CommandGroup } from '@/components/ui/command'
-import { groupAlertItems } from '@/components/editor/custom-extensions/slash-command/ui/blocks'
 
+import { groupAlertItems } from './blocks'
 import { CommandSlashItem } from './command-slash-item'
 
 export function GroupAlertsBlock() {

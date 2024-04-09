@@ -2,6 +2,7 @@ import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
+import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
@@ -13,11 +14,7 @@ import StarterKit from '@tiptap/starter-kit'
 import AutoJoiner from 'tiptap-extension-auto-joiner'
 import { Markdown } from 'tiptap-markdown'
 
-import {
-  CustomCodeBlockLowSyntax,
-  CustomTable,
-  GlobalDragHandle
-} from '@/components/editor/custom-extensions'
+import { CustomCodeBlockLowSyntax, GlobalDragHandle } from '@/components/editor/custom-extensions'
 
 const CustomImage = Image.extend({
   addAttributes() {
@@ -62,6 +59,9 @@ const CustomParagraph = Paragraph.extend({
       },
       id: {
         default: null
+      },
+      class: {
+        default: null
       }
     }
   }
@@ -94,7 +94,7 @@ export const DEFAULT_EXTENSIONS = [
     transformPastedText: true,
     transformCopiedText: true
   }),
-  CustomTable,
+  Table,
   TableRow.configure({
     HTMLAttributes: {
       class: 'w-full text-gray-500 dark:text-gray-300 [&_p]:m-1'

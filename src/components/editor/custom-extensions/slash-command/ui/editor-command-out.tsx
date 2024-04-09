@@ -4,6 +4,7 @@ import type { Range } from '@tiptap/core'
 import { useBuilder } from '@/store'
 import { Command, CommandEmpty, CommandInput, CommandList } from '@/components/ui/command'
 import { Separator } from '@/components/ui/separator'
+import { GroupTableBlock } from '@/components/editor/custom-extensions/slash-command/ui/group-table'
 
 import { GroupAlertsBlock } from './group-alerts'
 import { GroupBasicBlock } from './group-basic'
@@ -15,9 +16,16 @@ export const EditorCommandOut = ({
   query: string
   range: Range
 }): JSX.Element => {
+  const readmeEditor = useBuilder((state) => state.readmeEditor)
   const [search, setSearch] = useState(query)
   const setRange = useBuilder((store) => store.setRange)
 
+  const cursor = readmeEditor?.state.selection.$from
+  const depth = cursor?.depth
+  const nodeFound = cursor?.node((depth ?? 1) - 1)
+  const isTable = nodeFound?.type.name.toLowerCase().includes('table')
+
+  // @ts-ignore
   useEffect(() => {
     setSearch(query)
   }, [query])
@@ -62,6 +70,12 @@ export const EditorCommandOut = ({
       <CommandInput value={search} onValueChange={setSearch} className='hidden' />
       <CommandList>
         <CommandEmpty className='px-2 text-muted-foreground text-sm'>No results</CommandEmpty>
+        {isTable && (
+          <>
+            <GroupTableBlock />
+            <Separator className='mt-2' />
+          </>
+        )}
         <GroupBasicBlock />
         <Separator className='mt-2' />
         <GroupAlertsBlock />
