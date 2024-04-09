@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
+import { AppLogo } from '@/components/app-logo'
 import { Hero } from '@/components/hero'
 import { GitIc } from '@/components/icons'
 import { ListFeatures } from '@/components/list-features'
@@ -14,12 +14,7 @@ export default function Home() {
         <header className='sticky top-0 px-8 xl:px-20 py-2'>
           <div className='flex h-14 items-center justify-between'>
             <div className='flex items-center cursor-pointer text-white'>
-              <Link className='flex ' href='/'>
-                <Image src='/logo.png' alt='Application logo' width={30} height={30} />
-                <h1 className='text-base sm:text-xl ml-2 hover:text-violet-200 transition-colors duration-300'>
-                  easyreadme
-                </h1>
-              </Link>
+              <AppLogo />
             </div>
             <div className='flex gap-2 items-center'>
               <Link

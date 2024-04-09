@@ -1,5 +1,4 @@
-import Image from 'next/image'
-
+import { AppLogo } from '@/components/app-logo'
 import { BuilderSections } from '@/components/builder-sections'
 import { CopyCodeButton } from '@/components/copy-code-button'
 import { GenerationInfo } from '@/components/generation-info'
@@ -11,10 +10,7 @@ export default function Builder() {
       <Header>
         <div className='flex flex-col sm:flex-row pb-2 sm:items-center sm:justify-between gap-2 sm:gap-0 w-full'>
           <div className='hidden sm:flex items-center cursor-pointer text-white'>
-            <Image src='/extension_icon.png' alt='Application logo' width={30} height={30} />
-            <h1 className='text-lg ml-2 hover:text-violet-200 transition-colors duration-300'>
-              easyreadme
-            </h1>
+            <AppLogo />
           </div>
           <div className='flex gap-2 w-full sm:max-w-80'>
             <GenerationInfo />
