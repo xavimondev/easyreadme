@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, type ReactNode } from 'react'
 import { BubbleMenu, isTextSelection, type BubbleMenuProps } from '@tiptap/react'
 import type { Instance, Props } from 'tippy.js'
 
+import { NodeName } from '@/types/builder'
+
 import { useBuilder } from '@/store'
 
 export interface EditorBubbleProps extends Omit<BubbleMenuProps, 'editor'> {
@@ -31,13 +33,14 @@ export function EditorBubble({ children, tippyOptions, ...rest }: EditorBubblePr
       // don't show bubble menu if:
       // - the selected node is an image
       // - the selection is empty
-      // - the selections node is a block code
+      // - the nodes are a banner, codeblock and toc.
       if (
         !hasFocus ||
         empty ||
         isEmptyTextBlock ||
-        editor.isActive('image') ||
-        editor.isActive('codeBlock')
+        editor.isActive(NodeName.BANNER) ||
+        editor.isActive('codeBlock') ||
+        editor.isActive(NodeName.TABLE_CONTENTS)
       ) {
         return false
       }
