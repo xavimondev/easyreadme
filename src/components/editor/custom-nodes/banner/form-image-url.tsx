@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { validateImage } from '@/utils'
 import { Link } from 'lucide-react'
 import { z } from 'zod'
@@ -14,12 +14,12 @@ const schema = z.object({
 })
 
 type FormImageUrlProps = {
-  imageUrl: string
-  setImageUrl: Dispatch<SetStateAction<string>>
+  setImageUrl: (imgUrl: string) => void
 }
 
-export function FormImageUrl({ imageUrl, setImageUrl }: FormImageUrlProps) {
+export function FormImageUrl({ setImageUrl }: FormImageUrlProps) {
   const [error, setError] = useState<string>('')
+  const [url, setUrl] = useState<string>('')
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -39,6 +39,7 @@ export function FormImageUrl({ imageUrl, setImageUrl }: FormImageUrlProps) {
     try {
       const res = await validateImage({ imageUrl })
       if (res === 'ok') {
+        setUrl(imageUrl)
         setImageUrl(imageUrl)
         setError('')
       }
@@ -67,7 +68,7 @@ export function FormImageUrl({ imageUrl, setImageUrl }: FormImageUrlProps) {
             {/* invalid:[&:not(:focus)]:border-red-400 invalid:[&:not(:focus)]:text-red-400 peer */}
             <Input
               type='url'
-              defaultValue={imageUrl}
+              defaultValue={url}
               id='imageUrl'
               name='imageUrl'
               className={cn(

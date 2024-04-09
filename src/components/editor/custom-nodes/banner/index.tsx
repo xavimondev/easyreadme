@@ -30,6 +30,9 @@ export default Node.create({
     return {
       endPos: {
         default: 0
+      },
+      imageUrl: {
+        default: '/placeholder.jpg'
       }
     }
   },
@@ -48,9 +51,16 @@ export default Node.create({
         }
     }
   },
-  renderHTML() {
+  renderHTML({ HTMLAttributes }) {
     const dom = document.createElement('div')
-    dom.innerHTML = ReactDomServer.renderToStaticMarkup(<Banner />)
+    dom.innerHTML = ReactDomServer.renderToStaticMarkup(
+      <Banner
+        editor={this.editor!}
+        node={{
+          attrs: { ...HTMLAttributes, imgUrl: '/placeholder.jpg' }
+        }}
+      />
+    )
     dom.setAttribute('data-type', this.name)
     const content = document.createElement('div')
 
