@@ -63,7 +63,7 @@ export function ListSections({ listSections, customSections }: ListSectionsProps
   const { buildCustomReadme } = useReadme()
 
   return (
-    <ScrollArea className='md:h-[calc(100vh-180px)]'>
+    <ScrollArea className='md:h-[calc(100vh-213px)]'>
       <div className='flex flex-col gap-2 w-full overflow-hidden px-3.5'>
         {listSections
           .toSorted((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
