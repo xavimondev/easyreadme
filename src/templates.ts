@@ -53,7 +53,7 @@ export const LIST_TEMPLATES: Template[] = [
   },
   {
     nameTemplate: 'NPM Package',
-    description: 'Empower developers to easily integrate and contribute to your project.',
+    description: 'Ideal for libraries, CLI commands, and all kind of packages.',
     sections: [
       NodeName.BADGE,
       NodeName.OVERVIEW,
