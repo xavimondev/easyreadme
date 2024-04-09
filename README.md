@@ -5,9 +5,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/contributors/xavimondev/easyreadme" alt="GitHub contributors" />
+  <img src="https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white" alt="Nextjs" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white" alt="TypeScript"  />
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-0F172A?logo=tailwind-css&logoColor=38BDF9" alt="TailwindCSS"  />
   <img src="https://img.shields.io/github/stars/xavimondev/easyreadme" alt="GitHub Stars" />
-  <img src="https://img.shields.io/github/issues/xavimondev/easyreadme" alt="GitHub issues" />
+  <img src="https://img.shields.io/github/contributors/xavimondev/easyreadme" alt="GitHub contributors" />
   <img src="https://img.shields.io/github/issues-pr/xavimondev/easyreadme" alt="GitHub pull request" />
   <img src="https://img.shields.io/github/license/xavimondev/easyreadme" alt="GitHub License" />
 </p>
@@ -30,6 +32,10 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 
 - [🚀 Run Locally](#run-locally)
 
+- [🗺️ Roadmap](#roadmap)
+
+- [🙏 Acknowledgments](#acknowledgments)
+
 - [📄 License](#license)
 
 ## 💻 Stack
@@ -44,7 +50,7 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - [tiptap/core](https://github.com/ueberdosis/tiptap): A highly customizable and extendable rich text editor framework.
 - [swr](https://github.com/vercel/swr): Handles data fetching, caching, and synchronization with the server.
 - [zustand](https://github.com/pmndrs/zustand): A small, fast, and scalable state management library.
-- [phosphoricons](https://phosphoricons.com/): A flexible icon family for interfaces, diagrams, presentations
+- [lucide](https://lucide.dev/): Beautiful & consistent icons.
 
 ## 📝 Project Summary
 
@@ -85,6 +91,11 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - Create a new KV Database.
 - Copy the KV_REST_API_URL and KV_REST_API_TOKEN from under the **.env.local** tab.
 
+#### OLLAMA_URL
+
+- Download [Ollama](https://ollama.com/download) and have it running.
+- If your instance of Ollama is not running on the default ip-address and port, change the variable in the .env.example file to fit your usecase
+
 ## 🚀 Run Locally
 
 1.Clone the easyreadme repository:
@@ -99,44 +110,45 @@ git clone https://github.com/xavimondev/easyreadme
 mv .example.env .env
 ```
 
-3.Download [Ollama](https://ollama.com/download) and have it running.
-
-4.If your instance of Ollama is not running on the default ip-address and port, change the variable in the .env file to fit your usecase:
+3.Install dependencies:
 
 ```bash
-OLLAMA_URL=http://localhost:11434
-```
-
-5.Install dependencies:
-
-```bash
-pnpm install
-
+# bun
 bun install
-
+# pnpm
+pnpm install
+# npm
 npm install
-
+# yarn
 yarn install
-
 ```
 
 6.Start the development mode:
 
 ```bash
-pnpm dev
-
+# bun
 bun dev
-
+# pnpm
+pnpm dev
+# npm
 npm run dev
-
+# yarn
 yarn dev
 ```
 
+> [!IMPORTANT]
+> 
+> Despite having a template for NPM Packages, there's still much work to be done and research on how to get the correct types from packages.
 
 ## 🗺️ Roadmap
 
-- [ ] **Let users create their own templates.**
-- [ ] **Extend support for monorepos and libraries.**
+- [ ] **Add support for more programming languages.**
+- [ ] **Add "with emojis" option.**
+
+## 🙏 Acknowledgments
+
+- The sparkles animation were taken from this [great resource](https://www.joshwcomeau.com/react/animated-sparkles-in-react/) created by **Josh W. Comeau**
+- The confetti around the "Copy Code" button was created using the [Lucide web](https://github.com/lucide-icons/lucide/blob/main/docs/.vitepress/theme/components/icons/confetti.css) as a reference.
 
 ## 📄 License
 
