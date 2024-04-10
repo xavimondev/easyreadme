@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ContainerTemplates } from '@/components/container-templates'
 import { FormGit } from '@/components/form-git'
 import { ListSections } from '@/components/list-sections'
-import { Searcher } from '@/components/searcher'
+import { SectionsSearcher } from '@/components/sections-searcher'
 import { TemplatesMobile } from '@/components/templates-mobile'
 
 type SidebarProps = {
@@ -46,7 +46,7 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
         </TabsContent>
         <TabsContent value='custom' className='hidden xl:block'>
           <div className='flex flex-col gap-2'>
-            <Searcher setFilterSection={setFilterSection} />
+            <SectionsSearcher setFilterSection={setFilterSection} />
             <ListSections listSections={listSectionsFiltered} customSections={customSections} />
           </div>
         </TabsContent>

@@ -5,11 +5,11 @@ import { Search } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
 
-type SearcherProps = {
+type SectionsSearcherProps = {
   setFilterSection: Dispatch<SetStateAction<string>>
 }
 
-export function Searcher({ setFilterSection }: SearcherProps) {
+export function SectionsSearcher({ setFilterSection }: SectionsSearcherProps) {
   return (
     <div className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full px-3.5'>
       <form>
