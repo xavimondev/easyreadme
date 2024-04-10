@@ -26,7 +26,7 @@ export function FormSearch({ onSubmit }: FormSearchProps) {
             autoCapitalize='off'
             required
             name='urlRepository'
-            className='w-full h-8 pl-7 border-none focus-visible:outline-none focus-visible:ring-0 group-focus-within:placeholder:text-white/60 placeholder:text-white/40'
+            className='w-full h-8 pl-7 border-none focus-visible:outline-none focus-visible:ring-0 group-focus-within:placeholder:text-white/60 placeholder:text-white/40 group-focus-within:text-white text-white/80 transition-colors duration-200'
             placeholder='https://github.com/xavimondev/easyreadme'
           />
         </div>
