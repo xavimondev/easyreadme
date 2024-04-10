@@ -7,8 +7,8 @@ import { ModuleType } from '@/types/sidebar'
 
 import { useBuilder } from '@/store'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CommandCenter } from '@/components/command-center'
 import { ContainerTemplates } from '@/components/container-templates'
+import { FormGit } from '@/components/form-git'
 import { ListSections } from '@/components/list-sections'
 import { Searcher } from '@/components/searcher'
 import { TemplatesMobile } from '@/components/templates-mobile'
@@ -24,7 +24,7 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
 
   return (
     <aside className='size-full py-2 border-0 lg:border lg:border-r-0 lg:rounded-l-md border-black dark:border-white/20 mb-1 lg:mb-0'>
-      <CommandCenter />
+      <FormGit />
       <TemplatesMobile />
       <Tabs
         defaultValue='templates'
