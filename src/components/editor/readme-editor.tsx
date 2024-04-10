@@ -12,7 +12,7 @@ export function ReadmeEditor() {
   const setReadmeEditor = useBuilder((store) => store.setReadmeEditor)
   const editor = useEditor({
     editable: true,
-    autofocus: 'start',
+    autofocus: 'end',
     injectCSS: false,
     editorProps: {
       attributes: {
