@@ -1,12 +1,14 @@
-import '../styles/globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
-import { APP_URL } from '@/constants'
-import { ThemeProvider } from '@/components/theme-provider'
-import { CustomToaster } from '@/components/custom-toaster'
 
-const inter = Inter({ subsets: ['latin'], weight: ['500', '600', '700'] })
+import { APP_URL } from '@/constants'
+
+import '../styles/globals.css'
+import '../styles/confetti.css'
+
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
+import { Toaster } from 'sonner'
 
 const title = 'Easyreadme - IA Powered README Builder'
 const description = `Easyreadme helps you simplify README creation and generate visually stunning ones with the help of IA and elegant pre-designed templates.`
@@ -35,13 +37,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute='class' defaultTheme='dark' disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+    <html
+      lang='en'
+      suppressHydrationWarning
+      className={`${GeistSans.variable} ${GeistMono.variable} dark`}
+    >
+      <body>
+        {children}
         <Analytics />
-        <CustomToaster />
+        <Toaster theme='system' />
       </body>
     </html>
   )

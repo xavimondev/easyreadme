@@ -1,4 +1,5 @@
-import { GitRepository, Tree } from '@/types'
+import { GitRepository, Tree } from '@/types/git'
+
 import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
 
 export const getRepositoryStructure = async ({
@@ -9,16 +10,15 @@ export const getRepositoryStructure = async ({
   owner: string
   repoName: string
   branch: string
-}): Promise<Tree[] | null> => {
+}): Promise<{ data?: Tree[]; error: string | undefined }> => {
   try {
     const response = await fetch(
       `api/github/structure?repo=${repoName}&owner=${owner}&branch=${branch}`
     )
     const repository = await response.json()
-    return repository.data
+    return repository
   } catch (error) {
-    //console.error(error)
-    return null
+    return { error: 'An error has ocurred' }
   }
 }
 
@@ -36,10 +36,9 @@ export const getFileContents = async ({
       `api/github/file-contents?owner=${owner}&repo=${repoName}&path=${path}`
     )
     const contents = await response.json()
-    return contents.data
+    return contents
   } catch (error) {
-    // console.log(error)
-    return null
+    return { error: 'An error has ocurred' }
   }
 }
 
@@ -59,8 +58,7 @@ export const getContributors = async ({
     const contributors = await response.json()
     return contributors.data
   } catch (error) {
-    // console.error(error)
-    return null
+    return
   }
 }
 
@@ -68,10 +66,9 @@ export const getLicense = async ({ repoName, owner }: { repoName: string; owner:
   try {
     const response = await fetch(`api/github/license?owner=${owner}&repo=${repoName}`)
     const license = await response.json()
-    return license.data
+    return license
   } catch (error) {
-    // console.error(error)
-    return null
+    return { error: 'An error has ocurred', data: undefined }
   }
 }
 
@@ -84,6 +81,61 @@ export const getRepositoryData = async ({ urlRepository }: { urlRepository: stri
     return data.data as GitRepository
   } catch (error) {
     // console.error(error)
-    return null
+    return
+  }
+}
+
+export const getGenerationAI = async ({
+  format,
+  prompt
+}: {
+  format: 'json' | 'string'
+  prompt: string
+}) => {
+  try {
+    const request = await fetch('/api/ai', {
+      method: 'POST',
+      body: JSON.stringify({
+        format,
+        prompt
+      }),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    const response = await request.json()
+    return response
+  } catch (error) {
+    return { error: 'An error has ocurred', data: undefined }
+  }
+}
+
+export const getLanguages = async ({ repoName, owner }: { repoName: string; owner: string }) => {
+  try {
+    const response = await fetch(`api/github/languages?owner=${owner}&repo=${repoName}`)
+    const languages = await response.json()
+    return languages
+  } catch (error) {
+    return { error: 'An error has ocurred', data: undefined }
+  }
+}
+
+export const getNestedPathsByDirectory = async ({
+  path,
+  owner,
+  repoName
+}: {
+  path: string
+  owner: string
+  repoName: string
+}) => {
+  try {
+    const response = await fetch(
+      `api/github/nested-paths?owner=${owner}&repo=${repoName}&path=${path}`
+    )
+    const contents = await response.json()
+    return contents.data
+  } catch (error) {
+    return
   }
 }

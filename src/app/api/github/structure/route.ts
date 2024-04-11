@@ -1,5 +1,6 @@
-import { GitTreeResponse, Tree } from '@/types'
 import { NextResponse } from 'next/server'
+
+import { GitTreeResponse, Tree } from '@/types/git'
 
 export async function GET(req: Request) {
   try {
@@ -28,11 +29,12 @@ export async function GET(req: Request) {
       type: item.type
     }))
 
-    return NextResponse.json({ data: directory })
+    return NextResponse.json({ data: directory, error: undefined })
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
+        data: undefined,
         error: 'An error has ocurred'
       },
       {

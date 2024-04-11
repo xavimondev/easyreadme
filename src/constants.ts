@@ -1,5 +1,3 @@
-import { Template } from '@/types'
-
 import {
   parseBuildGradle,
   parseCargo,
@@ -10,12 +8,61 @@ import {
   parsePom,
   parsePyProject,
   parseRequirementsTxt
-} from './utils/parse'
+} from '@/utils/parse'
 
 export const LANGUAGES_SETUP = [
   {
-    language: 'JavaScript',
+    languages: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Svelte', 'Astro', 'Vue', 'Angular'],
     fileDependencies: ['package.json'],
+    lockFiles: [
+      {
+        id: 'bun',
+        lockfile: 'bun.lockb',
+        url: 'https://bun.sh/docs/installation',
+        text: 'To check that bun was installed successfully, open a new terminal window and run bun --version.'
+      },
+      {
+        id: 'deno',
+        lockfile: 'deno.lock',
+        url: 'https://docs.deno.com/runtime/manual',
+        text: 'Install following the instructions for your operating system. To test your installation, open a new terminal and run `deno --version`.'
+      },
+      {
+        id: 'pnpm',
+        lockfile: 'pnpm-lock.yaml',
+        url: 'https://pnpm.io/installation',
+        text: 'To check that pnpm was installed successfully, open a new terminal window and run `pnpm --version`.'
+      },
+      {
+        id: 'npm',
+        lockfile: 'package-lock.json',
+        url: 'https://nodejs.org/en',
+        text: 'To check that npm was installed successfully, open a new terminal window and run `npm --version`.'
+      },
+      {
+        id: 'yarn',
+        lockfile: 'yarn.lock',
+        url: 'https://classic.yarnpkg.com/en/docs/install#mac-stable',
+        text: 'To check that yarn was installed successfully, open a new terminal window and run `yarn --version`.'
+      }
+    ],
+    runtimes: [
+      {
+        id: 'Node',
+        url: 'https://nodejs.org/en',
+        text: 'Install following the instructions for your operating system. Then, open a new terminal and run `node --version`.'
+      },
+      {
+        id: 'Deno',
+        url: 'https://deno.com',
+        text: 'Install following the instructions for your operating system. Then, open a new terminal and run `deno --version`.'
+      }
+    ],
+    typescriptResource: {
+      id: 'TypeScript',
+      url: 'https://www.typescriptlang.org/download',
+      text: 'Download and install following the instructions.'
+    },
     commands: {
       install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
       run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
@@ -23,44 +70,20 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'TypeScript',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Svelte',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Astro',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Vue',
-    fileDependencies: ['package.json'],
-    commands: {
-      install: ['pnpm install', 'bun install', 'npm install', 'yarn install'],
-      run: ['pnpm dev', 'bun dev', 'npm run dev', 'yarn dev'],
-      test: ['npm run test']
-    }
-  },
-  {
-    language: 'Python',
+    languages: ['Python'],
     fileDependencies: ['Pipfile', 'pyproject.toml', 'requirements.txt'],
+    installation: [
+      {
+        id: 'Python',
+        url: 'https://www.python.org/downloads/',
+        text: 'Download and install Python following the instructions for your operating system. To test your installation, run `python --version`'
+      },
+      {
+        id: 'pip',
+        url: 'https://pypi.org/project/pip/',
+        text: 'Python generally includes pip. If not or if you need to update it, run `python -m pip install --upgrade pip`.'
+      }
+    ],
     commands: {
       install: ['pip install -r requirements.txt'],
       run: ['python app.py'],
@@ -68,8 +91,20 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'Java',
+    languages: ['Java'],
     fileDependencies: ['build.gradle', 'pom.xml'],
+    installation: [
+      {
+        id: 'JDK',
+        url: 'https://www.oracle.com/java/technologies/downloads/',
+        text: 'Download and install Java JDK or use a distribution like OpenJDK.'
+      },
+      {
+        id: 'Maven',
+        url: 'https://maven.apache.org/install.html',
+        text: 'Download and install Maven following the instructions for your operating system.'
+      }
+    ],
     commands: {
       install: ['mvn install'],
       run: ['java -jar app.jar'],
@@ -77,8 +112,20 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'PHP',
+    languages: ['PHP'],
     fileDependencies: ['composer.json'],
+    installation: [
+      {
+        id: 'PHP',
+        url: 'https://www.php.net/downloads.php',
+        text: 'Download and install PHP following the instructions for your operating system. To test your installation, open a new terminal and run `php version`.'
+      },
+      {
+        id: 'composer',
+        url: 'https://getcomposer.org/download/',
+        text: 'Install Composer by following the instructions. Then, run `composer -v` to test your installation.'
+      }
+    ],
     commands: {
       install: ['composer install'],
       run: ['php main.php'],
@@ -86,8 +133,15 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'Go',
+    languages: ['Go'],
     fileDependencies: ['go.mod'],
+    installation: [
+      {
+        id: 'Go',
+        url: 'https://go.dev/doc/install',
+        text: 'Install Go following the instructions for your operating system. To test your installation, open a new terminal and run `go version`.'
+      }
+    ],
     commands: {
       install: ['go build -o myapp'],
       run: ['go run main.go'],
@@ -95,8 +149,15 @@ export const LANGUAGES_SETUP = [
     }
   },
   {
-    language: 'Rust',
+    languages: ['Rust'],
     fileDependencies: ['Cargo.toml'],
+    installation: [
+      {
+        id: 'Rust',
+        url: 'https://www.rust-lang.org/tools/install',
+        text: 'Install Rust following the instructions for your operating system. To test your installation, open a new terminal and run `rustc --version`'
+      }
+    ],
     commands: {
       install: ['cargo build'],
       run: ['cargo run'],
@@ -117,157 +178,28 @@ export const LANGUAGES_FILES_PARSERS: Record<string, any> = {
   'cargo.toml': parseCargo
 }
 
-const BADGES_URL = 'https://img.shields.io/github'
-export const FORKS_URL = `${BADGES_URL}/forks`
-export const CODESIZE_URL = `${BADGES_URL}/languages/code-size`
-export const STARS_URL = `${BADGES_URL}/stars`
-export const WATCHERS_URL = `${BADGES_URL}/watchers`
-export const CONTRIBUTORS_URL = `${BADGES_URL}/contributors`
-export const LAST_COMMIT_URL = `${BADGES_URL}/last-commit`
-export const LICENSE_URL = `${BADGES_URL}/license`
-export const TOP_LANGUAGE_URL = `${BADGES_URL}/languages/top`
-export const COMMIT_ACTIVITY_MONTH_URL = `${BADGES_URL}/commit-activity/m`
-export const DISCUSSIONS_URL = `${BADGES_URL}/discussions`
-export const ISSUES_URL = `${BADGES_URL}/issues`
-export const PULL_REQUESTS_URL = `${BADGES_URL}/issues-pr`
-export const DEPLOYMENTS_URL = `${BADGES_URL}/deployments`
-
-export const DEFAULT_TEMPLATES: Template[] = [
-  {
-    srcImage: '/templates/minimal.webp',
-    altImage: 'Screenshot template Minimal',
-    nameTemplate: 'Minimal',
-    description:
-      'Simplify README creation effortlessly. Craft clear and user-friendly project documentation using this template.',
-    sections: ['overview', 'setting-up', 'run-locally', 'deploy', 'license'],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/minimal_mqefxi.mp4'
-  },
-  {
-    srcImage: '/templates/collaborate.webp',
-    altImage: 'Screenshot template Collaborate',
-    nameTemplate: 'Collaborate',
-    description:
-      'Enhance project collaboration with comprehensive project docs. Streamline setup, development, and collaboration processes for smoother project execution.',
-    sections: [
-      'banner',
-      'badges',
-      'table-contents',
-      'stack',
-      'project-summary',
-      'setting-up',
-      'run-locally',
-      'contributors',
-      'license'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/collab_nn15cr.mp4'
-  },
-  {
-    srcImage: '/templates/inspire.webp',
-    altImage: 'Screenshot template Inspire',
-    nameTemplate: 'Inspire',
-    description:
-      'From project structure to deployment, Inspire streamlines every aspect for seamless development and collaboration.',
-    sections: [
-      'banner',
-      'badges',
-      'overview',
-      'table-contents',
-      'project-structure',
-      'project-summary',
-      'stack',
-      'setting-up',
-      'run-locally',
-      'contributors',
-      'deploy',
-      'license'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/inspire_aaoefb.mp4'
-  },
-  {
-    srcImage: '/templates/empower.webp',
-    altImage: 'Screenshot template Empower',
-    nameTemplate: 'Empower',
-    description:
-      'Empower your project with structured documentation. Facilitate setup, development, and future planning for a more impactful project.',
-    sections: [
-      'overview',
-      'table-contents',
-      'stack',
-      'setting-up',
-      'run-locally',
-      'roadmap',
-      'acknowledgements',
-      'changelog'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782241/easyreadme/templates/demos/emp_bkyg5x.mp4'
-  },
-  {
-    srcImage: '/templates/unleash.webp',
-    altImage: 'Screenshot template Pinnacle',
-    nameTemplate: 'Unleash',
-    description:
-      'Unleash the full potential of your project with a dynamic documentation hub. From setup to FAQs, empower your team for a seamless project journey.',
-    sections: [
-      'banner',
-      'badges',
-      'overview',
-      'table-contents',
-      'project-structure',
-      'prerequisites',
-      'run-locally',
-      'faq',
-      'roadmap',
-      'acknowledgements',
-      'license'
-    ],
-    srcVideo:
-      'https://res.cloudinary.com/xavimon/video/upload/q_auto/v1696782242/easyreadme/templates/demos/unleash_gicncc.mp4'
-  }
-]
-
-export const README_SECTIONS = {
-  banner: '🏞️ Banner',
-  stack: '💻 Stack',
-  'project-summary': '📝 Project Summary',
-  'setting-up': '⚙️ Setting Up',
-  'run-locally': '🚀 Run Locally',
-  contributors: '🙌 Contributors',
-  license: '📄 License',
-  'project-structure': '📁 Project Structure',
-  deploy: '☁️ Deploy',
-  roadmap: '🗺️ Roadmap',
-  acknowledgements: '🙏 Acknowledgements',
-  changelog: '📜 Changelog',
-  prerequisites: '✅ Prerequisites',
-  faq: '🤔 FAQ',
-  commands: '⚡ Commands',
-  'table-contents': '🔍 Table of Contents',
-  overview: '📌 Overview',
-  badges: '🛡️ Badges'
-}
-
 export const APP_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://easyreadme.vercel.app'
 
-export const RATE_LIMIT = 5
+export const RATE_LIMIT = 6
 
-export const DEFAULT_CONTENT = `<p style="text-align:center;">
-<img src='illustrations/process.svg' height="30%" width="30%" alt="Illustration" />
-</p>
+export const NODE_DEFAULT_VALUES: Record<string, { default: any }> = {
+  endPos: {
+    default: 0
+  }
+}
 
-<p></p>
-<p></p>
+export const COOKIE_NAME = 'apikey-ai'
 
-# ✨ Welcome to easyreadme
-
-Ready to create a stunning README for your project? 👀
-
-
-1. **Enter your GitHub Repository URL 🔗**.
-2. **Choose a template that suits your project 🤔**.
-3. **Click the Generate ⚡️ Button**.
-`
+export const DEFAULT_PREREQUISITES = [
+  {
+    id: 'Git',
+    url: 'https://git-scm.com/book/en/v2/Getting-Started-Installing-Git',
+    text: 'Download and install Git following the instructions for your operating system. To check that Git was installed successfully, run `git --version`.'
+  },
+  {
+    id: 'Visual Studio Code',
+    url: 'https://code.visualstudio.com/',
+    text: 'A lightweight powerful source code editor.'
+  }
+]

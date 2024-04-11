@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
-import { kv } from '@vercel/kv'
 import { Ratelimit } from '@upstash/ratelimit'
+import { kv } from '@vercel/kv'
+
 import { RATE_LIMIT } from '@/constants'
 import { addGeneration } from '@/services/kv-generation'
 

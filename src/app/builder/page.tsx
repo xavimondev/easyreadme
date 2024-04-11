@@ -1,15 +1,24 @@
-import { ReadmeBuilder } from '@/components/readme-builder'
-import { Sidebar } from '@/components/sidebar'
-
-export const dynamic = 'force-dynamic'
+import { AppLogo } from '@/components/app-logo'
+import { BuilderSections } from '@/components/builder-sections'
+import { CopyCodeButton } from '@/components/copy-code-button'
+import { GenerationInfo } from '@/components/generation-info'
+import { Header } from '@/components/header'
 
 export default function Builder() {
   return (
-    <main className='p-2 min-h-screen'>
-      <div className='h-full w-full grid grid-cols-1 md:grid-cols-[300px,_1fr] gap-3'>
-        <Sidebar />
-        <ReadmeBuilder />
-      </div>
-    </main>
+    <div className='p-2 min-h-screen'>
+      <Header>
+        <div className='flex flex-col sm:flex-row pb-2 sm:items-center sm:justify-between gap-2 sm:gap-0 w-full'>
+          <div className='hidden sm:flex items-center cursor-pointer text-white'>
+            <AppLogo />
+          </div>
+          <div className='flex gap-2 w-full sm:max-w-80'>
+            <GenerationInfo />
+            <CopyCodeButton />
+          </div>
+        </div>
+      </Header>
+      <BuilderSections />
+    </div>
   )
 }

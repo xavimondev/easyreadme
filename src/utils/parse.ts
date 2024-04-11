@@ -198,3 +198,62 @@ export const parseCargo = ({ content }: { content: string }) => {
     return null
   }
 }
+
+export const getWorkspacePnpmLock = ({ content }: { content: string }) => {
+  try {
+    // TODO: improve these regular expressions
+    const packagesBlockRegex = /packages:\s*\n((?:\s*-\s*["'].*?["']\s*\n?)*)/
+    const packageItemRegex = /-\s*["']([^"']+)["']/g
+
+    const packagesBlockMatch = content.match(packagesBlockRegex)
+    if (!packagesBlockMatch) {
+      return []
+    }
+
+    const packagesBlockContent = packagesBlockMatch[1]
+    const packageMatches = packagesBlockContent.matchAll(packageItemRegex)
+    const packages: string[] = []
+
+    // @ts-ignore
+    for (const match of packageMatches) {
+      const packageName = match[1]
+
+      if (!packageName.startsWith('!') && !packageName.startsWith('*')) {
+        const packageFormatted = packageName.replaceAll('*', '') as string
+        const exists = packages.find((pck) => packageFormatted.startsWith(pck))
+        if (!exists) {
+          packages.push(packageFormatted)
+        }
+      }
+    }
+
+    return packages
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const getWorkspacePackageJson = ({ content }: { content: string }): string[] | undefined => {
+  // TODO: validate when there's an object inside workspaces
+  const packages: string[] = []
+
+  try {
+    const contentParsed = JSON.parse(content)
+    const workspaces: string[] | undefined = contentParsed.workspaces
+
+    if (!workspaces || workspaces.length === 0) return
+
+    workspaces.forEach((workspace) => {
+      const condition = !workspace.startsWith('!') && !workspace.startsWith('*')
+      if (condition) {
+        const packageFormatted = workspace.replace(/\/\*+(\/\*+)*$/, '/')
+        const exists = packages.find((pck) => packageFormatted.startsWith(pck))
+        if (!exists) packages.push(packageFormatted)
+      }
+    })
+
+    return packages
+  } catch (error) {
+    console.error(error)
+  }
+}

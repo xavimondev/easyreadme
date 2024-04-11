@@ -1,22 +1,13 @@
+import { Tree, TreeFormatted, TypeFile } from '@/types/git'
+
+import { LANGUAGES_FILES_PARSERS, LANGUAGES_SETUP } from '@/constants'
 import {
-  CODESIZE_URL,
-  COMMIT_ACTIVITY_MONTH_URL,
-  CONTRIBUTORS_URL,
-  DEPLOYMENTS_URL,
-  DISCUSSIONS_URL,
-  FORKS_URL,
-  ISSUES_URL,
-  LAST_COMMIT_URL,
-  LICENSE_URL,
-  PULL_REQUESTS_URL,
-  STARS_URL,
-  TOP_LANGUAGE_URL,
-  WATCHERS_URL,
-  LANGUAGES_FILES_PARSERS,
-  LANGUAGES_SETUP
-} from '@/constants'
-import { getRepositoryStructure, getFileContents } from '@/services/github'
-import { BadgeName, Tree, TreeFormatted, TypeFile } from '@/types'
+  getFileContents,
+  getNestedPathsByDirectory,
+  getRepositoryStructure
+} from '@/services/github'
+
+import { getWorkspacePackageJson, getWorkspacePnpmLock } from './parse'
 
 export const getRepoNameAndOwnerFromUrl = ({ urlRepository }: { urlRepository: string }) => {
   const urlParts = urlRepository.split('/')
@@ -90,86 +81,20 @@ export const getRepositoryTreeDirectory = async ({
   repoName: string
   branch: string
 }) => {
-  const tree = await getRepositoryStructure({
+  const { data: tree, error } = await getRepositoryStructure({
     owner,
     repoName,
     branch
   })
-  if (!tree) return ''
-  const treeString = generateDirectoryTree({ tree })
-  return treeString
+  if (error) return { error }
+
+  const treeString = generateDirectoryTree({ tree: tree! })
+  return { data: treeString }
 }
 
 export const isValidGitHubRepositoryURL = ({ url }: { url: string }) => {
   const githubRepoRegex = /^https:\/\/github\.com\/[^/]+\/[^/]+(\/)?$/
   return githubRepoRegex.test(url)
-}
-
-export const getBadgeByName = ({
-  repoName,
-  owner,
-  badge
-}: {
-  repoName: string
-  owner: string
-  badge: BadgeName
-}) => {
-  const badgeOptions: Record<BadgeName, { label: string; url: string }> = {
-    forks: {
-      label: 'GitHub forks',
-      url: `${FORKS_URL}/${owner}/${repoName}`
-    },
-    codesize: {
-      label: 'GitHub code size in bytes',
-      url: `${CODESIZE_URL}/${owner}/${repoName}`
-    },
-    stars: {
-      label: 'GitHub stars',
-      url: `${STARS_URL}/${owner}/${repoName}`
-    },
-    watchers: {
-      label: 'GitHub watchers',
-      url: `${WATCHERS_URL}/${owner}/${repoName}`
-    },
-    contributors: {
-      label: 'GitHub contributors',
-      url: `${CONTRIBUTORS_URL}/${owner}/${repoName}`
-    },
-    last_commit: {
-      label: 'GitHub last commit',
-      url: `${LAST_COMMIT_URL}/${owner}/${repoName}`
-    },
-    license: {
-      label: 'GitHub license',
-      url: `${LICENSE_URL}/${owner}/${repoName}`
-    },
-    top_language: {
-      label: 'GitHub top language',
-      url: `${TOP_LANGUAGE_URL}/${owner}/${repoName}`
-    },
-    commit_activity_month: {
-      label: 'GitHub commit activity month',
-      url: `${COMMIT_ACTIVITY_MONTH_URL}/${owner}/${repoName}`
-    },
-    discussions: {
-      label: 'GitHub discussions',
-      url: `${DISCUSSIONS_URL}/${owner}/${repoName}`
-    },
-    issues: {
-      label: 'GitHub issues',
-      url: `${ISSUES_URL}/${owner}/${repoName}`
-    },
-    pull_requests: {
-      label: 'GitHub pull request',
-      url: `${PULL_REQUESTS_URL}/${owner}/${repoName}`
-    },
-    deployment: {
-      label: 'GitHub deployment',
-      url: `${DEPLOYMENTS_URL}/${owner}/${repoName}/production`
-    }
-  }
-
-  return badgeOptions[badge]
 }
 
 export const getDependencies = async ({
@@ -182,51 +107,196 @@ export const getDependencies = async ({
   repoName: string
   owner: string
   defaultBranch: string
-}): Promise<string | null> => {
+}): Promise<{ data?: string | undefined; error?: string | undefined }> => {
   try {
-    const languageSetup = LANGUAGES_SETUP.find((item) => item.language === language)
-    if (!languageSetup || languageSetup.fileDependencies.length === 0) {
-      return null
-    }
+    const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
+    if (!languageSetup || languageSetup.fileDependencies.length === 0) return { data: undefined }
 
     // return the tree
-    const tree = await getRepositoryStructure({
+    const { data: tree, error } = await getRepositoryStructure({
       repoName: repoName,
       owner: owner,
       branch: defaultBranch
     })
-    if (!tree) return null
+
+    if (error) return { error }
+
+    if (!tree) return { data: undefined }
 
     const fileDependencies = languageSetup.fileDependencies
     // Get only the first path found
     const fileFound = tree
       .filter((file) => file.type === TypeFile.Blob)
       .find((item) => fileDependencies.find((file) => item.path.includes(file)))
-    if (!fileFound) return null
+    if (!fileFound) return { data: undefined }
 
     const filePath = fileFound.path
     // once I have the path, fetch dependency file's contents
-    const fileDependenciesContent = await getFileContents({
+    const { data: fileDependenciesContent, error: errorContents } = await getFileContents({
       path: filePath,
       owner: owner,
       repoName: repoName
     })
-    if (!fileDependenciesContent) return null
+    if (errorContents) return { error: errorContents }
+    if (!fileDependenciesContent) return { data: undefined }
 
     const segments = filePath.split('/')
     const lastSegment = segments.at(-1) as string
     const parser = LANGUAGES_FILES_PARSERS[lastSegment.toLowerCase()]
     if (!parser) {
-      return null
+      return { data: undefined }
     }
 
     const dependencies = parser({ content: fileDependenciesContent })
 
     if (!dependencies) {
-      return null
+      return { data: undefined }
     }
-    return dependencies
+    return { data: dependencies }
   } catch (error) {
-    return null
+    return { error: 'An error has ocurred' }
   }
+}
+
+export const getPrerequisites = async ({
+  language,
+  repoName,
+  owner,
+  defaultBranch
+}: {
+  language: string
+  repoName: string
+  owner: string
+  defaultBranch: string
+}) => {
+  const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
+
+  if (!languageSetup) return { data: undefined }
+
+  // it means, it's a JavaScript project
+  if (languageSetup.lockFiles) {
+    const { data: tree, error } = await getRepositoryStructure({
+      repoName,
+      owner,
+      branch: defaultBranch
+    })
+
+    if (error) return { error }
+    if (!tree) return { data: undefined }
+
+    // Get only paths such as ['src/components/hello.tsx','package.json','pnpm-lock.yaml'...]
+    const paths = tree.filter((file) => file.type === TypeFile.Blob).map((file) => file.path)
+    // Checking the existence of package.json
+    const fileDependencies = languageSetup.fileDependencies.at(0) as string
+    const hasPackageJson = paths.some((path) => path.includes(fileDependencies))
+
+    if (!hasPackageJson) return { data: undefined }
+
+    const searchRuntime = ({ lockFile }: { lockFile: string }) => {
+      const param = lockFile === 'deno.lock' ? 'Deno' : 'Node'
+      return languageSetup.runtimes?.find((runtime) => runtime.id === param)
+    }
+
+    const lockFiles = languageSetup.lockFiles
+    const mappedLocks = lockFiles.map((filelock) => filelock.lockfile)
+
+    const lockFile = mappedLocks.find((lockFileName) =>
+      paths.some((path) => path.includes(lockFileName))
+    )
+
+    // If none of the lock files match any of the files in the directory, it'll return node by default
+    const rules = lockFiles.find((file) => {
+      const condition = !lockFile ? file.id === 'npm' : file.lockfile === lockFile
+      return condition
+    })
+
+    const runtime = searchRuntime({ lockFile: 'deno.lock' })
+
+    const res = {
+      rules,
+      runtime,
+      typescriptResource: language === 'TypeScript' ? languageSetup.typescriptResource : undefined
+    }
+
+    return { data: res }
+  }
+
+  // other programming languages
+  return {
+    data: {
+      rules: languageSetup.installation
+    }
+  }
+}
+
+export const getMonorepoData = async ({
+  language,
+  repoName,
+  owner,
+  defaultBranch
+}: {
+  language: string
+  repoName: string
+  owner: string
+  defaultBranch: string
+}) => {
+  const languageSetup = LANGUAGES_SETUP.find((item) => item.languages.includes(language))
+
+  if (!languageSetup) return { data: undefined }
+
+  const { data: tree, error } = await getRepositoryStructure({
+    repoName,
+    owner,
+    branch: defaultBranch
+  })
+
+  if (error) return { error }
+  if (!tree) return { data: undefined }
+
+  const paths = tree.filter((file) => file.type === TypeFile.Blob).map((file) => file.path)
+
+  const lockFiles = languageSetup.lockFiles!
+
+  const lockFile = lockFiles.find((lockFile) =>
+    paths.some((path) => path.includes(lockFile.lockfile))
+  )
+
+  const workspaceFile = lockFile?.id === 'pnpm' ? 'pnpm-workspace.yaml' : 'package.json'
+  const pathUrl = paths.find((path) => path === workspaceFile)
+
+  if (!pathUrl) return { data: undefined }
+
+  // once I have the path, fetch dependency file's contents
+  const { data: fileDependenciesContent, error: errorContents } = await getFileContents({
+    path: pathUrl,
+    owner: owner,
+    repoName: repoName
+  })
+
+  if (errorContents) return { error: errorContents }
+  if (!fileDependenciesContent) return { data: undefined }
+
+  const workspaces =
+    lockFile?.id === 'pnpm'
+      ? getWorkspacePnpmLock({ content: fileDependenciesContent })
+      : getWorkspacePackageJson({ content: fileDependenciesContent })
+
+  if (!workspaces || workspaces.length === 0) return { data: undefined }
+
+  const workspacesContent = await Promise.all(
+    workspaces.map(async (workspace) => {
+      const paths = await getNestedPathsByDirectory({
+        path: workspace,
+        owner: owner,
+        repoName: repoName
+      })
+
+      return {
+        name: workspace,
+        nested: paths
+      }
+    })
+  )
+
+  return { data: workspacesContent }
 }

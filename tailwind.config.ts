@@ -17,6 +17,10 @@ const config: Config = {
       }
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)']
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -91,13 +95,49 @@ const config: Config = {
         'slide-in-right': {
           from: { transform: 'translate3d(100%, 0, 0)', visibility: 'visible' },
           to: { transform: 'translate3d(0, 0, 0)' }
+        },
+        'border-width': {
+          from: {
+            width: '10px',
+            opacity: '0'
+          },
+          to: {
+            width: '100px',
+            opacity: '1'
+          }
+        },
+        'blurred-fade-in': {
+          '0%': { filter: 'blur(10px)', opacity: '0' },
+          '100%': { filter: 'blur(0)', opacity: '1' }
+        },
+        'drop-bounce': {
+          '0%': { transform: 'translateY(-100px) rotate(var(--initial))' },
+          '50%': { transform: 'translateY(var(--step)) scaleY(0.9)' },
+          '100%': { transform: 'translateY(var(--y)) scaleY(1) rotate(var(--rotation))' }
+        },
+        'tilt-shaking': {
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(5deg)' },
+          '50%': { transform: 'rotate(0eg)' },
+          '75%': { transform: 'rotate(-5deg)' },
+          '100%': { transform: 'rotate(0deg)' }
+        },
+        'fade-slide': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1' }
         }
       },
       animation: {
         'increase-text': 'increase-text 1s linear forwards',
         'enter-in-view': 'enter-in-view .3s forwards',
         'fade-in': 'fade-in 1s both',
-        'slide-in-right': 'slide-in-right .6s linear'
+        'beauty-fade-in': 'fade-in 1.2s both var(--delay,0.4s)',
+        'slide-in-right': 'slide-in-right .6s linear',
+        'border-width': 'border-width 3s infinite alternate',
+        'blurred-fade-in': 'blurred-fade-in 0.4s ease-in-out both',
+        'drop-bounce': 'drop-bounce 1.5s ease-in-out both var(--duration)',
+        shaking: 'tilt-shaking 0.30s infinite',
+        'fade-slide': 'fade-slide 0.3s forwards'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

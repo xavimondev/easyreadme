@@ -1,105 +1,80 @@
 'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { DEFAULT_TEMPLATES, README_SECTIONS } from '@/constants'
-import { Template } from '@/types'
+
+import { Dispatch, SetStateAction, useState } from 'react'
+import { LIST_TEMPLATES } from '@/templates'
+
+import { NodeName } from '@/types/builder'
+import { NameTemplate, Template } from '@/types/readme'
+
 import { cn } from '@/lib/utils'
 import { useBuilder } from '@/store'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
+import { Badge } from '@/components/ui/badge'
 
-export function TemplateItem({
-  srcImage,
-  altImage,
-  nameTemplate,
-  authorTemplate,
-  urlAuthor,
-  sections,
-  description,
-  srcVideo
-}: Template) {
-  const templateSelected = useBuilder((state) => state.templateSelected)
-  const setTemplateSelected = useBuilder((state) => state.setTemplateSelected)
-  const isSelected = templateSelected === nameTemplate
+type TemplateItemProps = {
+  template: Template
+  buildTemplate: () => Promise<void>
+  isSelected: boolean
+  setTemplateSelected: Dispatch<SetStateAction<NameTemplate>>
+}
+
+export function TemplateItem({ template, isSelected, setTemplateSelected }: TemplateItemProps) {
+  const setSectionsFromTemplates = useBuilder((state) => state.setSectionsFromTemplates)
+  const { nameTemplate, description, tags } = template
+  const sections = LIST_TEMPLATES.find(
+    ({ nameTemplate }) => nameTemplate === template.nameTemplate
+  )!.sections as NodeName[]
 
   return (
-    <HoverCard openDelay={200} closeDelay={0}>
-      <HoverCardTrigger asChild>
-        <div
-          className='w-full rounded-md overflow-hidden cursor-pointer'
-          onClick={() => setTemplateSelected(nameTemplate)}
-        >
-          <figure>
-            <Image
-              src={srcImage}
-              alt={altImage}
-              width={500}
-              height={500}
-              priority={nameTemplate === 'Minimal'}
-              className={cn(
-                'w-full h-[220px] rounded-md object-cover border border-gray-300 dark:border-none',
-                {
-                  'border-2 border-sky-600': isSelected
-                }
-              )}
-            />
-            <figcaption
-              className={cn('text-gray-400 mt-2 text-center italic font-semibold', {
-                'text-sky-600': isSelected
-              })}
-            >
-              {nameTemplate}
-              {authorTemplate && urlAuthor && (
-                <>
-                  by{' '}
-                  <Link href={urlAuthor} className='underline underline-offset-1'>
-                    {authorTemplate}
-                  </Link>
-                </>
-              )}
-            </figcaption>
-          </figure>
+    <div
+      className={cn(
+        'w-full rounded-md flex flex-col items-start gap-3 border p-3 text-left transition-all hover:bg-accent cursor-pointer',
+        isSelected && 'bg-muted'
+      )}
+      onClick={async () => {
+        setTemplateSelected(nameTemplate)
+        setSectionsFromTemplates(sections)
+      }}
+    >
+      <div className='flex items-center'>
+        <div className='flex items-center gap-2'>
+          <h2 className='font-semibold'>{nameTemplate}</h2>
         </div>
-      </HoverCardTrigger>
-      <HoverCardContent className='w-80 min-w-[450px] h-full' align='start' side='right'>
-        <div className='overflow-hidden w-full h-full mb-2'>
-          <video
-            controls
-            muted
-            poster='/video-fallback.webp'
-            controlsList='nofullscreen nodownload noremoteplayback noplaybackrate foobar'
-          >
-            <source src={srcVideo} type='video/webm' />
-          </video>
-        </div>
-        <div className='flex flex-col gap-4'>
-          <h4 className='font-medium leading-none'>{nameTemplate}</h4>
-          <p className='text-sm text-muted-foreground'>{description}</p>
-          {sections && sections.length > 0 && (
-            <div className='flex flex-col gap-2'>
-              <span className='font-medium'>Sections({sections.length}):</span>
-              <ul className='text-sm list-disc list-inside space-y-1'>
-                {sections.map((section) => {
-                  const sectionName = README_SECTIONS[section]
-                  return (
-                    <li key={section} className='text-muted-foreground'>
-                      {sectionName}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
-      </HoverCardContent>
-    </HoverCard>
+      </div>
+      <div className='line-clamp-2 text-sm text-muted-foreground'>{description}</div>
+      <div className='flex items-center gap-2 text-xs'>
+        {tags.map((tag) => {
+          return (
+            <Badge key={tag} variant='secondary'>
+              {tag}
+            </Badge>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 
-export function ListTemplates() {
+type ListTemplatesProps = {
+  mobileCloseFunction?: VoidFunction
+}
+
+export function ListTemplates({ mobileCloseFunction }: ListTemplatesProps) {
+  const [templateSelected, setTemplateSelected] = useState<NameTemplate>('Minimal')
+
+  const buildTemplateHandle = async () => {
+    mobileCloseFunction && mobileCloseFunction()
+  }
+
   return (
-    <div className='flex flex-col gap-6'>
-      {DEFAULT_TEMPLATES.map((template: Template) => (
-        <TemplateItem key={template.nameTemplate} {...template} />
+    <div className='flex flex-col gap-3 px-3.5'>
+      {LIST_TEMPLATES.map((template: Template) => (
+        <TemplateItem
+          key={template.nameTemplate}
+          template={template}
+          buildTemplate={buildTemplateHandle}
+          isSelected={templateSelected === template.nameTemplate}
+          setTemplateSelected={setTemplateSelected}
+        />
       ))}
     </div>
   )
