@@ -24,6 +24,8 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 
 ## 🔍 Table of Contents
 
+- [❤️ Features](#features)
+
 - [💻 Stack](#stack)
 
 - [📝 Project Summary](#project-summary)
@@ -38,7 +40,56 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 
 - [📄 License](#license)
 
-## 💻 Stack
+## Features
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/c17b1b2e-15ce-494d-a5f6-01cd3a33e7d4" type="video/mp4">
+</video>
+
+### List of Templates
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/db0e33dd-a0d5-49b1-95ad-b2750a381f2c" type="video/mp4">
+</video>
+
+### Customize README
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/5b023d26-8cef-47ac-80e3-14d9625ff9f5" type="video/mp4">
+</video>
+
+### AI sections
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/75283477-aaa5-46cd-9bc2-7ba51ef48f59" type="video/mp4">
+</video
+
+### Inline Commands
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/dcc523c5-5d1a-4694-be14-845c70c578a1" type="video/mp4">
+</video>
+
+### Bubble Menu
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/c57eb746-3e38-403f-b47b-faf6b7155596" type="video/mp4">
+</video>
+
+### Editable Banner Image URL
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/b3ee71e5-3283-40ea-82d9-01f55e2afac8" type="video/mp4">
+</video>
+
+### Free AI Credits, Custom API Key, Local Run
+
+<video width="100%" height="100%" controls={false}>
+  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/ce5a4bda-34fc-4464-a898-8449c04d2902" type="video/mp4">
+</video>
+
+
+## Stack
 
 - [next](https://nextjs.org/): A framework for building server-rendered React applications.
 - [react](https://reactjs.org/): A JavaScript library for building user interfaces.
@@ -52,7 +103,7 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - [zustand](https://github.com/pmndrs/zustand): A small, fast, and scalable state management library.
 - [lucide](https://lucide.dev/): Beautiful & consistent icons.
 
-## 📝 Project Summary
+## Project Summary
 
 - [**src**](src): Primary source code directory.
 - [**src/app**](src/app): Contains the main application logic and components.
@@ -65,7 +116,7 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - [**src/utils**](src/utils): Miscellaneous utility functions.
 - [**public**](public): Public directory for static assets and build output.
 
-## ⚙️ Setting Up
+## Setting Up
 
 #### OPENAI_API_KEY
 
@@ -96,7 +147,7 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - Download [Ollama](https://ollama.com/download) and have it running.
 - If your instance of Ollama is not running on the default ip-address and port, change the variable in the .env.example file to fit your usecase
 
-## 🚀 Run Locally
+## Run Locally
 
 1.Clone the easyreadme repository:
 
@@ -140,16 +191,16 @@ yarn dev
 > 
 > Despite having a template for NPM Packages, there's still much work to be done and research on how to get the correct types from packages.
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [ ] **Add support for more programming languages.**
 - [ ] **Add "with emojis" option.**
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - The sparkles animation were taken from this [great resource](https://www.joshwcomeau.com/react/animated-sparkles-in-react/) created by **Josh W. Comeau**
 - The confetti around the "Copy Code" button was created using the [Lucide web](https://github.com/lucide-icons/lucide/blob/main/docs/.vitepress/theme/components/icons/confetti.css) as a reference.
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see the [**MIT License**](https://github.com/xavimondev/easyreadme/blob/main/LICENSE) file for details.
