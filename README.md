@@ -42,15 +42,12 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 
 ## Features
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/c17b1b2e-15ce-494d-a5f6-01cd3a33e7d4" type="video/mp4">
-</video>
+[![introduction]](https://github.com/xavimondev/easyreadme/assets/68721455/c17b1b2e-15ce-494d-a5f6-01cd3a33e7d4)
 
 ### List of Templates
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/db0e33dd-a0d5-49b1-95ad-b2750a381f2c" type="video/mp4">
-</video>
+[![list-templates]](https://github.com/xavimondev/easyreadme/assets/68721455/db0e33dd-a0d5-49b1-95ad-b2750a381f2c)
+
 
 ### Customize README
 
