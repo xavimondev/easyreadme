@@ -48,43 +48,29 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 
 [![list-templates]](https://github.com/xavimondev/easyreadme/assets/68721455/db0e33dd-a0d5-49b1-95ad-b2750a381f2c)
 
-
 ### Customize README
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/5b023d26-8cef-47ac-80e3-14d9625ff9f5" type="video/mp4">
-</video>
+[![customize]](https://github.com/xavimondev/easyreadme/assets/68721455/5b023d26-8cef-47ac-80e3-14d9625ff9f5)
 
 ### AI sections
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/75283477-aaa5-46cd-9bc2-7ba51ef48f59" type="video/mp4">
-</video
+[![ai-sections]](https://github.com/xavimondev/easyreadme/assets/68721455/75283477-aaa5-46cd-9bc2-7ba51ef48f59)
 
 ### Inline Commands
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/dcc523c5-5d1a-4694-be14-845c70c578a1" type="video/mp4">
-</video>
+[![inline-commands]](https://github.com/xavimondev/easyreadme/assets/68721455/dcc523c5-5d1a-4694-be14-845c70c578a1)
 
 ### Bubble Menu
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/c57eb746-3e38-403f-b47b-faf6b7155596" type="video/mp4">
-</video>
+[![bubble-menu]](https://github.com/xavimondev/easyreadme/assets/68721455/c57eb746-3e38-403f-b47b-faf6b7155596)
 
 ### Editable Banner Image URL
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/b3ee71e5-3283-40ea-82d9-01f55e2afac8" type="video/mp4">
-</video>
+[![editable-banner]](https://github.com/xavimondev/easyreadme/assets/68721455/b3ee71e5-3283-40ea-82d9-01f55e2afac8)
 
 ### Free AI Credits, Custom API Key, Local Run
 
-<video width="100%" height="100%" controls={false}>
-  <source src="https://github.com/xavimondev/easyreadme/assets/68721455/ce5a4bda-34fc-4464-a898-8449c04d2902" type="video/mp4">
-</video>
-
+[![credits]](https://github.com/xavimondev/easyreadme/assets/68721455/ce5a4bda-34fc-4464-a898-8449c04d2902)
 
 ## Stack
 
