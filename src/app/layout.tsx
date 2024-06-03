@@ -7,8 +7,6 @@ import { APP_URL } from '@/constants'
 import '../styles/globals.css'
 import '../styles/confetti.css'
 
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import { Toaster } from 'sonner'
 
 const title = 'Easyreadme - IA Powered README Builder'
@@ -38,11 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang='en'
-      suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} dark`}
-    >
+    <html lang='en' suppressHydrationWarning className='dark'>
       <body>
         {children}
         <Analytics />

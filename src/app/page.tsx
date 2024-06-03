@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { PenLine } from 'lucide-react'
 
 import { AppLogo } from '@/components/app-logo'
 import { Hero } from '@/components/hero'
@@ -9,51 +10,59 @@ import { Sparkles } from '@/components/sparkles'
 export default function Home() {
   return (
     <>
-      <div className='absolute inset-0 -z-10 size-full bg-transparent bg-[radial-gradient(#e5e7eb_-4px,transparent_1px)] [background-size:18px_18px]'></div>
-      <div className='h-screen flex flex-col max-w-4xl lg:max-w-7xl xl:max-w-[96rem] mx-auto'>
-        <header className='sticky top-0 px-8 xl:px-20 py-2'>
+      <div className='absolute size-full bg-transparent'>
+        <div className='size-full bg-[radial-gradient(#101010_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]'></div>
+      </div>
+      <div className='h-screen flex flex-col'>
+        <header className='sticky top-0 px-8 xl:px-20 py-2 w-full'>
           <div className='flex h-14 items-center justify-between'>
-            <div className='flex items-center cursor-pointer text-white'>
+            <div className='hidden sm:flex items-center cursor-pointer text-white'>
               <AppLogo />
             </div>
-            <div className='flex gap-2 items-center'>
+            <div className='flex gap-2 items-center justify-between w-full sm:w-auto'>
               <Link
+                className='flex px-4 py-2 bg-[#171524] dark:hover:bg-[#27263b] text-zinc-300 hover:bg-primary/90 rounded-md font-medium transition-colors animate-fade-in text-sm border'
+                href='/builder'
+              >
+                <PenLine className='size-5 mr-2' />
+                <span>Build a Readme</span>
+              </Link>
+              <a
                 aria-label='View app repository on GitHub'
-                href='https://github.com/xavimondev/readme-creator'
+                href='https://github.com/xavimondev/easyreadme'
                 target='_blank'
                 rel='noreferrer'
-                className='rounded-md p-2.5 hover:bg-accent transition-colors ease-out'
+                className='rounded-md p-2.5 hover:bg-accent transition-colors duration-300 z-10 bg-[#171524] dark:hover:bg-[#27263b]'
               >
-                <GitIc className='size-5 text-black dark:text-white' />
-              </Link>
+                <GitIc className='size-5 bg-transparent' />
+              </a>
             </div>
           </div>
         </header>
-        <main className='flex items-center flex-grow px-8 xl:px-20 mt-4 sm:mt-0'>
-          <section className='size-full flex gap-2 items-center'>
-            <Hero />
-            <ListFeatures />
-          </section>
-        </main>
-        <footer className='w-full flex items-center justify-center'>
-          <div className='text-center py-4 sm:py-3.5 px-6'>
-            <span className='text-gray-500 dark:text-purple-200 text-base sm:text-lg'>
-              Built with 💜 by{' '}
-              <Sparkles color='#FFC700'>
-                <a
-                  href='https://twitter.com/xavimonp'
-                  rel='noopener'
-                  target='_blank'
-                  className='underline underline-offset-4'
-                >
-                  xavimon
-                </a>
-              </Sparkles>
-            </span>
+        <main className='flex items-center flex-grow px-8 xl:px-11 w-full sm:max-w-5xl mx-auto'>
+          <div className='flex items-center'>
+            <section className='size-full flex flex-col gap-10'>
+              <ListFeatures />
+              <Hero />
+            </section>
           </div>
+        </main>
+        <footer className='w-full flex items-center justify-center px-8 xl:px-20 py-2'>
+          <span className='text-purple-100 text-base'>
+            Built with 💜 by{' '}
+            <Sparkles color='#FFC700'>
+              <a
+                href='https://twitter.com/xavimonp'
+                rel='noopener'
+                target='_blank'
+                className='underline underline-offset-4'
+              >
+                xavimon
+              </a>
+            </Sparkles>
+          </span>
         </footer>
       </div>
-      <div className='absolute border-t border-gray-400 border-opacity-50 dark:border-opacity-20 bottom-14 w-full h-0.5'></div>
     </>
   )
 }

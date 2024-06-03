@@ -24,7 +24,7 @@ type BuilderState = {
   setRange: (range: Range) => void
   sectionsFromTemplates: NodeName[]
   setSectionsFromTemplates: (sectionsTemplate: NodeName[]) => void
-  featureSelected: FeatureSelected | undefined
+  featureSelected: FeatureSelected
   setFeatureSelected: (feature: FeatureSelected) => void
   queue: Queue
   addJobToQueue: (job: JobSection | JobSection[]) => void
@@ -43,7 +43,11 @@ export const useBuilder = create<BuilderState>()((set, get) => ({
   moduleSelected: 'templates',
   range: undefined,
   sectionsFromTemplates: DEFAULT_INITIAL_SECTIONS,
-  featureSelected: undefined,
+  featureSelected: {
+    title: 'AI',
+    description: 'Reduce complexity and enhance productivity effortlessly with AI.',
+    textColorTitle: 'from-yellow-100 to-yellow-700'
+  },
   queue: INITIAL_QUEUE,
   toastId: undefined,
   setGitRepositoryData: (data) => set({ gitRepositoryData: data }),

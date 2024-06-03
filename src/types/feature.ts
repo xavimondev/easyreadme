@@ -5,5 +5,4 @@ export type Feature = {
   background: string
   textColorCard: string
   textColorTitle: string
-  emojiUrl: string
 }
