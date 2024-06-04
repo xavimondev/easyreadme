@@ -39,13 +39,11 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <main className='flex items-center flex-grow px-8 xl:px-11 w-full sm:max-w-5xl mx-auto'>
-          <div className='flex items-center'>
-            <section className='size-full flex flex-col gap-10'>
-              <ListFeatures />
-              <Hero />
-            </section>
-          </div>
+        <main className='size-full flex px-8 xl:px-11 sm:max-w-5xl mx-auto mt-20 sm:mt-48'>
+          <section className='size-full flex flex-col gap-10'>
+            <ListFeatures />
+            <Hero />
+          </section>
         </main>
         <footer className='w-full flex items-center justify-center px-8 xl:px-20 py-2'>
           <span className='text-purple-100 text-base'>
