@@ -1,6 +1,7 @@
 import { type Editor, type Range } from '@tiptap/core'
 import { create } from 'zustand'
 
+import { AIProvider } from '@/types/ai'
 import { NodeName, Section } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 import { JobSection, Queue, Status } from '@/types/queue'
@@ -32,6 +33,8 @@ type BuilderState = {
   clearQueue: () => void
   toastId: number | undefined
   setToastId: (toastId: number | undefined) => void
+  providerAISelected: AIProvider | undefined
+  setProviderAISelected: (provider: AIProvider) => void
 }
 
 const INITIAL_QUEUE = { isProcessing: false, jobs: [] }
@@ -50,6 +53,7 @@ export const useBuilder = create<BuilderState>()((set, get) => ({
   },
   queue: INITIAL_QUEUE,
   toastId: undefined,
+  providerAISelected: undefined,
   setGitRepositoryData: (data) => set({ gitRepositoryData: data }),
   setGitUrlRepository: (url) => set({ gitUrlRepository: url }),
   setReadmeEditor: (editor) => set({ readmeEditor: editor }),
@@ -79,7 +83,8 @@ export const useBuilder = create<BuilderState>()((set, get) => ({
       }
     })
   },
-  setToastId: (toastId) => set({ toastId })
+  setToastId: (toastId) => set({ toastId }),
+  setProviderAISelected: (provider) => set({ providerAISelected: provider })
 }))
 
 useBuilder.subscribe((state, prevValues) => {
