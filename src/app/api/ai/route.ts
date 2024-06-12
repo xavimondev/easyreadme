@@ -1,13 +1,24 @@
 import { NextResponse } from 'next/server'
 
+import { AIProvider } from '@/types/ai'
+
 import { generateCompletionLocal } from '@/utils/local-generation'
-import { generateCompletionOpenAi, handleGenerationErrors } from '@/utils/prod-generation'
+import {
+  generateCompletionMistral,
+  generateCompletionMistralCloud,
+  generateCompletionOpenAi,
+  handleGenerationErrors
+} from '@/utils/prod-generation'
 
 export const runtime = 'edge'
 
 export async function POST(req: Request) {
   try {
-    const { format, prompt } = await req.json()
+    const { format, prompt, providerAISelected } = (await req.json()) as {
+      format: string
+      prompt: string
+      providerAISelected: AIProvider | undefined
+    }
     let data = undefined
     if (process.env.NODE_ENV === 'development') {
       data = await generateCompletionLocal({
@@ -16,24 +27,34 @@ export async function POST(req: Request) {
         format
       })
     } else {
-      if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === '') {
-        return NextResponse.json(
-          {
-            data: undefined,
-            error: 'Missing OPENAI_API_KEY – make sure to add it to your .env file.'
-          },
-          { status: 400 }
-        )
+      // console.log('providerAISelected', providerAISelected)
+      if (providerAISelected === undefined) {
+        data = await generateCompletionMistralCloud({
+          prompt,
+          format
+        })
+        return NextResponse.json({ data, error: undefined })
       }
 
-      data = await generateCompletionOpenAi({
-        model: 'gpt-3.5-turbo',
-        prompt,
-        format
-      })
+      if (providerAISelected === 'OpenAI') {
+        data = await generateCompletionOpenAi({
+          prompt,
+          format
+        })
+      } else {
+        data = await generateCompletionMistral({
+          prompt,
+          format
+        })
+      }
+      if (!data) {
+        return NextResponse.json({ error: 'Missing API_KEY – make sure to add it.' })
+      }
+      // console.log(data)
     }
     return NextResponse.json({ data, error: undefined })
   } catch (error) {
+    console.log(error)
     const res = handleGenerationErrors({ error })
     const { errorData, status } = res
     return NextResponse.json(errorData, status)

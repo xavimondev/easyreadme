@@ -1,3 +1,4 @@
+import { AIProvider } from '@/types/ai'
 import { GitRepository, Tree } from '@/types/git'
 
 import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
@@ -87,17 +88,20 @@ export const getRepositoryData = async ({ urlRepository }: { urlRepository: stri
 
 export const getGenerationAI = async ({
   format,
-  prompt
+  prompt,
+  providerAISelected
 }: {
   format: 'json' | 'string'
   prompt: string
+  providerAISelected: AIProvider
 }) => {
   try {
     const request = await fetch('/api/ai', {
       method: 'POST',
       body: JSON.stringify({
         format,
-        prompt
+        prompt,
+        providerAISelected
       }),
       headers: {
         'Content-type': 'application/json'

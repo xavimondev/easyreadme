@@ -4,6 +4,7 @@ import { README_SECTIONS_DATA } from '@/sections'
 import { toast } from 'sonner'
 import { useShallow } from 'zustand/react/shallow'
 
+import { AIProvider } from '@/types/ai'
 import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 import { JobSection } from '@/types/queue'
@@ -30,7 +31,8 @@ export function useReadme() {
     addJobToQueue,
     clearQueue,
     toastId,
-    setToastId
+    setToastId,
+    providerAISelected
   ] = useBuilder(
     useShallow((state) => [
       state.listSections,
@@ -44,7 +46,8 @@ export function useReadme() {
       state.addJobToQueue,
       state.clearQueue,
       state.toastId,
-      state.setToastId
+      state.setToastId,
+      state.providerAISelected
     ])
   )
   const { mutate } = useRemaining()
@@ -204,7 +207,11 @@ export function useReadme() {
       // @ts-ignore
       result = DEFAULT_DATA_CACHED[section]
     } else {
-      const res = await readmeFactory({ repositoryData, section })
+      const res = await readmeFactory({
+        repositoryData,
+        section,
+        providerAISelected: providerAISelected as AIProvider
+      })
       if (!res) {
         result = undefined
       } else {
