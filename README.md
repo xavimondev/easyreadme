@@ -20,7 +20,7 @@
 ## 📌 Overview
 
 Easyreadme is a project that simplifies README creation by generating visually stunning READMEs using pre-designed templates and AI. It supports generating READMEs for JavaScript/TypeScript, Rust, Java, Go, PHP, and Python projects.
-It relies on a wide range of technologies and libraries including React, Tailwind CSS, Tiptap, OpenAI, and more.
+It relies on a wide range of technologies and libraries including React, Tailwind CSS, Tiptap, Mistral, OpenAI, and more.
 
 ## 🔍 Table of Contents
 
@@ -100,14 +100,6 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - [**public**](public): Public directory for static assets and build output.
 
 ## Setting Up
-
-#### OPENAI_API_KEY
-
-- Go to the [OpenAI website](https://openai.com/).
-- Sign in to your account or create a new one.
-- Navigate to your [API settings](https://platform.openai.com/account/api-keys).
-- Generate an Secret key.
-- Copy the generated Secret key.
 
 #### GITHUB_ACCESS_TOKEN
 
