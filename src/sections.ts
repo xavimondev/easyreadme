@@ -98,7 +98,7 @@ export const README_SECTIONS_DATA: Section[] = [
         content: [{ type: 'text', text: `Insert your project's summary.` }]
       }
 
-      if (summary.length > 0) {
+      if (summary && summary.length > 0) {
         const listItems: any = []
         summary.forEach((item: any) => {
           const { name, link, description } = item
