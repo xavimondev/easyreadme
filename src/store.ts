@@ -9,8 +9,6 @@ import { ModuleType } from '@/types/sidebar'
 
 import { DEFAULT_INITIAL_SECTIONS, README_SECTIONS_DATA } from './sections'
 
-type FeatureSelected = { title: string; description: string; textColorTitle: string }
-
 type BuilderState = {
   listSections: Section[]
   gitRepositoryData: GitRepository | undefined
@@ -25,8 +23,6 @@ type BuilderState = {
   setRange: (range: Range) => void
   sectionsFromTemplates: NodeName[]
   setSectionsFromTemplates: (sectionsTemplate: NodeName[]) => void
-  featureSelected: FeatureSelected
-  setFeatureSelected: (feature: FeatureSelected) => void
   queue: Queue
   addJobToQueue: (job: JobSection | JobSection[]) => void
   updateStatusJobs: (sectionId: string, status: Status, isProcessing: boolean) => void
@@ -46,11 +42,6 @@ export const useBuilder = create<BuilderState>()((set, get) => ({
   moduleSelected: 'templates',
   range: undefined,
   sectionsFromTemplates: DEFAULT_INITIAL_SECTIONS,
-  featureSelected: {
-    title: 'AI',
-    description: 'Reduce complexity and enhance productivity effortlessly with AI.',
-    textColorTitle: 'from-yellow-100 to-yellow-700'
-  },
   queue: INITIAL_QUEUE,
   toastId: undefined,
   providerAISelected: undefined,
@@ -60,7 +51,6 @@ export const useBuilder = create<BuilderState>()((set, get) => ({
   setModuleSelected: (moduleSelected) => set({ moduleSelected }),
   setRange: (range) => set({ range }),
   setSectionsFromTemplates: (sections) => set({ sectionsFromTemplates: sections }),
-  setFeatureSelected: (feature) => set({ featureSelected: feature }),
   clearQueue: () => set({ queue: INITIAL_QUEUE }),
   addJobToQueue: (job) => {
     set((prevValues) => ({

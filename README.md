@@ -181,7 +181,6 @@ yarn dev
 
 ## Acknowledgments
 
-- The sparkles animation were taken from this [great resource](https://www.joshwcomeau.com/react/animated-sparkles-in-react/) created by **Josh W. Comeau**
 - The confetti around the "Copy Code" button was created using the [Lucide web](https://github.com/lucide-icons/lucide/blob/main/docs/.vitepress/theme/components/icons/confetti.css) as a reference.
 
 ## License
