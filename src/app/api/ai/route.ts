@@ -2,13 +2,7 @@ import { NextResponse } from 'next/server'
 
 import { AIProvider } from '@/types/ai'
 
-import { generateCompletionLocal } from '@/utils/local-generation'
-import {
-  generateCompletionMistral,
-  generateCompletionMistralCloud,
-  generateCompletionOpenAi,
-  handleGenerationErrors
-} from '@/utils/prod-generation'
+import { generateCompletion, getAIModel, handleGenerationErrors } from '@/utils/prod-generation'
 
 export const runtime = 'edge'
 
@@ -19,39 +13,19 @@ export async function POST(req: Request) {
       prompt: string
       providerAISelected: AIProvider | undefined
     }
-    let data = undefined
-    if (process.env.NODE_ENV === 'development') {
-      data = await generateCompletionLocal({
-        model: 'llama2:latest',
-        prompt,
-        format
-      })
-    } else {
-      // console.log('providerAISelected', providerAISelected)
-      if (providerAISelected === undefined) {
-        data = await generateCompletionMistralCloud({
-          prompt,
-          format
-        })
-        return NextResponse.json({ data, error: undefined })
-      }
 
-      if (providerAISelected === 'OpenAI') {
-        data = await generateCompletionOpenAi({
-          prompt,
-          format
-        })
-      } else {
-        data = await generateCompletionMistral({
-          prompt,
-          format
-        })
-      }
-      if (!data) {
-        return NextResponse.json({ error: 'Missing API_KEY – make sure to add it.' })
-      }
-      // console.log(data)
+    // console.log({ format, prompt, providerAISelected })
+    const aiModel = getAIModel({ provider: providerAISelected })
+    if (!aiModel) {
+      return NextResponse.json({ error: 'Missing API_KEY – make sure to add it.' })
     }
+
+    const data = await generateCompletion({
+      model: aiModel,
+      prompt,
+      format
+    })
+
     return NextResponse.json({ data, error: undefined })
   } catch (error) {
     console.log(error)

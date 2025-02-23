@@ -23,7 +23,6 @@ export const generateCompletionLocal = async ({
     }
   })
   const data = await res.json()
-  // console.log(JSON.parse(data.response))
   const result = format === 'json' ? JSON.parse(data.response) : data.response
   return result
 }

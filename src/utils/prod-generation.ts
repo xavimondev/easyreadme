@@ -1,62 +1,54 @@
 import { cookies } from 'next/headers'
-import { createMistral, mistral } from '@ai-sdk/mistral'
-import { createOpenAI } from '@ai-sdk/openai'
-import { generateText } from 'ai'
+import { createMistral, MistralProvider, mistral as originalMistral } from '@ai-sdk/mistral'
+import { createOpenAI, OpenAIProvider } from '@ai-sdk/openai'
+import { customProvider, generateText, LanguageModelV1 } from 'ai'
+
+import { AIProvider } from '@/types/ai'
 
 import { COOKIE_NAME } from '@/constants'
 
-export const generateCompletionOpenAi = async ({
-  prompt,
-  format
-}: {
-  prompt: string
-  format: string
-}) => {
-  const userEnteredApiKey = cookies().get(COOKIE_NAME)?.value
-  if (!userEnteredApiKey || userEnteredApiKey.trim().length === 0) return
+export function getAIModel({ provider }: { provider: AIProvider | undefined }) {
+  let defaultProvider: MistralProvider | OpenAIProvider = originalMistral
+  let defaultModel = 'mistral-small-latest'
 
-  const openai = createOpenAI({
-    compatibility: 'strict',
-    apiKey: userEnteredApiKey
+  if (provider) {
+    const userEnteredApiKey = cookies().get(COOKIE_NAME)?.value
+    if (!userEnteredApiKey || userEnteredApiKey.trim().length === 0) return
+
+    if (provider === 'Mistral') {
+      defaultProvider = createMistral({
+        apiKey: userEnteredApiKey
+      })
+    } else {
+      defaultProvider = createOpenAI({
+        apiKey: userEnteredApiKey
+      })
+      defaultModel = 'openai-gpt4'
+    }
+  }
+
+  const customModel = customProvider({
+    languageModels: {
+      'mistral-small-latest': defaultProvider('mistral-small-latest'),
+      'openai-gpt4': defaultProvider('gpt-4o')
+    },
+    fallbackProvider: originalMistral
   })
 
-  const { text } = await generateText({
-    model: openai.completion('gpt-3.5-turbo-instruct'),
-    messages: [
-      {
-        role: 'system',
-        content: 'You are a tech lead.'
-      },
-      {
-        role: 'user',
-        content: prompt
-      }
-    ],
-    temperature: 0.7,
-    maxTokens: 1024
-  })
-
-  const content = text
-  const data = format === 'json' ? JSON.parse(content || '{}') : content
-  return data
+  return customModel.languageModel(defaultModel)
 }
 
-export const generateCompletionMistral = async ({
+export const generateCompletion = async ({
+  model,
   prompt,
   format
 }: {
+  model: LanguageModelV1
   prompt: string
   format: string
 }) => {
-  const userEnteredApiKey = cookies().get(COOKIE_NAME)?.value
-  if (!userEnteredApiKey || userEnteredApiKey.trim().length === 0) return
-
-  const mistral = createMistral({
-    apiKey: userEnteredApiKey
-  })
-
   const { text } = await generateText({
-    model: mistral('open-mixtral-8x7b'),
+    model,
     messages: [
       {
         role: 'system',
@@ -71,35 +63,7 @@ export const generateCompletionMistral = async ({
     maxTokens: 1024
   })
 
-  console.log(text)
-  const content = text
-  const data = format === 'json' ? JSON.parse(content || '{}') : content
-  return data
-}
-
-export const generateCompletionMistralCloud = async ({
-  prompt,
-  format
-}: {
-  prompt: string
-  format: string
-}) => {
-  const { text } = await generateText({
-    model: mistral('open-mixtral-8x7b'),
-    messages: [
-      {
-        role: 'system',
-        content: 'You are a tech lead.'
-      },
-      {
-        role: 'user',
-        content: prompt
-      }
-    ],
-    temperature: 0.7,
-    maxTokens: 1024
-  })
-
+  // console.log(text)
   const content = text
   const data = format === 'json' ? JSON.parse(content || '{}') : content
   return data
