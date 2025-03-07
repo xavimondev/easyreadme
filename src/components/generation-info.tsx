@@ -5,7 +5,6 @@ import { KeyRound } from 'lucide-react'
 import { useRemaining } from '@/hooks/use-remaining'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { AiLocally } from '@/components/ai-locally'
 import { CounterInfo } from '@/components/counter-info'
 import { FormApiKey } from '@/components/form-api-key'
 
@@ -27,7 +26,6 @@ export function GenerationInfo() {
           <div className='flex flex-col gap-5'>
             {data && <CounterInfo remaining={data.remaining} />}
             <FormApiKey />
-            <AiLocally />
           </div>
         </PopoverContent>
       </Popover>

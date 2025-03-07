@@ -125,11 +125,6 @@ It relies on a wide range of technologies and libraries including React, Tailwin
 - Create a new KV Database.
 - Copy the KV_REST_API_URL and KV_REST_API_TOKEN from under the **.env.local** tab.
 
-#### OLLAMA_URL
-
-- Download [Ollama](https://ollama.com/download) and have it running.
-- If your instance of Ollama is not running on the default ip-address and port, change the variable in the .env.example file to fit your usecase
-
 ## Run Locally
 
 1.Clone the easyreadme repository:
