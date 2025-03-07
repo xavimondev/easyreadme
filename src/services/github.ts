@@ -1,4 +1,4 @@
-import { AIProvider } from '@/types/ai'
+import { AIProvider, Section } from '@/types/ai'
 import { GitRepository, Tree } from '@/types/git'
 
 import { getRepoNameAndOwnerFromUrl } from '@/utils/github'
@@ -87,27 +87,28 @@ export const getRepositoryData = async ({ urlRepository }: { urlRepository: stri
 }
 
 export const getGenerationAI = async ({
-  format,
   prompt,
-  providerAISelected
+  providerAISelected,
+  zodSectionSchema
 }: {
-  format: 'json' | 'string'
   prompt: string
   providerAISelected: AIProvider
+  zodSectionSchema?: Section
 }) => {
   try {
     const request = await fetch('/api/ai', {
       method: 'POST',
       body: JSON.stringify({
-        format,
         prompt,
-        providerAISelected
+        providerAISelected,
+        section: zodSectionSchema
       }),
       headers: {
         'Content-type': 'application/json'
       }
     })
     const response = await request.json()
+
     return response
   } catch (error) {
     return { error: 'An error has ocurred', data: undefined }

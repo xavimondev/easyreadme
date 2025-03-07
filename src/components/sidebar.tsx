@@ -1,6 +1,7 @@
 'use client'
 
 import { Dispatch, SetStateAction } from 'react'
+import { BrushIcon, LayoutTemplateIcon } from 'lucide-react'
 
 import { NodeName, Section } from '@/types/builder'
 import { ModuleType } from '@/types/sidebar'
@@ -29,13 +30,19 @@ export function Sidebar({ setFilterSection, customSections, listSectionsFiltered
       <Tabs
         defaultValue='templates'
         onValueChange={(value: string) => setModuleSelected(value as ModuleType)}
-        className='hidden lg:block'
+        className='hidden lg:block h-[38px]'
       >
         <div className='flex items-center gap-3 px-3.5'>
           <TabsList>
-            <TabsTrigger value='templates'>Templates</TabsTrigger>
-            <TabsTrigger value='custom' className='hidden xl:block'>
-              <div className='flex items-center gap-1'>Customize</div>
+            <TabsTrigger value='templates' className='py-1.5'>
+              <LayoutTemplateIcon className='size-4 mr-2' />
+              <span>Templates</span>
+            </TabsTrigger>
+            <TabsTrigger value='custom' className='hidden xl:block py-1.5'>
+              <div className='flex items-center'>
+                <BrushIcon className='size-4 mr-2' />
+                <span>Customize</span>
+              </div>
             </TabsTrigger>
           </TabsList>
         </div>

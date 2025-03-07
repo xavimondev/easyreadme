@@ -1,7 +1,7 @@
-import { Nunito_Sans } from 'next/font/google'
+import { Bricolage_Grotesque } from 'next/font/google'
 
-export const nunitoSans = Nunito_Sans({
-  weight: ['400', '500', '600', '700'],
+export const bricolageGrotesque = Bricolage_Grotesque({
+  weight: ['400', '500', '600'],
   style: ['normal'],
   subsets: ['latin']
 })

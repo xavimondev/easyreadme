@@ -102,7 +102,7 @@ export const parseRequirementsTxt = ({ content }: { content: string }) => {
 
 export const parseBuildGradle = ({ content }: { content: string }) => {
   try {
-    const dependenciesBlockRegex = /dependencies\s*{([^}]+)}/gs
+    const dependenciesBlockRegex = /dependencies\s*{([^}]+)}/g
     const dependencyRegex = /['"](.*?)['"]/g
     const dependencies = []
     let dependenciesBlockMatch
