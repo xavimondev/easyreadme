@@ -23,7 +23,7 @@ export const README_SECTIONS_DATA: Section[] = [
     emoji: '💻',
     description: 'Information about the technology stack used in the project.',
     add: async ({ editor, endPos, data }) => {
-      const { dependencies } = data ?? {}
+      const { data: dependencies } = data ?? {}
       let content: JSONContent = {
         type: 'paragraph',
         content: [

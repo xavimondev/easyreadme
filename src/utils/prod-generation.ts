@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { createMistral, MistralProvider, mistral as originalMistral } from '@ai-sdk/mistral'
 import { createOpenAI, OpenAIProvider } from '@ai-sdk/openai'
-import { customProvider, generateText, LanguageModelV1 } from 'ai'
+import { customProvider, generateObject, generateText, LanguageModelV1 } from 'ai'
 
 import { AIProvider } from '@/types/ai'
 
@@ -40,12 +40,10 @@ export function getAIModel({ provider }: { provider: AIProvider | undefined }) {
 
 export const generateCompletion = async ({
   model,
-  prompt,
-  format
+  prompt
 }: {
   model: LanguageModelV1
   prompt: string
-  format: string
 }) => {
   const { text } = await generateText({
     model,
@@ -63,9 +61,37 @@ export const generateCompletion = async ({
     maxTokens: 1024
   })
 
-  // console.log(text)
-  const content = text
-  const data = format === 'json' ? JSON.parse(content || '{}') : content
+  return text
+}
+
+export const generateCompletionWithSchema = async ({
+  model,
+  prompt,
+  schema
+}: {
+  model: LanguageModelV1
+  prompt: string
+  schema: any
+}) => {
+  const { object } = await generateObject({
+    model,
+    schema,
+    messages: [
+      {
+        role: 'system',
+        content: 'You are a tech lead.'
+      },
+      {
+        role: 'user',
+        content: prompt
+      }
+    ],
+    temperature: 0.7,
+    maxTokens: 1024
+  })
+
+  // @ts-expect-error
+  const data = object.data
   return data
 }
 

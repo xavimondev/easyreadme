@@ -181,11 +181,6 @@ export function useReadme() {
       })
       setToastId(toastId as number)
     }
-
-    // TODO: not sure whether I should use credits or generations, this code will be disabled at least for now.
-    // if (gitData && sectionItem.useAi) {
-    // mutate()
-    // }
   }
 
   const addSection = async ({

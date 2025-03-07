@@ -5,16 +5,15 @@ import { AIProvider } from '@/types/ai'
 import { NodeName } from '@/types/builder'
 import { GitRepository } from '@/types/git'
 
-import { getGenerationAI, getLanguages, getLicense } from '@/services/github'
-
-import { getPrerequisites, getRepositoryTreeDirectory } from './github'
+import { getPrerequisites, getRepositoryTreeDirectory } from '@/utils/github'
 import {
   getMonorepoSummaryPrompt,
   getOverviewPrompt,
   getProjectSummaryPrompt,
   getSettingUpPrompt,
   getTechStackPrompt
-} from './prompt-factory'
+} from '@/utils/prompt-factory'
+import { getGenerationAI, getLanguages, getLicense } from '@/services/github'
 
 export const readmeFactory = async ({
   repositoryData,
@@ -108,7 +107,6 @@ export const getOverviewSection = async ({
   if (error || !prompt) return { error }
 
   const response = await getGenerationAI({
-    format: 'string',
     prompt: prompt,
     providerAISelected
   })
@@ -157,9 +155,9 @@ export const getProjectSummarySection = async ({
   if (error || !prompt) return { error }
 
   const response = await getGenerationAI({
-    format: 'json',
     prompt,
-    providerAISelected
+    providerAISelected,
+    zodSectionSchema: 'project-summary'
   })
 
   return response
@@ -185,9 +183,9 @@ export const getSettingUpSection = async ({
     return { data: [] }
   } else {
     const response = await getGenerationAI({
-      format: 'json',
       prompt,
-      providerAISelected
+      providerAISelected,
+      zodSectionSchema: 'setting-up'
     })
     return response
   }
@@ -219,9 +217,9 @@ export const getTechStackSection = async ({
     return { data: [] }
   } else {
     const response = await getGenerationAI({
-      format: 'json',
       prompt,
-      providerAISelected
+      providerAISelected,
+      zodSectionSchema: 'tech-stack'
     })
     return response
   }
@@ -307,9 +305,9 @@ export const getMonorepoSummarySection = async ({
     return { data: DEFAULT_DATA_CACHED[NodeName.MONOREPO_SUMMARY] }
   } else {
     const response = await getGenerationAI({
-      format: 'json',
       prompt,
-      providerAISelected
+      providerAISelected,
+      zodSectionSchema: 'monorepo-summary'
     })
 
     return response

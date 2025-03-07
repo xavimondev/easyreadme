@@ -22,11 +22,6 @@ export const getOverviewPrompt = async ({
   language: string
   branch: string
 }) => {
-  let promptOverview = generateOverviewPrompt({
-    repositoryName: repoName,
-    projectDescription: description
-  })
-
   const { data: dependencies, error } = await getDependencies({
     repoName: repoName,
     owner: owner,
@@ -36,14 +31,20 @@ export const getOverviewPrompt = async ({
 
   if (error) return { error }
 
-  if (!dependencies) return { data: promptOverview }
+  if (!dependencies) {
+    const prompt = generateOverviewPrompt({
+      repositoryName: repoName,
+      projectDescription: description
+    })
+    return { data: prompt }
+  }
 
-  promptOverview = generateOverviewWithDependenciesPrompt({
+  const prompt = generateOverviewWithDependenciesPrompt({
     repositoryName: repoName,
     dependencies,
     projectDescription: description
   })
-  return { data: promptOverview }
+  return { data: prompt }
 }
 
 export const getProjectSummaryPrompt = async ({
