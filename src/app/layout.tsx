@@ -10,7 +10,7 @@ import '../styles/confetti.css'
 import { Toaster } from 'sonner'
 
 const title = 'Easyreadme - IA Powered README Builder'
-const description = `Create visually stunning READMEs with the help of IA and elegant templates.`
+const description = `Generate stunning READMEs with the help of IA and elegant templates.`
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title,

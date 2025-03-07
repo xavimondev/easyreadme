@@ -26,7 +26,7 @@ export function MainHero() {
     <div className={cn('space-y-6')}>
       <h1
         className={cn(
-          'text-4xl sm:text-5xl lg:text-7xl leading-tight font-semibold text-balance text-gray-200'
+          'text-4xl sm:text-5xl lg:text-8xl leading-tight font-semibold text-balance text-gray-200'
         )}
       >
         Generate Stunning{' '}
