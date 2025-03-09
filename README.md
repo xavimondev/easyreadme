@@ -169,11 +169,6 @@ yarn dev
 > 
 > Despite having a template for NPM Packages, there's still much work to be done and research on how to get the correct types from packages.
 
-## Roadmap
-
-- [ ] **Add support for more programming languages.**
-- [ ] **Add "with emojis" option.**
-
 ## Acknowledgments
 
 - The confetti around the "Copy Code" button was created using the [Lucide web](https://github.com/lucide-icons/lucide/blob/main/docs/.vitepress/theme/components/icons/confetti.css) as a reference.
