@@ -1,6 +1,6 @@
 <p align="center">
   <a href=https://github.com/xavimondev/easyreadme target="_blank">
-    <img src='https://easyreadme.vercel.app/banner.jpg' width="100%" alt="Banner" />
+    <img src='https://easyreadme.app/banner.avif' width="100%" alt="Banner" />
   </a>
 </p>
 
