@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/banner.avif',
+        url: '/banner.jpg',
         width: 1835,
         height: 1000,
-        type: 'image/avif'
+        type: 'image/jpeg'
       }
     ]
   }
