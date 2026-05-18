@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       section: Section | undefined
     }
 
-    const aiModel = getAIModel({ provider: providerAISelected })
+    const aiModel = await getAIModel({ provider: providerAISelected })
     if (!aiModel) {
       return NextResponse.json({ error: 'Missing API_KEY – make sure to add it.' })
     }

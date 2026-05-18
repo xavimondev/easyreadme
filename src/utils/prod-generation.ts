@@ -7,12 +7,13 @@ import { AIProvider } from '@/types/ai'
 
 import { COOKIE_NAME } from '@/constants'
 
-export function getAIModel({ provider }: { provider: AIProvider | undefined }) {
+export async function getAIModel({ provider }: { provider: AIProvider | undefined }) {
   let defaultProvider: MistralProvider | OpenAIProvider = originalMistral
   let defaultModel = 'mistral-small-latest'
 
   if (provider) {
-    const userEnteredApiKey = cookies().get(COOKIE_NAME)?.value
+    const cookieStore = await cookies()
+    const userEnteredApiKey = cookieStore.get(COOKIE_NAME)?.value
     if (!userEnteredApiKey || userEnteredApiKey.trim().length === 0) return
 
     if (provider === 'Mistral') {
